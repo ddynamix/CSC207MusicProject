@@ -59,11 +59,11 @@ public class User {
         this.id = id;
     }
 
-    public ArrayList<Event> getPastEvents() {
-        return pastEvents;
-    }
+//    public ArrayList<Event> getPastEvents() {
+//        return pastEvents;
+//    }
 
-    public void setPastEvents(ArrayList<Event> pastEvents) {
-        this.pastEvents = pastEvents;
-    }
+//    public void setPastEvents(ArrayList<Event> pastEvents) {
+//        this.pastEvents = pastEvents;
+//    }
 }
