@@ -1,5 +1,5 @@
 package dataaccess;
-import entity.*;
+import entity.user.User;
 
 public interface UserDataAccessInterface {
     // Data Access Interface - implement CRUD
