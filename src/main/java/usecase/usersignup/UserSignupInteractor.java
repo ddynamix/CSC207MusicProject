@@ -1,4 +1,4 @@
-package usecaseinteractor.usersignup;
+package usecase.usersignup;
 
 public class UserSignupInteractor implements UserSignupInputBoundary{
 
@@ -11,4 +11,3 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
     }
 
 }
-git add

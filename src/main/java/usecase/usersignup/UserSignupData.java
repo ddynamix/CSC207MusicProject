@@ -1,4 +1,4 @@
-package usecaseinteractor.usersignup;
+package usecase.usersignup;
 
 /**
  * Based on implementation by Paul Gries
