@@ -9,7 +9,7 @@ public interface UserDataAccessInterface {
 
     void create(User user);
 
-    void delete(User user); // should this be under update?
+    void delete(User user);
 
     String[] getUserData(User user);
 }
