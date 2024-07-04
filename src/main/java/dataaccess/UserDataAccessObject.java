@@ -9,8 +9,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     private Connection connection;
     private UserFactory userFactory;
 
-    public UserDataAccessObject(, UserFactory userFactory) {
+    public UserDataAccessObject(Connection connection, UserFactory userFactory) {
         this.userFactory = userFactory;
+        this.connection = connection;
 
 
     }
