@@ -6,13 +6,16 @@ import entity.user.UserFactory;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
 
+    public static class UserNotFoundException extends Exception{
+
+    }
+
     private Connection connection;
     private UserFactory userFactory;
 
     public UserDataAccessObject(Connection connection, UserFactory userFactory) {
         this.userFactory = userFactory;
         this.connection = connection;
-
 
     }
 
@@ -43,5 +46,10 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public String[] getUserData(User user) {
         return new String[0];
+    }
+
+    @Override
+    public void Throwable(UserNotFoundException userNotFoundException){
+        System.out.println("User was not found in the database");
     }
 }
