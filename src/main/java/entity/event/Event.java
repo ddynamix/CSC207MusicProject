@@ -72,4 +72,19 @@ public class Event implements IEvent {
     public int getId() {
         return id;
     }
+
+    public void setArtist(User artist) { this.artist = artist; }
+
+    public void setVenue(String venue) { this.venue = venue; }
+
+    public void setDateAndTime(LocalDateTime dateAndTime) { this.dateAndTime = dateAndTime; }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void setTags(ArrayList<String> tags) { this.tags = tags; }
+
+    public void setPostDate(LocalDateTime postDate) { this.postDate = postDate; }
+
+    public void setAttachedMedia(String attachedMedia) { this.attachedMedia = attachedMedia; }
+
 }
