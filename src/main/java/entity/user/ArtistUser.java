@@ -1,44 +1,63 @@
 package entity.user;
 
-import entity.user.User;
 import entity.event.Event;
-import entity.event.EventFactory;
+import entity.post.Post;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ArtistUser extends User implements uploadable{
-    public ArtistUser(){
-        super();
+    public ArtistUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents){
+        super(username, password, email, firstName, lastName);
     }
 
-    public Event createNewEvent(){
+    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
+        return new Event(title, this, venue, dateAndTime, description, tags, postDate, attachedMedia);
+    }
 
-        Event e = new Event();
-        // how do I represent user data as variables or inputs
-        return e;
-    };
+    @Override
+    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
+        return new Event(title, artist, this.getFirstName(), dateAndTime, description, tags, postDate, attachedMedia);
+    }
 
-    public void contactFollowers(){
-        this.getFollowers();
-
-        // contact somehow
-
-    };
-
-    public Event updateEvent(Event event, String title, String venue, LocalDateTime time, String description, ArrayList<String> tags, String attachedMedia){
-        if (event.getArtist() = this) {
-            event.setTitle(title);
-            event.setVenue(venue);
-            event.setDateAndTime(time);
-            event.setDescription(description);
-            event.setTags(tags);
-            event.setPostDate(LocalDateTime.now());
-            event.setAttachedMedia(attachedMedia);
+    @Override
+    public void contactFollowers(Post postToShare){
+        for (User user: this.getFollowers()){
+            postToShare.share(user);
         }
-        return event;
-    };
+    }
 
+    @Override
+    public void updateEventTitle(Event event, String newTitle) {
+        event.setTitle(newTitle);
+    }
+
+    @Override
+    public void updateEventVenue(Event event, String newVenue) {
+        event.setVenue(newVenue);
+    }
+
+    @Override
+    public void updateEventTime(Event event, LocalDateTime newTime) {
+        event.setDateAndTime(newTime);
+    }
+
+    @Override
+    public void updateEventDescription(Event event, String newDescription) {
+        event.setDescription(newDescription);
+    }
+
+    @Override
+    public void updateEventTags(Event event, ArrayList<String> newTags) {
+        event.setTags(newTags);
+    }
+
+    @Override
+    public void updateEventMedia(Event event, String newMedia) {
+        event.setAttachedMedia(newMedia);
+    }
+
+    @Override
     public void removeEvent(Event event){
         // remove id from database
     };

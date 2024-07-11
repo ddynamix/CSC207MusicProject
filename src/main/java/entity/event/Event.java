@@ -16,7 +16,7 @@ public class Event implements IEvent {
     private String attachedMedia;
     private int id;
 
-    public Event(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
+    public Event(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
         this.title = title;
         this.artist = artist;
         this.venue = venue;
@@ -25,57 +25,44 @@ public class Event implements IEvent {
         this.tags = tags;
         this.postDate = postDate;
         this.attachedMedia = attachedMedia;
-        this.id = id;
+        //this.id = 0; // should be generated
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public User getArtist() {
         return artist;
     }
 
-    @Override
     public String getVenue() {
         return venue;
     }
 
-    @Override
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public ArrayList<String> getTags() {
         return tags;
     }
 
-    @Override
     public LocalDateTime getPostDate() {
         return postDate;
     }
 
-    @Override
     public String getAttachedMedia() {
         return attachedMedia;
     }
 
-    @Override
     public int getId() {
         return id;
     }
-
-    public void setArtist(User artist) { this.artist = artist; }
-
-    public void setVenue(String venue) { this.venue = venue; }
 
     public void setDateAndTime(LocalDateTime dateAndTime) { this.dateAndTime = dateAndTime; }
 
@@ -83,8 +70,9 @@ public class Event implements IEvent {
 
     public void setTags(ArrayList<String> tags) { this.tags = tags; }
 
-    public void setPostDate(LocalDateTime postDate) { this.postDate = postDate; }
-
     public void setAttachedMedia(String attachedMedia) { this.attachedMedia = attachedMedia; }
 
+    public void setTitle(String title) { this.title = title; }
+
+    public void setVenue(String venue) { this.venue = venue; }
 }

@@ -1,50 +1,70 @@
 package entity.user;
+import entity.post.Post;
 import entity.user.User;
 import entity.event.Event;
-import entity.EventFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class VenueUser extends User implements uploadable{
     private String location;
-    public VenueUser(){
-        super();
+    public VenueUser(String username, String password, String email, String firstName, String lastName){
+        super(username, password, email, firstName, lastName);
         this.location = null;
     }
 
-    public Event createNewEvent(){
+    @Override
+    public ArrayList<Event> getPastEvents() {
+        return super.getPastEvents();
+    }
 
-        Event e = new Event();
-        // how do I represent user data as variables or inputs
-        return e;
-    };
+    @Override
+    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
+        return new Event(title, artist, this.getFirstName(), dateAndTime, description, tags, postDate, attachedMedia);
+    }
 
-    public void contactFollowers(){
-        this.getFollowers();
-
-        // contact somehow
-
-    };
-
-    public Event updateEvent(Event event, String title, User artist, LocalDateTime time, String description, ArrayList<String> tags, String attachedMedia){
-        if (event.venue = this.name){
-            event.setTitle(title);
-            event.setArtist(artist);
-            event.setDateAndTime(time);
-            event.setDescription(description);
-            event.setTags(tags);
-            event.setPostDate(LocalDateTime.now());
-            event.setAttachedMedia(attachedMedia);
+    @Override
+    public void contactFollowers(Post postToShare){
+        for (User user: this.getFollowers()){
+            postToShare.share(user);
         }
-        return event;
-    };
+    }
 
+    @Override
+    public void updateEventTitle(Event event, String newTitle) {
+        event.setTitle(newTitle);
+    }
+
+    @Override
+    public void updateEventVenue(Event event, String newVenue) {
+        event.setVenue(newVenue);
+    }
+
+    @Override
+    public void updateEventTime(Event event, LocalDateTime newTime) {
+        event.setDateAndTime(newTime);
+    }
+
+    @Override
+    public void updateEventDescription(Event event, String newDescription) {
+        event.setDescription(newDescription);
+    }
+
+    @Override
+    public void updateEventTags(Event event, ArrayList<String> newTags) {
+        event.setTags(newTags);
+    }
+
+    @Override
+    public void updateEventMedia(Event event, String newMedia) {
+        event.setAttachedMedia(newMedia);
+    }
+
+    @Override
     public void removeEvent(Event event){
-        if (event.venue = this.name){
-            // remove from database
-            event.id // ?
-        }
+        //if (event.venue = this.name){
+            //event.id // ?
+        //}
     };
 
     public void updateLocation(String location){ this.location = location; }

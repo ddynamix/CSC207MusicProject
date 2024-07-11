@@ -18,48 +18,45 @@ public class Post implements IPost{
     //private Event taggedEvent;
 
 
-    public Post(String title, String text, User author, LocalDateTime timePosted, int id, String attachedMedia, int rating) {
+    public Post(String title, String text, User author, String attachedMedia) {
         this.title = title;
         this.text = text;
         this.author = author;
-        this.timePosted = timePosted;
-        this.id = id;
+        this.timePosted = LocalDateTime.now();
+        this.id = 0; // should be generated
         this.attachedMedia = attachedMedia;
-        this.rating = rating; //default value
+        this.rating = 0; //default value
     }
 
-    @Override
     public String getTitle() {
         return title;
     }
 
-    @Override
     public String getText() {
         return text;
     }
 
-    @Override
     public User getAuthor() {
         return author;
     }
 
-    @Override
     public int getRating() {
         return rating;
     }
 
-    @Override
     public int getId() {
         return id;
     }
 
-    @Override
     public LocalDateTime getTimePosted() {
         return timePosted;
     }
 
-    @Override
     public String getAttachedMedia() {
         return attachedMedia;
+    }
+
+    public void share(User destination){
+        destination.getEmail(); // send somehow
     }
 }
