@@ -5,6 +5,9 @@ import entity.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Event Class
+ */
 public class Event implements IEvent {
     private String title;
     private User artist;
@@ -16,7 +19,17 @@ public class Event implements IEvent {
     private String attachedMedia;
     private int id;
 
-    public Event(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
+    /**
+     * @param title         String              title
+     * @param artist        User                artist
+     * @param venue         String              venue
+     * @param dateAndTime   LocalDateTime       event time
+     * @param description   String              description of event
+     * @param tags          ArrayList<String>   tags
+     * @param postDate      LocalDateTime       date event posted
+     * @param attachedMedia String              media of event
+     */
+    public Event(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
         this.title = title;
         this.artist = artist;
         this.venue = venue;
@@ -25,66 +38,115 @@ public class Event implements IEvent {
         this.tags = tags;
         this.postDate = postDate;
         this.attachedMedia = attachedMedia;
-        this.id = id;
+        this.id = 0; // should be generated
     }
 
-    @Override
+    /**
+     * Return title
+     * @return String title
+     */
     public String getTitle() {
         return title;
     }
 
-    @Override
+    /**
+     * Return Artist
+     * @return User artist
+     */
     public User getArtist() {
         return artist;
     }
 
-    @Override
+    /**
+     * Return venue
+     * @return String venue
+     */
     public String getVenue() {
         return venue;
     }
 
-    @Override
+    /**
+     * Return date of event
+     * @return LocalDateTime dateAndTime
+     */
     public LocalDateTime getDateAndTime() {
         return dateAndTime;
     }
 
-    @Override
+    /**
+     * Return description
+     * @return String description
+     */
     public String getDescription() {
         return description;
     }
 
-    @Override
+    /**
+     * Return tags
+     * @return ArrayList<String> tags
+     */
     public ArrayList<String> getTags() {
         return tags;
     }
 
-    @Override
+    /**
+     * Return post date
+     * @return LocalDateTime postDate
+     */
     public LocalDateTime getPostDate() {
         return postDate;
     }
 
-    @Override
+    /**
+     * Return media
+     * @return String attachedMedia
+     */
     public String getAttachedMedia() {
         return attachedMedia;
     }
 
-    @Override
+    /**
+     * ID in database
+     * @return int id
+     */
     public int getId() {
         return id;
     }
 
-    public void setArtist(User artist) { this.artist = artist; }
-
-    public void setVenue(String venue) { this.venue = venue; }
-
+    /**
+     * Update date
+     * @param dateAndTime LocalDateTime
+     */
     public void setDateAndTime(LocalDateTime dateAndTime) { this.dateAndTime = dateAndTime; }
 
+    /**
+     * Update description
+     * @param description String
+     */
     public void setDescription(String description) { this.description = description; }
 
+    /**
+     * Update tags
+     * @param tags Arraylist<String>
+     */
     public void setTags(ArrayList<String> tags) { this.tags = tags; }
 
-    public void setPostDate(LocalDateTime postDate) { this.postDate = postDate; }
-
+    /**
+     * Update media
+     * @param attachedMedia String
+     */
     public void setAttachedMedia(String attachedMedia) { this.attachedMedia = attachedMedia; }
+
+    /**
+     * Update title
+     * @param title String
+     */
+    public void setTitle(String title) { this.title = title; }
+
+    /**
+     * Update venue
+     * @param venue String
+     */
+    public void setVenue(String venue) { this.venue = venue; }
 
 }
