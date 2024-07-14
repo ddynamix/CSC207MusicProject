@@ -6,6 +6,10 @@ import entity.post.Post;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Uploadable interface for User types that can create events on the platform <br>
+ * Implemented by VenueUser and AudienceUser
+ */
 public interface uploadable {
     public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id);
     public void contactFollowers(Post post);
