@@ -38,7 +38,7 @@ public class Event implements IEvent {
         this.tags = tags;
         this.postDate = postDate;
         this.attachedMedia = attachedMedia;
-        //this.id = 0; // should be generated
+        this.id = 0; // should be generated
     }
 
     /**

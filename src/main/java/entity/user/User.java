@@ -14,14 +14,12 @@ public class User implements IUser {
     private String email;
     private String firstName;
     private String lastName;
-    // private int id = 0; //figure out how to implement ids probably in factory
+    private int id; //figure out how to implement ids probably in factory
     private ArrayList<User> followers;
     private ArrayList<User> following;
     private ArrayList<Event> pastEvents;
 
     //private Song featuredSong;
-    //private ArrayList<Event> pastEvents;
-
 
     /**
      * Create instance of the User class <br>
@@ -39,7 +37,7 @@ public class User implements IUser {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        // this.id = id;
+        this.id = 0;
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.pastEvents = new ArrayList<>();
