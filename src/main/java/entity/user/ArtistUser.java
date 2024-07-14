@@ -23,7 +23,7 @@ public class ArtistUser extends User implements uploadable{
      * @param pastEvents ArrayList<Event>   events attended by this user
      */
     public ArtistUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents){
-        super(username, password, email, firstName, lastName);
+        super(username, password, email, firstName, lastName, id, followers, following, pastEvents);
     }
 
 
