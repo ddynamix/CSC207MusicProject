@@ -4,7 +4,7 @@ package usecase.usersignup;
  * Based on implementation by Paul Gries
  * <a href="https://github.com/paulgries/LoginCleanArchitecture/blob/main/src/use_case/SignupInputData.java">...</a>
  */
-public class UserSignupData {
+public class UserSignupInputData {
 
     final private String username;
     final private String password;
@@ -13,8 +13,8 @@ public class UserSignupData {
     final private String firstName;
     final private String lastName;
 
-    public UserSignupData(String username, String password, String repeatPass,
-                          String email, String firstName, String lastName) {
+    public UserSignupInputData(String username, String password, String repeatPass,
+                               String email, String firstName, String lastName) {
 
         this.username = username;
         this.password = password;

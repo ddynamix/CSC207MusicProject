@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ArtistUser extends User implements uploadable{
     public ArtistUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents){
-        super(username, password, email, firstName, lastName);
+        super(username, password, email, firstName, lastName, id, followers, following, pastEvents);
     }
 
     public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {

@@ -1,12 +1,12 @@
 package dataaccess.mongodb;
 
-import com.mongodb.client.MongoClient;
+/*import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.bson.Document;
 import org.bson.json.JsonWriterSettings;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;*/
 
 public class Connection {
 
@@ -20,8 +20,5 @@ public class Connection {
         this.port = port;
         this.username = username;
         this.password = password;
-
-
     }
-
 }

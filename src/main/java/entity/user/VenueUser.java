@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class VenueUser extends User implements uploadable{
     private String location;
-    public VenueUser(String username, String password, String email, String firstName, String lastName){
-        super(username, password, email, firstName, lastName);
+    public VenueUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents){
+        super(username, password, email, firstName, lastName, id, followers, following, pastEvents);
         this.location = null;
     }
 

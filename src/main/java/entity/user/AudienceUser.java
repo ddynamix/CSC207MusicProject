@@ -12,7 +12,7 @@ public class AudienceUser extends User{
     private ArrayList<Event> upcoming;
 
     public AudienceUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents) {
-        super(username, password, email, firstName, lastName);
+        super(username, password, email, firstName, lastName, id, followers, following, pastEvents);
         this.upcoming = new ArrayList<>();
 
     }
