@@ -1,7 +1,9 @@
 package view;
 
-import interface_adapter.LoginState;
-import interface_adapter.LoginViewModel;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,24 +19,21 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
-    /**
-     * The username chosen by the user
-     */
+    private final LoginPresenter loginPresenter;
+    private final LoginController loginController;
+
     final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
-    /**
-     * The password
-     */
+
     final JPasswordField passwordInputField = new JPasswordField(15);
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
     final JButton cancel;
 
-    /**
-     * A window with a title and a JButton.
-     */
-    public LoginView(LoginViewModel loginViewModel) {
+    public LoginView(LoginController loginController, LoginPresenter loginPresenter, LoginViewModel loginViewModel) {
+        this.loginController = loginController;
+        this.loginPresenter = loginPresenter;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
@@ -79,11 +78,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(buttons);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Click " + evt.getActionCommand());
+        if (evt.getSource().equals(logIn)) {
+            System.out.println("logIn button pressed");
+        } else if (evt.getSource().equals(cancel)) {
+            loginPresenter.prepareSplashView();
+        }
     }
 
     @Override

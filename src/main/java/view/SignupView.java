@@ -1,8 +1,9 @@
 package view;
 
-import interface_adapter.SignupController;
-import interface_adapter.SignupState;
-import interface_adapter.SignupViewModel;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,24 +16,26 @@ import java.beans.PropertyChangeListener;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "sign up";
-
     private final SignupViewModel signupViewModel;
+
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JTextField emailInputField = new JTextField(15);
     private final JTextField firstNameInputField = new JTextField(15);
     private final JTextField lastNameInputField = new JTextField(15);
+
     private final SignupController signupController;
+    private final SignupPresenter signupPresenter;
 
     private final JButton signUp;
     private final JButton cancel;
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel) {
-
+    public SignupView(SignupController controller, SignupPresenter presenter, SignupViewModel signupViewModel) {
         this.signupController = controller;
+        this.signupPresenter = presenter;
         this.signupViewModel = signupViewModel;
-        signupViewModel.addPropertyChangeListener(this);
+        this.signupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -56,22 +59,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        signUp.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signUp)) {
-                            signupController.execute(usernameInputField.getText(),
-                                    String.valueOf(passwordInputField.getPassword()),
-                                    String.valueOf(repeatPasswordInputField.getPassword()),
-                                    String.valueOf(emailInputField.getText()),
-                                    String.valueOf(firstNameInputField.getText()),
-                                    String.valueOf(lastNameInputField.getText()));
-                        }
-                    }
-                }
-        );
-
+        signUp.addActionListener(this);
         cancel.addActionListener(this);
 
         usernameInputField.addKeyListener(
@@ -97,21 +85,35 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
+        this.add(emailInfo);
+        this.add(firstNameInfo);
+        this.add(lastNameInfo);
         this.add(buttons);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
     public void actionPerformed(ActionEvent evt) {
-        System.out.println("Cancel not implemented yet.");
+        if (evt.getSource().equals(signUp)) {
+            signupController.execute(usernameInputField.getText(),
+                    String.valueOf(passwordInputField.getPassword()),
+                    String.valueOf(repeatPasswordInputField.getPassword()),
+                    String.valueOf(emailInputField.getText()),
+                    String.valueOf(firstNameInputField.getText()),
+                    String.valueOf(lastNameInputField.getText()));
+        } else if (evt.getSource().equals(cancel)) {
+            signupPresenter.prepareSplashView();
+        }
     }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SignupState state = (SignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
+        } else if (state.getPasswordError() != null) {
+            JOptionPane.showMessageDialog(this, state.getPasswordError());
+        } else if (state.getRepeatPasswordError() != null) {
+            JOptionPane.showMessageDialog(this, state.getRepeatPasswordError());
+        } else if (state.getEmailError() != null) {
+            JOptionPane.showMessageDialog(this, state.getEmailError());
         }
     }
 }

@@ -1,10 +1,12 @@
 package app;
 
-import interface_adapter.LoginViewModel;
-import interface_adapter.SignupViewModel;
+import interface_adapter.splash.SplashViewModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.LoginView;
 import view.SignupView;
+import view.SplashView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("Music App");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -33,16 +35,21 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
+        SplashViewModel splashViewModel = new SplashViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
 
-        SignupView signupView = SignupViewFactory.create(viewManagerModel, loginViewModel, signupViewModel);
+        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
+        views.add(splashView, splashView.viewName);
+
+        SignupView signupView = SignupViewFactory.createSignupView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = new LoginView(loginViewModel);
+        LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel);
         views.add(loginView, loginView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        // Default view
+        viewManagerModel.setActiveView(splashView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

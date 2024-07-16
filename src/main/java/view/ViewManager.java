@@ -1,15 +1,11 @@
 package view;
 
-import interface_adapter.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class ViewManager implements PropertyChangeListener {
     private final CardLayout cardLayout;
@@ -23,6 +19,7 @@ public class ViewManager implements PropertyChangeListener {
         this.viewManagerModel.addPropertyChangeListener(this);
     }
 
+    // Gets called when firePropertyChanged() is called in the ViewManagerModel
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("view")) {

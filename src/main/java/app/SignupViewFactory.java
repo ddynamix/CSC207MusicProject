@@ -2,11 +2,13 @@ package app;
 
 import dataaccess.TEMPFileAccessDataStorage;
 import dataaccess.UserDataAccessInterface;
-import dataaccess.UserDataAccessObject;
-import dataaccess.mongodb.Connection;
-import entity.user.User;
 import entity.user.UserFactory;
 import interface_adapter.*;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.splash.SplashViewModel;
 import usecase.usersignup.UserSignupInputBoundary;
 import usecase.usersignup.UserSignupInteractor;
 import usecase.usersignup.UserSignupOutputBoundary;
@@ -16,14 +18,15 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class SignupViewFactory {
-    /** Prevent instantiation. */
+
     private SignupViewFactory() {}
 
-    public static SignupView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel) {
+    public static SignupView createSignupView(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SplashViewModel splashViewModel) {
 
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel);
-            return new SignupView(signupController, signupViewModel);
+            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, splashViewModel);
+            SignupPresenter signupPresenter = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel, splashViewModel);
+            return new SignupView(signupController, signupPresenter, signupViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -31,12 +34,12 @@ public class SignupViewFactory {
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel) throws IOException {
+    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel) throws IOException {
         UserFactory userFactoryDAO = new UserFactory();
         UserDataAccessInterface userDataAccessObject = new TEMPFileAccessDataStorage("./users.csv", userFactoryDAO);
 
         // Notice how we pass this method's parameters to the Presenter.
-        UserSignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+        UserSignupOutputBoundary signupOutputBoundary = new SignupPresenter(viewManagerModel, signupViewModel, loginViewModel, splashViewModel);
 
         UserFactory userFactoryInteractor = new UserFactory();
 
