@@ -1,6 +1,58 @@
-public class Main {
-    // This is where the app is launched
-    public static void main(String[] args) {
+package app;
 
+import interface_adapter.splash.SplashViewModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
+import interface_adapter.ViewManagerModel;
+import view.LoginView;
+import view.SignupView;
+import view.SplashView;
+import view.ViewManager;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // Build the main program window, the main panel containing the
+        // various cards, and the layout, and stitch them together.
+
+        // The main application window.
+        JFrame application = new JFrame("Music App");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        CardLayout cardLayout = new CardLayout();
+
+        // The various View objects. Only one view is visible at a time.
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        // This keeps track of and manages which view is currently showing.
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        // The data for the views, such as username and password, are in the ViewModels.
+        // This information will be changed by a presenter object that is reporting the
+        // results from the use case. The ViewModels are observable, and will
+        // be observed by the Views.
+        SplashViewModel splashViewModel = new SplashViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        SignupViewModel signupViewModel = new SignupViewModel();
+
+        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
+        views.add(splashView, splashView.viewName);
+
+        SignupView signupView = SignupViewFactory.createSignupView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
+        views.add(signupView, signupView.viewName);
+
+        LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel);
+        views.add(loginView, loginView.viewName);
+
+        // Default view
+        viewManagerModel.setActiveView(splashView.viewName);
+        viewManagerModel.firePropertyChanged();
+
+        application.pack();
+        application.setVisible(true);
     }
 }

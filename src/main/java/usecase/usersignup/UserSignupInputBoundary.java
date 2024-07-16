@@ -1,5 +1,5 @@
 package usecase.usersignup;
 
 public interface UserSignupInputBoundary {
-    void execute(UserSignupData userSignupData);
+    void attemptSignUp(UserSignupInputData userSignupInputData); // to be implemented
 }

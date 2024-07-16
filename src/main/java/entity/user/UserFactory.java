@@ -10,6 +10,6 @@ public class UserFactory {
         ArrayList<User> followers = new ArrayList<>();
         ArrayList<User> following = new ArrayList<>();
         ArrayList<Event> pastEvents = new ArrayList<>();
-        return new User(username, password, email, firstName, lastName, id, followers, following, pastEvents);
+        return new User(username, password, email, firstName, lastName);
     }
 }
