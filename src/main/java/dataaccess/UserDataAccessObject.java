@@ -65,10 +65,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
             //assumption that only audience will change usernames
-
+            Document query = new Document("username",newUsername);
             if (userExistsInDatabase(user.getUsername())) {
-
-                mongoCollection.updateOne(query, newUsername);
+                Document update = new Document("$set",new Document("username", newUsername));
+                mongoCollection.updateOne(query,update);
+                System.out.println("Your username has been updated successfully.");;
             } else {
                 System.out.println("User does not exist in the database");
             }
