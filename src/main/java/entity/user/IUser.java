@@ -10,7 +10,8 @@ public interface IUser {
     public String getEmail();
     public String getFirstName();
     public String getLastName();
-    public int getId();
+    public String getId();
+    public void setId(String id);
     ArrayList<Event> getPastEvents();
     public ArrayList<User> getFollowers();
     public ArrayList<User> getFollowing();
