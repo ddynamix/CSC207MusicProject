@@ -9,9 +9,13 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import entity.user.*;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
 
@@ -51,17 +55,26 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public boolean userExistsInDatabase(String username) {
-        return false;
+    public boolean userExistsInDatabase(String username){
+        Bson filter = eq("username",username);
+        System.out.println(mongoCollection.findOneAndDelete(filter).toString())
     }
 
     @Override
     public void updateUsername(User user, String newUsername) {
-        if (userExistsInDatabase(user.getUsername())) {
+        try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
+            MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
+            MongoCollection <Document> = mongoDatabase.getCollection("audienceUser");
+            //assumption that only audience will change usernames
 
-        } else {
-            System.out.println("User does not exist in the database");
-        }
+            if (userExistsInDatabase(user.getUsername())) {
+
+                mongoCollection.updateOne(user, newUsername);
+            } else {
+                System.out.println("User does not exist in the database");
+            }
+        };
+
     }
 
     @Override
@@ -95,8 +108,12 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
+    //implementing this as a delete user functionality.
     public void delete(User user) {
 
+        if (userExistsInDatabase(user.getUsername())) {
+            Bson filter = Filters.eq("username", user.getUsername());
+            mongoCollection.deleteOne(filter);
     }
 
     @Override
