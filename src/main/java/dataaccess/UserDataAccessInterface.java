@@ -7,7 +7,7 @@ public interface UserDataAccessInterface {
 
     void update(User user);
 
-    void create(User user);
+    void create(String username, String password, String email, String firstName, String lastName);
 
     void delete(User user);
 

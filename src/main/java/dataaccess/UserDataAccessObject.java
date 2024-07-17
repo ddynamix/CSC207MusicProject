@@ -60,9 +60,10 @@ public class UserDataAccessObject implements UserDataAccessInterface {
 
     }
 
-    private void create(String username, String password, String email, String firstName, String lastName) {
+    @Override
+    public void create(String username, String password, String email, String firstName, String lastName) {
         if (userExistsInDatabase(username)) {
-//            throw new UserNotFoundException();
+//            throw new DuplicateUsernameException();
         } else {
             user = userFactory.createUser(username, password, email, firstName, lastName);
             Document document = new Document("username", user.getUsername())
@@ -73,11 +74,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
             InsertOneResult insertResult = mongoCollection.insertOne(document);
             user.setId(insertResult.getInsertedId().toString());
         }
-    }
-
-    @Override
-    public void create(User user) {
-
     }
 
     @Override
