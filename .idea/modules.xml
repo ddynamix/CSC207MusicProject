@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CSC207MusicProject.iml" filepath="$PROJECT_DIR$/CSC207MusicProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSC207MusicProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CSC207MusicProject.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSC207MusicProject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CSC207MusicProject.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/java/main.iml" filepath="$PROJECT_DIR$/src/main/java/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/main1.iml" filepath="$PROJECT_DIR$/src/main/main1.iml" />
     </modules>
   </component>
 </project>
