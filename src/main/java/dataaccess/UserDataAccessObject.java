@@ -2,7 +2,6 @@ package dataaccess;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
@@ -57,19 +56,19 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public boolean userExistsInDatabase(String username){
         Bson filter = eq("username",username);
-        System.out.println(mongoCollection.findOneAndDelete(filter).toString())
+        return mongoCollection.find(filter).iterator().hasNext();
     }
 
     @Override
     public void updateUsername(User user, String newUsername) {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
-            MongoCollection <Document> = mongoDatabase.getCollection("audienceUser");
+            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
             //assumption that only audience will change usernames
 
             if (userExistsInDatabase(user.getUsername())) {
 
-                mongoCollection.updateOne(user, newUsername);
+                mongoCollection.updateOne(query, newUsername);
             } else {
                 System.out.println("User does not exist in the database");
             }
