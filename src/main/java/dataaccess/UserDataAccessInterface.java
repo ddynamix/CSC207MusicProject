@@ -5,10 +5,11 @@ public interface UserDataAccessInterface {
     // Data Access Interface - implement CRUD
     boolean userExistsInDatabase(String username);
 
-    void update(User user);
+    void updateUsername(User user, String newUsername);
+    void updatePassword(User user, String newPassword, String confirmPassword);
+    void updateEmail(User user, String newEmail);
 
     void create(String username, String password, String email, String firstName, String lastName);
-
     void delete(User user);
 
     String[] getUserData(User user);

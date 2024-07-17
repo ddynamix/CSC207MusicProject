@@ -56,7 +56,25 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void update(User user) {
+    public void updateUsername(User user, String newUsername) {
+        if (userExistsInDatabase(user.getUsername())) {
+
+        } else {
+            System.out.println("User does not exist in the database");
+        }
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword, String confirmPassword) {
+        if (userExistsInDatabase(user.getUsername()) && newPassword.equals(confirmPassword)) {
+
+        } else {
+            System.out.println("User does not exist in the database");
+        }
+    }
+
+    @Override
+    public void updateEmail(User user) {
 
     }
 
