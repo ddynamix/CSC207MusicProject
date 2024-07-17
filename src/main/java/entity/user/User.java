@@ -14,7 +14,7 @@ public class User implements IUser {
     private String email;
     private String firstName;
     private String lastName;
-    private String id;
+    private int id; //figure out how to implement ids probably in factory
     private ArrayList<User> followers;
     private ArrayList<User> following;
     private ArrayList<Event> pastEvents;
@@ -37,7 +37,7 @@ public class User implements IUser {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = "null"; // dummy value to be replaced by database
+        this.id = 0;
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.pastEvents = new ArrayList<>();
@@ -61,7 +61,7 @@ public class User implements IUser {
      *
      */
     @Override
-    public String getPassword() { //private?
+    public String getPassword() {
         return password;
     }
 
@@ -115,17 +115,8 @@ public class User implements IUser {
      * @return  int id
      */
     @Override
-    public String getId() {
-        return this.id; // should be the id
-    }
-
-    /**
-     * Set ID in database
-     * @param id    int id
-     */
-    @Override
-    public void setId(String id) {
-        this.id = id;
+    public int getId() {
+        return 0; // should be the id
     }
 
     /**

@@ -16,5 +16,5 @@ public interface UserDataAccessInterface {
 // This is also where we declare any Exceptions that wil be thrown
 // eg. User not found in the database.
 
-//    void Throwable(UserDataAccessObject.UserNotFoundException userNotFoundException);
+    void Throwable(UserDataAccessObject.UserNotFoundException userNotFoundException);
 }

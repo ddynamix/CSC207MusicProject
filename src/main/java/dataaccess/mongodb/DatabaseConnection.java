@@ -29,11 +29,14 @@ public class DatabaseConnection {
             try {
                 // Send a ping to confirm a successful connection
                 MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-                MongoCollection collection = database.getCollection("comments");
+                MongoCollection<Document> collection = database.getCollection("comments");
                 database.runCommand(new Document("ping", 1));
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
             } catch (MongoException e) {
                 e.printStackTrace();
+            }
+            finally {
+                System.out.println("meepmeep");
             }
         }
     }
