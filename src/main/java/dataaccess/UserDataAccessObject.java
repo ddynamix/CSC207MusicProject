@@ -70,7 +70,7 @@ public class UserDataAccessObject implements UserDataAccessInterface {
                     .append("email", user.getEmail())
                     .append("firstName", user.getFirstName())
                     .append("lastName", user.getLastName());
-            InsertOneResult insertResult = MongoCollection.insertOne(document);
+            InsertOneResult insertResult = mongoCollection.insertOne(document);
             user.setId(insertResult.getInsertedId().toString());
         }
     }
