@@ -119,8 +119,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
                     .append("email", user.getEmail())
-                    .append("firstName", user.getFirstName())
-                    .append("lastName", user.getLastName());
+                    .append("name", user.getName());
             InsertOneResult insertResult = mongoCollection.insertOne(document);
             user.setId(insertResult.getInsertedId().toString());
         }
