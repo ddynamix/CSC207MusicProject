@@ -104,8 +104,6 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     }
     }
 
-
-
     @Override
     public void create(String username, String password, String email, String firstName, String lastName) {
         if (userExistsInDatabase(username)) {
@@ -133,9 +131,10 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
     //yo did i accidentally delete smth here ????? it looks off - tas
     @Override
-    public String[] getUserData(User user) {
-        return new String[0];
-    }
+    public String[] getUserData(User user){
+            return new String[0];
+        }
+        }
 
     @Override
     public void Throwable(UserNotFoundException userNotFoundException){
