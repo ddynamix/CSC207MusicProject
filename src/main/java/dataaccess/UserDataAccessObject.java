@@ -58,7 +58,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void updateUsername(User user, String newUsername) {
         if (userExistsInDatabase(user.getUsername())) {
+            try {
 
+            } catch (MongoException e) {
+                throw MongoException.fromThrowable(e);
+            }
         } else {
             System.out.println("User does not exist in the database");
         }
@@ -67,14 +71,27 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void updatePassword(User user, String newPassword, String confirmPassword) {
         if (userExistsInDatabase(user.getUsername()) && newPassword.equals(confirmPassword)) {
+            try {
 
+            } catch (MongoException e) {
+                throw MongoException.fromThrowable(e);
+            }
         } else {
             System.out.println("User does not exist in the database");
         }
     }
 
     @Override
-    public void updateEmail(User user) {
+    public void updateEmail(User user, String newEmail) {
+        if (userExistsInDatabase(user.getUsername())) {
+            try {
+                mongoCollection.findOneAndUpdate();
+            } catch (MongoException e) {
+                System.out.println("Error updating email");
+            }
+        } else {
+            System.out.println("User does not exist in the database");
+        }
 
     }
 
