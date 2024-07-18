@@ -11,6 +11,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseConnection {
     public static void main(String[] args) {
         String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
@@ -32,6 +35,9 @@ public class DatabaseConnection {
                 MongoCollection<Document> collection = database.getCollection("comments");
                 database.runCommand(new Document("ping", 1));
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
+                List<Document> databases = mongoClient.listDatabases().into(new ArrayList<>());
+                databases.forEach(db -> System.out.println(db.toJson()));
+
             } catch (MongoException e) {
                 e.printStackTrace();
             }

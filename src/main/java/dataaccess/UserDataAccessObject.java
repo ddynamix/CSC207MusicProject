@@ -2,18 +2,21 @@ package dataaccess;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import entity.user.*;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
-public class UserDataAccessObject implements UserDataAccessInterface {
+import static com.mongodb.client.model.Filters.eq;
+
+public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
     public static class UserNotFoundException extends Exception{
 
@@ -51,48 +54,60 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public boolean userExistsInDatabase(String username) {
-        return false;
+    public boolean userExistsInDatabase(String username){
+        Bson filter = eq("username",username);
+        return mongoCollection.find(filter).iterator().hasNext();
     }
 
     @Override
     public void updateUsername(User user, String newUsername) {
-        if (userExistsInDatabase(user.getUsername())) {
-            try {
-
-            } catch (MongoException e) {
-                throw MongoException.fromThrowable(e);
+        try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
+            MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
+            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
+            //assumption that only audience will change usernames
+            Document query = new Document("username",newUsername);
+            if (userExistsInDatabase(user.getUsername())) {
+                Document update = new Document("$set",new Document("username", newUsername));
+                mongoCollection.updateOne(query,update);
+                System.out.println("Your username has been updated successfully.");
+            } else {
+                System.out.println("User does not exist in the database");
             }
-        } else {
-            System.out.println("User does not exist in the database");
         }
+
     }
 
     @Override
     public void updatePassword(User user, String newPassword, String confirmPassword) {
+        Document query = new Document("password",newPassword);
         if (userExistsInDatabase(user.getUsername()) && newPassword.equals(confirmPassword)) {
-            try {
-
-            } catch (MongoException e) {
-                throw MongoException.fromThrowable(e);
-            }
+            Document update = new Document("$set",new Document("password", newPassword));
+            mongoCollection.updateOne(query,update);
+            System.out.println("Your password has been updated successfully.");
         } else {
-            System.out.println("User does not exist in the database");
+            // this functionality needs to be updated.
+            //first, if confirmPassword doesn't match, then try again
+            //second, if user does not exist, throw error
+            System.out.println("Please try again");
         }
     }
 
     @Override
     public void updateEmail(User user, String newEmail) {
-        if (userExistsInDatabase(user.getUsername())) {
-            try {
-                mongoCollection.findOneAndUpdate();
-            } catch (MongoException e) {
-                System.out.println("Error updating email");
+        try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
+            MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
+            //currently setting up with audience user for the time being
+            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
+            Document query = new Document("email", newEmail);
+            if (userExistsInDatabase(user.getEmail())) {
+                Document update = new Document("$set",new Document("username", newEmail));
+                mongoCollection.updateOne(query,update);
+                System.out.println("Your email has been updated successfully.");
+            } else {
+                System.out.println("Your email does not exist in the database.");
             }
-        } else {
-            System.out.println("User does not exist in the database");
-        }
 
+    }
     }
 
     @Override
@@ -112,14 +127,20 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
+    //implementing this as a delete user functionality.
     public void delete(User user) {
 
-    }
+        if (userExistsInDatabase(user.getUsername())) {
+            Bson filter = Filters.eq("username", user.getUsername());
+            mongoCollection.deleteOne(filter);
+        }
 
+    //yo did i accidentally delete smth here ????? it looks off - tas
     @Override
-    public String[] getUserData(User user) {
-        return new String[0];
-    }
+    public String[] getUserData(User user){
+            return new String[0];
+        }
+        }
 
     @Override
     public void Throwable(UserNotFoundException userNotFoundException){
