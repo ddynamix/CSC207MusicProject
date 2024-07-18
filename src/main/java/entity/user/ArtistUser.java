@@ -9,21 +9,18 @@ import java.util.ArrayList;
 /**
  * ArtistUser class
  */
-public class ArtistUser extends User implements uploadable{
+public class ArtistUser extends User implements uploadable {
+    private String stageName;
+
     /**
      * Create new instance of ArtistUser
      * @param username  String              username
      * @param password  String              password
      * @param email     String              email
-     * @param firstName String              first name
-     * @param lastName  String              last name
-     * @param id        String              id in database
-     * @param followers Arraylist<User>     followers of this user
-     * @param following ArrayList<User>     users followed by this user
-     * @param pastEvents ArrayList<Event>   events attended by this user
      */
-    public ArtistUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents){
-        super(username, password, email, firstName, lastName);
+    public ArtistUser(String username, String password, String email, String stageName){
+        super(username, password, email);
+        this.stageName = stageName;
     }
 
 
@@ -42,7 +39,7 @@ public class ArtistUser extends User implements uploadable{
      */
     @Override
     public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
-        return new Event(title, artist, this.getFirstName(), dateAndTime, description, tags, postDate, attachedMedia);
+        return new Event(title, artist, this.getStageName(), dateAndTime, description, tags, postDate, attachedMedia);
     }
 
     /**
@@ -124,4 +121,8 @@ public class ArtistUser extends User implements uploadable{
     public void removeEvent(Event event){
         // remove id from database
     };
+
+    public String getStageName() {
+        return stageName;
+    }
 }
