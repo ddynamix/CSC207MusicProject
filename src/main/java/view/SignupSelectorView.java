@@ -18,6 +18,8 @@ public class SignupSelectorView extends JPanel implements ActionListener {
     private final JButton signupArtist;
     private final JButton signupVenue;
 
+    private final JButton cancel;
+
     public SignupSelectorView(SignupSelectorPresenter signupSelectorPresenter, SignupSelectorViewModel signupSelectorViewModel) {
         this.signupSelectorViewModel = signupSelectorViewModel;
         this.signupSelectorPresenter = signupSelectorPresenter;
@@ -32,10 +34,13 @@ public class SignupSelectorView extends JPanel implements ActionListener {
         buttons.add(signupArtist);
         signupVenue = new JButton(signupSelectorViewModel.VENUE_BUTTON_LABEL);
         buttons.add(signupVenue);
+        cancel = new JButton(signupSelectorViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
 
         signupAudience.addActionListener(this);
         signupArtist.addActionListener(this);
         signupVenue.addActionListener(this);
+        cancel.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
@@ -50,6 +55,8 @@ public class SignupSelectorView extends JPanel implements ActionListener {
             signupSelectorPresenter.prepareArtistSignupView();
         } else if (evt.getSource().equals(signupVenue)) {
             signupSelectorPresenter.prepareVenueSignupView();
+        } else if (evt.getSource().equals(cancel)) {
+            signupSelectorPresenter.prepareSplashView();
         }
     }
 }
