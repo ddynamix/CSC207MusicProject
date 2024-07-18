@@ -27,7 +27,6 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         if (csvFile.length() == 0) {
             create();
         } else {
-
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 String header = reader.readLine();
 

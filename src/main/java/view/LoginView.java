@@ -80,7 +80,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(logIn)) {
-            System.out.println("logIn button pressed");
+            System.out.println("log in button pressed");
         } else if (evt.getSource().equals(cancel)) {
             loginPresenter.prepareSplashView();
         }

@@ -14,6 +14,7 @@ public abstract class User {
     private String email;
 
     private String id;
+
     private ArrayList<User> followers;
     private ArrayList<User> following;
     private ArrayList<Event> pastEvents;
@@ -27,10 +28,8 @@ public abstract class User {
      * @param username  String  username for this user
      * @param password  String  password of this user
      * @param email     String  email of this user
-     * @param firstName String  first name of this user
-     * @param lastName  String  last name of this user
      */
-    public User(String username, String password, String email, String firstName, String lastName) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -41,7 +40,6 @@ public abstract class User {
         this.pastEvents = new ArrayList<>();
     }
 
-
     /**
      * Return the username
      * @return  String  username
@@ -50,14 +48,13 @@ public abstract class User {
         return username;
     }
 
-    // Encrypt somehow??
-
     /**
      * Return the password
      * @return  String  password
      *
      */
     public String getPassword() {
+        // Encrypt somehow??
         return password;
     }
 
@@ -65,6 +62,7 @@ public abstract class User {
      * Return the email
      * @return  String  email
      */
+
     public String getEmail() {
         return email;
     }
