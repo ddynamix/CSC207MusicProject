@@ -16,7 +16,7 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class UserDataAccessObject implements UserDataAccessInterface {
+public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
     public static class UserNotFoundException extends Exception{
 
@@ -87,9 +87,24 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void updateEmail(User user) {
+    public void updateEmail(User user, String newEmail) {
+        try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
+            MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
+            //currently setting up with audience user for the time being
+            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
+            Document query = new Document("email", newEmail);
+            if (userExistsInDatabase(user.getEmail())) {
+                Document update = new Document("$set",new Document("username", newEmail));
+                mongoCollection.updateOne(query,update);
+                System.out.println("Your email has been updated successfully.");;
+            } else {
+                System.out.println("Your email does not exist in the database.");
+            }
 
     }
+    }
+
+
 
     @Override
     public void create(String username, String password, String email, String firstName, String lastName) {
@@ -114,8 +129,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         if (userExistsInDatabase(user.getUsername())) {
             Bson filter = Filters.eq("username", user.getUsername());
             mongoCollection.deleteOne(filter);
-    }
+        }
 
+    //yo did i accidentally delete smth here ????? it looks off - tas
     @Override
     public String[] getUserData(User user) {
         return new String[0];
