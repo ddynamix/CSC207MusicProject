@@ -69,20 +69,26 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             if (userExistsInDatabase(user.getUsername())) {
                 Document update = new Document("$set",new Document("username", newUsername));
                 mongoCollection.updateOne(query,update);
-                System.out.println("Your username has been updated successfully.");;
+                System.out.println("Your username has been updated successfully.");
             } else {
                 System.out.println("User does not exist in the database");
             }
-        };
+        }
 
     }
 
     @Override
     public void updatePassword(User user, String newPassword, String confirmPassword) {
+        Document query = new Document("password",newPassword);
         if (userExistsInDatabase(user.getUsername()) && newPassword.equals(confirmPassword)) {
-
+            Document update = new Document("$set",new Document("password", newPassword));
+            mongoCollection.updateOne(query,update);
+            System.out.println("Your password has been updated successfully.");
         } else {
-            System.out.println("User does not exist in the database");
+            // this functionality needs to be updated.
+            //first, if confirmPassword doesn't match, then try again
+            //second, if user does not exist, throw error
+            System.out.println("Please try again");
         }
     }
 
@@ -96,7 +102,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             if (userExistsInDatabase(user.getEmail())) {
                 Document update = new Document("$set",new Document("username", newEmail));
                 mongoCollection.updateOne(query,update);
-                System.out.println("Your email has been updated successfully.");;
+                System.out.println("Your email has been updated successfully.");
             } else {
                 System.out.println("Your email does not exist in the database.");
             }
