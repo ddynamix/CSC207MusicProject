@@ -13,11 +13,13 @@ public abstract class User {
     private String password;
     private String email;
 
+    private String id;
+
     private ArrayList<User> followers;
     private ArrayList<User> following;
-    private ArrayList<Event> upcomingEvents;
     private ArrayList<Event> pastEvents;
-    private int id; //figure out how to implement ids
+
+    //private Song featuredSong;
 
     /**
      * Create instance of the User class <br>
@@ -31,12 +33,11 @@ public abstract class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.id = "null"; // this is a placeholder value to be reassigned by the database
 
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
-        this.upcomingEvents = new ArrayList<>();
         this.pastEvents = new ArrayList<>();
-        this.id = 0;
     }
 
     /**
@@ -66,23 +67,45 @@ public abstract class User {
         return email;
     }
 
+
+
+    /**
+     * Return followers
+     * @return  list    followers
+     */
     public ArrayList<User> getFollowers() {
         return followers;
     }
 
+    /**
+     * Return following
+     * @return  list    following
+     */
     public ArrayList<User> getFollowing() {
         return following;
     }
 
-    public ArrayList<Event> getUpcomingEvents() {
-        return upcomingEvents;
+    /**
+     * Return ID in database
+     * @return  String id
+     */
+    public String getId() {
+        return this.id; // should be the id
     }
 
+    /**
+     * Set ID in database
+     * @param id    String id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Return past events
+     * @return  list    pastEvents
+     */
     public ArrayList<Event> getPastEvents() {
         return pastEvents;
-    }
-
-    public int getId() {
-        return id;
     }
 }
