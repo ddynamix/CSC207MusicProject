@@ -1,54 +1,57 @@
 package app;
 
+import interface_adapter.artistsignup.ArtistSignupViewModel;
+import interface_adapter.signupselector.SignupSelectorViewModel;
 import interface_adapter.splash.SplashViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.audiencesignup.AudienceSignupViewModel;
 import interface_adapter.ViewManagerModel;
-import view.LoginView;
-import view.SignupView;
-import view.SplashView;
-import view.ViewManager;
+import interface_adapter.venuesignup.VenueSignupViewModel;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Build the main program window, the main panel containing the
-        // various cards, and the layout, and stitch them together.
-
-        // The main application window.
         JFrame application = new JFrame("Music App");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
 
-        // The various View objects. Only one view is visible at a time.
         JPanel views = new JPanel(cardLayout);
         application.add(views);
 
-        // This keeps track of and manages which view is currently showing.
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        // The data for the views, such as username and password, are in the ViewModels.
-        // This information will be changed by a presenter object that is reporting the
-        // results from the use case. The ViewModels are observable, and will
-        // be observed by the Views.
+        // Instantiate and inject all view models
         SplashViewModel splashViewModel = new SplashViewModel();
+        SignupSelectorViewModel signupSelectorViewModel = new SignupSelectorViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
+        AudienceSignupViewModel audienceSignupViewModel = new AudienceSignupViewModel();
+        ArtistSignupViewModel artistSignupViewModel = new ArtistSignupViewModel();
+        VenueSignupViewModel venueSignupViewModel = new VenueSignupViewModel();
 
-        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
+        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupSelectorViewModel, splashViewModel);
         views.add(splashView, splashView.viewName);
 
-        SignupView signupView = SignupViewFactory.createSignupView(viewManagerModel, loginViewModel, signupViewModel, splashViewModel);
-        views.add(signupView, signupView.viewName);
+        SignupSelectorView signupSelectorView = SignupSelectorViewFactory.createSignupSelectorView(viewManagerModel, signupSelectorViewModel, audienceSignupViewModel, artistSignupViewModel, venueSignupViewModel, splashViewModel);
+        views.add(signupSelectorView, signupSelectorView.viewName);
+
+        AudienceSignupView audienceSignupView = AudienceSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, audienceSignupViewModel, signupSelectorViewModel);
+        views.add(audienceSignupView, audienceSignupView.viewName);
+
+        ArtistSignupView artistSignupView = ArtistSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, artistSignupViewModel, signupSelectorViewModel);
+        views.add(artistSignupView, artistSignupView.viewName);
+
+        VenueSignupView venueSignupView = VenueSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, venueSignupViewModel, signupSelectorViewModel);
+        views.add(venueSignupView, venueSignupView.viewName);
 
         LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel);
         views.add(loginView, loginView.viewName);
 
-        // Default view
+        // Set the initial view
         viewManagerModel.setActiveView(splashView.viewName);
         viewManagerModel.firePropertyChanged();
 

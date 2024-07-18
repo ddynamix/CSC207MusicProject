@@ -1,18 +1,16 @@
 package entity.user;
 
-import entity.user.User;
 import entity.event.Event;
-import entity.event.EventFactory;
 import entity.post.Post;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
  * AudienceUser Class
  */
 public class AudienceUser extends User{
-    private ArrayList<Event> upcoming;
+    private String firstName;
+    private String lastName;
 
     /**
      * Create new AudienceUser instance
@@ -21,15 +19,11 @@ public class AudienceUser extends User{
      * @param email         String          email of user
      * @param firstName     String          first name of user
      * @param lastName      String          last name of user
-     * @param id            int             ID of user in database
-     * @param followers     ArrayList<User> list of Users following this user
-     * @param following     ArrayList<User> list of Users this user follows
-     * @param pastEvents    ArrayList<Event>list of Events this user attended
      */
-    public AudienceUser(String username, String password, String email, String firstName, String lastName, int id, ArrayList<User> followers, ArrayList<User> following, ArrayList<Event> pastEvents) {
-        super(username, password, email, firstName, lastName);
-        this.upcoming = new ArrayList<>();
-
+    public AudienceUser(String username, String password, String email, String firstName, String lastName) {
+        super(username, password, email);
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     /**
@@ -53,11 +47,12 @@ public class AudienceUser extends User{
         }
     }
 
-    /**
-     * Return the upcoming events for this user
-     * @return  ArrayList<Event>    this.upcoming
-     */
-    public ArrayList<Event> getUpcoming() { return upcoming; }
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
 }
 

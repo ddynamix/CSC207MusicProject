@@ -1,6 +1,6 @@
-package interface_adapter.signup;
+package interface_adapter;
 
-public class SignupState {
+public class UserSignupState {
     private String username = "";
     private String usernameError = null;
     private String password = "";
@@ -10,7 +10,7 @@ public class SignupState {
     private String email = "";
     private String emailError = null;
 
-    public SignupState(SignupState copy) {
+    public UserSignupState(UserSignupState copy) {
         username = copy.username;
         usernameError = copy.usernameError;
         password = copy.password;
@@ -21,8 +21,7 @@ public class SignupState {
         emailError = copy.emailError;
     }
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
-    public SignupState() {
+    public UserSignupState() {
     }
 
     public String getUsername() {

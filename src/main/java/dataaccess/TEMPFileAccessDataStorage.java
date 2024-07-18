@@ -1,7 +1,7 @@
 package dataaccess;
 
+import entity.user.AudienceUser;
 import entity.user.User;
-import entity.user.UserFactory;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -17,10 +17,7 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
 
     private final Map<String, User> accounts = new HashMap<>();
 
-    private UserFactory userFactory;
-
-    public TEMPFileAccessDataStorage(String csvPath, UserFactory userFactory) throws IOException {
-        this.userFactory = userFactory;
+    public TEMPFileAccessDataStorage(String csvPath) throws IOException {
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -46,7 +43,7 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
                     String firstName = String.valueOf(col[headers.get("first_name")]);
                     String lastName = String.valueOf(col[headers.get("last_name")]);
 
-                    User user = userFactory.createUser(username, password, email, firstName, lastName);
+                    AudienceUser user = new AudienceUser(username, password, email, firstName, lastName);
                     accounts.put(username, user);
                 }
             }

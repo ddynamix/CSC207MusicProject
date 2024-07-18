@@ -1,16 +1,13 @@
-package usecase.usersignup;
+package usecase;
 
-public class UserSignupOutputData {
+public class SignupOutputData {
 
     private final String username;
     private String creationTime;
 
-    private boolean useCaseFailed;
-
-    public UserSignupOutputData(String username, String creationTime, boolean useCaseFailed) {
+    public SignupOutputData(String username, String creationTime) {
         this.username = username;
         this.creationTime = creationTime;
-        this.useCaseFailed = useCaseFailed;
     }
 
     public String getUsername() {

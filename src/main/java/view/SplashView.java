@@ -42,10 +42,10 @@ public class SplashView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(signupB)) {
-            System.out.println("signupB button pressed");
+            // System.out.println("signupB button pressed");
             splashPresenter.prepareSignupView();
         } else if (evt.getSource().equals(loginB)) {
-            System.out.println("loginB button pressed");
+            // System.out.println("loginB button pressed");
             splashPresenter.prepareLoginView();
         }
     }

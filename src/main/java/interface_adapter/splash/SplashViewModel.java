@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 
 public class SplashViewModel extends ViewModel {
 
-    public final String TITLE_LABEL = "Splash View";
+    public final String TITLE_LABEL = "Login or Sign Up";
     public final String SIGN_UP_BUTTON_LABEL = "Sign Up";
     public final String LOGIN_BUTTON_LABEL = "Log in";
 

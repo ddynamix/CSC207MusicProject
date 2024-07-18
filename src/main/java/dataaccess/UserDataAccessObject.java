@@ -2,7 +2,6 @@ package dataaccess;
 
 import dataaccess.mongodb.Connection;
 import entity.user.User;
-import entity.user.UserFactory;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
 
@@ -11,10 +10,8 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     private Connection connection;
-    private UserFactory userFactory;
 
-    public UserDataAccessObject(Connection connection, UserFactory userFactory) {
-        this.userFactory = userFactory;
+    public UserDataAccessObject(Connection connection) {
         this.connection = connection;
 
     }

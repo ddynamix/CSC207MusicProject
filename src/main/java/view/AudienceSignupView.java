@@ -1,9 +1,9 @@
 package view;
 
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupPresenter;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
+import interface_adapter.audiencesignup.AudienceSignupController;
+import interface_adapter.audiencesignup.AudienceSignupPresenter;
+import interface_adapter.UserSignupState;
+import interface_adapter.audiencesignup.AudienceSignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +14,9 @@ import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "sign up";
-    private final SignupViewModel signupViewModel;
+public class AudienceSignupView extends JPanel implements ActionListener, PropertyChangeListener {
+    public final String viewName = "audience sign up";
+    private final AudienceSignupViewModel audienceSignupViewModel;
 
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
@@ -25,60 +25,43 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JTextField firstNameInputField = new JTextField(15);
     private final JTextField lastNameInputField = new JTextField(15);
 
-    private final SignupController signupController;
-    private final SignupPresenter signupPresenter;
+    private final AudienceSignupController audienceSignupController;
+    private final AudienceSignupPresenter audienceSignupPresenter;
 
     private final JButton signUp;
     private final JButton cancel;
 
-    public SignupView(SignupController controller, SignupPresenter presenter, SignupViewModel signupViewModel) {
-        this.signupController = controller;
-        this.signupPresenter = presenter;
-        this.signupViewModel = signupViewModel;
-        this.signupViewModel.addPropertyChangeListener(this);
+    public AudienceSignupView(AudienceSignupController controller, AudienceSignupPresenter presenter, AudienceSignupViewModel audienceSignupViewModel) {
+        this.audienceSignupController = controller;
+        this.audienceSignupPresenter = presenter;
+        this.audienceSignupViewModel = audienceSignupViewModel;
+        this.audienceSignupViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
+        JLabel title = new JLabel(audienceSignupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.USERNAME_LABEL), usernameInputField);
+                new JLabel(audienceSignupViewModel.USERNAME_LABEL), usernameInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.PASSWORD_LABEL), passwordInputField);
+                new JLabel(audienceSignupViewModel.PASSWORD_LABEL), passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+                new JLabel(audienceSignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
         LabelTextPanel emailInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.EMAIL_LABEL), emailInputField);
+                new JLabel(audienceSignupViewModel.EMAIL_LABEL), emailInputField);
         LabelTextPanel firstNameInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.FIRST_NAME_LABEL), firstNameInputField);
+                new JLabel(audienceSignupViewModel.FIRST_NAME_LABEL), firstNameInputField);
         LabelTextPanel lastNameInfo = new LabelTextPanel(
-                new JLabel(signupViewModel.LAST_NAME_LABEL), lastNameInputField);
+                new JLabel(audienceSignupViewModel.LAST_NAME_LABEL), lastNameInputField);
 
         JPanel buttons = new JPanel();
-        signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
+        signUp = new JButton(audienceSignupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
+        cancel = new JButton(audienceSignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
         signUp.addActionListener(this);
         cancel.addActionListener(this);
 
-        usernameInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                    }
-                });
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -93,19 +76,20 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(signUp)) {
-            signupController.execute(usernameInputField.getText(),
+            audienceSignupController.execute(usernameInputField.getText(),
                     String.valueOf(passwordInputField.getPassword()),
                     String.valueOf(repeatPasswordInputField.getPassword()),
                     String.valueOf(emailInputField.getText()),
                     String.valueOf(firstNameInputField.getText()),
                     String.valueOf(lastNameInputField.getText()));
         } else if (evt.getSource().equals(cancel)) {
-            signupPresenter.prepareSplashView();
+            audienceSignupPresenter.prepareSignupSelectorView();
         }
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SignupState state = (SignupState) evt.getNewValue();
+        UserSignupState state = (UserSignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         } else if (state.getPasswordError() != null) {
