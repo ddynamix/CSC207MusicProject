@@ -18,12 +18,28 @@ import static com.mongodb.client.model.Filters.eq;
 
 public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
+    //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception{
+        public UserNotFoundException() {
+            super("User not found in the database");
+        }
+    }
 
+    public static class DuplicateUsernameException extends Exception{
+        public DuplicateUsernameException() {
+            super("Username already exists in the database");
+        }
+    }
+
+    public static class PasswordMismatchException extends Exception{
+        public PasswordMismatchException() {
+            super("Passwords do not match");
+        }
     }
 
     private MongoClient mongoClient;
-    private UserFactory userFactory;
+    //todo: we just instantiate users directly, so we don't need a factory. check implementation
+//    private UserFactory userFactory;
     private MongoDatabase mongoDatabase;
     private MongoCollection mongoCollection;
     private User user;
@@ -74,22 +90,27 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
                 System.out.println("User does not exist in the database");
             }
         }
-
     }
 
     @Override
-    public void updatePassword(User user, String newPassword, String confirmPassword) {
+    public void updatePassword(User user, String newPassword, String confirmPassword) throws PasswordMismatchException, UserNotFoundException {
         Document query = new Document("password",newPassword);
-        if (userExistsInDatabase(user.getUsername()) && newPassword.equals(confirmPassword)) {
+        try {
             Document update = new Document("$set",new Document("password", newPassword));
             mongoCollection.updateOne(query,update);
             System.out.println("Your password has been updated successfully.");
-        } else {
+        }
+        catch (PasswordMismatchException e) {
+            throw new PasswordMismatchException();
             // this functionality needs to be updated.
             //first, if confirmPassword doesn't match, then try again
             //second, if user does not exist, throw error
             System.out.println("Please try again");
         }
+        catch (UserNotFoundException e) {
+            throw new UserNotFoundException();
+            System.out.println("User does not exist in the database");
+        },
     }
 
     @Override
@@ -113,7 +134,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void create(String username, String password, String email, String firstName, String lastName) {
         if (userExistsInDatabase(username)) {
-//            throw new DuplicateUsernameException();
+            throw new DuplicateUsernameException();
         } else {
             user = userFactory.createUser(username, password, email, firstName, lastName);
             Document document = new Document("username", user.getUsername())
@@ -128,19 +149,21 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     //implementing this as a delete user functionality.
-    public void delete(User user) {
-
-        if (userExistsInDatabase(user.getUsername())) {
-            Bson filter = Filters.eq("username", user.getUsername());
-            mongoCollection.deleteOne(filter);
+    public void delete(User user) throws UserNotFoundException {
+        try {
+            if (userExistsInDatabase(user.getUsername())) {
+                Bson filter = Filters.eq("username", user.getUsername());
+                mongoCollection.deleteOne(filter);
+        }} catch (Exception e) {
+            throw new UserNotFoundException();
         }
 
-    //yo did i accidentally delete smth here ????? it looks off - tas
-    @Override
-    public String[] getUserData(User user){
-            return new String[0];
-        }
-        }
+//    //yo did i accidentally delete smth here ????? it looks off - tas
+//    @Override
+//    public String[] getUserData(User user){
+//            return new String[0];
+//        }
+//        }
 
     @Override
     public void Throwable(UserNotFoundException userNotFoundException){

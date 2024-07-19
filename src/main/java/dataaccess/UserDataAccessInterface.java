@@ -2,7 +2,7 @@ package dataaccess;
 import entity.user.User;
 
 public interface UserDataAccessInterface {
-    // Data Access Interface - implement CRUD
+    // Data Access Interface - implement CRUD operations for User entity
     boolean userExistsInDatabase(String username);
     void updateUsername(User user, String newUsername);
     void updatePassword(User user, String newPassword, String confirmPassword);
