@@ -1,6 +1,6 @@
-package usecase.audiencesignup;
+package usecase.signup.audiencesignup;
 
-import usecase.UserSignupInputData;
+import usecase.signup.UserSignupInputData;
 
 /**
  * Based on implementation by Paul Gries

@@ -1,10 +1,9 @@
-package usecase.venuesignup;
+package usecase.signup.venuesignup;
 
 import dataaccess.UserDataAccessInterface;
-import entity.user.AudienceUser;
 import entity.user.VenueUser;
-import usecase.SignupOutputBoundary;
-import usecase.SignupOutputData;
+import usecase.signup.SignupOutputBoundary;
+import usecase.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +25,7 @@ public class VenueSignupInteractor implements VenueSignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
             VenueUser venue = new VenueUser(venueSignupInputData.getUsername(), venueSignupInputData.getPassword(), venueSignupInputData.getEmail(), venueSignupInputData.getVenueName(), venueSignupInputData.getLocation());
-            userDataAccessObject.create(venue);
+            userDataAccessObject.saveVenueUser(venue);
 
             LocalDateTime now = LocalDateTime.now();
             SignupOutputData signupOutputData = new SignupOutputData(venue.getUsername(), now.toString());

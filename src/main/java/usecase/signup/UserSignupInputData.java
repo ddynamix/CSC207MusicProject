@@ -1,4 +1,4 @@
-package usecase;
+package usecase.signup;
 
 public abstract class UserSignupInputData {
     private final String username;

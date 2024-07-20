@@ -6,8 +6,8 @@ import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.signupselector.SignupSelectorViewModel;
-import usecase.SignupOutputBoundary;
-import usecase.SignupOutputData;
+import usecase.signup.SignupOutputBoundary;
+import usecase.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,10 +40,9 @@ public class AudienceSignupPresenter implements SignupOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
-        UserSignupState userSignupState = audienceSignupViewModel.getState();
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(response.getUsername());
-        this.loginViewModel.setState(loginState);
+        loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

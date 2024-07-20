@@ -1,9 +1,9 @@
-package usecase.artistsignup;
+package usecase.signup.artistsignup;
 
 import dataaccess.UserDataAccessInterface;
 import entity.user.ArtistUser;
-import usecase.SignupOutputBoundary;
-import usecase.SignupOutputData;
+import usecase.signup.SignupOutputBoundary;
+import usecase.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ public class ArtistSignupInteractor implements ArtistSignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
             ArtistUser artist = new ArtistUser(artistSignupInputData.getUsername(), artistSignupInputData.getPassword(), artistSignupInputData.getEmail(), artistSignupInputData.getStageName());
-            userDataAccessInterface.create(artist);
+            userDataAccessInterface.saveArtistUser(artist);
 
             LocalDateTime now = LocalDateTime.now();
             SignupOutputData signupOutputData = new SignupOutputData(artist.getUsername(), now.toString());

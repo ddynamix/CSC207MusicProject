@@ -2,12 +2,11 @@ package interface_adapter.artistsignup;
 
 import interface_adapter.UserSignupState;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.audiencesignup.AudienceSignupViewModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signupselector.SignupSelectorViewModel;
-import usecase.SignupOutputBoundary;
-import usecase.SignupOutputData;
+import usecase.signup.SignupOutputBoundary;
+import usecase.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

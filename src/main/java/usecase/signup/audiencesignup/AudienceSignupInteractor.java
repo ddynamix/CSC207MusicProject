@@ -1,9 +1,9 @@
-package usecase.audiencesignup;
+package usecase.signup.audiencesignup;
 
 import dataaccess.UserDataAccessInterface;
 import entity.user.AudienceUser;
-import usecase.SignupOutputBoundary;
-import usecase.SignupOutputData;
+import usecase.signup.SignupOutputBoundary;
+import usecase.signup.SignupOutputData;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ public class AudienceSignupInteractor implements AudienceSignupInputBoundary {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
             AudienceUser user = new AudienceUser(audienceSignupInputData.getUsername(), audienceSignupInputData.getPassword(), audienceSignupInputData.getEmail(), audienceSignupInputData.getFirstName(), audienceSignupInputData.getLastName());
-            userDataAccessObject.create(user);
+            userDataAccessObject.saveAudienceUser(user);
 
             LocalDateTime now = LocalDateTime.now();
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString());

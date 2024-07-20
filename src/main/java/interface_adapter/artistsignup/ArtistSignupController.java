@@ -1,7 +1,7 @@
 package interface_adapter.artistsignup;
 
-import usecase.artistsignup.ArtistSignupInputBoundary;
-import usecase.artistsignup.ArtistSignupInputData;
+import usecase.signup.artistsignup.ArtistSignupInputBoundary;
+import usecase.signup.artistsignup.ArtistSignupInputData;
 
 public class ArtistSignupController {
     final ArtistSignupInputBoundary userSignupUseCaseInteractor;

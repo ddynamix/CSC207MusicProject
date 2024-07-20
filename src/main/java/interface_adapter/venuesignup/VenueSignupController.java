@@ -1,7 +1,7 @@
 package interface_adapter.venuesignup;
 
-import usecase.venuesignup.VenueSignupInputBoundary;
-import usecase.venuesignup.VenueSignupInputData;
+import usecase.signup.venuesignup.VenueSignupInputBoundary;
+import usecase.signup.venuesignup.VenueSignupInputData;
 
 public class VenueSignupController {
     final VenueSignupInputBoundary userSignupUseCaseInteractor;

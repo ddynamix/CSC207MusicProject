@@ -1,7 +1,7 @@
 package interface_adapter.audiencesignup;
 
-import usecase.audiencesignup.AudienceSignupInputBoundary;
-import usecase.audiencesignup.AudienceSignupInputData;
+import usecase.signup.audiencesignup.AudienceSignupInputBoundary;
+import usecase.signup.audiencesignup.AudienceSignupInputData;
 
 public class AudienceSignupController {
     final AudienceSignupInputBoundary userSignupUseCaseInteractor;

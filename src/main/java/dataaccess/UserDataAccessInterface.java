@@ -1,7 +1,11 @@
 package dataaccess;
+import entity.user.ArtistUser;
+import entity.user.AudienceUser;
 import entity.user.User;
+import entity.user.VenueUser;
 
 public interface UserDataAccessInterface {
+
     // Data Access Interface - implement CRUD
     boolean userExistsInDatabase(String username);
 
@@ -9,13 +13,19 @@ public interface UserDataAccessInterface {
     void updatePassword(User user, String newPassword, String confirmPassword);
     void updateEmail(User user, String newEmail);
 
-    void create(String username, String password, String email, String firstName, String lastName);
+    void createFile();
+
+    void saveAudienceUser(AudienceUser user);
+    void saveArtistUser(ArtistUser user);
+    void saveVenueUser(VenueUser user);
     void delete(User user);
 
     String[] getUserData(User user);
 
-// This is also where we declare any Exceptions that wil be thrown
-// eg. User not found in the database.
+    boolean passwordMatches(String username, String password);
+
+    // This is also where we declare any Exceptions that wil be thrown
+    // e.g. User not found in the database.
 
     void Throwable(UserDataAccessObject.UserNotFoundException userNotFoundException);
 }

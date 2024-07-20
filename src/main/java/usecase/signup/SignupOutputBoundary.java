@@ -1,4 +1,4 @@
-package usecase;
+package usecase.signup;
 
 public interface SignupOutputBoundary {
     void prepareSuccessView(SignupOutputData user);

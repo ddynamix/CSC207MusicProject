@@ -1,6 +1,6 @@
-package usecase.venuesignup;
+package usecase.signup.venuesignup;
 
-import usecase.UserSignupInputData;
+import usecase.signup.UserSignupInputData;
 
 public class VenueSignupInputData extends UserSignupInputData {
 

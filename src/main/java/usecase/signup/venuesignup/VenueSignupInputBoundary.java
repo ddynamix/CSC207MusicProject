@@ -1,4 +1,4 @@
-package usecase.venuesignup;
+package usecase.signup.venuesignup;
 
 public interface VenueSignupInputBoundary {
     void attemptSignUp(VenueSignupInputData audienceSignupInputData);

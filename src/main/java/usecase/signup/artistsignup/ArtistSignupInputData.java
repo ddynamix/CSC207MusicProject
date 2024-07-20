@@ -1,6 +1,6 @@
-package usecase.artistsignup;
+package usecase.signup.artistsignup;
 
-import usecase.UserSignupInputData;
+import usecase.signup.UserSignupInputData;
 
 public class ArtistSignupInputData extends UserSignupInputData {
 
