@@ -76,7 +76,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void updateUsername(User user, String newUsername) {
+    public void updateUsername(User user, String newUsername)  throws UserNotFoundException{
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
@@ -87,7 +87,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
                 mongoCollection.updateOne(query,update);
                 System.out.println("Your username has been updated successfully.");
             } else {
-                System.out.println("User does not exist in the database");
+                throw new UserNotFoundException();
             }
         }
     }
@@ -99,20 +99,22 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             Document update = new Document("$set",new Document("password", newPassword));
             mongoCollection.updateOne(query,update);
             System.out.println("Your password has been updated successfully.");
+            if (!newPassword.equals(confirmPassword)) {
+                throw new PasswordMismatchException();
+            } else if (!userExistsInDatabase(user.getUsername())) {
+                throw new UserNotFoundException();
+            }
         }
         catch (PasswordMismatchException e) {
-            throw new PasswordMismatchException();
-            System.out.println("Please try again");
+            //how do catch blocks work lol
         }
         catch (UserNotFoundException e) {
-            throw new UserNotFoundException();
-            System.out.println("User does not exist in the database");
         }
     }
 
 
     @Override
-    public void updateEmail(User user, String newEmail) {
+    public void updateEmail(User user, String newEmail) throws UserNotFoundException{
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
             //currently setting up with audience user for the time being
@@ -123,21 +125,21 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
                 mongoCollection.updateOne(query,update);
                 System.out.println("Your email has been updated successfully.");
             } else {
-                System.out.println("Your email does not exist in the database.");
+                throw new UserNotFoundException();
             }
-
     }
     }
 
     @Override
-    public void create(String username, String password, String email, String firstName, String lastName) {
-        if (userExistsInDatabase(username)) {
+    public void create(User user) throws DuplicateUsernameException {
+        if (userExistsInDatabase(user.getUsername())) {
             throw new DuplicateUsernameException();
         } else {
-            user = user(username, password, email, firstName, lastName);
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
                     .append("email", user.getEmail())
+                    .append("followers", user.getFollowers())
+                    .append("following", user.getFollowing());
             InsertOneResult insertResult = mongoCollection.insertOne(document);
             user.setId(insertResult.getInsertedId().toString());
         }
@@ -150,19 +152,21 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             if (userExistsInDatabase(user.getUsername())) {
                 Bson filter = Filters.eq("username", user.getUsername());
                 mongoCollection.deleteOne(filter);
-        }} catch (Exception e) {
+            }
+        } catch (Exception e) {
             throw new UserNotFoundException();
         }
+    }
 
-//    //yo did i accidentally delete smth here ????? it looks off - tas
-//    @Override
-//    public String[] getUserData(User user){
-//            return new String[0];
-//        }
-//        }
-
+/*
+    //yo did i accidentally delete smth here ????? it looks off - tas
     @Override
-    public void Throwable(UserNotFoundException userNotFoundException){
+    public String[] getUserData(User user){
+            return new String[0];
+        }
+
+    public void Throwable;(UserNotFoundException userNotFoundException){
         System.out.println("User was not found in the database");
     }
-}
+*/
+    }
