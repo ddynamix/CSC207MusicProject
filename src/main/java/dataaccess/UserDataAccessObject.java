@@ -102,16 +102,14 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
         }
         catch (PasswordMismatchException e) {
             throw new PasswordMismatchException();
-            // this functionality needs to be updated.
-            //first, if confirmPassword doesn't match, then try again
-            //second, if user does not exist, throw error
             System.out.println("Please try again");
         }
         catch (UserNotFoundException e) {
             throw new UserNotFoundException();
             System.out.println("User does not exist in the database");
-        },
+        }
     }
+
 
     @Override
     public void updateEmail(User user, String newEmail) {
@@ -136,12 +134,10 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
         if (userExistsInDatabase(username)) {
             throw new DuplicateUsernameException();
         } else {
-            user = userFactory.createUser(username, password, email, firstName, lastName);
+            user = user(username, password, email, firstName, lastName);
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
                     .append("email", user.getEmail())
-                    .append("firstName", user.getFirstName())
-                    .append("lastName", user.getLastName());
             InsertOneResult insertResult = mongoCollection.insertOne(document);
             user.setId(insertResult.getInsertedId().toString());
         }
