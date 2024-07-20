@@ -1,6 +1,7 @@
 package usecase.venuesignup;
 
 import dataaccess.UserDataAccessInterface;
+import dataaccess.UserDataAccessObject;
 import entity.user.AudienceUser;
 import entity.user.VenueUser;
 import usecase.SignupOutputBoundary;
@@ -20,17 +21,18 @@ public class VenueSignupInteractor implements VenueSignupInputBoundary {
 
     @Override
     public void attemptSignUp(VenueSignupInputData venueSignupInputData) {
-        if (userDataAccessObject.userExistsInDatabase(venueSignupInputData.getUsername())) {
-            userPresenter.prepareFailView("User already exists.");
-        } else if (!venueSignupInputData.getPassword().equals(venueSignupInputData.getRepeatPass())) {
+        if (!venueSignupInputData.getPassword().equals(venueSignupInputData.getRepeatPass())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            VenueUser venue = new VenueUser(venueSignupInputData.getUsername(), venueSignupInputData.getPassword(), venueSignupInputData.getEmail(), venueSignupInputData.getVenueName(), venueSignupInputData.getLocation());
-            userDataAccessObject.create(venue);
-
-            LocalDateTime now = LocalDateTime.now();
-            SignupOutputData signupOutputData = new SignupOutputData(venue.getUsername(), now.toString());
-            userPresenter.prepareSuccessView(signupOutputData);
+            try {
+                VenueUser venue = new VenueUser(venueSignupInputData.getUsername(), venueSignupInputData.getPassword(), venueSignupInputData.getEmail(), venueSignupInputData.getVenueName(), venueSignupInputData.getLocation());
+                userDataAccessObject.create(venue);
+                LocalDateTime now = LocalDateTime.now();
+                SignupOutputData signupOutputData = new SignupOutputData(venue.getUsername(), now.toString());
+                userPresenter.prepareSuccessView(signupOutputData);
+            } catch (UserDataAccessObject.DuplicateUsernameException e) {
+                userPresenter.prepareFailView("Username already exists.");
+            }
         }
     }
 }
