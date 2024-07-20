@@ -3,7 +3,11 @@ package entity.post;
 import entity.user.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+/**
+ * Post class
+ */
 public class Post implements IPost{
     private String title;
     private String text;
@@ -18,48 +22,95 @@ public class Post implements IPost{
     //private Event taggedEvent;
 
 
-    public Post(String title, String text, User author, LocalDateTime timePosted, int id, String attachedMedia, int rating) {
+    /**
+     * Create instance of the Post class
+     * @param title             String  title of post
+     * @param text              String  message of post
+     * @param author            User    author/creator of post
+     * @param attachedMedia     String  media
+     */
+    public Post(String title, String text, User author, String attachedMedia) {
         this.title = title;
         this.text = text;
         this.author = author;
-        this.timePosted = timePosted;
-        this.id = id;
+        this.timePosted = LocalDateTime.now();
+        this.id = 0; // should be generated
         this.attachedMedia = attachedMedia;
-        this.rating = rating; //default value
+        this.rating = 0; //default value
     }
 
-    @Override
+    /**
+     * Return title
+     * @return  String  title
+     */
     public String getTitle() {
         return title;
     }
 
-    @Override
+    /**
+     * Return message
+     * @return  String  text
+     */
     public String getText() {
         return text;
     }
 
-    @Override
+    /**
+     * Return author/creator of post
+     * @return  User    author
+     */
     public User getAuthor() {
         return author;
     }
 
-    @Override
+    /**
+     * Return rating of post
+     * @return  int rating
+     */
     public int getRating() {
         return rating;
     }
 
-    @Override
+    /**
+     * Return ID of post in database
+     * @return  int     id
+     */
     public int getId() {
         return id;
     }
 
-    @Override
+    /**
+     * Return post send time
+     * @return  LocalDateTime   timePosted
+     */
     public LocalDateTime getTimePosted() {
         return timePosted;
     }
 
-    @Override
+    /**
+     * Return media
+     * @return  String  attachedMedia
+     */
     public String getAttachedMedia() {
         return attachedMedia;
+    }
+
+    /**
+     * Share the post with a designated user
+     * @param destination   User    who the post is being sent to
+     */
+    public void share(User destination){
+        destination.getEmail(); // send somehow
+    }
+
+    /**
+     * Share the post with a multiple users
+     * @param people   ArrayList<User>    who the post is being sent to
+     */
+    public void share(ArrayList<User> people){
+        for (User destination : people){
+            destination.getEmail(); // send somehow
+        }
+
     }
 }
