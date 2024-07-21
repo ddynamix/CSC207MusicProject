@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
+public class TEMPFileAccessDataStorage {
 
     private final File csvFile;
 
@@ -49,7 +49,6 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         }
     }
 
-    @Override
     public void create(User user) {
         accounts.put(user.getUsername(), user);
         this.create();
@@ -69,7 +68,6 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         }
     }
 
-    @Override
     public boolean userExistsInDatabase(String identifier) {
         return accounts.containsKey(identifier);
     }
