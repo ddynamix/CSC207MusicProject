@@ -1,7 +1,5 @@
 package app;
 
-import dataaccess.TEMPFileAccessDataStorage;
-import dataaccess.UserDataAccessInterface;
 import interface_adapter.artistsignup.ArtistSignupViewModel;
 import interface_adapter.homescreen.HomescreenViewModel;
 import interface_adapter.signupselector.SignupSelectorViewModel;
@@ -11,6 +9,7 @@ import interface_adapter.audiencesignup.AudienceSignupViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.venuesignup.VenueSignupViewModel;
 import view.*;
+import dataaccess.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,9 +27,9 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        UserDataAccessInterface userDataAccessObject = null;
+        UserDataAccessObject userDataAccessObject = null;
         try {
-            userDataAccessObject = new TEMPFileAccessDataStorage("./users.csv");
+            userDataAccessObject = new UserDataAccessObject();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

@@ -16,7 +16,7 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public abstract class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements UserDataAccessInterface {
 
     //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception{
@@ -65,7 +65,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
             return mongoDatabase.getCollection("artistUser");
         } else if (user instanceof AudienceUser) {
             return mongoDatabase.getCollection("audienceUser");
-        } else if (user instanceof VenueUser) {
+        } else {
             return mongoDatabase.getCollection("venueUser");
         }
     }
@@ -153,20 +153,8 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public boolean passwordMatches(User user, String password) {
-        Bson filter = eq("password", password);
+    public boolean passwordMatches(String username, String password) {
+        Bson filter = eq("username", username);
         return mongoCollection.find(filter).iterator().hasNext(); //todo: check if this is correct
     }
-
-    /*
-    //yo did i accidentally delete smth here ????? it looks off - tas
-    @Override
-    public String[] getUserData(User user){
-            return new String[0];
-        }
-
-    public void Throwable;(UserNotFoundException userNotFoundException){
-        System.out.println("User was not found in the database");
-    }
-*/
     }
