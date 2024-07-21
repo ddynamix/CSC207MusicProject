@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Parent class User
  */
-public abstract class User {
+public class User {
     private String username;
     private String password;
     private String email;

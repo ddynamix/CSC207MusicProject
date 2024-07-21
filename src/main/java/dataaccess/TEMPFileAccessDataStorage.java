@@ -26,7 +26,6 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         headers.put("email", 2);
         headers.put("name", 3);
         headers.put("creation_time", 4);
-        headers.put("type", 5);
 
         if (csvFile.length() == 0) {
             createFile();
@@ -34,7 +33,7 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 // This will ensure the file is correctly formatted
                 String header = reader.readLine();
-                assert header.equals("username,password,email,name,creation_time,type");
+                assert header.equals("username,password,email,name,creation_time");
 
                 // This will load all users into memory
                 String row;
@@ -45,62 +44,28 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
                     String email = String.valueOf(col[headers.get("email")]);
                     String name = String.valueOf(col[headers.get("name")]);
                     String creationTime = String.valueOf(col[headers.get("creation_time")]);
-                    String type = String.valueOf(col[headers.get("type")]);
 
-                    if (type.equals("audience")) {
-                        AudienceUser user = new AudienceUser(username, password, email, name, name);
-                        accounts.put(username, user);
-                    } else if (type.equals("artist")) {
-                        ArtistUser user = new ArtistUser(username, password, email, name);
-                        accounts.put(username, user);
-                    } else if (type.equals("venue")) {
-                        VenueUser user = new VenueUser(username, password, email, name, name);
-                        accounts.put(username, user);
-                    }
+                    User user = new User(username, password, email);
+                    accounts.put(username, user);
 
                 }
             }
         }
     }
 
-    @Override
     public void createFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
-            writer.println("username,password,email,name,creation_time,type");
+            writer.println("username,password,email,name,creation_time");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void saveAudienceUser(AudienceUser user) {
-        if (!userExistsInDatabase(user.getUsername())) {
-            accounts.put(user.getUsername(), user);
-            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstName(), "audience");
-        }
-    }
-
-    @Override
-    public void saveArtistUser(ArtistUser user) {
-        if (!userExistsInDatabase(user.getUsername())) {
-            accounts.put(user.getUsername(), user);
-            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), user.getStageName(), "artist");
-        }
-    }
-
-    @Override
-    public void saveVenueUser(VenueUser user) {
-        if (!userExistsInDatabase(user.getUsername())) {
-            accounts.put(user.getUsername(), user);
-            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), user.getVenueName(), "venue");
-        }
-    }
-
-    private void appendUserToCsv(String username, String password, String email, String name, String type) {
+    private void appendUserToCsv(String username, String password, String email, String name) {
         try (FileWriter fw = new FileWriter(csvFile, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(username + "," + password + "," + email + "," + name + "," + System.currentTimeMillis() + "," + type);
+            out.println(username + "," + password + "," + email + "," + name + "," + System.currentTimeMillis());
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
@@ -127,13 +92,16 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
     }
 
     @Override
-    public void delete(User user) {
-
+    public void create(User user) throws UserDataAccessObject.DuplicateUsernameException {
+        if (!userExistsInDatabase(user.getUsername())) {
+            accounts.put(user.getUsername(), user);
+            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), "name");
+        }
     }
 
     @Override
-    public String[] getUserData(User user) {
-        return new String[0];
+    public void delete(User user) {
+
     }
 
     @Override
