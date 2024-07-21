@@ -1,6 +1,7 @@
 package usecase.signup.audiencesignup;
 
 import dataaccess.UserDataAccessInterface;
+import dataaccess.UserDataAccessObject;
 import entity.user.AudienceUser;
 import usecase.signup.SignupOutputBoundary;
 import usecase.signup.SignupOutputData;
@@ -19,17 +20,18 @@ public class AudienceSignupInteractor implements AudienceSignupInputBoundary {
 
     @Override
     public void attemptSignUp(AudienceSignupInputData audienceSignupInputData) {
-        if (userDataAccessObject.userExistsInDatabase(audienceSignupInputData.getUsername())) {
-            userPresenter.prepareFailView("User already exists.");
-        } else if (!audienceSignupInputData.getPassword().equals(audienceSignupInputData.getRepeatPass())) {
+        if (!audienceSignupInputData.getPassword().equals(audienceSignupInputData.getRepeatPass())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            AudienceUser user = new AudienceUser(audienceSignupInputData.getUsername(), audienceSignupInputData.getPassword(), audienceSignupInputData.getEmail(), audienceSignupInputData.getFirstName(), audienceSignupInputData.getLastName());
-            userDataAccessObject.saveAudienceUser(user);
-
-            LocalDateTime now = LocalDateTime.now();
-            SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString());
-            userPresenter.prepareSuccessView(signupOutputData);
+            try {
+                AudienceUser user = new AudienceUser(audienceSignupInputData.getUsername(), audienceSignupInputData.getPassword(), audienceSignupInputData.getEmail(), audienceSignupInputData.getFirstName(), audienceSignupInputData.getLastName());
+                userDataAccessObject.create(user);
+                LocalDateTime now = LocalDateTime.now();
+                SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString());
+                userPresenter.prepareSuccessView(signupOutputData);
+            } catch (UserDataAccessObject.DuplicateUsernameException e) {
+                userPresenter.prepareFailView("Username already exists.");
+            }
         }
     }
 }

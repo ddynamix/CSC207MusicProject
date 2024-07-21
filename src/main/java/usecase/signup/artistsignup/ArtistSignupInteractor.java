@@ -1,6 +1,7 @@
 package usecase.signup.artistsignup;
 
 import dataaccess.UserDataAccessInterface;
+import dataaccess.UserDataAccessObject;
 import entity.user.ArtistUser;
 import usecase.signup.SignupOutputBoundary;
 import usecase.signup.SignupOutputData;
@@ -19,17 +20,19 @@ public class ArtistSignupInteractor implements ArtistSignupInputBoundary {
 
     @Override
     public void attemptSignUp(ArtistSignupInputData artistSignupInputData) {
-        if (userDataAccessInterface.userExistsInDatabase(artistSignupInputData.getUsername())) {
-            userPresenter.prepareFailView("Artist already exists.");
-        } else if (!artistSignupInputData.getPassword().equals(artistSignupInputData.getRepeatPass())) {
+        if (!artistSignupInputData.getPassword().equals(artistSignupInputData.getRepeatPass())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            ArtistUser artist = new ArtistUser(artistSignupInputData.getUsername(), artistSignupInputData.getPassword(), artistSignupInputData.getEmail(), artistSignupInputData.getStageName());
-            userDataAccessInterface.saveArtistUser(artist);
+            try {
+                ArtistUser artist = new ArtistUser(artistSignupInputData.getUsername(), artistSignupInputData.getPassword(), artistSignupInputData.getEmail(), artistSignupInputData.getStageName());
+                userDataAccessInterface.create(artist);
 
-            LocalDateTime now = LocalDateTime.now();
-            SignupOutputData signupOutputData = new SignupOutputData(artist.getUsername(), now.toString());
-            userPresenter.prepareSuccessView(signupOutputData);
+                LocalDateTime now = LocalDateTime.now();
+                SignupOutputData signupOutputData = new SignupOutputData(artist.getUsername(), now.toString());
+                userPresenter.prepareSuccessView(signupOutputData);
+            } catch (UserDataAccessObject.DuplicateUsernameException e) {
+                userPresenter.prepareFailView("Username already exists.");
+            }
         }
     }
 }

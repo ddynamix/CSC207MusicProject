@@ -5,22 +5,14 @@ import entity.user.User;
 import entity.user.VenueUser;
 
 public interface UserDataAccessInterface {
-
-    // Data Access Interface - implement CRUD
+    // Data Access Interface - implement CRUD operations for User entity
     boolean userExistsInDatabase(String username);
-
-    void updateUsername(User user, String newUsername);
-    void updatePassword(User user, String newPassword, String confirmPassword);
-    void updateEmail(User user, String newEmail);
-
-    void createFile();
-
-    void saveAudienceUser(AudienceUser user);
-    void saveArtistUser(ArtistUser user);
-    void saveVenueUser(VenueUser user);
-    void delete(User user);
-
-    String[] getUserData(User user);
+    void updateUsername(User user, String newUsername) throws UserDataAccessObject.UserNotFoundException;
+    void updatePassword(User user, String newPassword, String confirmPassword) throws UserDataAccessObject.PasswordMismatchException, UserDataAccessObject.UserNotFoundException;
+    void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
+    void create(User user) throws UserDataAccessObject.DuplicateUsernameException;
+    void delete(User user) throws UserDataAccessObject.UserNotFoundException;
+//    String[] getUserData(User user);
 
     boolean passwordMatches(String username, String password);
 
