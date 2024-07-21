@@ -10,21 +10,16 @@ import java.util.ArrayList;
  * VenueUser class
  */
 public class VenueUser extends User implements uploadable{
-    private String venueName;
-    private String location;
 
     /**
      * Create new instance of ArtistUser
+     * @param name      String              name
      * @param username  String              username
      * @param password  String              password
      * @param email     String              email
-     * @param venueName String              venueName
-     * @param location  String              location
      */
-    public VenueUser(String username, String password, String email, String venueName, String location) {
-        super(username, password, email);
-        this.venueName = venueName;
-        this.location = location;
+    public VenueUser(String name, String username, String password, String email) {
+        super(name, username, password, email);
     }
 
     /**
@@ -51,7 +46,7 @@ public class VenueUser extends User implements uploadable{
      */
     @Override
     public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
-        return new Event(title, artist, this.getVenueName(), dateAndTime, description, tags, postDate, attachedMedia);
+        return new Event(title, artist, this.getName(), dateAndTime, description, tags, postDate, attachedMedia);
     }
 
     /**
@@ -135,12 +130,4 @@ public class VenueUser extends User implements uploadable{
             //event.id // ?
         //}
     };
-
-    public String getVenueName() {
-        return venueName;
-    }
-
-    public String getLocation() {
-        return location;
-    }
 }
