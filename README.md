@@ -14,9 +14,12 @@ Audience users will be able to follow venues and artists as well as their friend
 Audience users will be able to post about events and share with their followers.
 All users will be able to add a song to their profile using the Spotify API.
 
-Our project database will be mongodb though we are currently using a temporary data file
+Our project database will be mongodb though we are currently using a temporary data file in csv format.
 
-We are currently using Branch Phase1.2 of the remote repo
+We are currently using Branch Phase1.2 of the repository.
+
+Currently, you should be able to sign up as three different types of users, and login as any of them using the GUI. 
+We plan on implementing posting events and viewing events from one's home page in the coming days.
 
 Link to Repo: https://github.com/ddynamix/CSC207MusicProject/tree/main
 
