@@ -16,15 +16,15 @@ All users will be able to add a song to their profile using the Spotify API.
 
 Our project database will be mongodb though we are currently using a temporary data file
 
-We are currently using Branch Phase1 of the remote repo
+We are currently using Branch Phase1.2 of the remote repo
 
 Link to Repo: https://github.com/ddynamix/CSC207MusicProject/tree/main
 
 ## Use Cases
-- Sign up
-- Login
-- .
-- .
+- Sign up as Audience
+- Sign up as Artist
+- Sign up as Venue
+- Login as Any
 
 ## Installation
 
@@ -34,6 +34,14 @@ To install this project, clone the repository and install dependencies:
 - org.mongodb
   - mongodb-driver-sync
   - version 4.11.2
+- org.mockito
+  - mockito-core
+  - version 5.12.0
+- org.mockito
+  - mockito-inline
+  - version 5.2.0
+
+Be sure to link pom.xml as maven project, click reload project, and run "install" in the maven toolbar
 
 ## Project Structure
 
