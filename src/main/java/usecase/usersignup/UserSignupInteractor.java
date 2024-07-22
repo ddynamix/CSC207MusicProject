@@ -20,10 +20,6 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
     }
 
     @Override
-    public void execute(UserSignupData userSignupData) {
-
-    }
-
     public void attemptSignUp(UserSignupData signupInputData) {
         if (!signupInputData.getPassword().equals(signupInputData.getRepeatPass())) {
             userPresenter.prepareFailView("Passwords don't match.");
@@ -44,11 +40,11 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
     public User getUser(UserSignupData input){
         User user;
         if (input.getType().equals("artist")){
-            user = new ArtistUser(input.getUsername(), input.getPassword(), input.getEmail(), input.getName());
+            user = new ArtistUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());
         } else if (input.getType().equals("venue")){
-            user = new VenueUser(input.getUsername(), input.getPassword(), input.getEmail(), input.getName());
+            user = new VenueUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());
         } else {
-            user = new AudienceUser(input.getUsername(), input.getPassword(), input.getEmail(), input.getName());
+            user = new AudienceUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());
         }
         return user;
     }
