@@ -2,18 +2,16 @@ package app;
 
 import dataaccess.TEMPFileAccessDataStorage;
 import dataaccess.UserDataAccessInterface;
-import interface_adapter.artistsignup.ArtistSignupViewModel;
 import interface_adapter.homescreen.HomescreenViewModel;
-import interface_adapter.signupselector.SignupSelectorViewModel;
 import interface_adapter.splash.SplashViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.audiencesignup.AudienceSignupViewModel;
+import interface_adapter.usersignup.UserSignupViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.venuesignup.VenueSignupViewModel;
 import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,27 +35,15 @@ public class Main {
 
         // Instantiate and inject all view models
         SplashViewModel splashViewModel = new SplashViewModel();
-        SignupSelectorViewModel signupSelectorViewModel = new SignupSelectorViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
-        AudienceSignupViewModel audienceSignupViewModel = new AudienceSignupViewModel();
-        ArtistSignupViewModel artistSignupViewModel = new ArtistSignupViewModel();
-        VenueSignupViewModel venueSignupViewModel = new VenueSignupViewModel();
+        UserSignupViewModel signupViewModel = new UserSignupViewModel();
         HomescreenViewModel homescreenViewModel = new HomescreenViewModel();
 
-        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupSelectorViewModel, splashViewModel);
+        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, splashViewModel, signupViewModel);
         views.add(splashView, splashView.viewName);
 
-        SignupSelectorView signupSelectorView = SignupSelectorViewFactory.createSignupSelectorView(viewManagerModel, signupSelectorViewModel, audienceSignupViewModel, artistSignupViewModel, venueSignupViewModel, splashViewModel);
-        views.add(signupSelectorView, signupSelectorView.viewName);
-
-        AudienceSignupView audienceSignupView = AudienceSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, audienceSignupViewModel, signupSelectorViewModel, userDataAccessObject);
-        views.add(audienceSignupView, audienceSignupView.viewName);
-
-        ArtistSignupView artistSignupView = ArtistSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, artistSignupViewModel, signupSelectorViewModel, userDataAccessObject);
-        views.add(artistSignupView, artistSignupView.viewName);
-
-        VenueSignupView venueSignupView = VenueSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, venueSignupViewModel, signupSelectorViewModel, userDataAccessObject);
-        views.add(venueSignupView, venueSignupView.viewName);
+        UserSignupView userSignupView = UserSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
+        views.add(userSignupView, userSignupView.viewName);
 
         LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel, homescreenViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
