@@ -12,7 +12,7 @@ class PostFactoryTest {
         PostFactory postFactory = new PostFactory();
         String title = "My First Post";
         String text = "This is the content of the post.";
-        User author = new User("username", "password", "test@email.com"); // Assuming a simple User constructor
+        User author = new User("name", "username", "password", "test@email.com"); // Assuming a simple User constructor
         String attachedMedia = "https://example.com/media";
 
         Post post = postFactory.createPost(title, text, author, attachedMedia);

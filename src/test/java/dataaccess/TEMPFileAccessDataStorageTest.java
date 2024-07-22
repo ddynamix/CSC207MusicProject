@@ -30,7 +30,7 @@ class TEMPFileAccessDataStorageTest {
 
     @Test
     void testCreateUser() throws UserDataAccessObject.DuplicateUsernameException {
-        User user = new User("username", "password", "email@example.com");
+        User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
         assertTrue(dataStorage.userExistsInDatabase("username"), "User should exist in the database");
@@ -39,7 +39,7 @@ class TEMPFileAccessDataStorageTest {
 
     @Test
     void testUserExistsInDatabase() throws UserDataAccessObject.DuplicateUsernameException {
-        User user = new User("username", "password", "email@example.com");
+        User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
         assertTrue(dataStorage.userExistsInDatabase("username"), "User should exist in the database");
@@ -48,7 +48,7 @@ class TEMPFileAccessDataStorageTest {
 
     @Test
     void testPasswordMatches() throws UserDataAccessObject.DuplicateUsernameException {
-        User user = new User("username", "password", "email@example.com");
+        User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
         assertTrue(dataStorage.passwordMatches("username", "password"), "Password should match");
@@ -57,8 +57,8 @@ class TEMPFileAccessDataStorageTest {
 
     @Test
     void testCreateUserWithDuplicateUsername() {
-        User user1 = new User("username", "password1", "email1@example.com");
-        User user2 = new User("username", "password2", "email2@example.com");
+        User user1 = new User("name", "username", "password1", "email1@example.com");
+        User user2 = new User("name", "username", "password2", "email2@example.com");
 
         assertDoesNotThrow(() -> dataStorage.create(user1), "Creating user1 should not throw an exception");
 

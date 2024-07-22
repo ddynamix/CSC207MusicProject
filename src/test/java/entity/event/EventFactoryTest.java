@@ -14,7 +14,7 @@ class EventFactoryTest {
     void testCreateEvent() {
         EventFactory eventFactory = new EventFactory();
         String title = "Music Concert";
-        User artist = new User("artistUsername", "password", "test@email.com"); // Assuming a simple User constructor
+        User artist = new User("name", "artistUsername", "password", "test@email.com"); // Assuming a simple User constructor
         String venue = "Madison Square Garden";
         LocalDateTime dateAndTime = LocalDateTime.of(2024, 8, 15, 20, 0);
         String description = "A live music concert featuring famous artists.";
