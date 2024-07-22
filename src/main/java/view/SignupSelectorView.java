@@ -14,11 +14,11 @@ public class SignupSelectorView extends JPanel implements ActionListener {
 
     private final SignupSelectorPresenter signupSelectorPresenter;
 
-    private final JButton signupAudience;
-    private final JButton signupArtist;
-    private final JButton signupVenue;
+    final JButton signupAudience;
+    final JButton signupArtist;
+    final JButton signupVenue;
 
-    private final JButton cancel;
+    final JButton cancel;
 
     public SignupSelectorView(SignupSelectorPresenter signupSelectorPresenter, SignupSelectorViewModel signupSelectorViewModel) {
         this.signupSelectorViewModel = signupSelectorViewModel;

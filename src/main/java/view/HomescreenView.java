@@ -20,7 +20,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     // Declare as class-level fields
     private String signedInAs = ""; // Initialize with an empty string or a default value
-    private JLabel welcome_message; // Declare the JLabel
+    JLabel welcome_message; // Declare the JLabel
 
     public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController, HomescreenPresenter homescreenPresenter) {
         this.homescreenViewModel = homescreenViewModel;

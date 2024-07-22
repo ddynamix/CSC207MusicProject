@@ -10,4 +10,10 @@ public class HomescreenPresenter {
         this.viewManagerModel = viewManagerModel;
         this.homescreenViewModel = homescreenViewModel;
     }
+
+    public void updateHomescreen() {
+        String viewName = homescreenViewModel.getViewName();
+        viewManagerModel.setActiveView(viewName);
+        viewManagerModel.firePropertyChanged();
+    }
 }

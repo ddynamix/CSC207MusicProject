@@ -15,8 +15,8 @@ public class SplashView extends JPanel implements ActionListener {
 
     private final SplashPresenter splashPresenter;
 
-    private final JButton signupB;
-    private final JButton loginB;
+    final JButton signupB;
+    final JButton loginB;
 
     public SplashView(SplashPresenter splashPresenter, SplashViewModel splashViewModel) {
         this.splashViewModel = splashViewModel;

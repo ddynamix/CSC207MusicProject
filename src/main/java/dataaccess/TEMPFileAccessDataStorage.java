@@ -1,9 +1,6 @@
 package dataaccess;
 
-import entity.user.ArtistUser;
-import entity.user.AudienceUser;
 import entity.user.User;
-import entity.user.VenueUser;
 
 import java.io.*;
 import java.util.HashMap;
@@ -96,6 +93,8 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
             appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), "name");
+        } else {
+            throw new UserDataAccessObject.DuplicateUsernameException();
         }
     }
 

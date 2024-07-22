@@ -16,22 +16,29 @@ public class ArtistSignupView extends JPanel implements ActionListener, Property
     public final String viewName = "artist sign up";
     private final ArtistSignupViewModel artistSignupViewModel;
 
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-    private final JTextField emailInputField = new JTextField(15);
-    private final JTextField stageNameInputField = new JTextField(15);
+    final JTextField usernameInputField = new JTextField(15);
+    final JPasswordField passwordInputField = new JPasswordField(15);
+    final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    final JTextField emailInputField = new JTextField(15);
+    final JTextField stageNameInputField = new JTextField(15);
 
     private final ArtistSignupController artistSignupController;
     private final ArtistSignupPresenter artistSignupPresenter;
+    private final DialogHelper dialogHelper;
 
-    private final JButton signUp;
-    private final JButton cancel;
+    final JButton signUp;
+    final JButton cancel;
 
     public ArtistSignupView(ArtistSignupController controller, ArtistSignupPresenter presenter, ArtistSignupViewModel artistSignupViewModel) {
+        this(controller, presenter, artistSignupViewModel, new DialogHelper());
+    }
+
+    // Constructor to allow injecting DialogHelper for testing
+    ArtistSignupView(ArtistSignupController controller, ArtistSignupPresenter presenter, ArtistSignupViewModel artistSignupViewModel, DialogHelper dialogHelper) {
         this.artistSignupController = controller;
         this.artistSignupPresenter = presenter;
         this.artistSignupViewModel = artistSignupViewModel;
+        this.dialogHelper = dialogHelper;
         this.artistSignupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(artistSignupViewModel.TITLE_LABEL);
@@ -84,13 +91,13 @@ public class ArtistSignupView extends JPanel implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         UserSignupState state = (UserSignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
+            dialogHelper.showMessageDialog(this, state.getUsernameError());
         } else if (state.getPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getPasswordError());
+            dialogHelper.showMessageDialog(this, state.getPasswordError());
         } else if (state.getRepeatPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getRepeatPasswordError());
+            dialogHelper.showMessageDialog(this, state.getRepeatPasswordError());
         } else if (state.getEmailError() != null) {
-            JOptionPane.showMessageDialog(this, state.getEmailError());
+            dialogHelper.showMessageDialog(this, state.getEmailError());
         }
     }
 }

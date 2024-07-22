@@ -1,16 +1,14 @@
 package view;
 
-import interface_adapter.audiencesignup.AudienceSignupController;
-import interface_adapter.audiencesignup.AudienceSignupPresenter;
 import interface_adapter.UserSignupState;
 import interface_adapter.audiencesignup.AudienceSignupViewModel;
+import interface_adapter.audiencesignup.AudienceSignupController;
+import interface_adapter.audiencesignup.AudienceSignupPresenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -18,23 +16,30 @@ public class AudienceSignupView extends JPanel implements ActionListener, Proper
     public final String viewName = "audience sign up";
     private final AudienceSignupViewModel audienceSignupViewModel;
 
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
-    private final JTextField emailInputField = new JTextField(15);
-    private final JTextField firstNameInputField = new JTextField(15);
-    private final JTextField lastNameInputField = new JTextField(15);
+    final JTextField usernameInputField = new JTextField(15);
+    final JPasswordField passwordInputField = new JPasswordField(15);
+    final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    final JTextField emailInputField = new JTextField(15);
+    final JTextField firstNameInputField = new JTextField(15);
+    final JTextField lastNameInputField = new JTextField(15);
 
     private final AudienceSignupController audienceSignupController;
     private final AudienceSignupPresenter audienceSignupPresenter;
+    private final DialogHelper dialogHelper;
 
-    private final JButton signUp;
-    private final JButton cancel;
+    final JButton signUp;
+    final JButton cancel;
 
     public AudienceSignupView(AudienceSignupController controller, AudienceSignupPresenter presenter, AudienceSignupViewModel audienceSignupViewModel) {
+        this(controller, presenter, audienceSignupViewModel, new DialogHelper());
+    }
+
+    // Constructor to allow injecting DialogHelper for testing
+    AudienceSignupView(AudienceSignupController controller, AudienceSignupPresenter presenter, AudienceSignupViewModel audienceSignupViewModel, DialogHelper dialogHelper) {
         this.audienceSignupController = controller;
         this.audienceSignupPresenter = presenter;
         this.audienceSignupViewModel = audienceSignupViewModel;
+        this.dialogHelper = dialogHelper;
         this.audienceSignupViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(audienceSignupViewModel.TITLE_LABEL);
@@ -91,13 +96,13 @@ public class AudienceSignupView extends JPanel implements ActionListener, Proper
     public void propertyChange(PropertyChangeEvent evt) {
         UserSignupState state = (UserSignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
+            dialogHelper.showMessageDialog(this, state.getUsernameError());
         } else if (state.getPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getPasswordError());
+            dialogHelper.showMessageDialog(this, state.getPasswordError());
         } else if (state.getRepeatPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getRepeatPasswordError());
+            dialogHelper.showMessageDialog(this, state.getRepeatPasswordError());
         } else if (state.getEmailError() != null) {
-            JOptionPane.showMessageDialog(this, state.getEmailError());
+            dialogHelper.showMessageDialog(this, state.getEmailError());
         }
     }
 }

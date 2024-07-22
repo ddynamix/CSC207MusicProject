@@ -29,6 +29,8 @@ public class VenueSignupView extends JPanel implements ActionListener, PropertyC
     private final JButton signUp;
     private final JButton cancel;
 
+    private final DialogHelper dialogHelper = new DialogHelper();
+
     public VenueSignupView(VenueSignupController controller, VenueSignupPresenter presenter, VenueSignupViewModel venueSignupViewModel) {
         this.venueSignupController = controller;
         this.venueSignupPresenter = presenter;
@@ -89,13 +91,13 @@ public class VenueSignupView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         UserSignupState state = (UserSignupState) evt.getNewValue();
         if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
+            dialogHelper.showMessageDialog(this, state.getUsernameError());
         } else if (state.getPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getPasswordError());
+            dialogHelper.showMessageDialog(this, state.getPasswordError());
         } else if (state.getRepeatPasswordError() != null) {
-            JOptionPane.showMessageDialog(this, state.getRepeatPasswordError());
+            dialogHelper.showMessageDialog(this, state.getRepeatPasswordError());
         } else if (state.getEmailError() != null) {
-            JOptionPane.showMessageDialog(this, state.getEmailError());
+            dialogHelper.showMessageDialog(this, state.getEmailError());
         }
     }
 }
