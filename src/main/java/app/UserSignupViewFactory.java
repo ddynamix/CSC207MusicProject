@@ -11,11 +11,19 @@ import usecase.usersignup.UserSignupInteractor;
 import usecase.usersignup.SignupOutputBoundary;
 import view.UserSignupView;
 
+/**
+ * User signup factory
+ */
 public class UserSignupViewFactory {
 
-    private UserSignupViewFactory() {
-    }
-
+    /**
+     * create view instance
+     * @param viewManagerModel  controller of view models
+     * @param loginViewModel    login view creator
+     * @param signupViewModel   signup view creator
+     * @param userDataAccessObject  access to database
+     * @return UserSignupView   the created view
+     */
     public static UserSignupView createSignupView(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, UserSignupViewModel signupViewModel, UserDataAccessInterface userDataAccessObject) {
         UserSignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
 
@@ -24,6 +32,14 @@ public class UserSignupViewFactory {
         return new UserSignupView(signupController, signupPresenter, signupViewModel);
     }
 
+    /**
+     * create controller instance
+     * @param viewManagerModel  controller of view models
+     * @param loginViewModel    login view creator
+     * @param signupViewModel   signup view creator
+     * @param userDataAccessObject  access to database
+     * @return UserSignupController the created controller
+     */
     private static UserSignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, UserSignupViewModel signupViewModel, LoginViewModel loginViewModel, UserDataAccessInterface userDataAccessObject) {
         SignupOutputBoundary signupOutputBoundary = new UserSignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
 

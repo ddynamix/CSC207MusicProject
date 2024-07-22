@@ -10,6 +10,9 @@ import usecase.usersignup.SignupOutputData;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Presenter for sign up use case
+ */
 public class UserSignupPresenter implements SignupOutputBoundary {
 
     private final UserSignupViewModel signupViewModel;
@@ -24,6 +27,10 @@ public class UserSignupPresenter implements SignupOutputBoundary {
         this.loginViewModel = loginViewModel;
     }
 
+    /**
+     * Build success if the user was able to be created
+     * @param response outgoing message
+     */
         @Override
     public void prepareSuccessView(SignupOutputData response) {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
@@ -37,6 +44,10 @@ public class UserSignupPresenter implements SignupOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * Build failure if the user could not be created
+     * @param error failure message for user
+     */
     @Override
     public void prepareFailView(String error) {
         UserSignupState userSignupState = signupViewModel.getState();
