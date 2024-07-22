@@ -13,7 +13,6 @@ public class LoginInteractor implements LoginInputBoundary {
 
     @Override
     public void attemptLogin(LoginInputData loginInputData) {
-        System.out.println(loginInputData.getUsername());
         if (!userDataAccessObject.userExistsInDatabase(loginInputData.getUsername())) {
             loginPresenter.prepareFailView("User does not exist.");
         } else if (!userDataAccessObject.passwordMatches(loginInputData.getUsername(), loginInputData.getPassword())) {

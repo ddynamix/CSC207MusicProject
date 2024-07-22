@@ -1,6 +1,6 @@
 package app;
 
-import dataaccess.TEMPFileAccessDataStorage;
+import dataaccess.UserLocalCSVDataStorage;
 import dataaccess.UserDataAccessInterface;
 import interface_adapter.homescreen.HomescreenViewModel;
 import interface_adapter.splash.SplashViewModel;
@@ -11,7 +11,6 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,7 +27,7 @@ public class Main {
 
         UserDataAccessInterface userDataAccessObject = null;
         try {
-            userDataAccessObject = new TEMPFileAccessDataStorage("./users.csv");
+            userDataAccessObject = new UserLocalCSVDataStorage("./users.csv");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

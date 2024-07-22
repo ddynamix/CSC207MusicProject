@@ -10,14 +10,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TEMPFileAccessDataStorageTest {
+class UserLocalCSVDataStorageTest {
 
     private static final String TEST_CSV_PATH = "test_users.csv";
-    private TEMPFileAccessDataStorage dataStorage;
+    private UserLocalCSVDataStorage dataStorage;
 
     @BeforeEach
     void setUp() throws IOException {
-        dataStorage = new TEMPFileAccessDataStorage(TEST_CSV_PATH);
+        dataStorage = new UserLocalCSVDataStorage(TEST_CSV_PATH);
     }
 
     @AfterEach
@@ -29,7 +29,7 @@ class TEMPFileAccessDataStorageTest {
     }
 
     @Test
-    void testCreateUser() throws UserDataAccessObject.DuplicateUsernameException {
+    void testCreateUser() throws UserAlreadyExistsException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -38,7 +38,7 @@ class TEMPFileAccessDataStorageTest {
     }
 
     @Test
-    void testUserExistsInDatabase() throws UserDataAccessObject.DuplicateUsernameException {
+    void testUserExistsInDatabase() throws UserAlreadyExistsException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -47,7 +47,7 @@ class TEMPFileAccessDataStorageTest {
     }
 
     @Test
-    void testPasswordMatches() throws UserDataAccessObject.DuplicateUsernameException {
+    void testPasswordMatches() throws UserAlreadyExistsException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -63,7 +63,7 @@ class TEMPFileAccessDataStorageTest {
         assertDoesNotThrow(() -> dataStorage.create(user1), "Creating user1 should not throw an exception");
 
         // Expect DuplicateUsernameException to be thrown
-        assertThrows(UserDataAccessObject.DuplicateUsernameException.class, () -> dataStorage.create(user2),
+        assertThrows(UserAlreadyExistsException.class, () -> dataStorage.create(user2),
                 "Creating user2 with the same username should throw DuplicateUsernameException");
     }
 }

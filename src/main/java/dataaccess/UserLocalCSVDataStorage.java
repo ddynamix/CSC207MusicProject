@@ -7,15 +7,13 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
+public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     private final File csvFile;
-
     private final Map<String, Integer> headers = new LinkedHashMap<>();
-
     private final Map<String, User> accounts = new HashMap<>();
 
-    public TEMPFileAccessDataStorage(String csvPath) throws IOException {
+    public UserLocalCSVDataStorage(String csvPath) throws IOException {
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -30,9 +28,9 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 // This will ensure the file is correctly formatted
                 String header = reader.readLine();
-                assert header.equals("username,password,email,name,creation_time");
+                assert header.equals(headersToString(headers));
 
-                // This will load all users into memory
+                // This will load all users into memory as User objects
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
@@ -44,7 +42,6 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
 
                     User user = new User(name, username, password, email);
                     accounts.put(username, user);
-
                 }
             }
         }
@@ -52,7 +49,7 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
 
     public void createFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
-            writer.println("username,password,email,name,creation_time");
+            writer.println(headersToString(headers));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,6 +63,19 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
+    }
+
+    @Override
+    public User getUserFromUsername(String username) {
+        if (userExistsInDatabase(username)) {
+            return accounts.get(username);
+        } else {
+            return null;
+        }
+    }
+
+    private String headersToString(Map<String, Integer> headers) {
+        return String.join(",", headers.keySet());
     }
 
     @Override
@@ -89,12 +99,12 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
     }
 
     @Override
-    public void create(User user) throws UserDataAccessObject.DuplicateUsernameException {
+    public void create(User user) throws UserAlreadyExistsException {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
             appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), "name");
         } else {
-            throw new UserDataAccessObject.DuplicateUsernameException();
+            throw new UserAlreadyExistsException();
         }
     }
 
@@ -107,9 +117,4 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
     public boolean passwordMatches(String username, String password) {
         return accounts.get(username).getPassword().equals(password);
     }
-
-    public void Throwable(UserDataAccessObject.UserNotFoundException userNotFoundException) {
-
-    }
-
 }

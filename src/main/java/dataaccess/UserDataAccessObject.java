@@ -16,7 +16,7 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public abstract class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements UserDataAccessInterface {
 
     //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception {
@@ -129,9 +129,9 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void create(User user) throws DuplicateUsernameException {
+    public void create(User user) throws UserAlreadyExistsException {
         if (userExistsInDatabase(user.getUsername())) {
-            throw new DuplicateUsernameException();
+            throw new UserAlreadyExistsException();
         } else {
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
@@ -151,6 +151,11 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
         } else {
             throw new UserNotFoundException();
         }
+    }
+
+    @Override
+    public User getUserFromUsername(String username) {
+        return null; // TODO: Implement
     }
 
     @Override
