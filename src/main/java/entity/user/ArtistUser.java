@@ -10,17 +10,16 @@ import java.util.ArrayList;
  * ArtistUser class
  */
 public class ArtistUser extends User implements uploadable {
-    private String stageName;
 
     /**
      * Create new instance of ArtistUser
+     * @param name  String                  name
      * @param username  String              username
      * @param password  String              password
      * @param email     String              email
      */
-    public ArtistUser(String username, String password, String email, String stageName){
-        super(username, password, email);
-        this.stageName = stageName;
+    public ArtistUser(String name, String username, String password, String email){
+        super(name, username, password, email);
     }
 
 
@@ -39,7 +38,7 @@ public class ArtistUser extends User implements uploadable {
      */
     @Override
     public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
-        return new Event(title, artist, this.getStageName(), dateAndTime, description, tags, postDate, attachedMedia);
+        return new Event(title, artist, this.getName(), dateAndTime, description, tags, postDate, attachedMedia);
     }
 
     /**
@@ -121,8 +120,4 @@ public class ArtistUser extends User implements uploadable {
     public void removeEvent(Event event){
         // remove id from database
     };
-
-    public String getStageName() {
-        return stageName;
-    }
 }

@@ -9,8 +9,6 @@ import java.util.ArrayList;
  * AudienceUser Class
  */
 public class AudienceUser extends User{
-    private String firstName;
-    private String lastName;
 
     /**
      * Create new AudienceUser instance
@@ -20,10 +18,8 @@ public class AudienceUser extends User{
      * @param firstName     String          first name of user
      * @param lastName      String          last name of user
      */
-    public AudienceUser(String username, String password, String email, String firstName, String lastName) {
-        super(username, password, email);
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public AudienceUser(String name, String username, String password, String email) {
+        super(name, username, password, email);
     }
 
     /**
@@ -45,14 +41,6 @@ public class AudienceUser extends User{
         for (User user: this.getFollowing()){
             post.share(user);
         }
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 }
 

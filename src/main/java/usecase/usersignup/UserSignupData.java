@@ -6,28 +6,28 @@ package usecase.usersignup;
  */
 public class UserSignupData {
 
+    final private String type;
     final private String username;
     final private String password;
     final private String repeatPass;
     final private String email;
-    final private String firstName;
-    final private String lastName;
+    final private String name;
 
-    public UserSignupData(String username, String password, String repeatPass,
-                          String email, String firstName, String lastName) {
+    public UserSignupData(String type, String username, String password, String repeatPass,
+                          String email, String name) {
 
+        this.type = type;
         this.username = username;
         this.password = password;
         this.repeatPass = repeatPass;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
     }
 
     String getUsername() {return username;}
     String getPassword() {return password;}
     String getRepeatPass() {return repeatPass;}
     String getEmail() {return email;}
-    String getFirstName() {return firstName;}
-    String getLastName() {return lastName;}
+    String getName() {return name;}
+    String getType(){return type;}
 }

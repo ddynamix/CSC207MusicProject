@@ -12,6 +12,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private String name;
 
     private String id;
 
@@ -25,11 +26,13 @@ public class User {
      * Create instance of the User class <br>
      * Child classes: AudienceUser, ArtistUser, VenueUser
      *
+     * @param name  String  name of user
      * @param username  String  username for this user
      * @param password  String  password of this user
      * @param email     String  email of this user
      */
-    public User(String username, String password, String email) {
+    public User(String name, String username, String password, String email) {
+        this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -46,6 +49,14 @@ public class User {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Return the name
+     * @return  String  name
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -66,7 +77,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
 
 
     /**

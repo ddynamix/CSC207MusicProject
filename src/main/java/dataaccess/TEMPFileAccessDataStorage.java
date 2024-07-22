@@ -42,7 +42,7 @@ public class TEMPFileAccessDataStorage implements UserDataAccessInterface {
                     String name = String.valueOf(col[headers.get("name")]);
                     String creationTime = String.valueOf(col[headers.get("creation_time")]);
 
-                    User user = new User(username, password, email);
+                    User user = new User(name, username, password, email);
                     accounts.put(username, user);
 
                 }
