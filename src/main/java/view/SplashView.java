@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * View of opening screen
+ */
 public class SplashView extends JPanel implements ActionListener {
 
     public final String viewName = "splash";
@@ -15,9 +18,14 @@ public class SplashView extends JPanel implements ActionListener {
 
     private final SplashPresenter splashPresenter;
 
-    private final JButton signupB;
-    private final JButton loginB;
+    final JButton signupB;
+    final JButton loginB;
 
+    /**
+     * Creation of splash view
+     * @param splashPresenter presenter for splash screen
+     * @param splashViewModel model for splash screen
+     */
     public SplashView(SplashPresenter splashPresenter, SplashViewModel splashViewModel) {
         this.splashViewModel = splashViewModel;
         this.splashPresenter = splashPresenter;
@@ -39,6 +47,10 @@ public class SplashView extends JPanel implements ActionListener {
         this.add(buttons);
     }
 
+    /**
+     * Check if click performed and respond
+     * @param evt   ActionEvent   Instance of click
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(signupB)) {
