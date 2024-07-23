@@ -21,7 +21,7 @@ public class LoginViewFactory {
 
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter);
 
-        LoginController loginController = new LoginController(userDataAccessObject, loginInteractor);
+        LoginController loginController = new LoginController(loginInteractor);
         return new LoginView(loginController, loginPresenter, loginViewModel);
     }
 }

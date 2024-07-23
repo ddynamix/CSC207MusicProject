@@ -25,7 +25,7 @@ public class UserSignupViewModel extends ViewModel {
     public final String SIGNUP_BUTTON_LABEL = "Sign up";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private UserSignupState state = new UserSignupState();
+    private UserSignupState state = new UserSignupState(null);
 
     /**
      * Create instance of view model
@@ -49,6 +49,7 @@ public class UserSignupViewModel extends ViewModel {
      * Update all listeners of the changes made
      * Note: Observable Design Pattern
      */
+    @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
@@ -57,6 +58,7 @@ public class UserSignupViewModel extends ViewModel {
      * Add a listener to the ViewModel to be notified about changes
      * @param listener PropertyChangeListener entity/component to be updated
      */
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

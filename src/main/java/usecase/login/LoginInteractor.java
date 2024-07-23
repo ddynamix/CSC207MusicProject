@@ -1,6 +1,7 @@
 package usecase.login;
 
 import dataaccess.UserDataAccessInterface;
+import entity.user.User;
 
 public class LoginInteractor implements LoginInputBoundary {
     final UserDataAccessInterface userDataAccessObject;
@@ -18,7 +19,8 @@ public class LoginInteractor implements LoginInputBoundary {
         } else if (!userDataAccessObject.passwordMatches(loginInputData.getUsername(), loginInputData.getPassword())) {
             loginPresenter.prepareFailView("Incorrect password.");
         } else {
-            LoginOutputData loginOutputData = new LoginOutputData(loginInputData.getUsername());
+            User user = userDataAccessObject.getUserFromUsername(loginInputData.getUsername());
+            LoginOutputData loginOutputData = new LoginOutputData(user);
             loginPresenter.prepareSuccessView(loginOutputData);
             System.out.println("Login successful!");
         }

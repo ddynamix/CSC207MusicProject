@@ -7,7 +7,7 @@ import usecase.login.LoginInputData;
 public class LoginController {
     final LoginInputBoundary loginInteractor;
 
-    public LoginController(UserDataAccessInterface userDataAccessObject, LoginInputBoundary loginInteractor) {
+    public LoginController(LoginInputBoundary loginInteractor) {
         this.loginInteractor = loginInteractor;
     }
 

@@ -23,7 +23,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData user) {
         HomescreenState homescreenState = homescreenViewModel.getState();
-        homescreenState.setUsername(user.getSignedInAs());
+        homescreenState.setSignedInAs(user.getSignedInAs());
         homescreenViewModel.setState(homescreenState);
         homescreenViewModel.firePropertyChanged();
 

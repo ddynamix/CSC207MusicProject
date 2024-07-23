@@ -15,4 +15,8 @@ public interface IEvent {
     public LocalDateTime getPostDate();
     public String getAttachedMedia(); // change to media object
     public int getId();
+
+    public String getDateAndTimeString();
+    public String getPostDateString();
+    public String getTagsString();
 }

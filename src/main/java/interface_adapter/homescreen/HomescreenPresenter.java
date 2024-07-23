@@ -1,19 +1,29 @@
 package interface_adapter.homescreen;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.eventcrafter.EventCrafterState;
+import interface_adapter.eventcrafter.EventCrafterViewModel;
+import usecase.homescreen.HomescreenOutputBoundary;
+import usecase.homescreen.HomescreenOutputData;
 
-public class HomescreenPresenter {
+public class HomescreenPresenter implements HomescreenOutputBoundary {
     private final ViewManagerModel viewManagerModel;
-    private final HomescreenViewModel homescreenViewModel;
+    private final EventCrafterViewModel eventCrafterViewModel;
 
-    public HomescreenPresenter(ViewManagerModel viewManagerModel, HomescreenViewModel homescreenViewModel) {
+    public HomescreenPresenter(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.homescreenViewModel = homescreenViewModel;
+        this.eventCrafterViewModel = eventCrafterViewModel;
     }
 
-    public void updateHomescreen() {
-        String viewName = homescreenViewModel.getViewName();
-        viewManagerModel.setActiveView(viewName);
+    @Override
+    public void prepareCreateEventView(HomescreenOutputData homescreenOutputData) {
+        EventCrafterState eventCrafterState = eventCrafterViewModel.getState();
+        eventCrafterState.setSignedInAs(homescreenOutputData.getSignedInAs());
+
+        eventCrafterViewModel.setState(eventCrafterState);
+        eventCrafterViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(eventCrafterViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

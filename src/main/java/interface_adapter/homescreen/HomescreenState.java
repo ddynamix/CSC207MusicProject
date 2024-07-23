@@ -1,17 +1,32 @@
 package interface_adapter.homescreen;
 
+import entity.event.Event;
+import entity.user.User;
+
+import java.util.ArrayList;
+
 public class HomescreenState {
-    private String username;
+    private User signedInAs;
+    private ArrayList<Event> events;
 
     public HomescreenState() {
-        this.username = "";
+        this.signedInAs = null;
+        this.events = new ArrayList<>();
     }
 
-    public String getUsername() {
-        return username;
+    public User getSignedInAs() {
+        return signedInAs;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSignedInAs(User user) {
+        this.signedInAs = user;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<Event> events) {
+        this.events = events;
     }
 }

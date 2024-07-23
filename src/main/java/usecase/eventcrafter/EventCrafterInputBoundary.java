@@ -1,5 +1,5 @@
 package usecase.eventcrafter;
 
 public interface EventCrafterInputBoundary {
-    void postEvent(EventCrafterInputData eventCrafterInputData);
+    void attemptPostEvent(EventCrafterInputData eventCrafterInputData);
 }

@@ -1,5 +1,6 @@
 package usecase.usersignup;
 
+import dataaccess.UserAlreadyExistsException;
 import dataaccess.UserDataAccessInterface;
 import dataaccess.UserDataAccessObject;
 import entity.user.ArtistUser;
@@ -43,7 +44,7 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
                 LocalDateTime now = LocalDateTime.now();
                 SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString());
                 userPresenter.prepareSuccessView(signupOutputData);
-            } catch (UserDataAccessObject.DuplicateUsernameException e) {
+            } catch (UserAlreadyExistsException e) {
                 userPresenter.prepareFailView("Username already exists.");
             }
         }

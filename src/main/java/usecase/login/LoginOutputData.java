@@ -1,15 +1,17 @@
 package usecase.login;
 
+import entity.user.User;
+
 import java.util.Objects;
 
 public class LoginOutputData {
-    private final String signedInAs;
+    private final User signedInAs;
 
-    public LoginOutputData(String signedInAs) {
+    public LoginOutputData(User signedInAs) {
         this.signedInAs = signedInAs;
     }
 
-    public String getSignedInAs() {
+    public User getSignedInAs() {
         return signedInAs;
     }
 

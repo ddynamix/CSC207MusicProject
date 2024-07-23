@@ -19,14 +19,4 @@ class HomescreenPresenterTest {
 
         homescreenPresenter = new HomescreenPresenter(viewManagerModel, homescreenViewModel);
     }
-
-    @Test
-    void testUpdateHomescreen() {
-        when(homescreenViewModel.getViewName()).thenReturn("HomescreenView");
-
-        homescreenPresenter.updateHomescreen();
-
-        verify(viewManagerModel).setActiveView("HomescreenView");
-        verify(viewManagerModel).firePropertyChanged();
-    }
 }
