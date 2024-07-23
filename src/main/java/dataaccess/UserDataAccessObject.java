@@ -16,22 +16,22 @@ import org.bson.conversions.Bson;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public abstract class UserDataAccessObject implements UserDataAccessInterface {
+public class UserDataAccessObject implements UserDataAccessInterface {
 
     //TODO: implement the following exceptions
-    public static class UserNotFoundException extends Exception{
+    public static class UserNotFoundException extends Exception {
         public UserNotFoundException() {
             super("User not found in the database");
         }
     }
 
-    public static class DuplicateUsernameException extends Exception{
+    public static class DuplicateUsernameException extends Exception {
         public DuplicateUsernameException() {
             super("Username already exists in the database");
         }
     }
 
-    public static class PasswordMismatchException extends Exception{
+    public static class PasswordMismatchException extends Exception {
         public PasswordMismatchException() {
             super("Passwords do not match");
         }
@@ -44,8 +44,7 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     private MongoCollection mongoCollection;
     private User user;
 
-    public UserDataAccessObject(User user) {
-        this.user= user;
+    public UserDataAccessObject() {
         String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 
         ServerApi serverApi = ServerApi.builder()
@@ -59,32 +58,34 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
         this.mongoClient = MongoClients.create("mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
         this.mongoDatabase = mongoClient.getDatabase("userDataBase");
+    }
 
+    public MongoCollection getCollectionByType(User user) {
         if (user instanceof ArtistUser) {
-            this.mongoCollection = mongoDatabase.getCollection("artistUser");
+            return mongoDatabase.getCollection("artistUser");
         } else if (user instanceof AudienceUser) {
-            this.mongoCollection = mongoDatabase.getCollection("audienceUser");
+            return mongoDatabase.getCollection("audienceUser");
         } else if (user instanceof VenueUser) {
-            this.mongoCollection = mongoDatabase.getCollection("venueUser");
+            return mongoDatabase.getCollection("venueUser");
         }
+        return null;
     }
 
     @Override
-    public boolean userExistsInDatabase(String username){
-        Bson filter = eq("username",username);
+    public boolean userExistsInDatabase(String username) {
+        Bson filter = eq("username", username);
         return mongoCollection.find(filter).iterator().hasNext();
     }
 
     @Override
-    public void updateUsername(User user, String newUsername)  throws UserNotFoundException{
+    public void updateUsername(User user, String newUsername) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
-            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
-            //assumption that only audience will change usernames
-            Document query = new Document("username",newUsername);
+            MongoCollection<Document> mongoCollection = getCollectionByType(user);
+            Document query = new Document("username", newUsername);
             if (userExistsInDatabase(user.getUsername())) {
-                Document update = new Document("$set",new Document("username", newUsername));
-                mongoCollection.updateOne(query,update);
+                Document update = new Document("$set", new Document("username", newUsername));
+                mongoCollection.updateOne(query, update);
                 System.out.println("Your username has been updated successfully.");
             } else {
                 throw new UserNotFoundException();
@@ -94,46 +95,43 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public void updatePassword(User user, String newPassword, String confirmPassword) throws PasswordMismatchException, UserNotFoundException {
-        Document query = new Document("password",newPassword);
+        Document query = new Document("password", newPassword);
         try {
-            Document update = new Document("$set",new Document("password", newPassword));
-            mongoCollection.updateOne(query,update);
+            Document update = new Document("$set", new Document("password", newPassword));
+            this.mongoCollection = getCollectionByType(user);
+            mongoCollection.updateOne(query, update);
             System.out.println("Your password has been updated successfully.");
             if (!newPassword.equals(confirmPassword)) {
                 throw new PasswordMismatchException();
             } else if (!userExistsInDatabase(user.getUsername())) {
                 throw new UserNotFoundException();
             }
-        }
-        catch (PasswordMismatchException e) {
-            //how do catch blocks work lol
-        }
-        catch (UserNotFoundException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
     @Override
-    public void updateEmail(User user, String newEmail) throws UserNotFoundException{
+    public void updateEmail(User user, String newEmail) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
-            //currently setting up with audience user for the time being
-            MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("audienceUser");
+            this.mongoCollection = getCollectionByType(user);
             Document query = new Document("email", newEmail);
             if (userExistsInDatabase(user.getEmail())) {
-                Document update = new Document("$set",new Document("username", newEmail));
-                mongoCollection.updateOne(query,update);
+                Document update = new Document("$set", new Document("username", newEmail));
+                mongoCollection.updateOne(query, update);
                 System.out.println("Your email has been updated successfully.");
             } else {
                 throw new UserNotFoundException();
             }
-    }
+        }
     }
 
     @Override
-    public void create(User user) throws DuplicateUsernameException {
+    public void create(User user) throws UserAlreadyExistsException {
         if (userExistsInDatabase(user.getUsername())) {
-            throw new DuplicateUsernameException();
+            throw new UserAlreadyExistsException();
         } else {
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
@@ -146,27 +144,22 @@ public abstract class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    //implementing this as a delete user functionality.
     public void delete(User user) throws UserNotFoundException {
-        try {
-            if (userExistsInDatabase(user.getUsername())) {
-                Bson filter = Filters.eq("username", user.getUsername());
-                mongoCollection.deleteOne(filter);
-            }
-        } catch (Exception e) {
+        if (userExistsInDatabase(user.getUsername())) {
+            Bson filter = Filters.eq("username", user.getUsername());
+            mongoCollection.deleteOne(filter);
+        } else {
             throw new UserNotFoundException();
         }
     }
 
-/*
-    //yo did i accidentally delete smth here ????? it looks off - tas
     @Override
-    public String[] getUserData(User user){
-            return new String[0];
-        }
+    public User getUserFromUsername(String username) {
+        return null; // TODO: Implement
+    }
 
-    public void Throwable;(UserNotFoundException userNotFoundException){
-        System.out.println("User was not found in the database");
+    @Override
+    public boolean passwordMatches(String username, String password) {
+       return false;
     }
-*/
-    }
+}

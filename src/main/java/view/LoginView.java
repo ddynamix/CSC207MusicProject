@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -37,7 +35,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Login Screen");
+        JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -54,20 +52,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logIn.addActionListener(this);
         cancel.addActionListener(this);
 
-        usernameInputField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText());
-                loginViewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {}
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -81,6 +65,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(logIn)) {
             System.out.println("log in button pressed");
+            loginController.execute(usernameInputField.getText(), String.valueOf(passwordInputField.getPassword()));
         } else if (evt.getSource().equals(cancel)) {
             loginPresenter.prepareSplashView();
         }
@@ -96,5 +81,4 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         usernameInputField.setText(state.getUsername());
         passwordInputField.setText(state.getPassword());
     }
-
 }

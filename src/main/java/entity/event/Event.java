@@ -3,6 +3,7 @@ package entity.event;
 import entity.user.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,9 @@ public class Event implements IEvent {
     private LocalDateTime postDate;
     private String attachedMedia;
     private int id;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
 
     /**
      * @param title         String              title
@@ -111,6 +115,21 @@ public class Event implements IEvent {
      */
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String getDateAndTimeString() {
+        return dateAndTime.format(formatter);
+    }
+
+    @Override
+    public String getPostDateString() {
+        return postDate.format(formatter);
+    }
+
+    @Override
+    public String getTagsString() {
+        return String.join("; ", tags);
     }
 
     /**
