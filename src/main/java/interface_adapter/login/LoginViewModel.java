@@ -26,12 +26,12 @@ public class LoginViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
+    @Override
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
 
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

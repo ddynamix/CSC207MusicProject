@@ -2,26 +2,40 @@ package interface_adapter.splash;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.audiencesignup.AudienceSignupViewModel;
-import interface_adapter.signupselector.SignupSelectorViewModel;
+import interface_adapter.usersignup.UserSignupViewModel;
 
+/**
+ * Presenter for splash view
+ */
 public class SplashPresenter {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
-    private final SignupSelectorViewModel signupSelectorViewModel;
+    private final UserSignupViewModel signUpViewModel;
 
-    public SplashPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupSelectorViewModel signupSelectorViewModel) {
+    /**
+     * instance of presenter
+     * @param viewManagerModel  controller of view models
+     * @param loginViewModel    login view creator
+     * @param signupViewModel   signup view creator
+     */
+    public SplashPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, UserSignupViewModel signupViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
-        this.signupSelectorViewModel = signupSelectorViewModel;
+        this.signUpViewModel = signupViewModel;
     }
 
+    /**
+     * Create signup view
+     */
     public void prepareSignupView() {
         System.out.println("SplashPresenter.prepareSignupView");
-        viewManagerModel.setActiveView(signupSelectorViewModel.getViewName());
+        viewManagerModel.setActiveView(signUpViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * create login view
+     */
     public void prepareLoginView() {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

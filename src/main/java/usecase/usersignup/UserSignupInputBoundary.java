@@ -1,5 +1,8 @@
 package usecase.usersignup;
 
+/**
+ * interface between controller and interactor
+ */
 public interface UserSignupInputBoundary {
-    void execute(UserSignupData userSignupData);
+    void attemptSignUp(UserSignupData userSignupData);
 }
