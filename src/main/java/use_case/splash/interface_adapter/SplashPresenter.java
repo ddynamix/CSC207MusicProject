@@ -1,13 +1,14 @@
-package interface_adapter.splash;
+package use_case.splash.interface_adapter;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.login.interface_adapter.LoginViewModel;
+import use_case.splash.SplashOutputBoundary;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
 /**
  * Presenter for splash view
  */
-public class SplashPresenter {
+public class SplashPresenter implements SplashOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
     private final UserSignupViewModel signUpViewModel;
@@ -27,8 +28,8 @@ public class SplashPresenter {
     /**
      * Create signup view
      */
-    public void prepareSignupView() {
-        System.out.println("SplashPresenter.prepareSignupView");
+    @Override
+    public void prepareSignUpView() {
         viewManagerModel.setActiveView(signUpViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -36,6 +37,7 @@ public class SplashPresenter {
     /**
      * create login view
      */
+    @Override
     public void prepareLoginView() {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

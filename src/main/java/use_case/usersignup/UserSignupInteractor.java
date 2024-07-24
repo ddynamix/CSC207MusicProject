@@ -49,6 +49,11 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
         }
     }
 
+    @Override
+    public void cancelSignUp() {
+        userPresenter.prepareSplashView();
+    }
+
     /**
      * Return user
      * @param input UserSignupData
@@ -65,5 +70,4 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
         }
         return user;
     }
-
 }

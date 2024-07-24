@@ -3,7 +3,8 @@ package use_case.usersignup.interface_adapter;
 
 import use_case.login.interface_adapter.LoginState;
 import use_case.login.interface_adapter.LoginViewModel;
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
+import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.usersignup.SignupOutputBoundary;
 import use_case.usersignup.SignupOutputData;
 
@@ -17,21 +18,25 @@ public class UserSignupPresenter implements SignupOutputBoundary {
 
     private final UserSignupViewModel signupViewModel;
     private final LoginViewModel loginViewModel;
+    private final SplashViewModel splashViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public UserSignupPresenter(ViewManagerModel viewManagerModel,
-                                   UserSignupViewModel signupViewModel,
-                                   LoginViewModel loginViewModel) {
+                               UserSignupViewModel signupViewModel,
+                               SplashViewModel splashViewModel,
+                               LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
         this.loginViewModel = loginViewModel;
+        this.splashViewModel = splashViewModel;
     }
 
     /**
      * Build success if the user was able to be created
+     *
      * @param response outgoing message
      */
-        @Override
+    @Override
     public void prepareSuccessView(SignupOutputData response) {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
@@ -46,6 +51,7 @@ public class UserSignupPresenter implements SignupOutputBoundary {
 
     /**
      * Build failure if the user could not be created
+     *
      * @param error failure message for user
      */
     @Override
@@ -53,5 +59,11 @@ public class UserSignupPresenter implements SignupOutputBoundary {
         UserSignupState userSignupState = signupViewModel.getState();
         userSignupState.setUsernameError(error);
         signupViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareSplashView() {
+        viewManagerModel.setActiveView(splashViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

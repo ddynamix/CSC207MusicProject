@@ -1,4 +1,4 @@
-package interface_adapter.login;
+package interface_adapter_tools.login;
 
 import use_case.login.LoginInputBoundary;
 import org.junit.jupiter.api.BeforeEach;

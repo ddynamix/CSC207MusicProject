@@ -1,7 +1,8 @@
-package interface_adapter.splash;
+package interface_adapter_tools.splash;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.login.interface_adapter.LoginViewModel;
+import use_case.splash.interface_adapter.SplashPresenter;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

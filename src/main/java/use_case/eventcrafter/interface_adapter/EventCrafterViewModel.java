@@ -1,6 +1,6 @@
 package use_case.eventcrafter.interface_adapter;
 
-import interface_adapter.ViewModel;
+import app.interface_adapter_tools.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

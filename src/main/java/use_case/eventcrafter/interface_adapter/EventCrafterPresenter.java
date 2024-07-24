@@ -1,6 +1,6 @@
 package use_case.eventcrafter.interface_adapter;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.eventcrafter.EventCrafterOutputBoundary;

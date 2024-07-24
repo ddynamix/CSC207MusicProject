@@ -1,6 +1,6 @@
-package interface_adapter.homescreen;
+package interface_adapter_tools.homescreen;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import use_case.homescreen.interface_adapter.HomescreenPresenter;

@@ -1,6 +1,6 @@
 package view.jswing_views;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;

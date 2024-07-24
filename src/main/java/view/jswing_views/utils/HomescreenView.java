@@ -1,4 +1,4 @@
-package view.jswing_views;
+package view.jswing_views.utils;
 
 import entity.event.Event;
 import entity.user.AudienceUser;
@@ -6,7 +6,6 @@ import entity.user.User;
 import use_case.homescreen.interface_adapter.HomescreenController;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

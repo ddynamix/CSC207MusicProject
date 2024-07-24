@@ -1,10 +1,10 @@
-package interface_adapter.login;
+package interface_adapter_tools.login;
 
 import entity.user.User;
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import interface_adapter.splash.SplashViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.LoginOutputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

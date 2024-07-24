@@ -1,8 +1,9 @@
 package app.swing_view_factories;
 
 import data_access.UserDataAccessInterface;
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.login.interface_adapter.LoginViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.usersignup.interface_adapter.UserSignupController;
 import use_case.usersignup.interface_adapter.UserSignupPresenter;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
@@ -16,36 +17,22 @@ import view.jswing_views.UserSignupView;
  */
 public class UserSignupViewFactory {
 
-    /**
-     * create view instance
-     * @param viewManagerModel  controller of view models
-     * @param loginViewModel    login view creator
-     * @param signupViewModel   signup view creator
-     * @param userDataAccessObject  access to database
-     * @return UserSignupView   the created view
-     */
-    public static UserSignupView createSignupView(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, UserSignupViewModel signupViewModel, UserDataAccessInterface userDataAccessObject) {
-        UserSignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
-
-        UserSignupPresenter signupPresenter = new UserSignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
-
-        return new UserSignupView(signupController, signupPresenter, signupViewModel);
-    }
+    private UserSignupViewFactory() {}
 
     /**
-     * create controller instance
-     * @param viewManagerModel  controller of view models
-     * @param loginViewModel    login view creator
-     * @param signupViewModel   signup view creator
-     * @param userDataAccessObject  access to database
-     * @return UserSignupController the created controller
+     * create signup screen instance
+     *
+     * @param viewManagerModel     controller of view models
+     * @param loginViewModel       data for login view
+     * @param signupViewModel      data for this view
+     * @param userDataAccessObject access to database
+     * @return UserSignupView      the created view
      */
-    private static UserSignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, UserSignupViewModel signupViewModel, LoginViewModel loginViewModel, UserDataAccessInterface userDataAccessObject) {
-        SignupOutputBoundary signupOutputBoundary = new UserSignupPresenter(viewManagerModel, signupViewModel, loginViewModel);
+    public static UserSignupView createSignupView(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, UserSignupViewModel signupViewModel, SplashViewModel splashViewModel, UserDataAccessInterface userDataAccessObject) {
+        SignupOutputBoundary signupPresenter = new UserSignupPresenter(viewManagerModel, signupViewModel, splashViewModel, loginViewModel);
+        UserSignupInputBoundary signupInteractor = new UserSignupInteractor(userDataAccessObject, signupPresenter);
+        UserSignupController signupController = new UserSignupController(signupInteractor);
 
-        UserSignupInputBoundary signupInteractor = new UserSignupInteractor(
-                userDataAccessObject, signupOutputBoundary);
-
-        return new UserSignupController(signupInteractor);
+        return new UserSignupView(signupViewModel, signupController);
     }
 }

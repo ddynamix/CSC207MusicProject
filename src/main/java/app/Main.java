@@ -2,20 +2,20 @@ package app;
 
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
-import interface_adapter.ViewModel;
+import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import interface_adapter.splash.SplashViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.interface_adapter.LoginViewModel;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
 import java.util.HashMap;
 
 /*
- * TODO: Refactor project according to lecture 8, packaging by layer.
  * TODO: Add sign out button.
  * TODO: Display events by profile type on User's profile.
  * TODO: Add search for venues and artists.
+ * TODO: Fix tests.
  */
 
 public class Main {

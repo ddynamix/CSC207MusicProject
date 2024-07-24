@@ -1,6 +1,6 @@
 package app;
 
-import interface_adapter.ViewModel;
+import app.interface_adapter_tools.ViewModel;
 
 import java.util.HashMap;
 

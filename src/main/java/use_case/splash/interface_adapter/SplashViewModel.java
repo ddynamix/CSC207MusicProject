@@ -1,6 +1,6 @@
-package interface_adapter.splash;
+package use_case.splash.interface_adapter;
 
-import interface_adapter.ViewModel;
+import app.interface_adapter_tools.ViewModel;
 
 import java.beans.PropertyChangeListener;
 

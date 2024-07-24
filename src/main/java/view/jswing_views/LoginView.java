@@ -1,7 +1,6 @@
 package view.jswing_views;
 
 import use_case.login.interface_adapter.LoginController;
-import use_case.login.interface_adapter.LoginPresenter;
 import use_case.login.interface_adapter.LoginState;
 import use_case.login.interface_adapter.LoginViewModel;
 
@@ -17,7 +16,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
 
-    private final LoginPresenter loginPresenter;
     private final LoginController loginController;
 
     final JTextField usernameInputField = new JTextField(15);
@@ -29,9 +27,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton logIn;
     final JButton cancel;
 
-    public LoginView(LoginController loginController, LoginPresenter loginPresenter, LoginViewModel loginViewModel) {
+    public LoginView(LoginViewModel loginViewModel, LoginController loginController) {
         this.loginController = loginController;
-        this.loginPresenter = loginPresenter;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
@@ -65,7 +62,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             System.out.println("log in button pressed");
             loginController.execute(usernameInputField.getText(), String.valueOf(passwordInputField.getPassword()));
         } else if (evt.getSource().equals(cancel)) {
-            loginPresenter.prepareSplashView();
+            loginController.cancelClicked();
         }
     }
 

@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.splash.SplashPresenter;
-import interface_adapter.splash.SplashViewModel;
+import use_case.splash.interface_adapter.SplashPresenter;
+import use_case.splash.interface_adapter.SplashViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

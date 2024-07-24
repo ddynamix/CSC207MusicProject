@@ -2,7 +2,6 @@ package view.jswing_views;
 
 import use_case.usersignup.interface_adapter.UserSignupState;
 import use_case.usersignup.interface_adapter.UserSignupController;
-import use_case.usersignup.interface_adapter.UserSignupPresenter;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
 import javax.swing.*;
@@ -24,7 +23,6 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     private final JTextField nameInputField = new JTextField(15);
 
     private final UserSignupController signupController;
-    private final UserSignupPresenter signupPresenter;
 
     private final JButton signUp;
     private final JButton cancel;
@@ -32,10 +30,8 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     private final ButtonGroup options;
 
 
-    public UserSignupView(UserSignupController controller, UserSignupPresenter presenter,
-                          UserSignupViewModel signupViewModel) {
+    public UserSignupView(UserSignupViewModel signupViewModel, UserSignupController controller) {
         this.signupController = controller;
-        this.signupPresenter = presenter;
         this.signupViewModel = signupViewModel;
         this.signupViewModel.addPropertyChangeListener(this);
 
@@ -91,7 +87,7 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         String type = "";
 
         if (evt.getSource().equals(signUp)) {
-            for (Enumeration<AbstractButton> buttons = options.getElements(); buttons.hasMoreElements();) {
+            for (Enumeration<AbstractButton> buttons = options.getElements(); buttons.hasMoreElements(); ) {
                 AbstractButton button = buttons.nextElement();
 
                 if (button.isSelected()) {
@@ -106,7 +102,7 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
                         String.valueOf(nameInputField.getText()));
             }
         } else if (evt.getSource().equals(cancel)) {
-            // signupPresenter.prepareSignupSelectorView();
+            signupController.cancelClicked();
         }
     }
 

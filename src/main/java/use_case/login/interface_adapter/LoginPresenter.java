@@ -1,9 +1,9 @@
 package use_case.login.interface_adapter;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import interface_adapter.splash.SplashViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -37,6 +37,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    @Override
     public void prepareSplashView() {
         viewManagerModel.setActiveView(splashViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

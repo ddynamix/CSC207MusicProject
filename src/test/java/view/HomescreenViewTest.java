@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import view.jswing_views.HomescreenView;
+import view.jswing_views.utils.HomescreenView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
