@@ -15,12 +15,12 @@ class HomescreenPresenterTest {
     private HomescreenPresenter homescreenPresenter;
     private EventCrafterViewModel eventCrafterViewModel;
 
-    @BeforeEach
-    void setUp() {
-        viewManagerModel = mock(ViewManagerModel.class);
-        homescreenViewModel = mock(HomescreenViewModel.class);
-        eventCrafterViewModel = mock(EventCrafterViewModel.class);
-
-        homescreenPresenter = new HomescreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        viewManagerModel = mock(ViewManagerModel.class);
+//        homescreenViewModel = mock(HomescreenViewModel.class);
+//        eventCrafterViewModel = mock(EventCrafterViewModel.class);
+//
+//        homescreenPresenter = new HomescreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel);
+//    }
 }

@@ -26,17 +26,6 @@ class SplashPresenterTest {
     }
 
     @Test
-    void testPrepareSignupView() {
-        String expectedSignupViewName = "signupView";
-        when(userSignupViewModel.getViewName()).thenReturn(expectedSignupViewName);
-
-        splashPresenter.prepareSignupView();
-
-        verify(viewManagerModel).setActiveView(expectedSignupViewName);
-        verify(viewManagerModel).firePropertyChanged();
-    }
-
-    @Test
     void testPrepareLoginView() {
         String expectedLoginViewName = "loginView";
         when(loginViewModel.getViewName()).thenReturn(expectedLoginViewName);

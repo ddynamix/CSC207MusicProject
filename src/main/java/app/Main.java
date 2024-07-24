@@ -12,7 +12,6 @@ import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import java.util.HashMap;
 
 /*
- * TODO: Add sign out button.
  * TODO: Display events by profile type on User's profile.
  * TODO: Add search for venues and artists.
  * TODO: Fix tests.
