@@ -29,7 +29,7 @@ class UserLocalCSVDataStorageTest {
     }
 
     @Test
-    void testCreateUser() throws UserAlreadyExistsException {
+    void testCreateUser() throws UserDataAccessObject.DuplicateUsernameException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -38,7 +38,7 @@ class UserLocalCSVDataStorageTest {
     }
 
     @Test
-    void testUserExistsInDatabase() throws UserAlreadyExistsException {
+    void testUserExistsInDatabase() throws UserDataAccessObject.DuplicateUsernameException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -47,7 +47,7 @@ class UserLocalCSVDataStorageTest {
     }
 
     @Test
-    void testPasswordMatches() throws UserAlreadyExistsException {
+    void testPasswordMatches() throws UserDataAccessObject.DuplicateUsernameException {
         User user = new User("name", "username", "password", "email@example.com");
         dataStorage.create(user);
 
@@ -63,7 +63,7 @@ class UserLocalCSVDataStorageTest {
         assertDoesNotThrow(() -> dataStorage.create(user1), "Creating user1 should not throw an exception");
 
         // Expect DuplicateUsernameException to be thrown
-        assertThrows(UserAlreadyExistsException.class, () -> dataStorage.create(user2),
+        assertThrows(UserDataAccessObject.DuplicateUsernameException.class, () -> dataStorage.create(user2),
                 "Creating user2 with the same username should throw DuplicateUsernameException");
     }
 }
