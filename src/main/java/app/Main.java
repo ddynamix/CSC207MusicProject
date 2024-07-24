@@ -1,74 +1,47 @@
 package app;
 
-import dataaccess.EventDataAccessInterface;
-import dataaccess.EventLocalCSVDataStorage;
-import dataaccess.UserLocalCSVDataStorage;
-import dataaccess.UserDataAccessInterface;
-import interface_adapter.eventcrafter.EventCrafterViewModel;
-import interface_adapter.homescreen.HomescreenViewModel;
+import data_access.csv.CSVDataAccessObjectFactory;
+import data_access.DataAccessFactoryInterface;
+import interface_adapter.ViewModel;
+import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import interface_adapter.splash.SplashViewModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.usersignup.UserSignupViewModel;
-import interface_adapter.ViewManagerModel;
-import view.*;
+import use_case.login.interface_adapter.LoginViewModel;
+import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.HashMap;
 
-// TODO: Refactor project according to lecture 8, packaging by layer.
-// TODO: Add sign out button.
-// TODO: Display events by profile type on User's profile.
-// TODO: Add search for venues and artists.
+/*
+ * TODO: Refactor project according to lecture 8, packaging by layer.
+ * TODO: Add sign out button.
+ * TODO: Display events by profile type on User's profile.
+ * TODO: Add search for venues and artists.
+ */
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Music App");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // Here, you will choose how to display the app.
+        ViewCreatorInterface viewCreatorInterface = new SwingViewCreator();
 
-        CardLayout cardLayout = new CardLayout();
 
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
+        // Here, you will choose how to store the data.
+        DataAccessFactoryInterface dataAccessFactory = new CSVDataAccessObjectFactory();
 
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
 
-        UserDataAccessInterface userDataAccessObject = null;
-        EventDataAccessInterface eventDataAccessObject = null;
-        try {
-            userDataAccessObject = new UserLocalCSVDataStorage("./users.csv");
-            eventDataAccessObject = new EventLocalCSVDataStorage("./events.csv", userDataAccessObject);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Could not open a file data file.");
-        }
+        // Instantiate all data access objects
+        HashMap<String, Object> dataAccessObjects = new HashMap<>();
+        dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
+        dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
 
-        // Instantiate and inject all view models
-        SplashViewModel splashViewModel = new SplashViewModel();
-        LoginViewModel loginViewModel = new LoginViewModel();
-        UserSignupViewModel signupViewModel = new UserSignupViewModel();
-        HomescreenViewModel homescreenViewModel = new HomescreenViewModel();
-        EventCrafterViewModel eventCrafterViewModel = new EventCrafterViewModel();
+        // Instantiate all view models
+        HashMap<String, ViewModel> viewModels = new HashMap<>();
+        viewModels.put("splashViewModel", new SplashViewModel());
+        viewModels.put("loginViewModel", new LoginViewModel());
+        viewModels.put("signupViewModel", new UserSignupViewModel());
+        viewModels.put("homescreenViewModel", new HomescreenViewModel());
+        viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
 
-        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, splashViewModel, signupViewModel);
-        views.add(splashView, splashView.viewName);
-
-        UserSignupView userSignupView = UserSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
-        views.add(userSignupView, userSignupView.viewName);
-
-        LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel, homescreenViewModel, userDataAccessObject);
-        views.add(loginView, loginView.viewName);
-
-        HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(viewManagerModel, eventCrafterViewModel, homescreenViewModel, userDataAccessObject, eventDataAccessObject);
-        views.add(homescreenView, homescreenView.viewName);
-
-        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(viewManagerModel, homescreenViewModel, eventCrafterViewModel, eventDataAccessObject, userDataAccessObject);
-        views.add(eventCrafterView, eventCrafterView.viewName);
-
-        // Set the initial view
-        viewManagerModel.setActiveView(splashView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
+        viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
+        viewCreatorInterface.run();
     }
 }

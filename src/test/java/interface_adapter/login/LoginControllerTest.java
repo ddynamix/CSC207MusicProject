@@ -1,9 +1,9 @@
 package interface_adapter.login;
 
-import dataaccess.UserDataAccessInterface;
-import usecase.login.LoginInputBoundary;
+import use_case.login.LoginInputBoundary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.login.interface_adapter.LoginController;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;

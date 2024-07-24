@@ -2,14 +2,16 @@ package interface_adapter.login;
 
 import entity.user.User;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.homescreen.HomescreenState;
-import interface_adapter.homescreen.HomescreenViewModel;
+import use_case.homescreen.interface_adapter.HomescreenState;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import interface_adapter.splash.SplashViewModel;
-import usecase.login.LoginOutputData;
+import use_case.login.LoginOutputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import use_case.login.interface_adapter.LoginPresenter;
+
 import javax.swing.*;
 
 import static org.mockito.Mockito.*;

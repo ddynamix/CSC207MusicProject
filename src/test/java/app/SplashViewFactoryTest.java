@@ -1,10 +1,11 @@
 package app;
 
+import app.swing_view_factories.SplashViewFactory;
 import interface_adapter.splash.SplashViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.usersignup.UserSignupViewModel;
-import view.SplashView;
+import use_case.login.interface_adapter.LoginViewModel;
+import use_case.usersignup.interface_adapter.UserSignupViewModel;
+import view.jswing_views.SplashView;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

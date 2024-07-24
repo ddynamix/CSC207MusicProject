@@ -1,8 +1,8 @@
 package interface_adapter.splash;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.usersignup.UserSignupViewModel;
+import use_case.login.interface_adapter.LoginViewModel;
+import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
 /**
  * Presenter for splash view

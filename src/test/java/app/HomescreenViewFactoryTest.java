@@ -1,14 +1,5 @@
 package app;
 
-import interface_adapter.ViewManagerModel;
-import interface_adapter.eventcrafter.EventCrafterViewModel;
-import interface_adapter.homescreen.HomescreenController;
-import interface_adapter.homescreen.HomescreenPresenter;
-import interface_adapter.homescreen.HomescreenViewModel;
-import view.HomescreenView;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 

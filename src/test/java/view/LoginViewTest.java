@@ -1,13 +1,14 @@
 package view;
 
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
+import use_case.login.interface_adapter.LoginController;
+import use_case.login.interface_adapter.LoginPresenter;
+import use_case.login.interface_adapter.LoginState;
+import use_case.login.interface_adapter.LoginViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import view.jswing_views.LoginView;
 
 import java.beans.PropertyChangeEvent;
 

@@ -1,9 +1,10 @@
 package interface_adapter.homescreen;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.eventcrafter.EventCrafterViewModel;
+import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import use_case.homescreen.interface_adapter.HomescreenPresenter;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
 
 import static org.mockito.Mockito.*;
 

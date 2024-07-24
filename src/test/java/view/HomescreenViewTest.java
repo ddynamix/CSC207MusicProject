@@ -1,13 +1,13 @@
 package view;
 
-import interface_adapter.homescreen.HomescreenController;
-import interface_adapter.homescreen.HomescreenPresenter;
-import interface_adapter.homescreen.HomescreenState;
-import interface_adapter.homescreen.HomescreenViewModel;
+import use_case.homescreen.interface_adapter.HomescreenController;
+import use_case.homescreen.interface_adapter.HomescreenState;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import view.jswing_views.HomescreenView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
