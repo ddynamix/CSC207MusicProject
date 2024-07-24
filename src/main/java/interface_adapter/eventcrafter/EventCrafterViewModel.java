@@ -10,10 +10,13 @@ public class EventCrafterViewModel extends ViewModel {
     public final String TITLE_LABEL = "Event Crafter View";
     public final String EVENT_NAME_LABEL = "Enter event name";
     public final String EVENT_DESCRIPTION_LABEL = "Enter event description";
-    public final String EVENT_DATE_LABEL = "Enter event date";
-    public final String EVENT_LOCATION_LABEL = "Enter event location";
+    public final String EVENT_DATE_LABEL = "Enter event date (\"yyyy-MM-dd HH:mm\")";
+    public final String EVENT_TAGS_LABEL = "Enter event tags (separated by \";\")";
+    public final String EVENT_ATTACHED_MEDIA_LABEL = "Enter event attached media";
+    public final String POST_EVENT_BUTTON_LABEL = "Post Event";
+    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private EventCrafterState state = new EventCrafterState(null);
+    private EventCrafterState state = new EventCrafterState();
 
     public EventCrafterViewModel() {
         super("eventcrafter view");

@@ -1,8 +1,12 @@
 package dataaccess;
 
+import entity.user.ArtistUser;
+import entity.user.AudienceUser;
 import entity.user.User;
+import entity.user.VenueUser;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,7 +15,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
-    private final Map<String, User> accounts = new HashMap<>();
+    private final HashMap<String, User> accounts = new HashMap<>();
 
     public UserLocalCSVDataStorage(String csvPath) throws IOException {
 
@@ -21,6 +25,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         headers.put("email", 2);
         headers.put("name", 3);
         headers.put("creation_time", 4);
+        headers.put("type", 5);
 
         if (csvFile.length() == 0) {
             createFile();
@@ -39,9 +44,18 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
                     String email = String.valueOf(col[headers.get("email")]);
                     String name = String.valueOf(col[headers.get("name")]);
                     String creationTime = String.valueOf(col[headers.get("creation_time")]);
+                    String type = String.valueOf(col[headers.get("type")]);
 
-                    User user = new User(name, username, password, email);
-                    accounts.put(username, user);
+                    if (type.equals("artistuser")) {
+                        User user = new ArtistUser(name, username, password, email);
+                        accounts.put(username, user);
+                    } else if (type.equals("venueuser")) {
+                        User user = new VenueUser(name, username, password, email);
+                        accounts.put(username, user);
+                    } else {
+                        User user = new AudienceUser(name, username, password, email);
+                        accounts.put(username, user);
+                    }
                 }
             }
         }
@@ -55,11 +69,11 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
-    private void appendUserToCsv(String username, String password, String email, String name) {
+    private void appendUserToCsv(String username, String password, String email, String name, String type) {
         try (FileWriter fw = new FileWriter(csvFile, true);
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(username + "," + password + "," + email + "," + name + "," + System.currentTimeMillis());
+            out.println(username + "," + password + "," + email + "," + name + "," + System.currentTimeMillis() + "," + type);
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
@@ -67,9 +81,12 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     @Override
     public User getUserFromUsername(String username) {
+        printHashMap(accounts);
         if (userExistsInDatabase(username)) {
+            System.out.println("Looking for user in database: " + username);
             return accounts.get(username);
         } else {
+            System.out.println("User not found in database.");
             return null;
         }
     }
@@ -102,7 +119,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     public void create(User user) throws UserAlreadyExistsException {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
-            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), "name");
+            appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), user.getName(), user.getClass().getSimpleName().toLowerCase());
         } else {
             throw new UserAlreadyExistsException();
         }
@@ -116,5 +133,44 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     @Override
     public boolean passwordMatches(String username, String password) {
         return accounts.get(username).getPassword().equals(password);
+    }
+
+    @Override
+    public ArrayList<ArtistUser> getArtistUsers() {
+        ArrayList<ArtistUser> artistUsers = new ArrayList<>();
+        for (User user : accounts.values()) {
+            if (user instanceof ArtistUser) {
+                artistUsers.add((ArtistUser) user);
+            }
+        }
+        return artistUsers;
+    }
+
+    @Override
+    public ArrayList<VenueUser> getVenueUsers() {
+        ArrayList<VenueUser> venueUsers = new ArrayList<>();
+        for (User user : accounts.values()) {
+            if (user instanceof VenueUser) {
+                venueUsers.add((VenueUser) user);
+            }
+        }
+        return venueUsers;
+    }
+
+    @Override
+    public ArrayList<AudienceUser> getAudienceUsers() {
+        ArrayList<AudienceUser> audienceUsers = new ArrayList<>();
+        for (User user : accounts.values()) {
+            if (user instanceof AudienceUser) {
+                audienceUsers.add((AudienceUser) user);
+            }
+        }
+        return audienceUsers;
+    }
+
+    private <K, V> void printHashMap(HashMap<K, V> map) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+        }
     }
 }

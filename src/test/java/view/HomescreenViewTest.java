@@ -25,20 +25,17 @@ public class HomescreenViewTest {
     @Mock
     private HomescreenController homescreenController;
 
-    @Mock
-    private HomescreenPresenter homescreenPresenter;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        homescreenView = new HomescreenView(homescreenViewModel, homescreenController, homescreenPresenter);
+        homescreenView = new HomescreenView(homescreenViewModel, homescreenController);
     }
 
     @Test
     public void testPropertyChange_updatesWelcomeMessage() {
         HomescreenState state = mock(HomescreenState.class);
-        when(state.getUsername()).thenReturn("testUser");
+        when(state.getSignedInAs().getUsername()).thenReturn("testUser");
 
         PropertyChangeEvent event = new PropertyChangeEvent(homescreenViewModel, "state", null, state);
 

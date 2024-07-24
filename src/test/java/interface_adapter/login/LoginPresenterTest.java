@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import entity.user.User;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.homescreen.HomescreenState;
 import interface_adapter.homescreen.HomescreenViewModel;
@@ -31,8 +32,8 @@ class LoginPresenterTest {
 
     @Test
     void testPrepareSuccessView() {
-        String username = "testUser";
-        LoginOutputData outputData = new LoginOutputData(username);
+        User user = new User("testUser", "testUsername","testPassword", "testEmail");
+        LoginOutputData outputData = new LoginOutputData(user);
 
         HomescreenState homescreenState = mock(HomescreenState.class);
         when(homescreenViewModel.getState()).thenReturn(homescreenState);
@@ -40,7 +41,7 @@ class LoginPresenterTest {
 
         loginPresenter.prepareSuccessView(outputData);
 
-        verify(homescreenState).setUsername(username);
+        verify(homescreenState).setSignedInAs(user);
         verify(homescreenViewModel).setState(homescreenState);
         verify(homescreenViewModel).firePropertyChanged();
         verify(viewManagerModel).setActiveView("HomescreenView");

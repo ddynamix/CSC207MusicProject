@@ -1,5 +1,10 @@
 package dataaccess;
+import entity.user.ArtistUser;
+import entity.user.AudienceUser;
 import entity.user.User;
+import entity.user.VenueUser;
+
+import java.util.ArrayList;
 
 public interface UserDataAccessInterface {
     // Data Access Interface - implement CRUD operations for User entity
@@ -9,7 +14,11 @@ public interface UserDataAccessInterface {
     void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
     void create(User user) throws UserAlreadyExistsException;
     void delete(User user) throws UserDataAccessObject.UserNotFoundException;
+
     User getUserFromUsername(String username);
+    ArrayList<ArtistUser> getArtistUsers();
+    ArrayList<VenueUser> getVenueUsers();
+    ArrayList<AudienceUser> getAudienceUsers();
 
     boolean passwordMatches(String username, String password);
 

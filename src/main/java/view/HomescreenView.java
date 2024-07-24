@@ -1,6 +1,8 @@
 package view;
 
 import entity.event.Event;
+import entity.user.AudienceUser;
+import entity.user.User;
 import interface_adapter.homescreen.HomescreenController;
 import interface_adapter.homescreen.HomescreenPresenter;
 import interface_adapter.homescreen.HomescreenState;
@@ -18,20 +20,18 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final HomescreenViewModel homescreenViewModel;
 
     private final HomescreenController homescreenController;
-    private final HomescreenPresenter homescreenPresenter;
 
-    private String signedInAs = "";
+    private User signedInAs = null;
     JLabel welcome_message;
 
     private JList<Event> eventList;
     private DefaultListModel<Event> eventListModel;
 
-    final JButton createEventButton;
+    JButton createEventButton;
 
-    public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController, HomescreenPresenter homescreenPresenter) {
+    public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenController = homescreenController;
-        this.homescreenPresenter = homescreenPresenter;
         this.homescreenViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
@@ -48,6 +48,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         createEventButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
         createEventButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         createEventButton.addActionListener(this);
+
+        createEventButton.setVisible(false);
 
         JScrollPane scrollPane = new JScrollPane(eventList);
 
@@ -69,7 +71,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(createEventButton)) {
-            homescreenController.executeCreateEvent();
+            homescreenController.executeCreateEvent(homescreenViewModel.getState().getSignedInAs());
         }
     }
 
@@ -77,9 +79,12 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     public void propertyChange(PropertyChangeEvent evt) {
         try {
             HomescreenState state = (HomescreenState) evt.getNewValue();
-            this.signedInAs = state.getSignedInAs().getName();
-            welcome_message.setText("Signed in as: " + signedInAs);
+            this.signedInAs = state.getSignedInAs();
+            welcome_message.setText("Signed in as: " + signedInAs.getUsername());
 
+            createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
+            
+            System.out.println("HomescreenView received new state: " + state);
             this.setEvents(state.getEvents());
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");

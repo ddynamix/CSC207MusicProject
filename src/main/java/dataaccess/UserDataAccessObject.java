@@ -14,6 +14,8 @@ import entity.user.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.ArrayList;
+
 import static com.mongodb.client.model.Filters.eq;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
@@ -156,6 +158,21 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public User getUserFromUsername(String username) {
         return null; // TODO: Implement
+    }
+
+    @Override
+    public ArrayList<ArtistUser> getArtistUsers() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<VenueUser> getVenueUsers() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<AudienceUser> getAudienceUsers() {
+        return null;
     }
 
     @Override

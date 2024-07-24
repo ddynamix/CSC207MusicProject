@@ -19,6 +19,8 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
     @Override
     public void attemptPostEvent(EventCrafterInputData eventCrafterInputData) {
         try {
+            System.out.println(eventCrafterInputData.getArtist().getUsername());
+
             Event event = new Event(eventCrafterInputData.getTitle(),
                     eventCrafterInputData.getArtist(),
                     eventCrafterInputData.getVenue(),
@@ -38,5 +40,10 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
         } catch (EventAlreadyExistsException e) {
             eventCrafterPresenter.prepareFailView("Event already exists.");
         }
+    }
+
+    @Override
+    public void switchToHomescreen() {
+        eventCrafterPresenter.prepareSuccessView(new EventCrafterOutputData(new ArrayList<>()));
     }
 }

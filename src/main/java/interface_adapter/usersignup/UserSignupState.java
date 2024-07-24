@@ -15,17 +15,8 @@ public class UserSignupState {
 
     /**
      * create instance
-     * @param copy UserSignupState duplication
      */
-    public UserSignupState(UserSignupState copy) {
-        username = copy.username;
-        usernameError = copy.usernameError;
-        password = copy.password;
-        passwordError = copy.passwordError;
-        repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
-        email = copy.email;
-        emailError = copy.emailError;
+    public UserSignupState() {
     }
 
     /**

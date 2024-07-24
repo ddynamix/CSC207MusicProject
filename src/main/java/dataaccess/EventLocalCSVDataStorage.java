@@ -106,6 +106,7 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
     @Override
     public void createEvent(Event event) throws EventAlreadyExistsException {
         if (!eventExists(event.getTitle())) {
+            System.out.println(event.getArtist().getUsername());
             appendEventToCsv(event);
             events.put(event.getTitle(), event);
         } else {

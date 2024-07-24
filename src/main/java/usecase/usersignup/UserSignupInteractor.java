@@ -57,9 +57,9 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
      */
     public User getUser(UserSignupData input){
         User user;
-        if (input.getType().equals("artist")){
+        if (input.getType().equals("Artist")){
             user = new ArtistUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());
-        } else if (input.getType().equals("venue")){
+        } else if (input.getType().equals("Venue")){
             user = new VenueUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());
         } else {
             user = new AudienceUser(input.getName(), input.getUsername(), input.getPassword(), input.getEmail());

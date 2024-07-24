@@ -1,6 +1,7 @@
 package usecase.login;
 
 import dataaccess.UserDataAccessInterface;
+import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -59,7 +60,7 @@ public class LoginInteractorTest {
         when(userDataAccessObject.userExistsInDatabase("user")).thenReturn(true);
         when(userDataAccessObject.passwordMatches("user", "password")).thenReturn(true);
 
-        LoginOutputData expectedOutputData = new LoginOutputData("user");
+        LoginOutputData expectedOutputData = new LoginOutputData(new User("name", "user", "password", "email"));
 
         loginInteractor.attemptLogin(loginInputData);
 

@@ -16,7 +16,7 @@ class LoginControllerTest {
     @BeforeEach
     void setUp() {
         loginInteractor = mock(LoginInputBoundary.class);
-        loginController = new LoginController(mock(UserDataAccessInterface.class), loginInteractor);
+        loginController = new LoginController(loginInteractor);
     }
 
     @Test

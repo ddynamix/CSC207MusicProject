@@ -34,7 +34,10 @@ public class EventCrafterController {
         LocalDateTime dateAndTimeFormatted = LocalDateTime.parse(dateAndTime, formatter);
         LocalDateTime postDateFormatted = LocalDateTime.parse(postDate, formatter);
         ArrayList<String> tagsFormatted = stringToArrayList(tags);
+
+        System.out.println("EventCrafterController: excecute: artist: " + artist);
         User artistUser = userDataAccessInterface.getUserFromUsername(artist);
+        System.out.println(artistUser);
         EventCrafterInputData eventCrafterInputData = new EventCrafterInputData(
                 title,
                 description,
@@ -49,8 +52,11 @@ public class EventCrafterController {
         eventCrafterInteractor.attemptPostEvent(eventCrafterInputData);
     }
 
+    public void switchToHomescreen() {
+        eventCrafterInteractor.switchToHomescreen();
+    }
+
     private ArrayList<String> stringToArrayList(String tags) {
         return new ArrayList<>(Arrays.asList(tags.split(";")));
     }
-
 }

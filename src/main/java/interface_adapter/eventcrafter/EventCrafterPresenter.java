@@ -32,4 +32,10 @@ public class EventCrafterPresenter implements EventCrafterOutputBoundary {
         JOptionPane.showMessageDialog(null, error);
         viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void switchToHomescreen() {
+        viewManagerModel.setActiveView(homescreenViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }
