@@ -6,16 +6,19 @@ import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.homescreen.HomescreenGetEventOutputData;
 import use_case.homescreen.HomescreenOutputBoundary;
 import use_case.homescreen.HomescreenOutputData;
+import use_case.splash.interface_adapter.SplashViewModel;
 
 public class HomescreenPresenter implements HomescreenOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final EventCrafterViewModel eventCrafterViewModel;
     private final HomescreenViewModel homescreenViewModel;
+    private final SplashViewModel splashViewModel;
 
-    public HomescreenPresenter(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel) {
+    public HomescreenPresenter(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.homescreenViewModel = homescreenViewModel;
+        this.splashViewModel = splashViewModel;
     }
 
     @Override
@@ -39,5 +42,16 @@ public class HomescreenPresenter implements HomescreenOutputBoundary {
 
         homescreenViewModel.setState(homescreenState);
         homescreenViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareSplashView() {
+        HomescreenState homescreenState = homescreenViewModel.getState();
+        homescreenState.setSignedInAs(null);
+
+        homescreenViewModel.setState(homescreenState);
+        homescreenViewModel.firePropertyChanged();
+        viewManagerModel.setActiveView(splashViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

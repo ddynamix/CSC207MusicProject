@@ -1,4 +1,4 @@
-package view.jswing_views.utils;
+package view.jswing_views;
 
 import entity.event.Event;
 import entity.user.AudienceUser;
@@ -6,6 +6,7 @@ import entity.user.User;
 import use_case.homescreen.interface_adapter.HomescreenController;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
+import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private DefaultListModel<Event> eventListModel;
 
     JButton createEventButton;
+    JButton signOutButton;
 
     public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController) {
         this.homescreenViewModel = homescreenViewModel;
@@ -43,12 +45,21 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         welcome_message = new JLabel("Signed in as: " + signedInAs);
         welcome_message.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
+        JPanel buttons = new JPanel();
+
         createEventButton = new JButton(homescreenViewModel.CREATE_EVENT_BUTTON_LABEL);
         createEventButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
         createEventButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         createEventButton.addActionListener(this);
-
         createEventButton.setVisible(false);
+
+        signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
+        signOutButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        signOutButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
+        signOutButton.addActionListener(this);
+
+        buttons.add(createEventButton);
+        buttons.add(signOutButton);
 
         JScrollPane scrollPane = new JScrollPane(eventList);
 
@@ -57,7 +68,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         this.add(title);
         this.add(welcome_message);
         this.add(scrollPane);
-        this.add(createEventButton);
+        this.add(buttons);
     }
 
     private void setEvents(ArrayList<Event> events) {
@@ -71,6 +82,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(createEventButton)) {
             homescreenController.executeCreateEvent(homescreenViewModel.getState().getSignedInAs());
+        } else if (evt.getSource().equals(signOutButton)) {
+            homescreenController.executeSignOut();
         }
     }
 
@@ -79,12 +92,15 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         try {
             HomescreenState state = (HomescreenState) evt.getNewValue();
             this.signedInAs = state.getSignedInAs();
-            welcome_message.setText("Signed in as: " + signedInAs.getUsername());
 
-            createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
-
-            System.out.println("HomescreenView received new state: " + state);
-            this.setEvents(state.getEvents());
+            if (signedInAs == null) {
+                welcome_message.setText("Not signed in");
+            } else {
+                welcome_message.setText("Signed in as: " + signedInAs.getUsername());
+                createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
+                System.out.println("HomescreenView received new state: " + state);
+                this.setEvents(state.getEvents());
+            }
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");
         }

@@ -26,6 +26,11 @@ public class HomescreenInteractor implements HomescreenInputBoundary {
         homescreenPresenter.prepareCreateEventView(homescreenOutputData);
     }
 
+    @Override
+    public void signOut() {
+        homescreenPresenter.prepareSplashView();
+    }
+
     private ArrayList<Event> getEventsAsList() {
         Map<String, Event> eventsMap = eventDataAccessInterface.getEvents();
         ArrayList<Event> eventsList = new ArrayList<>(eventsMap.values());

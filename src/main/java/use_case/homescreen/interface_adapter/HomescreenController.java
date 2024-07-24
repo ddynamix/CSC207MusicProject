@@ -5,14 +5,18 @@ import use_case.homescreen.HomescreenInputBoundary;
 import use_case.homescreen.HomescreenInputData;
 
 public class HomescreenController {
-    HomescreenInputBoundary homescreenInputBoundary;
+    HomescreenInputBoundary homescreenInteractor;
 
-    public HomescreenController(HomescreenInputBoundary homescreenInputBoundary) {
-        this.homescreenInputBoundary = homescreenInputBoundary;
+    public HomescreenController(HomescreenInputBoundary homescreenInteractor) {
+        this.homescreenInteractor = homescreenInteractor;
     }
 
     public void executeCreateEvent(User signedInAs) {
         HomescreenInputData homescreenInputData = new HomescreenInputData(signedInAs);
-        homescreenInputBoundary.createEventClicked(homescreenInputData);
+        homescreenInteractor.createEventClicked(homescreenInputData);
+    }
+
+    public void executeSignOut() {
+        homescreenInteractor.signOut();
     }
 }

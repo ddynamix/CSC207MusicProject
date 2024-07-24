@@ -10,7 +10,8 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.homescreen.HomescreenInputBoundary;
 import use_case.homescreen.HomescreenInteractor;
 import use_case.homescreen.HomescreenOutputBoundary;
-import view.jswing_views.utils.HomescreenView;
+import use_case.splash.interface_adapter.SplashViewModel;
+import view.jswing_views.HomescreenView;
 
 /**
  * Homescreen view factory
@@ -29,8 +30,8 @@ public class HomescreenViewFactory {
      * @param userDataAccessObject  data access object for users
      * @return HomescreenView       the created view
      */
-    public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
-        HomescreenOutputBoundary homescreenPresenter = new HomescreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel);
+    public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
+        HomescreenOutputBoundary homescreenPresenter = new HomescreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel, splashViewModel);
         HomescreenInputBoundary homescreenInteractor = new HomescreenInteractor(homescreenPresenter, userDataAccessObject, eventDataAccessObject);
         HomescreenController homescreenController = new HomescreenController(homescreenInteractor);
 

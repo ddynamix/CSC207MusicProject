@@ -3,6 +3,7 @@ package view.jswing_views;
 import use_case.login.interface_adapter.LoginController;
 import use_case.login.interface_adapter.LoginState;
 import use_case.login.interface_adapter.LoginViewModel;
+import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

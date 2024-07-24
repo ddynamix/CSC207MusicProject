@@ -6,6 +6,7 @@ import entity.user.VenueUser;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
 import use_case.eventcrafter.interface_adapter.EventCrafterState;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

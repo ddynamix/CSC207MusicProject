@@ -3,6 +3,7 @@ package view.jswing_views;
 import use_case.usersignup.interface_adapter.UserSignupState;
 import use_case.usersignup.interface_adapter.UserSignupController;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
+import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;

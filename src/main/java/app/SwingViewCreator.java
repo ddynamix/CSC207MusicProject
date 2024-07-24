@@ -11,7 +11,7 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.login.interface_adapter.LoginViewModel;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import view.jswing_views.*;
-import view.jswing_views.utils.HomescreenView;
+import view.jswing_views.HomescreenView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,6 +57,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
         HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(viewManagerModel,
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
+                (SplashViewModel) viewModels.get("splashViewModel"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(homescreenView, homescreenView.viewName);
