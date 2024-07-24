@@ -1,61 +1,46 @@
 package app;
 
-import interface_adapter.artistsignup.ArtistSignupViewModel;
-import interface_adapter.signupselector.SignupSelectorViewModel;
-import interface_adapter.splash.SplashViewModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.audiencesignup.AudienceSignupViewModel;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.venuesignup.VenueSignupViewModel;
-import view.*;
+import data_access.csv.CSVDataAccessObjectFactory;
+import data_access.DataAccessFactoryInterface;
+import app.interface_adapter_tools.ViewModel;
+import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
+import use_case.login.interface_adapter.LoginViewModel;
+import use_case.usersignup.interface_adapter.UserSignupViewModel;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.HashMap;
+
+/*
+ * TODO: Display events by profile type on User's profile.
+ * TODO: Add search for venues and artists.
+ * TODO: Fix tests.
+ */
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Music App");
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // Here, you will choose how to display the app.
+        ViewCreatorInterface viewCreatorInterface = new SwingViewCreator();
 
-        CardLayout cardLayout = new CardLayout();
 
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
+        // Here, you will choose how to store the data.
+        DataAccessFactoryInterface dataAccessFactory = new CSVDataAccessObjectFactory();
 
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
 
-        // Instantiate and inject all view models
-        SplashViewModel splashViewModel = new SplashViewModel();
-        SignupSelectorViewModel signupSelectorViewModel = new SignupSelectorViewModel();
-        LoginViewModel loginViewModel = new LoginViewModel();
-        AudienceSignupViewModel audienceSignupViewModel = new AudienceSignupViewModel();
-        ArtistSignupViewModel artistSignupViewModel = new ArtistSignupViewModel();
-        VenueSignupViewModel venueSignupViewModel = new VenueSignupViewModel();
+        // Instantiate all data access objects
+        HashMap<String, Object> dataAccessObjects = new HashMap<>();
+        dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
+        dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
 
-        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel, loginViewModel, signupSelectorViewModel, splashViewModel);
-        views.add(splashView, splashView.viewName);
+        // Instantiate all view models
+        HashMap<String, ViewModel> viewModels = new HashMap<>();
+        viewModels.put("splashViewModel", new SplashViewModel());
+        viewModels.put("loginViewModel", new LoginViewModel());
+        viewModels.put("signupViewModel", new UserSignupViewModel());
+        viewModels.put("homescreenViewModel", new HomescreenViewModel());
+        viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
 
-        SignupSelectorView signupSelectorView = SignupSelectorViewFactory.createSignupSelectorView(viewManagerModel, signupSelectorViewModel, audienceSignupViewModel, artistSignupViewModel, venueSignupViewModel, splashViewModel);
-        views.add(signupSelectorView, signupSelectorView.viewName);
-
-        AudienceSignupView audienceSignupView = AudienceSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, audienceSignupViewModel, signupSelectorViewModel);
-        views.add(audienceSignupView, audienceSignupView.viewName);
-
-        ArtistSignupView artistSignupView = ArtistSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, artistSignupViewModel, signupSelectorViewModel);
-        views.add(artistSignupView, artistSignupView.viewName);
-
-        VenueSignupView venueSignupView = VenueSignupViewFactory.createSignupView(viewManagerModel, loginViewModel, venueSignupViewModel, signupSelectorViewModel);
-        views.add(venueSignupView, venueSignupView.viewName);
-
-        LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel, loginViewModel, splashViewModel);
-        views.add(loginView, loginView.viewName);
-
-        // Set the initial view
-        viewManagerModel.setActiveView(splashView.viewName);
-        viewManagerModel.firePropertyChanged();
-
-        application.pack();
-        application.setVisible(true);
+        viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
+        viewCreatorInterface.run();
     }
 }
