@@ -9,6 +9,7 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -29,11 +30,15 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     JButton createEventButton;
     JButton signOutButton;
+    static JButton waffleButton;
+    JPopupMenu waffleMenu = new JPopupMenu();
 
     public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenController = homescreenController;
         this.homescreenViewModel.addPropertyChangeListener(this);
+
+        BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
 
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -58,17 +63,74 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         signOutButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         signOutButton.addActionListener(this);
 
+        // Create a waffle icon
+        waffleButton = getjButton();
+        // create arraylist of all JMenuItem options
+        var options = new ArrayList<JMenuItem>();
+        options.add(new JMenuItem("Home"));
+        options.add (new JMenuItem("My Profile"));
+        options.add(new JMenuItem("My Events"));
+        options.add(new JMenuItem("My Artists"));
+        options.add(new JMenuItem("My Venues"));
+        options.add(new JMenuItem("My Followers"));
+        options.add(new JMenuItem("Sign Out?"));
+
+        // Add options to the menu and add action listeners
+        for (JMenuItem item : options){
+            item.addActionListener(this);
+            waffleMenu.add(item);
+        }
+
+        // Add action listener to the button to show the popup menu
+        waffleButton.addActionListener(this);
+
         buttons.add(createEventButton);
         buttons.add(signOutButton);
 
+        // header panel
+        JPanel header = new JPanel();
+        header.add(title);
+        header.add(welcome_message);
+
+        header.add(waffleButton);
+        header.setSize(200, 200);
+        header.setVisible(true);
+
+        // Scroll Pane
         JScrollPane scrollPane = new JScrollPane(eventList);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(box);
 
-        this.add(title);
-        this.add(welcome_message);
+        // add to frame
+        this.add(header);
         this.add(scrollPane);
         this.add(buttons);
+    }
+
+    private static JButton getjButton() {
+        Icon waffleIcon = new Icon() {
+            private final int width = 20;
+            private final int height = 20;
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(Color.BLACK);
+                // Draw three horizontal lines
+                for (int i = 0; i < 3; i++) {
+                    int lineY = y + i * (6);
+                    g2.fillRect(x, lineY, 20, 2);
+                }
+            }
+            @Override
+            public int getIconWidth() {return width;}
+            @Override
+            public int getIconHeight() {return height;}
+        };
+
+        // Create a button with the waffle icon
+        waffleButton = new JButton(waffleIcon);
+        return waffleButton;
     }
 
     private void setEvents(ArrayList<Event> events) {
@@ -84,6 +146,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
             homescreenController.executeCreateEvent(homescreenViewModel.getState().getSignedInAs());
         } else if (evt.getSource().equals(signOutButton)) {
             homescreenController.executeSignOut();
+        } else if (evt.getSource().equals(waffleButton)){
+            waffleMenu.show(waffleButton, waffleButton.getWidth() / 2, waffleButton.getHeight() / 2);
         }
     }
 
