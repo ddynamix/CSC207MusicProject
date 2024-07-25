@@ -3,7 +3,7 @@ package app.swing_view_factories;
 import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenController;
 import use_case.homescreen.interface_adapter.HomescreenPresenter;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
@@ -24,14 +24,14 @@ public class HomescreenViewFactory {
      * create homescreen instance
      *
      * @param viewManagerModel      control of view models
-     * @param eventCrafterViewModel data for event crafter view
+     * @param eventScreenViewModel  data for event screen view
      * @param homescreenViewModel   data for this view
      * @param eventDataAccessObject data access object for events
      * @param userDataAccessObject  data access object for users
      * @return HomescreenView       the created view
      */
-    public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
-        HomescreenOutputBoundary homescreenPresenter = new HomescreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel, splashViewModel);
+    public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
+        HomescreenOutputBoundary homescreenPresenter = new HomescreenPresenter(viewManagerModel,eventScreenViewModel, splashViewModel);
         HomescreenInputBoundary homescreenInteractor = new HomescreenInteractor(homescreenPresenter, userDataAccessObject, eventDataAccessObject);
         HomescreenController homescreenController = new HomescreenController(homescreenInteractor);
 

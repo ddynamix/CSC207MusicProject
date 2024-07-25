@@ -19,8 +19,6 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
     @Override
     public void attemptPostEvent(EventCrafterInputData eventCrafterInputData) {
         try {
-            System.out.println(eventCrafterInputData.getArtist().getUsername());
-
             Event event = new Event(eventCrafterInputData.getTitle(),
                     eventCrafterInputData.getArtist(),
                     eventCrafterInputData.getVenue(),
@@ -43,7 +41,7 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
     }
 
     @Override
-    public void switchToHomescreen() {
+    public void switchToEventScreen() {
         eventCrafterPresenter.prepareSuccessView(new EventCrafterOutputData(new ArrayList<>()));
     }
 }

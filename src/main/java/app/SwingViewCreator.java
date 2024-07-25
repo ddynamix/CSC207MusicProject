@@ -5,6 +5,7 @@ import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
+import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
@@ -55,15 +56,22 @@ public class SwingViewCreator implements ViewCreatorInterface {
         views.add(loginView, loginView.viewName);
 
         HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(viewManagerModel,
-                (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(homescreenView, homescreenView.viewName);
 
-        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(viewManagerModel,
+        EventScreenView eventScreenView = EventScreenViewFactory.createEventScreenView(viewManagerModel,
+                (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+        views.add(eventScreenView, eventScreenView.viewName);
+
+        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(viewManagerModel,
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));

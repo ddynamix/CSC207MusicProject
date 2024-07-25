@@ -1,6 +1,8 @@
 package use_case.eventcrafter.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
+import use_case.eventscreen.interface_adapter.EventScreenState;
+import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.eventcrafter.EventCrafterOutputBoundary;
@@ -9,21 +11,23 @@ import use_case.eventcrafter.EventCrafterOutputData;
 import javax.swing.*;
 
 public class EventCrafterPresenter implements EventCrafterOutputBoundary {
-    private final HomescreenViewModel homescreenViewModel;
+    private final EventScreenViewModel eventScreenViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    public EventCrafterPresenter(HomescreenViewModel homescreenViewModel, ViewManagerModel viewManagerModel) {
-        this.homescreenViewModel = homescreenViewModel;
+    public EventCrafterPresenter(EventScreenViewModel eventScreenViewModel, ViewManagerModel viewManagerModel) {
+        this.eventScreenViewModel = eventScreenViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareSuccessView(EventCrafterOutputData eventCrafterOutputData) {
-        HomescreenState homescreenState = homescreenViewModel.getState();
-        homescreenState.setEvents(eventCrafterOutputData.getEvents());
-        homescreenViewModel.firePropertyChanged();
+        EventScreenState eventScreenState = eventScreenViewModel.getState();
+        eventScreenState.setEvents(eventCrafterOutputData.getEvents());
 
-        viewManagerModel.setActiveView(homescreenViewModel.getViewName());
+        eventScreenViewModel.setState(eventScreenState);
+        eventScreenViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(eventScreenViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
@@ -35,7 +39,7 @@ public class EventCrafterPresenter implements EventCrafterOutputBoundary {
 
     @Override
     public void switchToHomescreen() {
-        viewManagerModel.setActiveView(homescreenViewModel.getViewName());
+        viewManagerModel.setActiveView(eventScreenViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

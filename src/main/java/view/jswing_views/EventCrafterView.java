@@ -117,8 +117,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
                 JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
             }
         } else if (e.getSource().equals(cancel)) {
-            System.out.println("cancel button pressed");
-            eventCrafterController.switchToHomescreen();
+            eventCrafterController.switchToEventScreen();
         }
 
     }

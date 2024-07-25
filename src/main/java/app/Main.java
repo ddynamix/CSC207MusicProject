@@ -4,6 +4,7 @@ import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.interface_adapter.LoginViewModel;
@@ -15,6 +16,10 @@ import java.util.HashMap;
  * TODO: Display events by profile type on User's profile.
  * TODO: Add search for venues and artists.
  * TODO: Fix tests.
+ * TODO: Edit Event Feature for your events.
+ * TODO: Create events view.
+ * TODO: Implement following feature.
+ * TODO: Figure out how to load AudienceUser's saved events.
  */
 
 public class Main {
@@ -38,6 +43,7 @@ public class Main {
         viewModels.put("loginViewModel", new LoginViewModel());
         viewModels.put("signupViewModel", new UserSignupViewModel());
         viewModels.put("homescreenViewModel", new HomescreenViewModel());
+        viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
 
         viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);

@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 
 public class HomescreenViewModel extends ViewModel {
     public final String TITLE_LABEL = "Homescreen View";
-    public final String CREATE_EVENT_BUTTON_LABEL = "Create Event";
+    public final String EVENT_PAGE_BUTTON_LABEL = "My Events";
     public final String SIGN_OUT_BUTTON_LABEL = "Sign Out";
 
     private HomescreenState state = new HomescreenState();

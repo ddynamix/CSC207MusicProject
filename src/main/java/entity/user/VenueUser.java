@@ -1,6 +1,5 @@
 package entity.user;
 import entity.post.Post;
-import entity.user.User;
 import entity.event.Event;
 
 import java.time.LocalDateTime;
@@ -20,33 +19,6 @@ public class VenueUser extends User implements uploadable{
      */
     public VenueUser(String name, String username, String password, String email) {
         super(name, username, password, email);
-    }
-
-    /**
-     * Return past events
-     * @return  ArrayList<Event>    pastEvents</Event>
-     */
-    @Override
-    public ArrayList<Event> getPastEvents() {
-        return super.getPastEvents();
-    }
-
-    /**
-     * Create new instance of the event class
-     * @param title         String  event.title
-     * @param artist        User    event.artist
-     * @param venue         String  event.venue
-     * @param dateAndTime   LocalDateTime   event.dateAndTime
-     * @param description   String  event.description
-     * @param tags          ArrayList<String>   event.tags</String>
-     * @param postDate      LocalDateTime   event.postDate
-     * @param attachedMedia String  event.attachedMedia
-     * @param id            int     event.id
-     * @return event created
-     */
-    @Override
-    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
-        return new Event(title, artist, this.getName(), dateAndTime, description, tags, postDate, attachedMedia);
     }
 
     /**
@@ -76,7 +48,7 @@ public class VenueUser extends User implements uploadable{
      * @param newVenue  String
      */
     @Override
-    public void updateEventVenue(Event event, String newVenue) {
+    public void updateEventVenue(Event event, VenueUser newVenue) {
         event.setVenue(newVenue);
     }
 

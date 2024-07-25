@@ -5,7 +5,9 @@ import data_access.EventDataAccessInterface;
 import data_access.EventDoesntExistException;
 import data_access.UserDataAccessInterface;
 import entity.event.Event;
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -46,8 +48,8 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String title = String.valueOf(col[headers.get("title")]);
-                    User artist = userDataAccessObject.getUserFromUsername(String.valueOf(col[headers.get("artist")]));
-                    String venue = String.valueOf(col[headers.get("venue")]);
+                    ArtistUser artist = userDataAccessObject.getUserFromUsername(String.valueOf(col[headers.get("artist")]));
+                    VenueUser venue = userDataAccessObject.getUserFromUsername(String.valueOf(col[headers.get("venue")]));
                     LocalDateTime dateAndTime = LocalDateTime.parse(String.valueOf(col[headers.get("dateAndTime")]), formatter);
                     String description = String.valueOf(col[headers.get("description")]);
                     ArrayList<String> tags = stringToArrayList(String.valueOf(col[headers.get("tags")]));
@@ -56,6 +58,9 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
 
                     Event event = new Event(title, artist, venue, dateAndTime, description, tags, postDate, attachedMedia);
                     events.put(title, event);
+
+                    artist.addEvent(event);
+                    venue.addEvent(event);
                 }
             }
         }
@@ -145,8 +150,8 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
                 String[] data = line.split(",");
                 if (!data[headers.get("title")].equals(eventName)) {
                     String title = data[headers.get("title")];
-                    User artist = userDataAccessObject.getUserFromUsername(data[headers.get("artist")]);
-                    String venue = data[headers.get("venue")];
+                    ArtistUser artist = userDataAccessObject.getUserFromUsername(data[headers.get("artist")]);
+                    VenueUser venue = userDataAccessObject.getUserFromUsername(data[headers.get("venue")]);
                     LocalDateTime dateAndTime = LocalDateTime.parse(data[headers.get("dateAndTime")], formatter);
                     String description = data[headers.get("description")];
                     ArrayList<String> tags = stringToArrayList(data[headers.get("tags")]);

@@ -1,25 +1,17 @@
-package use_case.homescreen.interface_adapter;
+package use_case.eventscreen.interface_adapter;
 
 import entity.event.Event;
 import entity.user.User;
 
 import java.util.ArrayList;
 
-public class HomescreenState {
-    private ArrayList<Event> events;
+public class EventScreenState {
     private User signedInAs;
+    private ArrayList<Event> events;
 
-    public HomescreenState() {
+    public EventScreenState() {
         this.events = new ArrayList<>();
         this.signedInAs = null;
-    }
-
-    public ArrayList<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
     }
 
     public User getSignedInAs() {
@@ -28,5 +20,13 @@ public class HomescreenState {
 
     public void setSignedInAs(User signedInAs) {
         this.signedInAs = signedInAs;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<Event> events) {
+        this.events = events;
     }
 }

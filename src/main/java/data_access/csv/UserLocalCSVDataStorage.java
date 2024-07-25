@@ -81,11 +81,12 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public User getUserFromUsername(String username) {
+    public <T extends User> T getUserFromUsername(String username) {
         // printHashMap(accounts);
         if (userExistsInDatabase(username)) {
-            return accounts.get(username);
+            return (T) accounts.get(username);
         } else {
             System.err.println("User not found in database.");
             return null;
