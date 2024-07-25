@@ -15,7 +15,7 @@ public class Header extends JPanel implements ActionListener {
     private JLabel title;
     public String code;
 
-    public Header(String title, Object controller) {
+    public Header(String title) {
         this.waffleButton = createWaffleButton();
         this.title = new JLabel(title);
         this.code = "";

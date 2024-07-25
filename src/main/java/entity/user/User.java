@@ -95,6 +95,10 @@ public class User {
         return following;
     }
 
+    public void addFollower(User newFollow){
+        this.followers.add(newFollow);
+    }
+
     /**
      * Return ID in database
      * @return  String id

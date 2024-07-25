@@ -10,7 +10,6 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -70,7 +69,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         buttons.add(signOutButton);
 
         // header panel
-        JPanel header = new Header("Homescreen", homescreenController);
+        JPanel header = new Header("Homescreen");
 
         JScrollPane scrollPane = new JScrollPane(eventList);
         this.setLayout(box);
