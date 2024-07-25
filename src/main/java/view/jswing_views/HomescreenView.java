@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.Header;
 import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
@@ -9,6 +10,7 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -30,10 +32,13 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton eventPageButton;
     JButton signOutButton;
 
+
     public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenController = homescreenController;
         this.homescreenViewModel.addPropertyChangeListener(this);
+
+        BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
 
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -60,6 +65,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         buttons.add(eventPageButton);
         buttons.add(signOutButton);
 
+        JPanel header = new Header("Homescreen", homescreenController);
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
