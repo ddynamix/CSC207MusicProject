@@ -17,6 +17,10 @@ public class UserSession {
         return instance;
     }
 
+    public void signOut() {
+        loggedInUser = null;
+    }
+
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
     }

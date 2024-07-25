@@ -29,6 +29,7 @@ public class HomescreenInteractor implements HomescreenInputBoundary {
 
     @Override
     public void signOut() {
+        UserSession.getInstance().signOut();
         homescreenPresenter.prepareSplashView();
     }
 }

@@ -38,7 +38,7 @@ public class EventCrafterPresenter implements EventCrafterOutputBoundary {
     }
 
     @Override
-    public void switchToHomescreen() {
+    public void switchToEventScreen() {
         viewManagerModel.setActiveView(eventScreenViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

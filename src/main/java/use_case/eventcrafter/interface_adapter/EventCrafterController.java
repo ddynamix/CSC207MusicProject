@@ -54,7 +54,7 @@ public class EventCrafterController {
     }
 
     public void switchToEventScreen() {
-        eventCrafterInteractor.switchToEventScreen();
+        eventCrafterInteractor.switchToEventScreenCancel();
     }
 
     private ArrayList<String> stringToArrayList(String tags) {

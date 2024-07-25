@@ -118,6 +118,8 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
             System.out.println(event.getArtist().getUsername());
             appendEventToCsv(event);
             events.put(event.getTitle(), event);
+            event.getArtist().addEvent(event);
+            event.getVenue().addEvent(event);
         } else {
             System.out.println("Event already exists");
             throw new EventAlreadyExistsException();
@@ -183,7 +185,7 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
     }
 
     @Override
-    public Map<String, Event> getEvents() {
-        return events;
+    public ArrayList<Event> getEvents() {
+        return new ArrayList<>(events.values());
     }
 }
