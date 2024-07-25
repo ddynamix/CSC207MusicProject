@@ -2,6 +2,8 @@ package dataaccess;
 
 import entity.event.Event;
 
+import java.util.Map;
+
 public class EventDataAccessObject implements EventDataAccessInterface {
 
     public static class EventAlreadyExistsException extends Exception {
@@ -45,5 +47,6 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     @Override
     public Map<String, Event> getEvents() {
 
+        return null;
     }
 }
