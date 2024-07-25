@@ -4,6 +4,7 @@ import app.interface_adapter_tools.UserSession;
 import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import entity.event.Event;
+import entity.user.User;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,7 +23,8 @@ public class HomescreenInteractor implements HomescreenInputBoundary {
     @Override
     public void eventPageClicked() {
         ArrayList<Event> myEvents = UserSession.getInstance().getLoggedInUser().getMyEvents();
-        homescreenPresenter.prepareEventPageView(new HomescreenOutputData(myEvents));
+        User signedInAs = UserSession.getInstance().getLoggedInUser();
+        homescreenPresenter.prepareEventPageView(new HomescreenOutputData(myEvents, signedInAs));
     }
 
     @Override

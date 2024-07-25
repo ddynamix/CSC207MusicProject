@@ -1,6 +1,8 @@
 package entity.event;
 
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -14,8 +16,8 @@ class EventFactoryTest {
     void testCreateEvent() {
         EventFactory eventFactory = new EventFactory();
         String title = "Music Concert";
-        User artist = new User("name", "artistUsername", "password", "test@email.com"); // Assuming a simple User constructor
-        String venue = "Madison Square Garden";
+        ArtistUser artist = new ArtistUser("name", "artistUsername", "password", "test@email.com");
+        VenueUser venue = new VenueUser("venueName", "venueUsername", "password", "test@email.com");
         LocalDateTime dateAndTime = LocalDateTime.of(2024, 8, 15, 20, 0);
         String description = "A live music concert featuring famous artists.";
         ArrayList<String> tags = new ArrayList<>();

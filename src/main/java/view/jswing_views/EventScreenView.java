@@ -1,6 +1,7 @@
 package view.jswing_views;
 
 import entity.event.Event;
+import entity.user.AudienceUser;
 import entity.user.User;
 import use_case.eventscreen.interface_adapter.EventScreenController;
 import use_case.eventscreen.interface_adapter.EventScreenViewModel;
@@ -78,6 +79,10 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
             for (Event event : eventScreenViewModel.getState().getEvents()) {
                 eventListModel.addElement(event);
             }
+
+            System.out.println(eventScreenViewModel.getState().getSignedInAs().getUsername());
+            User signedInAs = eventScreenViewModel.getState().getSignedInAs();
+            createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
         }
     }
 }

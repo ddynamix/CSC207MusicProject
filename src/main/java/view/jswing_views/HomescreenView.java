@@ -51,7 +51,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         eventPageButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
         eventPageButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         eventPageButton.addActionListener(this);
-        eventPageButton.setVisible(false);
 
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
         signOutButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
@@ -96,7 +95,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 welcome_message.setText("Not signed in");
             } else {
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
-                eventPageButton.setVisible(!(signedInAs instanceof AudienceUser));
                 System.out.println("HomescreenView received new state: " + state);
                 this.setEvents(state.getEvents());
             }

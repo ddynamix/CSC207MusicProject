@@ -22,6 +22,7 @@ public class HomescreenPresenter implements HomescreenOutputBoundary {
     public void prepareEventPageView(HomescreenOutputData homescreenOutputData) {
         EventScreenState eventScreenState = new EventScreenState();
         eventScreenState.setEvents(homescreenOutputData.getMyEvents());
+        eventScreenState.setSignedInAs(homescreenOutputData.getSignedInAs());
 
         eventScreenViewModel.setState(eventScreenState);
         eventScreenViewModel.firePropertyChanged();
