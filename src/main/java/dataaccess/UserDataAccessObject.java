@@ -38,8 +38,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     private MongoClient mongoClient;
-    //todo: we just instantiate users directly, so we don't need a factory. check implementation
-//    private UserFactory userFactory;
     private MongoDatabase mongoDatabase;
     private MongoCollection mongoCollection;
     private User user;
@@ -129,9 +127,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void create(User user) throws UserAlreadyExistsException {
+    public void create(User user) throws DuplicateUsernameException {
         if (userExistsInDatabase(user.getUsername())) {
-            throw new UserAlreadyExistsException();
+            throw new DuplicateUsernameException();
         } else {
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
@@ -144,6 +142,7 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
+    //implementing this as a delete user functionality.
     public void delete(User user) throws UserNotFoundException {
         if (userExistsInDatabase(user.getUsername())) {
             Bson filter = Filters.eq("username", user.getUsername());
@@ -161,5 +160,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     @Override
     public boolean passwordMatches(String username, String password) {
        return false;
+    }
+
+    public void appendToFollowers(User newFollower){
+
     }
 }
