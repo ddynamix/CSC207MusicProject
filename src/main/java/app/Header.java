@@ -13,10 +13,12 @@ public class Header extends JPanel implements ActionListener {
     private ArrayList<JMenuItem> options = new ArrayList<>();
     private JPopupMenu menu;
     private JLabel title;
+    public String code;
 
     public Header(String title, Object controller) {
         this.waffleButton = createWaffleButton();
         this.title = new JLabel(title);
+        this.code = "";
 
         // Add menu items
         this.options.add(new JMenuItem("Home"));
@@ -92,5 +94,35 @@ public class Header extends JPanel implements ActionListener {
         };
 
         return new JButton(waffleIcon);
+    }
+
+    public ArrayList<JMenuItem> getMenuItems() {
+        ArrayList<JMenuItem> menuItems = new ArrayList<>();
+        for (Component component : menu.getComponents()) {
+            if (component instanceof JMenuItem) {
+                menuItems.add((JMenuItem) component);
+            }
+        }
+        return menuItems;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+
+        if (evt.getSource().equals(getMenuItems().get(0))){
+            code = "home";
+        } else if (evt.getSource().equals(getMenuItems().get(1))){
+            code = "profile";
+        } else if (evt.getSource().equals(getMenuItems().get(2))){
+            code = "events";
+        } else if (evt.getSource().equals(getMenuItems().get(3))){
+            code = "artists";
+        } else if (evt.getSource().equals(getMenuItems().get(4))){
+            code = "venues";
+        } else if (evt.getSource().equals(getMenuItems().get(5))){
+            code = "followers";
+        } else if (evt.getSource().equals(getMenuItems().get(6))){
+            code = "sign out";
+        }
     }
 }
