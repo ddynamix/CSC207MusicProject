@@ -42,8 +42,8 @@ public class EventDataAccessObject implements EventDataAccessInterface {
         return event;
 
     }
-
     @Override
     public Map<String, Event> getEvents() {
+
     }
 }
