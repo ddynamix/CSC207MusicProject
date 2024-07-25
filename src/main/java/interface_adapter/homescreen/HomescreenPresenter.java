@@ -8,16 +8,16 @@ import usecase.homescreen.HomescreenOutputData;
 
 public class HomescreenPresenter implements HomescreenOutputBoundary {
     private final ViewManagerModel viewManagerModel;
-    private final EventCrafterViewModel eventCrafterViewModel;
+    private final HomescreenViewModel eventCrafterViewModel;
 
-    public HomescreenPresenter(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel) {
+    public HomescreenPresenter(ViewManagerModel viewManagerModel, HomescreenViewModel eventCrafterViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
     }
 
     @Override
     public void prepareCreateEventView(HomescreenOutputData homescreenOutputData) {
-        EventCrafterState eventCrafterState = eventCrafterViewModel.getState();
+        HomescreenState eventCrafterState = eventCrafterViewModel.getState();
         eventCrafterState.setSignedInAs(homescreenOutputData.getSignedInAs());
 
         eventCrafterViewModel.setState(eventCrafterState);

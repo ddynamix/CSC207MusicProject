@@ -13,7 +13,7 @@ public class HomescreenViewFactory {
     public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, HomescreenViewModel homescreenViewModel) {
         HomescreenController homescreenController = new HomescreenController();
 
-        HomescreenPresenter homescreenPresenter = new HomescreenPresenter(viewManagerModel);
+        HomescreenPresenter homescreenPresenter = new HomescreenPresenter(viewManagerModel, homescreenViewModel);
         return new HomescreenView(homescreenViewModel, homescreenController, homescreenPresenter);
     }
 }
