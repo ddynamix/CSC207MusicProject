@@ -18,7 +18,7 @@ public class Event implements IEvent {
     private ArrayList<String> tags;
     private LocalDateTime postDate;
     private String attachedMedia;
-    private int id;
+    private String id;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -42,7 +42,7 @@ public class Event implements IEvent {
         this.tags = tags;
         this.postDate = postDate;
         this.attachedMedia = attachedMedia;
-        this.id = 0; // should be generated
+        this.id = "null"; // should be generated
     }
 
     /**
@@ -113,8 +113,12 @@ public class Event implements IEvent {
      * ID in database
      * @return int id
      */
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
