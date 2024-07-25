@@ -39,9 +39,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
 
     @Override
     public Event getEventFromTitle(String eventName) throws EventDoesntExistException {
-        Event event = new Event();
         throw new EventDoesntExistException();
-        return event;
 
     }
     @Override
