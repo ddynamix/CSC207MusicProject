@@ -19,6 +19,7 @@ import java.util.HashMap;
  * TODO: Edit Event Feature for your events.
  * TODO: Implement following feature.
  * TODO: Create event view object to make it look better.
+ * TODO: Change the way views are switched using screen switcher use case.
  */
 
 public class Main {
