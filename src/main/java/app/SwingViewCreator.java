@@ -36,14 +36,15 @@ public class SwingViewCreator implements ViewCreatorInterface {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        Header header = HeaderFactory.createHeader(viewManagerModel,
+        HeaderFactory headerFactory = new HeaderFactory(viewManagerModel,
                 (LoginViewModel) viewModels.get("loginViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
                 (UserSignupViewModel) viewModels.get("signupViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"));
 
         SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel,
                 (LoginViewModel) viewModels.get("loginViewModel"),
@@ -65,7 +66,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(loginView, loginView.viewName);
 
-        HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(header, viewManagerModel,
+        HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(headerFactory, viewManagerModel,
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
@@ -73,14 +74,14 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(homescreenView, homescreenView.viewName);
 
-        EventScreenView eventScreenView = EventScreenViewFactory.createEventScreenView(header, viewManagerModel,
+        EventScreenView eventScreenView = EventScreenViewFactory.createEventScreenView(headerFactory, viewManagerModel,
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(eventScreenView, eventScreenView.viewName);
 
-        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(header, viewManagerModel,
+        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(headerFactory, viewManagerModel,
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),

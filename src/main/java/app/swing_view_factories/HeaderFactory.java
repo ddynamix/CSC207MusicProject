@@ -1,6 +1,7 @@
 package app.swing_view_factories;
 
 import app.interface_adapter_tools.ViewManagerModel;
+import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.eventscreen.interface_adapter.EventScreenViewModel;
@@ -16,11 +17,29 @@ import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import view.jswing_views.Header;
 
 public class HeaderFactory {
-    private HeaderFactory() {
+    private final ViewManagerModel viewManagerModel;
+    private final LoginViewModel loginViewModel;
+    private final SplashViewModel splashViewModel;
+    private final UserSignupViewModel signupViewModel;
+    private final HomescreenViewModel homescreenViewModel;
+    private final EventScreenViewModel eventScreenViewModel;
+    private final EventCrafterViewModel eventCrafterViewModel;
+    private final UserDataAccessInterface userDataAccessObject;
+    private final EventDataAccessInterface eventDataAccessObject;
 
+    public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
+        this.viewManagerModel = viewManagerModel;
+        this.loginViewModel = loginViewModel;
+        this.splashViewModel = splashViewModel;
+        this.signupViewModel = signupViewModel;
+        this.homescreenViewModel = homescreenViewModel;
+        this.eventScreenViewModel = eventScreenViewModel;
+        this.eventCrafterViewModel = eventCrafterViewModel;
+        this.userDataAccessObject = userDataAccessObject;
+        this.eventDataAccessObject = eventDataAccessObject;
     }
 
-    public static Header createHeader(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, UserDataAccessInterface userDataAccessObject) {
+    public Header createHeader() {
         ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, signupViewModel, homescreenViewModel, eventScreenViewModel, eventCrafterViewModel);
         ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject);
         ScreenSwitcherController screenSwitcherController = new ScreenSwitcherController(screenSwitcherInteractor);

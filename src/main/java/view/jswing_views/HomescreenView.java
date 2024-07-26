@@ -36,11 +36,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         this.homescreenViewModel.addPropertyChangeListener(this);
         this.header = headerOriginal;
 
-        // Ensure header is not null
-        if (this.header == null) {
-            throw new IllegalArgumentException("Header cannot be null");
-        }
-
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
@@ -67,9 +62,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
         buttons.add(eventPageButton);
         buttons.add(signOutButton);
-
-        // Ensure the header is visible
-        header.setVisible(true);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

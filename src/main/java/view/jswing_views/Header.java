@@ -43,11 +43,14 @@ public class Header extends JPanel implements ActionListener {
             }
         });
 
+        this.setBackground(Color.CYAN);
+        Dimension height = this.getPreferredSize();
+        height.height = 50;
+        this.setMaximumSize(height);
+
         // Set up the panel layout
-        this.setLayout(new FlowLayout());
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(this.waffleButton);
-        this.add(buttonPanel);
+        this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        this.add(this.waffleButton);
     }
 
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
@@ -60,9 +63,12 @@ public class Header extends JPanel implements ActionListener {
     }
 
     private static JButton createWaffleButton() {
+        final int WIDTH = 30;
+        final int HEIGHT = 30;
+
         Icon waffleIcon = new Icon() {
-            private final int width = 100;
-            private final int height = 100;
+            private final int iconWidth = 20;
+            private final int iconeight = 20;
 
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -78,16 +84,18 @@ public class Header extends JPanel implements ActionListener {
 
             @Override
             public int getIconWidth() {
-                return width;
+                return iconWidth;
             }
 
             @Override
             public int getIconHeight() {
-                return height;
+                return iconeight;
             }
         };
 
-        return new JButton(waffleIcon);
+        JButton button = new JButton(waffleIcon);
+        button.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        return button;
     }
 
     public ArrayList<JMenuItem> getMenuItems() {

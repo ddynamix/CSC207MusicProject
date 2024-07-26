@@ -23,7 +23,7 @@ public class EventScreenViewFactory {
     /**
      * craete event screen view instance
      *
-     * @param header                    header object with sandwhich menu
+     * @param headerFactory             factory for header
      * @param viewManagerModel          control of view models
      * @param eventCrafterViewModel     data for event crafter view
      * @param homescreenViewModel       data for home screen view
@@ -31,11 +31,11 @@ public class EventScreenViewFactory {
      * @param userDataAccessObject      data access object for users
      * @return EventScreenView          the returned view object
      */
-    public static EventScreenView createEventScreenView(Header header, ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, UserDataAccessInterface userDataAccessObject) {
+    public static EventScreenView createEventScreenView(HeaderFactory headerFactory, ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, UserDataAccessInterface userDataAccessObject) {
         EventScreenOutputBoundary eventScreenPresenter = new EventScreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel, eventScreenViewModel);
         EventScreenInputBoundary eventScreenInteractor = new EventScreenInteractor(eventScreenPresenter, userDataAccessObject);
         EventScreenController eventScreenController = new EventScreenController(eventScreenInteractor);
 
-        return new EventScreenView(eventScreenViewModel, eventScreenController, header);
+        return new EventScreenView(eventScreenViewModel, eventScreenController, headerFactory.createHeader());
     }
 }
