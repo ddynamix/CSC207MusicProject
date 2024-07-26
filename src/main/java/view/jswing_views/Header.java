@@ -1,4 +1,6 @@
-package app;
+package view.jswing_views;
+
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,36 +11,29 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Header extends JPanel implements ActionListener {
-    private JButton waffleButton;
-    private ArrayList<JMenuItem> options = new ArrayList<>();
-    private JPopupMenu menu;
-    private JLabel title;
-    public String code;
+    private final ScreenSwitcherController controller;
 
-    public Header(String title, Object controller) {
-        this.waffleButton = createWaffleButton();
-        this.title = new JLabel(title);
-        this.code = "";
+    private JButton waffleButton;
+    private JPopupMenu menu;
+
+    public Header(ScreenSwitcherController controller) {
+        this.controller = controller;
 
         // Add menu items
-        this.options.add(new JMenuItem("Home"));
-        this.options.add(new JMenuItem("My Profile"));
-        this.options.add(new JMenuItem("My Events"));
-        this.options.add(new JMenuItem("My Artists"));
-        this.options.add(new JMenuItem("My Venues"));
-        this.options.add(new JMenuItem("My Followers"));
-        this.options.add(new JMenuItem("Sign Out"));
+        ArrayList<JMenuItem> options = new ArrayList<>();
+        options.add(new JMenuItem("Home"));
+        options.add(new JMenuItem("My Profile"));
+        options.add(new JMenuItem("My Events"));
+        options.add(new JMenuItem("My Artists"));
+        options.add(new JMenuItem("My Venues"));
+        options.add(new JMenuItem("My Followers"));
+        options.add(new JMenuItem("Sign Out"));
 
         // Create menu and add items to it
-        this.menu = createMenu(this.options);
+        this.menu = createMenu(options);
 
-        // Set up the panel layout
-        this.setLayout(new FlowLayout());
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(this.waffleButton);
-
-        this.add(this.title, BorderLayout.WEST);
-        this.add(buttonPanel, BorderLayout.EAST);
+        // Create the button graphics
+        this.waffleButton = createWaffleButton();
 
         // Add mouse listener to the button to show the menu
         this.waffleButton.addMouseListener(new MouseAdapter() {
@@ -48,12 +43,11 @@ public class Header extends JPanel implements ActionListener {
             }
         });
 
-        this.setSize(200, 200);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        // Set up the panel layout
+        this.setLayout(new FlowLayout());
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(this.waffleButton);
+        this.add(buttonPanel);
     }
 
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
@@ -67,8 +61,8 @@ public class Header extends JPanel implements ActionListener {
 
     private static JButton createWaffleButton() {
         Icon waffleIcon = new Icon() {
-            private final int width = 20;
-            private final int height = 20;
+            private final int width = 100;
+            private final int height = 100;
 
             @Override
             public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -108,21 +102,20 @@ public class Header extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-
-        if (evt.getSource().equals(getMenuItems().get(0))){
-            code = "home";
-        } else if (evt.getSource().equals(getMenuItems().get(1))){
-            code = "profile";
-        } else if (evt.getSource().equals(getMenuItems().get(2))){
-            code = "events";
-        } else if (evt.getSource().equals(getMenuItems().get(3))){
-            code = "artists";
-        } else if (evt.getSource().equals(getMenuItems().get(4))){
-            code = "venues";
-        } else if (evt.getSource().equals(getMenuItems().get(5))){
-            code = "followers";
-        } else if (evt.getSource().equals(getMenuItems().get(6))){
-            code = "sign out";
+        if (evt.getSource().equals(getMenuItems().get(0))) {  // Home
+            controller.switchToHome();
+        } else if (evt.getSource().equals(getMenuItems().get(1))) {  // My Profile
+            // not implemented
+        } else if (evt.getSource().equals(getMenuItems().get(2))) {  // My Events
+            controller.switchToMyEvents();
+        } else if (evt.getSource().equals(getMenuItems().get(3))) {  // My Artists
+            // not implemented
+        } else if (evt.getSource().equals(getMenuItems().get(4))) {  // My Venues
+            // not implemented
+        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
+            // not implemented
+        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Sign Out
+            controller.switchToSplash();
         }
     }
 }

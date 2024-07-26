@@ -11,6 +11,7 @@ import use_case.eventscreen.interface_adapter.EventScreenPresenter;
 import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import view.jswing_views.EventScreenView;
+import view.jswing_views.Header;
 
 /**
  * Event screen view factory
@@ -19,11 +20,22 @@ public class EventScreenViewFactory {
 
     private EventScreenViewFactory() {}
 
-    public static EventScreenView createEventScreenView(ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, UserDataAccessInterface userDataAccessObject) {
+    /**
+     * craete event screen view instance
+     *
+     * @param header                    header object with sandwhich menu
+     * @param viewManagerModel          control of view models
+     * @param eventCrafterViewModel     data for event crafter view
+     * @param homescreenViewModel       data for home screen view
+     * @param eventScreenViewModel      data for this view
+     * @param userDataAccessObject      data access object for users
+     * @return EventScreenView          the returned view object
+     */
+    public static EventScreenView createEventScreenView(Header header, ViewManagerModel viewManagerModel, EventCrafterViewModel eventCrafterViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, UserDataAccessInterface userDataAccessObject) {
         EventScreenOutputBoundary eventScreenPresenter = new EventScreenPresenter(viewManagerModel, eventCrafterViewModel, homescreenViewModel, eventScreenViewModel);
         EventScreenInputBoundary eventScreenInteractor = new EventScreenInteractor(eventScreenPresenter, userDataAccessObject);
         EventScreenController eventScreenController = new EventScreenController(eventScreenInteractor);
 
-        return new EventScreenView(eventScreenViewModel, eventScreenController);
+        return new EventScreenView(eventScreenViewModel, eventScreenController, header);
     }
 }

@@ -1,8 +1,6 @@
 package view.jswing_views;
 
-import app.Header;
 import entity.event.Event;
-import entity.user.AudienceUser;
 import entity.user.User;
 import use_case.homescreen.interface_adapter.HomescreenController;
 import use_case.homescreen.interface_adapter.HomescreenState;
@@ -10,7 +8,6 @@ import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -20,8 +17,8 @@ import java.util.ArrayList;
 public class HomescreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomescreenViewModel homescreenViewModel;
-
     private final HomescreenController homescreenController;
+    private final JPanel header;
 
     private User signedInAs = null;
     JLabel welcome_message;
@@ -33,12 +30,16 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton signOutButton;
 
 
-    public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController) {
+    public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenController = homescreenController;
         this.homescreenViewModel.addPropertyChangeListener(this);
+        this.header = headerOriginal;
 
-        BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
+        // Ensure header is not null
+        if (this.header == null) {
+            throw new IllegalArgumentException("Header cannot be null");
+        }
 
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
         title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -49,6 +50,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
         welcome_message = new JLabel("Signed in as: " + signedInAs);
         welcome_message.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
 
         JPanel buttons = new JPanel();
 
@@ -62,14 +64,16 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         signOutButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         signOutButton.addActionListener(this);
 
+
         buttons.add(eventPageButton);
         buttons.add(signOutButton);
 
-        JPanel header = new Header("Homescreen", homescreenController);
-
+        // Ensure the header is visible
+        header.setVisible(true);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(header);
         this.add(title);
         this.add(welcome_message);
         this.add(buttons);

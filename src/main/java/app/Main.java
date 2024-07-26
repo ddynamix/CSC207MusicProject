@@ -17,9 +17,7 @@ import java.util.HashMap;
  * TODO: Add search for venues and artists.
  * TODO: Fix tests.
  * TODO: Edit Event Feature for your events.
- * TODO: Create events view.
  * TODO: Implement following feature.
- * TODO: Figure out how to load AudienceUser's saved events.
  */
 
 public class Main {

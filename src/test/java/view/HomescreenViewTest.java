@@ -25,12 +25,12 @@ public class HomescreenViewTest {
     @Mock
     private HomescreenController homescreenController;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-
-        homescreenView = new HomescreenView(homescreenViewModel, homescreenController);
-    }
+//    @BeforeEach
+//    public void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//
+//        homescreenView = new HomescreenView(homescreenViewModel, homescreenController);
+//    }
 
 //    @Test
 //    public void testPropertyChange_updatesWelcomeMessage() {

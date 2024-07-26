@@ -36,7 +36,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
 
     User signedInAs = null;
 
-    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController) {
+    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController, Header header) {
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.eventCrafterController = eventCrafterController;
         this.eventCrafterViewModel.addPropertyChangeListener(this);
@@ -66,6 +66,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(header);
         this.add(title);
         this.add(eventTitleInfo);
         this.add(eventDescriptionInfo);

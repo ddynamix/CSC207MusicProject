@@ -24,7 +24,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     JButton createEventButton;
     JButton backButton;
 
-    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController) {
+    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, Header header) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventScreenController = eventScreenController;
         this.eventScreenViewModel.addPropertyChangeListener(this);
@@ -58,6 +58,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(header);
         this.add(title);
         this.add(scrollPane);
         this.add(buttons);

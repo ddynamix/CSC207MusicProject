@@ -11,6 +11,7 @@ import use_case.homescreen.HomescreenInputBoundary;
 import use_case.homescreen.HomescreenInteractor;
 import use_case.homescreen.HomescreenOutputBoundary;
 import use_case.splash.interface_adapter.SplashViewModel;
+import view.jswing_views.Header;
 import view.jswing_views.HomescreenView;
 
 /**
@@ -23,6 +24,7 @@ public class HomescreenViewFactory {
     /**
      * create homescreen instance
      *
+     * @param header                header object with sandwhich menu
      * @param viewManagerModel      control of view models
      * @param eventScreenViewModel  data for event screen view
      * @param homescreenViewModel   data for this view
@@ -30,11 +32,11 @@ public class HomescreenViewFactory {
      * @param userDataAccessObject  data access object for users
      * @return HomescreenView       the created view
      */
-    public static HomescreenView createHomescreenView(ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
+    public static HomescreenView createHomescreenView(Header header, ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, HomescreenViewModel homescreenViewModel, SplashViewModel splashViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
         HomescreenOutputBoundary homescreenPresenter = new HomescreenPresenter(viewManagerModel,eventScreenViewModel, splashViewModel);
         HomescreenInputBoundary homescreenInteractor = new HomescreenInteractor(homescreenPresenter, userDataAccessObject, eventDataAccessObject);
         HomescreenController homescreenController = new HomescreenController(homescreenInteractor);
 
-        return new HomescreenView(homescreenViewModel, homescreenController);
+        return new HomescreenView(homescreenViewModel, homescreenController, header);
     }
 }

@@ -12,6 +12,7 @@ import use_case.eventcrafter.EventCrafterInputBoundary;
 import use_case.eventcrafter.EventCrafterInteractor;
 import use_case.eventcrafter.EventCrafterOutputBoundary;
 import view.jswing_views.EventCrafterView;
+import view.jswing_views.Header;
 
 /**
  * Event crafter factory
@@ -23,6 +24,7 @@ public class EventCrafterViewFactory {
     /**
      * create event crafter screen instance
      *
+     * @param header                header object with sandwhich menu
      * @param viewManagerModel      control of view models
      * @param eventScreenViewModel  data for event screen view
      * @param eventCrafterViewModel data for this view
@@ -30,11 +32,11 @@ public class EventCrafterViewFactory {
      * @param userDataAccessObject  data access object for users
      * @return EventCrafterView     the created view
      */
-    public static EventCrafterView createEventCrafterView(ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
+    public static EventCrafterView createEventCrafterView(Header header, ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
         EventCrafterOutputBoundary eventCrafterPresenter = new EventCrafterPresenter(eventScreenViewModel, viewManagerModel);
         EventCrafterInputBoundary eventCrafterInteractor = new EventCrafterInteractor(eventDataAccessObject, eventCrafterPresenter);
         EventCrafterController eventCrafterController = new EventCrafterController(eventCrafterInteractor, userDataAccessObject);
 
-        return new EventCrafterView(eventCrafterViewModel, eventCrafterController);
+        return new EventCrafterView(eventCrafterViewModel, eventCrafterController, header);
     }
 }
