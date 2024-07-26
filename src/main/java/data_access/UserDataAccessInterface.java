@@ -16,7 +16,7 @@ public interface UserDataAccessInterface {
     void create(User user) throws UserAlreadyExistsException;
     void delete(User user) throws UserDataAccessObject.UserNotFoundException;
 
-    User getUserFromUsername(String username);
+    <T extends User> T getUserFromUsername(String username);
     ArrayList<ArtistUser> getArtistUsers();
     ArrayList<VenueUser> getVenueUsers();
     ArrayList<AudienceUser> getAudienceUsers();

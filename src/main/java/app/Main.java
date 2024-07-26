@@ -4,6 +4,7 @@ import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.interface_adapter.LoginViewModel;
@@ -15,6 +16,10 @@ import java.util.HashMap;
  * TODO: Display events by profile type on User's profile.
  * TODO: Add search for venues and artists.
  * TODO: Fix tests.
+ * TODO: Edit Event Feature for your events.
+ * TODO: Implement following feature.
+ * TODO: Create event view object to make it look better.
+ * TODO: Change the way views are switched using screen switcher use case.
  */
 
 public class Main {
@@ -27,19 +32,21 @@ public class Main {
         DataAccessFactoryInterface dataAccessFactory = new CSVDataAccessObjectFactory();
 
 
-        // Instantiate all data access objects
+        // Instantiate all data access objects.
         HashMap<String, Object> dataAccessObjects = new HashMap<>();
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
 
-        // Instantiate all view models
+        // Instantiate all view models.
         HashMap<String, ViewModel> viewModels = new HashMap<>();
         viewModels.put("splashViewModel", new SplashViewModel());
         viewModels.put("loginViewModel", new LoginViewModel());
         viewModels.put("signupViewModel", new UserSignupViewModel());
         viewModels.put("homescreenViewModel", new HomescreenViewModel());
+        viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
 
+        // Build the views and run.
         viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
         viewCreatorInterface.run();
     }

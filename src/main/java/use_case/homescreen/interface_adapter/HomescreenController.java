@@ -1,8 +1,6 @@
 package use_case.homescreen.interface_adapter;
 
-import entity.user.User;
 import use_case.homescreen.HomescreenInputBoundary;
-import use_case.homescreen.HomescreenInputData;
 
 public class HomescreenController {
     HomescreenInputBoundary homescreenInteractor;
@@ -11,9 +9,8 @@ public class HomescreenController {
         this.homescreenInteractor = homescreenInteractor;
     }
 
-    public void executeCreateEvent(User signedInAs) {
-        HomescreenInputData homescreenInputData = new HomescreenInputData(signedInAs);
-        homescreenInteractor.createEventClicked(homescreenInputData);
+    public void executeEventPageClicked() {
+        homescreenInteractor.eventPageClicked();
     }
 
     public void executeSignOut() {
