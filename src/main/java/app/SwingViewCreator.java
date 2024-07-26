@@ -96,6 +96,13 @@ public class SwingViewCreator implements ViewCreatorInterface {
     @Override
     public void run() {
         application.pack();
+
+        // Center the application on the screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - application.getWidth()) / 2;
+        int y = (screenSize.height - application.getHeight()) / 2;
+        application.setLocation(x, y);
+
         application.setVisible(true);
     }
 }

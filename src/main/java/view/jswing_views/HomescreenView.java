@@ -5,9 +5,9 @@ import entity.user.User;
 import use_case.homescreen.interface_adapter.HomescreenController;
 import use_case.homescreen.interface_adapter.HomescreenState;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -23,9 +23,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private User signedInAs = null;
     JLabel welcome_message;
 
-    private JList<Event> eventList;
-    private DefaultListModel<Event> eventListModel;
-
     JButton eventPageButton;
     JButton signOutButton;
 
@@ -36,46 +33,54 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         this.homescreenViewModel.addPropertyChangeListener(this);
         this.header = headerOriginal;
 
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
         JLabel title = new JLabel(homescreenViewModel.TITLE_LABEL);
-        title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 5, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(title, c);
 
-        eventListModel = new DefaultListModel<>();
-        eventList = new JList<>(eventListModel);
-        eventList.setCellRenderer(new EventListCellRenderer());
+        c.gridx = 2;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 0, 0, 5);
+        c.anchor = GridBagConstraints.FIRST_LINE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(header, c);
 
-        welcome_message = new JLabel("Signed in as: " + signedInAs);
+        welcome_message = new JLabel("Signed in as: \n" + signedInAs);
         welcome_message.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(welcome_message, c);
 
         JPanel buttons = new JPanel();
-
         eventPageButton = new JButton(homescreenViewModel.EVENT_PAGE_BUTTON_LABEL);
-        eventPageButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-        eventPageButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         eventPageButton.addActionListener(this);
-
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
-        signOutButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-        signOutButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         signOutButton.addActionListener(this);
-
-
         buttons.add(eventPageButton);
         buttons.add(signOutButton);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(header);
-        this.add(title);
-        this.add(welcome_message);
-        this.add(buttons);
-    }
-
-    private void setEvents(ArrayList<Event> events) {
-        eventListModel.clear();
-        for (Event event : events) {
-            eventListModel.addElement(event);
-        }
+        c.gridwidth = 3;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.weighty = 1;
+        c.insets = new Insets(10, 0, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(buttons, c);
     }
 
     @Override
@@ -98,7 +103,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
             } else {
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
                 System.out.println("HomescreenView received new state: " + state);
-                this.setEvents(state.getEvents());
             }
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");

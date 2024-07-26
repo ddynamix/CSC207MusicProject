@@ -18,6 +18,7 @@ import java.util.HashMap;
  * TODO: Fix tests.
  * TODO: Edit Event Feature for your events.
  * TODO: Implement following feature.
+ * TODO: Create event view object to make it look better.
  */
 
 public class Main {
@@ -30,12 +31,12 @@ public class Main {
         DataAccessFactoryInterface dataAccessFactory = new CSVDataAccessObjectFactory();
 
 
-        // Instantiate all data access objects
+        // Instantiate all data access objects.
         HashMap<String, Object> dataAccessObjects = new HashMap<>();
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
 
-        // Instantiate all view models
+        // Instantiate all view models.
         HashMap<String, ViewModel> viewModels = new HashMap<>();
         viewModels.put("splashViewModel", new SplashViewModel());
         viewModels.put("loginViewModel", new LoginViewModel());
@@ -44,6 +45,7 @@ public class Main {
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
 
+        // Build the views and run.
         viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
         viewCreatorInterface.run();
     }

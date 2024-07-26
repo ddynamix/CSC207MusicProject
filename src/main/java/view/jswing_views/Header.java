@@ -43,7 +43,6 @@ public class Header extends JPanel implements ActionListener {
             }
         });
 
-        this.setBackground(Color.CYAN);
         Dimension height = this.getPreferredSize();
         height.height = 50;
         this.setMaximumSize(height);

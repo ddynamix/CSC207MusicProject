@@ -9,6 +9,7 @@ import use_case.homescreen.interface_adapter.HomescreenController;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -17,6 +18,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     public final String viewName = "event screen";
     private final EventScreenViewModel eventScreenViewModel;
     private final EventScreenController eventScreenController;
+    private final JPanel header;
 
     private JList<Event> eventList;
     private DefaultListModel<Event> eventListModel;
@@ -24,44 +26,65 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     JButton createEventButton;
     JButton backButton;
 
-    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, Header header) {
+    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventScreenController = eventScreenController;
         this.eventScreenViewModel.addPropertyChangeListener(this);
+        header = headerOriginal;
+
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
 
         JLabel title = new JLabel(eventScreenViewModel.TITLE_LABEL);
-        title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 5, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(title, c);
+
+        c.gridx = 2;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 0, 0, 5);
+        c.anchor = GridBagConstraints.FIRST_LINE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(header, c);
 
         eventListModel = new DefaultListModel<>();
         eventList = new JList<>(eventListModel);
         eventList.setCellRenderer(new EventListCellRenderer());
+        JScrollPane scrollPane = new JScrollPane(eventList);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+        this.add(scrollPane, c);
 
         JPanel buttons = new JPanel();
-
         createEventButton = new JButton(eventScreenViewModel.CREATE_EVENT_BUTTON_LABEL);
-        createEventButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-        createEventButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         createEventButton.addActionListener(this);
         createEventButton.setVisible(false);
-
         backButton = new JButton(eventScreenViewModel.BACK_BUTTON_LABEL);
-        backButton.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
-        backButton.setAlignmentY(JComponent.BOTTOM_ALIGNMENT);
         backButton.addActionListener(this);
-
         buttons.add(createEventButton);
         buttons.add(backButton);
-        buttons.setAlignmentY(JPanel.BOTTOM_ALIGNMENT);
-        buttons.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        JScrollPane scrollPane = new JScrollPane(eventList);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(header);
-        this.add(title);
-        this.add(scrollPane);
-        this.add(buttons);
+        c.gridwidth = 3;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.weighty = 1;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(buttons, c);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class EventCrafterViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Event Crafter View";
+    public final String TITLE_LABEL = "Create Your Event";
     public final String EVENT_NAME_LABEL = "Enter event name";
     public final String EVENT_DESCRIPTION_LABEL = "Enter event description";
     public final String EVENT_DATE_LABEL = "Enter event date (\"yyyy-MM-dd HH:mm\")";
