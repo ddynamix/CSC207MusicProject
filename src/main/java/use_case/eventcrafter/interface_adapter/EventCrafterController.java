@@ -1,7 +1,9 @@
 package use_case.eventcrafter.interface_adapter;
 
 import data_access.UserDataAccessInterface;
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 import use_case.eventcrafter.EventCrafterInputBoundary;
 import use_case.eventcrafter.EventCrafterInputData;
 
@@ -34,14 +36,14 @@ public class EventCrafterController {
         LocalDateTime postDateFormatted = LocalDateTime.parse(postDate, formatter);
         ArrayList<String> tagsFormatted = stringToArrayList(tags);
 
-        System.out.println("EventCrafterController: excecute: artist: " + artist);
-        User artistUser = userDataAccessInterface.getUserFromUsername(artist);
-        System.out.println(artistUser);
+        ArtistUser artistUser = userDataAccessInterface.getUserFromUsername(artist);
+        VenueUser venueUser = userDataAccessInterface.getUserFromUsername(venue);
+
         EventCrafterInputData eventCrafterInputData = new EventCrafterInputData(
                 title,
                 description,
                 artistUser,
-                venue,
+                venueUser,
                 dateAndTimeFormatted,
                 tagsFormatted,
                 postDateFormatted,
@@ -51,8 +53,8 @@ public class EventCrafterController {
         eventCrafterInteractor.attemptPostEvent(eventCrafterInputData);
     }
 
-    public void switchToHomescreen() {
-        eventCrafterInteractor.switchToHomescreen();
+    public void switchToEventScreen() {
+        eventCrafterInteractor.switchToEventScreenCancel();
     }
 
     private ArrayList<String> stringToArrayList(String tags) {

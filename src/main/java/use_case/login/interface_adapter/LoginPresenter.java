@@ -21,9 +21,9 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginOutputData user) {
+    public void prepareSuccessView(LoginOutputData loginOutputData) {
         HomescreenState homescreenState = homescreenViewModel.getState();
-        homescreenState.setSignedInAs(user.getSignedInAs());
+        homescreenState.setSignedInAs(loginOutputData.getSignedInAs());
         homescreenViewModel.setState(homescreenState);
         homescreenViewModel.firePropertyChanged();
 
@@ -33,7 +33,6 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
         viewManagerModel.firePropertyChanged();
     }
 

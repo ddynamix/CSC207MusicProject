@@ -1,8 +1,10 @@
 package use_case.homescreen;
 
+import app.interface_adapter_tools.UserSession;
 import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import entity.event.Event;
+import entity.user.User;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,24 +18,18 @@ public class HomescreenInteractor implements HomescreenInputBoundary {
         this.homescreenPresenter = homescreenPresenter;
         this.userDataAccessInterface = userDataAccessInterface;
         this.eventDataAccessInterface = eventDataAccessInterface;
-
-        homescreenPresenter.updateEvents(new HomescreenGetEventOutputData(getEventsAsList()));
     }
 
     @Override
-    public void createEventClicked(HomescreenInputData homescreenInputData) {
-        HomescreenOutputData homescreenOutputData = new HomescreenOutputData(homescreenInputData.getSignedInAs(), userDataAccessInterface.getArtistUsers(), userDataAccessInterface.getVenueUsers());
-        homescreenPresenter.prepareCreateEventView(homescreenOutputData);
+    public void eventPageClicked() {
+        ArrayList<Event> myEvents = UserSession.getInstance().getLoggedInUser().getMyEvents();
+        User signedInAs = UserSession.getInstance().getLoggedInUser();
+        homescreenPresenter.prepareEventPageView(new HomescreenOutputData(myEvents, signedInAs));
     }
 
     @Override
     public void signOut() {
+        UserSession.getInstance().signOut();
         homescreenPresenter.prepareSplashView();
-    }
-
-    private ArrayList<Event> getEventsAsList() {
-        Map<String, Event> eventsMap = eventDataAccessInterface.getEvents();
-        ArrayList<Event> eventsList = new ArrayList<>(eventsMap.values());
-        return eventsList;
     }
 }

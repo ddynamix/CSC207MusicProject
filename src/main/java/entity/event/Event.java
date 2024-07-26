@@ -1,6 +1,8 @@
 package entity.event;
 
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Event implements IEvent {
     private String title;
-    private User artist;
-    private String venue;
+    private ArtistUser artist;
+    private VenueUser venue;
     private LocalDateTime dateAndTime;
     private String description;
     private ArrayList<String> tags;
@@ -33,7 +35,7 @@ public class Event implements IEvent {
      * @param postDate      LocalDateTime       date event posted
      * @param attachedMedia String              media of event
      */
-    public Event(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
+    public Event(String title, ArtistUser artist, VenueUser venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
         this.title = title;
         this.artist = artist;
         this.venue = venue;
@@ -57,7 +59,7 @@ public class Event implements IEvent {
      * Return Artist
      * @return User artist
      */
-    public User getArtist() {
+    public ArtistUser getArtist() {
         return artist;
     }
 
@@ -65,7 +67,7 @@ public class Event implements IEvent {
      * Return venue
      * @return String venue
      */
-    public String getVenue() {
+    public VenueUser getVenue() {
         return venue;
     }
 
@@ -164,8 +166,14 @@ public class Event implements IEvent {
 
     /**
      * Update venue
-     * @param venue String
+     * @param venue VenueUser
      */
-    public void setVenue(String venue) { this.venue = venue; }
+    public void setVenue(VenueUser venue) { this.venue = venue; }
+
+    /**
+     * Update artist
+     * @param artist ArtistUser
+     */
+    public void setArtist(ArtistUser artist) { this.artist = artist; }
 
 }

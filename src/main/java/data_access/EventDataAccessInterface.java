@@ -2,6 +2,7 @@ package data_access;
 
 import entity.event.Event;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface EventDataAccessInterface {
@@ -9,5 +10,5 @@ public interface EventDataAccessInterface {
     void createEvent(Event event) throws EventAlreadyExistsException;
     void deleteEvent(Event event) throws EventDoesntExistException;
     Event getEventFromTitle(String eventName) throws EventDoesntExistException;
-    Map<String, Event> getEvents();
+    ArrayList<Event> getEvents();
 }

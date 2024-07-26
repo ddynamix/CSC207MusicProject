@@ -5,5 +5,5 @@ public interface EventCrafterOutputBoundary {
 
     void prepareFailView(String error);
 
-    void switchToHomescreen();
+    void switchToEventScreen();
 }

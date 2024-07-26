@@ -22,25 +22,6 @@ public class ArtistUser extends User implements uploadable {
         super(name, username, password, email);
     }
 
-
-    /**
-     * Create new instance of the event class
-     * @param title         String  event.title
-     * @param artist        User    event.artist
-     * @param venue         String  event.venue
-     * @param dateAndTime   LocalDateTime   event.dateAndTime
-     * @param description   String  event.description
-     * @param tags          ArrayList<String>   event.tags</String>
-     * @param postDate      LocalDateTime   event.postDate
-     * @param attachedMedia String  event.attachedMedia
-     * @param id            int     event.id
-     * @return event created
-     */
-    @Override
-    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id) {
-        return new Event(title, artist, this.getName(), dateAndTime, description, tags, postDate, attachedMedia);
-    }
-
     /**
      * Contact the followers of this user
      * @param postToShare   Post    content being sent
@@ -68,7 +49,7 @@ public class ArtistUser extends User implements uploadable {
      * @param newVenue  String
      */
     @Override
-    public void updateEventVenue(Event event, String newVenue) {
+    public void updateEventVenue(Event event, VenueUser newVenue) {
         event.setVenue(newVenue);
     }
 
