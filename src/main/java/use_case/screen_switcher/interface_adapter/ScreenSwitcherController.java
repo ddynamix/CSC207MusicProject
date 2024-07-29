@@ -29,6 +29,10 @@ public class ScreenSwitcherController {
         screenSwitcherInteractor.switchToMyEvents();
     }
 
+    public void switchToSearchUsers() {
+        screenSwitcherInteractor.switchToSearchUsers();
+    }
+
     public void switchToEventCrafter() {
         screenSwitcherInteractor.switchToEventCrafter();
     }

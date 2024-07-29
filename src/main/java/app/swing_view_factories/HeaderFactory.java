@@ -12,6 +12,7 @@ import use_case.screen_switcher.ScreenSwitcherInteractor;
 import use_case.screen_switcher.ScreenSwitcherOutputBoundary;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherPresenter;
+import use_case.search_users.interface_adapter.SearchUsersViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import view.jswing_views.Header;
@@ -24,10 +25,12 @@ public class HeaderFactory {
     private final HomescreenViewModel homescreenViewModel;
     private final EventScreenViewModel eventScreenViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
+    private final SearchUsersViewModel searchUsersViewModel;
+
     private final UserDataAccessInterface userDataAccessObject;
     private final EventDataAccessInterface eventDataAccessObject;
 
-    public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
+    public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -37,10 +40,11 @@ public class HeaderFactory {
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.userDataAccessObject = userDataAccessObject;
         this.eventDataAccessObject = eventDataAccessObject;
+        this.searchUsersViewModel = searchUsersViewModel;
     }
 
     public Header createHeader() {
-        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, signupViewModel, homescreenViewModel, eventScreenViewModel, eventCrafterViewModel);
+        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, signupViewModel, homescreenViewModel, eventScreenViewModel, eventCrafterViewModel, searchUsersViewModel);
         ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject);
         ScreenSwitcherController screenSwitcherController = new ScreenSwitcherController(screenSwitcherInteractor);
 

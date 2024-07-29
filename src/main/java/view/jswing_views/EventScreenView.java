@@ -35,7 +35,6 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-
         JLabel title = new JLabel(eventScreenViewModel.TITLE_LABEL);
         c.gridx = 1;
         c.gridy = 0;

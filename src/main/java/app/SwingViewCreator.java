@@ -2,11 +2,13 @@ package app;
 
 import app.swing_view_factories.*;
 import data_access.EventDataAccessInterface;
+import data_access.FollowRelationalAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import use_case.search_users.interface_adapter.SearchUsersViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
@@ -43,6 +45,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
+                (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"));
 
@@ -88,6 +91,12 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
         views.add(eventCrafterView, eventCrafterView.viewName);
 
+        SearchUserView searchUserView = SearchUserViewFactory.createSearchUserView(headerFactory, viewManagerModel,
+                (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
+                (FollowRelationalAccessInterface) dataAccessObjects.get("followRelationalAccessObject"));
+        views.add(searchUserView, searchUserView.viewName);
+
         // Set the initial view
         viewManagerModel.setActiveView(splashView.viewName);
         viewManagerModel.firePropertyChanged();
@@ -96,6 +105,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
     @Override
     public void run() {
         application.pack();
+        application.setSize(400, 800);
 
         // Center the application on the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

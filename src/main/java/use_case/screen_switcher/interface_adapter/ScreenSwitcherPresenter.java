@@ -10,6 +10,7 @@ import use_case.screen_switcher.ScreenSwitcherMyEventsData;
 import use_case.screen_switcher.ScreenSwitcherOutputBoundary;
 
 import use_case.login.interface_adapter.LoginViewModel;
+import use_case.search_users.interface_adapter.SearchUsersViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
@@ -24,8 +25,9 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final HomescreenViewModel homescreenViewModel;
     private final EventScreenViewModel eventScreenViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
+    private final SearchUsersViewModel searchUsersViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -33,6 +35,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.homescreenViewModel = homeViewModel;
         this.eventScreenViewModel = myEventsViewModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
+        this.searchUsersViewModel = searchUsersViewModel;
     }
 
     @Override
@@ -74,6 +77,12 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         eventScreenViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(eventScreenViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToSearchUsers() {
+        viewManagerModel.setActiveView(searchUsersViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

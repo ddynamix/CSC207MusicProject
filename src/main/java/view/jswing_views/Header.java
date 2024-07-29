@@ -27,6 +27,7 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("My Artists"));
         options.add(new JMenuItem("My Venues"));
         options.add(new JMenuItem("My Followers"));
+        options.add(new JMenuItem("Explore Users"));
         options.add(new JMenuItem("Sign Out"));
 
         // Create menu and add items to it
@@ -121,7 +122,9 @@ public class Header extends JPanel implements ActionListener {
             // not implemented
         } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
             // not implemented
-        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Sign Out
+        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Explore Users
+            controller.switchToSearchUsers();
+        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
             controller.switchToSplash();
         }
     }

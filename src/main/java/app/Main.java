@@ -6,6 +6,7 @@ import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
 import use_case.eventscreen.interface_adapter.EventScreenViewModel;
 import use_case.homescreen.interface_adapter.HomescreenViewModel;
+import use_case.search_users.interface_adapter.SearchUsersViewModel;
 import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.login.interface_adapter.LoginViewModel;
 import use_case.usersignup.interface_adapter.UserSignupViewModel;
@@ -36,6 +37,7 @@ public class Main {
         HashMap<String, Object> dataAccessObjects = new HashMap<>();
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
+        dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
 
         // Instantiate all view models.
         HashMap<String, ViewModel> viewModels = new HashMap<>();
@@ -45,7 +47,7 @@ public class Main {
         viewModels.put("homescreenViewModel", new HomescreenViewModel());
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
-
+        viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
         // Build the views and run.
         viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
         viewCreatorInterface.run();

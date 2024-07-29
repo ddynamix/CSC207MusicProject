@@ -20,6 +20,7 @@ public interface UserDataAccessInterface {
     ArrayList<ArtistUser> getArtistUsers();
     ArrayList<VenueUser> getVenueUsers();
     ArrayList<AudienceUser> getAudienceUsers();
+    ArrayList<User> getAllUsers();
 
     boolean passwordMatches(String username, String password);
 

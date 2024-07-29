@@ -11,7 +11,6 @@ import use_case.homescreen.HomescreenInputBoundary;
 import use_case.homescreen.HomescreenInteractor;
 import use_case.homescreen.HomescreenOutputBoundary;
 import use_case.splash.interface_adapter.SplashViewModel;
-import view.jswing_views.Header;
 import view.jswing_views.HomescreenView;
 
 /**

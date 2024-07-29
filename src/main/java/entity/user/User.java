@@ -122,6 +122,22 @@ public class User {
         this.myEvents.add(event);
     }
 
+    public void addFollower(User follower) {
+        this.followers.add(follower);
+    }
+
+    public void removeFollower(User follower) {
+        this.followers.remove(follower);
+    }
+
+    public void addFollowing(User following) {
+        this.following.add(following);
+    }
+
+    public void removeFollowing(User following) {
+        this.following.remove(following);
+    }
+
     @Override
     public String toString() {
         return this.username;

@@ -6,5 +6,6 @@ public interface ScreenSwitcherOutputBoundary {
     void switchToSignup();
     void switchToHome(ScreenSwitcherLoggedInData signedInData);
     void switchToMyEvents(ScreenSwitcherMyEventsData myEventsData);
+    void switchToSearchUsers();
     void switchToEventCrafter(ScreenSwitcherEventCrafterData eventCrafterData);
 }
