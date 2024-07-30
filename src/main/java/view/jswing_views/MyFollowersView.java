@@ -29,6 +29,7 @@ public class MyFollowersView extends JPanel implements ActionListener, PropertyC
 
     public MyFollowersView(MyFollowersViewModel myFollowersViewModel, ScreenSwitcherController screenSwitcherController, FollowUserController followUserController, Header headerOriginal) {
         this.myFollowersViewModel = myFollowersViewModel;
+        myFollowersViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.followUserController = followUserController;
         this.header = headerOriginal;

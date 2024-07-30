@@ -20,12 +20,12 @@ public class MyFollowersViewModel extends ViewModel {
 
     @Override
     public void firePropertyChanged() {
-
+        support.firePropertyChange("state", null, this.state);
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-
+        support.addPropertyChangeListener(listener);
     }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
