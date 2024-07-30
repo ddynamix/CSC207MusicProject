@@ -1,21 +1,8 @@
 package use_case.screen_switcher.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import view_model.EventCrafterState;
-import view_model.EventScreenState;
-import view_model.HomescreenState;
-import use_case.screen_switcher.ScreenSwitcherEventCrafterData;
-import use_case.screen_switcher.ScreenSwitcherLoggedInData;
-import use_case.screen_switcher.ScreenSwitcherMyEventsData;
-import use_case.screen_switcher.ScreenSwitcherOutputBoundary;
-
-import view_model.LoginViewModel;
-import view_model.SearchUsersViewModel;
-import view_model.SplashViewModel;
-import view_model.UserSignupViewModel;
-import view_model.HomescreenViewModel;
-import view_model.EventScreenViewModel;
-import view_model.EventCrafterViewModel;
+import use_case.screen_switcher.*;
+import view_model.*;
 
 public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final ViewManagerModel viewManagerModel;
@@ -26,8 +13,9 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final EventScreenViewModel eventScreenViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
     private final SearchUsersViewModel searchUsersViewModel;
+    private final MyFollowersViewModel myFollowersViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -36,6 +24,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.eventScreenViewModel = myEventsViewModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.searchUsersViewModel = searchUsersViewModel;
+        this.myFollowersViewModel = myFollowersViewModel;
     }
 
     @Override
@@ -97,6 +86,18 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         eventCrafterViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(eventCrafterViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData) {
+        MyFollowersState myFollowersState = myFollowersViewModel.getState();
+        myFollowersState.setUsersToDisplay(myFollowersData.getUsersToDisplay());
+
+        myFollowersViewModel.setState(myFollowersState);
+        myFollowersViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(myFollowersViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

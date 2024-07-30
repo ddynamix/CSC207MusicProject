@@ -8,4 +8,5 @@ public interface ScreenSwitcherOutputBoundary {
     void switchToMyEvents(ScreenSwitcherMyEventsData myEventsData);
     void switchToSearchUsers();
     void switchToEventCrafter(ScreenSwitcherEventCrafterData eventCrafterData);
+    void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData);
 }

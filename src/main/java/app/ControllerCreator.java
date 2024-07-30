@@ -6,13 +6,7 @@ import app.interface_adapter_tools.ViewModel;
 import data_access.EventDataAccessInterface;
 import data_access.FollowRelationalAccessInterface;
 import data_access.UserDataAccessInterface;
-import view_model.EventCrafterViewModel;
-import view_model.EventScreenViewModel;
-import view_model.HomescreenViewModel;
-import view_model.LoginViewModel;
-import view_model.SearchUsersViewModel;
-import view_model.SplashViewModel;
-import view_model.UserSignupViewModel;
+import view_model.*;
 
 import java.util.HashMap;
 
@@ -51,6 +45,7 @@ public class ControllerCreator {
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
+                (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         controllers.put("searchUsersController", SearchUsersControllerFactory.createSearchUsersController(viewManagerModel,

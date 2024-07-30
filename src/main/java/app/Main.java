@@ -4,13 +4,7 @@ import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
-import view_model.EventCrafterViewModel;
-import view_model.EventScreenViewModel;
-import view_model.HomescreenViewModel;
-import view_model.SearchUsersViewModel;
-import view_model.SplashViewModel;
-import view_model.LoginViewModel;
-import view_model.UserSignupViewModel;
+import view_model.*;
 import view.jswing_views.ViewManager;
 
 import javax.swing.*;
@@ -63,6 +57,7 @@ public class Main {
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
+        viewModels.put("myFollowersViewModel", new MyFollowersViewModel());
 
         // Implement all use cases.
         HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);

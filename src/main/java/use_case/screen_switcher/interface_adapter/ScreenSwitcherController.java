@@ -36,4 +36,8 @@ public class ScreenSwitcherController {
     public void switchToEventCrafter() {
         screenSwitcherInteractor.switchToEventCrafter();
     }
+
+    public void switchToMyFollowers() {
+        screenSwitcherInteractor.switchToMyFollowers();
+    }
 }

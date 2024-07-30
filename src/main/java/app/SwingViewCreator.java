@@ -7,18 +7,12 @@ import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
 import use_case.eventscreen.interface_adapter.EventScreenController;
 import use_case.sign_out.interface_adapter.SignOutController;
-import view_model.EventScreenViewModel;
+import view_model.*;
 import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.login.interface_adapter.LoginController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.search_users.interface_adapter.SearchUsersController;
-import view_model.SearchUsersViewModel;
-import view_model.SplashViewModel;
-import view_model.EventCrafterViewModel;
-import view_model.HomescreenViewModel;
-import view_model.LoginViewModel;
 import use_case.usersignup.interface_adapter.UserSignupController;
-import view_model.UserSignupViewModel;
 import view.jswing_views.*;
 import view.jswing_views.HomescreenView;
 
@@ -92,5 +86,12 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 headerFactory.createHeader());
         views.add(searchUserView, searchUserView.viewName);
+
+        MyFollowersView myFollowersView = new MyFollowersView(
+                (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (FollowUserController)  controllers.get("followUserController"),
+                headerFactory.createHeader());
+        views.add(myFollowersView, myFollowersView.viewName);
     }
 }
