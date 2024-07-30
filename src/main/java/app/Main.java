@@ -19,12 +19,10 @@ import java.util.HashMap;
 
 /*
  * TODO: Display events by profile type on User's profile.
- * TODO: Add search for venues and artists.
  * TODO: Fix tests.
  * TODO: Edit Event Feature for your events.
- * TODO: Implement following feature.
- * TODO: Create event view object to make it look better.
- * TODO: Change the way views are switched using screen switcher use case.
+ * TODO: Add string search to search users.
+ * TODO: Add spotify API Implementation.
  */
 
 public class Main {
