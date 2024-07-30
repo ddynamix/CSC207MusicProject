@@ -4,8 +4,9 @@ import entity.user.ArtistUser;
 import entity.user.User;
 import entity.user.VenueUser;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
-import use_case.eventcrafter.interface_adapter.EventCrafterState;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import view_model.EventCrafterState;
+import view_model.EventCrafterViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
     public final String viewName = "eventcrafter view";
     private final EventCrafterViewModel eventCrafterViewModel;
     private final EventCrafterController eventCrafterController;
+    private final ScreenSwitcherController screenSwitcherController;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     final JPanel header;
@@ -40,10 +42,11 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
 
     User signedInAs = null;
 
-    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController, Header headerOriginal) {
+    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventCrafterViewModel = eventCrafterViewModel;
-        this.eventCrafterController = eventCrafterController;
         this.eventCrafterViewModel.addPropertyChangeListener(this);
+        this.eventCrafterController = eventCrafterController;
+        this.screenSwitcherController = screenSwitcherController;
         this.header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -161,7 +164,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
                 JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
             }
         } else if (e.getSource().equals(cancel)) {
-            eventCrafterController.switchToEventScreen();
+            screenSwitcherController.switchToMyEvents();
         }
 
     }

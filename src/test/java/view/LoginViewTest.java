@@ -2,18 +2,11 @@ package view;
 
 import use_case.login.interface_adapter.LoginController;
 import use_case.login.interface_adapter.LoginPresenter;
-import use_case.login.interface_adapter.LoginState;
-import use_case.login.interface_adapter.LoginViewModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import view_model.LoginViewModel;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import view.jswing_views.LoginView;
 
-import java.beans.PropertyChangeEvent;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 public class LoginViewTest {
 

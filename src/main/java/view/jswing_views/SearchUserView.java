@@ -6,8 +6,9 @@ import entity.user.AudienceUser;
 import entity.user.User;
 import entity.user.VenueUser;
 import use_case.follow_user.interface_adapter.FollowUserController;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.search_users.interface_adapter.SearchUsersController;
-import use_case.search_users.interface_adapter.SearchUsersViewModel;
+import view_model.SearchUsersViewModel;
 import view.jswing_views.utils.UserCellListRenderer;
 import view.jswing_views.utils.UserListJPanel;
 
@@ -23,6 +24,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
     private final SearchUsersViewModel searchUsersViewModel;
     private final SearchUsersController searchUsersController;
     private final FollowUserController followUserController;
+    private final ScreenSwitcherController screenSwitcherController;
     private final JPanel header;
 
     private JList<UserListJPanel> userList;
@@ -32,10 +34,11 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
 
     JComboBox<String> searchTypeDropdown;
 
-    public SearchUserView(SearchUsersViewModel searchUsersViewModel, SearchUsersController searchUsersController, FollowUserController followUserController, Header headerOriginal) {
+    public SearchUserView(SearchUsersViewModel searchUsersViewModel, SearchUsersController searchUsersController, FollowUserController followUserController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.searchUsersViewModel = searchUsersViewModel;
         this.searchUsersController = searchUsersController;
         this.followUserController = followUserController;
+        this.screenSwitcherController = screenSwitcherController;
         this.searchUsersViewModel.addPropertyChangeListener(this);
         header = headerOriginal;
 
@@ -135,7 +138,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if (button.equals(backButton)) {
-                // go back
+                screenSwitcherController.switchToHome();
             }
         }
     }

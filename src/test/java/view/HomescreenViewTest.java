@@ -1,19 +1,11 @@
 package view;
 
 import use_case.homescreen.interface_adapter.HomescreenController;
-import use_case.homescreen.interface_adapter.HomescreenState;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import view_model.HomescreenViewModel;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import view.jswing_views.HomescreenView;
 
-import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 public class HomescreenViewTest {
 

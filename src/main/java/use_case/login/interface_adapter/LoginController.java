@@ -13,8 +13,4 @@ public class LoginController {
     public void execute(String username, String password) {
         loginInteractor.attemptLogin(new LoginInputData(username, password));
     }
-
-    public void cancelClicked() {
-        loginInteractor.cancelLogin();
-    }
 }

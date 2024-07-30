@@ -1,21 +1,21 @@
 package use_case.screen_switcher.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterState;
-import use_case.eventscreen.interface_adapter.EventScreenState;
-import use_case.homescreen.interface_adapter.HomescreenState;
+import view_model.EventCrafterState;
+import view_model.EventScreenState;
+import view_model.HomescreenState;
 import use_case.screen_switcher.ScreenSwitcherEventCrafterData;
 import use_case.screen_switcher.ScreenSwitcherLoggedInData;
 import use_case.screen_switcher.ScreenSwitcherMyEventsData;
 import use_case.screen_switcher.ScreenSwitcherOutputBoundary;
 
-import use_case.login.interface_adapter.LoginViewModel;
-import use_case.search_users.interface_adapter.SearchUsersViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
-import use_case.usersignup.interface_adapter.UserSignupViewModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.eventscreen.interface_adapter.EventScreenViewModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import view_model.LoginViewModel;
+import view_model.SearchUsersViewModel;
+import view_model.SplashViewModel;
+import view_model.UserSignupViewModel;
+import view_model.HomescreenViewModel;
+import view_model.EventScreenViewModel;
+import view_model.EventCrafterViewModel;
 
 public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final ViewManagerModel viewManagerModel;

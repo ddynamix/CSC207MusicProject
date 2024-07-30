@@ -1,14 +1,9 @@
 package view;
 
 import use_case.splash.interface_adapter.SplashPresenter;
-import use_case.splash.interface_adapter.SplashViewModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import view_model.SplashViewModel;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import view.jswing_views.SplashView;
-
-import static org.mockito.Mockito.*;
 
 public class SplashViewTest {
 

@@ -1,16 +1,20 @@
 package app;
 
+import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
-import use_case.eventscreen.interface_adapter.EventScreenViewModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.search_users.interface_adapter.SearchUsersViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
-import use_case.login.interface_adapter.LoginViewModel;
-import use_case.usersignup.interface_adapter.UserSignupViewModel;
+import view_model.EventCrafterViewModel;
+import view_model.EventScreenViewModel;
+import view_model.HomescreenViewModel;
+import view_model.SearchUsersViewModel;
+import view_model.SplashViewModel;
+import view_model.LoginViewModel;
+import view_model.UserSignupViewModel;
+import view.jswing_views.ViewManager;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 
 /*
@@ -25,6 +29,10 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
+        // Create JFrame
+        final JFrame application = new JFrame("Music App");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         // Here, you will choose how to display the app.
         ViewCreatorInterface viewCreatorInterface = new SwingViewCreator();
 
@@ -39,6 +47,15 @@ public class Main {
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
 
+        // Create the JFrame
+        CardLayout cardLayout = new CardLayout();
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        // Create the view manager that switches the views in Swing
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
         // Instantiate all view models.
         HashMap<String, ViewModel> viewModels = new HashMap<>();
         viewModels.put("splashViewModel", new SplashViewModel());
@@ -48,8 +65,25 @@ public class Main {
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
-        // Build the views and run.
-        viewCreatorInterface.createAllViews(viewModels, dataAccessObjects);
-        viewCreatorInterface.run();
+
+        // Implement all use cases.
+        HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);
+
+        // Build the views.
+        viewCreatorInterface.createAllViews(views, viewManagerModel, viewModels, controllers, dataAccessObjects);
+
+        // Set the initial view
+        viewManagerModel.setActiveView("splash");
+        viewManagerModel.firePropertyChanged();
+
+        // Set dimensions and location of JFrame
+        application.setSize(400, 800);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - application.getWidth()) / 2;
+        int y = (screenSize.height - application.getHeight()) / 2;
+        application.setLocation(x, y);
+
+        // Start the application
+        application.setVisible(true);
     }
 }

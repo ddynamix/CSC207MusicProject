@@ -1,8 +1,9 @@
 package view.jswing_views;
 
 import use_case.login.interface_adapter.LoginController;
-import use_case.login.interface_adapter.LoginState;
-import use_case.login.interface_adapter.LoginViewModel;
+import view_model.LoginState;
+import view_model.LoginViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginViewModel loginViewModel;
 
     private final LoginController loginController;
+    private final ScreenSwitcherController screenSwitcherController;
 
     final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
@@ -28,10 +30,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton logIn;
     final JButton cancel;
 
-    public LoginView(LoginViewModel loginViewModel, LoginController loginController) {
-        this.loginController = loginController;
+    public LoginView(LoginViewModel loginViewModel, LoginController loginController, ScreenSwitcherController screenSwitcherController) {
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
+        this.loginController = loginController;
+        this.screenSwitcherController = screenSwitcherController;
 
         JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -63,7 +66,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             System.out.println("log in button pressed");
             loginController.execute(usernameInputField.getText(), String.valueOf(passwordInputField.getPassword()));
         } else if (evt.getSource().equals(cancel)) {
-            loginController.cancelClicked();
+            screenSwitcherController.switchToSplash();
         }
     }
 

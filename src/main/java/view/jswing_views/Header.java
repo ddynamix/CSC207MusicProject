@@ -1,6 +1,7 @@
 package view.jswing_views;
 
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import use_case.sign_out.interface_adapter.SignOutController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +12,15 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Header extends JPanel implements ActionListener {
-    private final ScreenSwitcherController controller;
+    private final ScreenSwitcherController screenSwitcherController;
+    private final SignOutController signOutController;
 
     private JButton waffleButton;
     private JPopupMenu menu;
 
-    public Header(ScreenSwitcherController controller) {
-        this.controller = controller;
+    public Header(ScreenSwitcherController screenSwitcherController, SignOutController signOutController) {
+        this.screenSwitcherController = screenSwitcherController;
+        this.signOutController = signOutController;
 
         // Add menu items
         ArrayList<JMenuItem> options = new ArrayList<>();
@@ -111,21 +114,25 @@ public class Header extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(getMenuItems().get(0))) {  // Home
-            controller.switchToHome();
+            screenSwitcherController.switchToHome();
         } else if (evt.getSource().equals(getMenuItems().get(1))) {  // My Profile
             // not implemented
+            System.out.println("Not implemented yet.");
         } else if (evt.getSource().equals(getMenuItems().get(2))) {  // My Events
-            controller.switchToMyEvents();
+            screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(getMenuItems().get(3))) {  // My Artists
             // not implemented
+            System.out.println("Not implemented yet.");
         } else if (evt.getSource().equals(getMenuItems().get(4))) {  // My Venues
             // not implemented
+            System.out.println("Not implemented yet.");
         } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
             // not implemented
         } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Explore Users
-            controller.switchToSearchUsers();
+            screenSwitcherController.switchToSearchUsers();
         } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
-            controller.switchToSplash();
+            signOutController.executeSignOut();
+            screenSwitcherController.switchToSplash();
         }
     }
 }

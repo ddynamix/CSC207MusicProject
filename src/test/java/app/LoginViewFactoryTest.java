@@ -3,9 +3,9 @@ package app;
 import app.swing_view_factories.LoginViewFactory;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.login.interface_adapter.LoginViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
+import view_model.HomescreenViewModel;
+import view_model.LoginViewModel;
+import view_model.SplashViewModel;
 import view.jswing_views.LoginView;
 import org.junit.jupiter.api.Test;
 

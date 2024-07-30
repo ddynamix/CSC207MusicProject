@@ -3,6 +3,8 @@ package use_case.search_users.interface_adapter;
 import app.interface_adapter_tools.ViewManagerModel;
 import use_case.search_users.SearchUsersOutputBoundary;
 import use_case.search_users.SearchUsersOutputData;
+import view_model.SearchUsersState;
+import view_model.SearchUsersViewModel;
 
 public class SearchUsersPresenter implements SearchUsersOutputBoundary {
     private final ViewManagerModel viewManagerModel;

@@ -2,9 +2,9 @@ package interface_adapter_tools.login;
 
 import entity.user.User;
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.homescreen.interface_adapter.HomescreenState;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
+import view_model.HomescreenState;
+import view_model.HomescreenViewModel;
+import view_model.SplashViewModel;
 import use_case.login.LoginOutputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

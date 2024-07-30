@@ -1,10 +1,10 @@
 package view.jswing_views;
 
-import entity.event.Event;
 import entity.user.User;
-import use_case.homescreen.interface_adapter.HomescreenController;
-import use_case.homescreen.interface_adapter.HomescreenState;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
+import view_model.HomescreenState;
+import view_model.HomescreenViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import use_case.sign_out.interface_adapter.SignOutController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class HomescreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomescreenViewModel homescreenViewModel;
-    private final HomescreenController homescreenController;
+    private final ScreenSwitcherController screenSwitcherController;
+    private final SignOutController signOutController;
     private final JPanel header;
 
     private User signedInAs = null;
@@ -27,10 +27,11 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton signOutButton;
 
 
-    public HomescreenView(HomescreenViewModel homescreenViewModel, HomescreenController homescreenController, JPanel headerOriginal) {
+    public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController, SignOutController signOutController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
-        this.homescreenController = homescreenController;
         this.homescreenViewModel.addPropertyChangeListener(this);
+        this.screenSwitcherController = screenSwitcherController;
+        this.signOutController = signOutController;
         this.header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -86,9 +87,10 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(eventPageButton)) {
-            homescreenController.executeEventPageClicked();
+            screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(signOutButton)) {
-            homescreenController.executeSignOut();
+            signOutController.executeSignOut();
+            screenSwitcherController.switchToSplash();
         }
     }
 
