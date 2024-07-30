@@ -28,6 +28,12 @@ Link to Repo: https://github.com/ddynamix/CSC207MusicProject/tree/main
 - Sign up as Artist
 - Sign up as Venue
 - Login as Any
+- Search for any type of user
+- Follow users
+- Unfollow users
+- View your followers/following
+- Post events as an artist or venue user
+- Edit events as an artist or venue user
 
 ## Installation
 
