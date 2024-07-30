@@ -13,8 +13,8 @@ public class ScreenSwitcherControllerFactory {
 
     private ScreenSwitcherControllerFactory() {}
 
-    public static ScreenSwitcherController createScreenSwitcherController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel userSignupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, UserDataAccessInterface userDataAccessObject) {
-        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, userSignupViewModel, homescreenViewModel, eventScreenViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel);
+    public static ScreenSwitcherController createScreenSwitcherController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel userSignupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel, UserDataAccessInterface userDataAccessObject) {
+        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, userSignupViewModel, homescreenViewModel, eventScreenViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel, isFollowingViewModel);
         ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject);
 
         return new ScreenSwitcherController(screenSwitcherInteractor);

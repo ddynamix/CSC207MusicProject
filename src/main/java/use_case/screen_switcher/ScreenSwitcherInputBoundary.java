@@ -8,5 +8,6 @@ public interface ScreenSwitcherInputBoundary {
     void switchToMyEvents();
     void switchToSearchUsers();
     void switchToEventCrafter();
+    void switchToIsFollowing();
     void switchToMyFollowers();
 }

@@ -60,6 +60,13 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     }
 
     @Override
+    public void switchToIsFollowing() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        ArrayList<User> following = loggedIn.getFollowing();
+        screenSwitchPresenter.switchToIsFollowing(new ScreenSwitcherIsFollowingData(following));
+    }
+
+    @Override
     public void switchToMyFollowers() {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         ArrayList<User> followers = loggedIn.getFollowers();

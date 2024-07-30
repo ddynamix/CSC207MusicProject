@@ -14,8 +14,9 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final EventCrafterViewModel eventCrafterViewModel;
     private final SearchUsersViewModel searchUsersViewModel;
     private final MyFollowersViewModel myFollowersViewModel;
+    private final IsFollowingViewModel isFollowingViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -25,6 +26,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.searchUsersViewModel = searchUsersViewModel;
         this.myFollowersViewModel = myFollowersViewModel;
+        this.isFollowingViewModel = isFollowingViewModel;
     }
 
     @Override
@@ -98,6 +100,18 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         myFollowersViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(myFollowersViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToIsFollowing(ScreenSwitcherIsFollowingData isFollowingData) {
+        IsFollowingState isFollowingState = isFollowingViewModel.getState();
+        isFollowingState.setUsersToDisplay(isFollowingData.getUsersToDisplay());
+
+        isFollowingViewModel.setState(isFollowingState);
+        isFollowingViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(isFollowingViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

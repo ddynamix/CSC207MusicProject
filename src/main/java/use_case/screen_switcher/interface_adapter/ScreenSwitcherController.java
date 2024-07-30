@@ -37,6 +37,10 @@ public class ScreenSwitcherController {
         screenSwitcherInteractor.switchToEventCrafter();
     }
 
+    public void switchToIsFollowing() {
+        screenSwitcherInteractor.switchToIsFollowing();
+    }
+
     public void switchToMyFollowers() {
         screenSwitcherInteractor.switchToMyFollowers();
     }

@@ -29,7 +29,8 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("My Events"));
         options.add(new JMenuItem("My Artists"));
         options.add(new JMenuItem("My Venues"));
-        options.add(new JMenuItem("My Followers"));
+        options.add(new JMenuItem("Following"));
+        options.add(new JMenuItem("Followers"));
         options.add(new JMenuItem("Explore Users"));
         options.add(new JMenuItem("Sign Out"));
 
@@ -126,11 +127,13 @@ public class Header extends JPanel implements ActionListener {
         } else if (evt.getSource().equals(getMenuItems().get(4))) {  // My Venues
             // not implemented
             System.out.println("Not implemented yet.");
-        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
+        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // Following
+            screenSwitcherController.switchToIsFollowing();
+        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // My Followers
             screenSwitcherController.switchToMyFollowers();
-        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Explore Users
+        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // Explore Users
             screenSwitcherController.switchToSearchUsers();
-        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
+        } else if (evt.getSource().equals(getMenuItems().get(8))) {  // SignOut
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
         }

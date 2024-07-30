@@ -17,6 +17,7 @@ import java.util.HashMap;
  * TODO: Edit Event Feature for your events.
  * TODO: Add string search to search users.
  * TODO: Add spotify API Implementation.
+ * TODO: Implement my events for audience users.
  */
 
 public class Main {
@@ -58,6 +59,7 @@ public class Main {
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
         viewModels.put("myFollowersViewModel", new MyFollowersViewModel());
+        viewModels.put("isFollowingViewModel", new IsFollowingViewModel());
 
         // Implement all use cases.
         HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);

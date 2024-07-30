@@ -93,5 +93,12 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (FollowUserController)  controllers.get("followUserController"),
                 headerFactory.createHeader());
         views.add(myFollowersView, myFollowersView.viewName);
+
+        IsFollowingView isFollowingView = new IsFollowingView(
+                (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (FollowUserController)  controllers.get("followUserController"),
+                headerFactory.createHeader());
+        views.add(isFollowingView, isFollowingView.viewName);
     }
 }

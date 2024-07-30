@@ -46,6 +46,7 @@ public class ControllerCreator {
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
                 (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
+                (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         controllers.put("searchUsersController", SearchUsersControllerFactory.createSearchUsersController(viewManagerModel,
