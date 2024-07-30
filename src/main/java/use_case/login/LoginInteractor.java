@@ -26,9 +26,4 @@ public class LoginInteractor implements LoginInputBoundary {
             System.out.println("Login successful!");
         }
     }
-
-    @Override
-    public void cancelLogin() {
-        loginPresenter.prepareSplashView();
-    }
 }

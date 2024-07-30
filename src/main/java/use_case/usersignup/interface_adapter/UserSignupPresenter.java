@@ -1,10 +1,8 @@
 package use_case.usersignup.interface_adapter;
 
 
-import use_case.login.interface_adapter.LoginState;
-import use_case.login.interface_adapter.LoginViewModel;
+import view_model.*;
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.splash.interface_adapter.SplashViewModel;
 import use_case.usersignup.SignupOutputBoundary;
 import use_case.usersignup.SignupOutputData;
 
@@ -32,7 +30,7 @@ public class UserSignupPresenter implements SignupOutputBoundary {
     }
 
     /**
-     * Build success if the user was able to be created
+     * Build success if the user is created
      *
      * @param response outgoing message
      */
@@ -59,11 +57,5 @@ public class UserSignupPresenter implements SignupOutputBoundary {
         UserSignupState userSignupState = signupViewModel.getState();
         userSignupState.setUsernameError(error);
         signupViewModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareSplashView() {
-        viewManagerModel.setActiveView(splashViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

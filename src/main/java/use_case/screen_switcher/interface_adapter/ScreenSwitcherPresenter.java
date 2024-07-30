@@ -1,20 +1,8 @@
 package use_case.screen_switcher.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterState;
-import use_case.eventscreen.interface_adapter.EventScreenState;
-import use_case.homescreen.interface_adapter.HomescreenState;
-import use_case.screen_switcher.ScreenSwitcherEventCrafterData;
-import use_case.screen_switcher.ScreenSwitcherLoggedInData;
-import use_case.screen_switcher.ScreenSwitcherMyEventsData;
-import use_case.screen_switcher.ScreenSwitcherOutputBoundary;
-
-import use_case.login.interface_adapter.LoginViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
-import use_case.usersignup.interface_adapter.UserSignupViewModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.eventscreen.interface_adapter.EventScreenViewModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import use_case.screen_switcher.*;
+import view_model.*;
 
 public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final ViewManagerModel viewManagerModel;
@@ -24,8 +12,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final HomescreenViewModel homescreenViewModel;
     private final EventScreenViewModel eventScreenViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
+    private final SearchUsersViewModel searchUsersViewModel;
+    private final MyFollowersViewModel myFollowersViewModel;
+    private final IsFollowingViewModel isFollowingViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -33,6 +24,9 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.homescreenViewModel = homeViewModel;
         this.eventScreenViewModel = myEventsViewModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
+        this.searchUsersViewModel = searchUsersViewModel;
+        this.myFollowersViewModel = myFollowersViewModel;
+        this.isFollowingViewModel = isFollowingViewModel;
     }
 
     @Override
@@ -78,6 +72,12 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     }
 
     @Override
+    public void switchToSearchUsers() {
+        viewManagerModel.setActiveView(searchUsersViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
     public void switchToEventCrafter(ScreenSwitcherEventCrafterData eventScreenData) {
         EventCrafterState eventCrafterState = eventCrafterViewModel.getState();
         eventCrafterState.setSignedInAs(eventScreenData.getSignedInAs());
@@ -88,6 +88,30 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         eventCrafterViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(eventCrafterViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData) {
+        MyFollowersState myFollowersState = myFollowersViewModel.getState();
+        myFollowersState.setUsersToDisplay(myFollowersData.getUsersToDisplay());
+
+        myFollowersViewModel.setState(myFollowersState);
+        myFollowersViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(myFollowersViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToIsFollowing(ScreenSwitcherIsFollowingData isFollowingData) {
+        IsFollowingState isFollowingState = isFollowingViewModel.getState();
+        isFollowingState.setUsersToDisplay(isFollowingData.getUsersToDisplay());
+
+        isFollowingViewModel.setState(isFollowingState);
+        isFollowingViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(isFollowingViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

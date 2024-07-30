@@ -178,6 +178,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
+    public ArrayList<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
     public boolean passwordMatches(String username, String password) {
        return false;
     }

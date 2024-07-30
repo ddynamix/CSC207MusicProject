@@ -1,12 +1,10 @@
 package use_case.eventscreen.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterState;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import view_model.*;
 import use_case.eventscreen.EventScreenGetEventOutputData;
 import use_case.eventscreen.EventScreenOutputBoundary;
 import use_case.eventscreen.EventScreenOutputData;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
 
 public class EventScreenPresenter implements EventScreenOutputBoundary {
     private final ViewManagerModel viewManagerModel;
@@ -42,11 +40,5 @@ public class EventScreenPresenter implements EventScreenOutputBoundary {
 
         eventScreenViewModel.setState(eventScreenState);
         eventScreenViewModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareHomescreenView() {
-        viewManagerModel.setActiveView(homescreenViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

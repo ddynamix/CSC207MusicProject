@@ -1,8 +1,9 @@
 package view.jswing_views;
 
-import use_case.usersignup.interface_adapter.UserSignupState;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import view_model.UserSignupState;
 import use_case.usersignup.interface_adapter.UserSignupController;
-import use_case.usersignup.interface_adapter.UserSignupViewModel;
+import view_model.UserSignupViewModel;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
@@ -17,13 +18,14 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     public final String viewName = "user sign up";
     private final UserSignupViewModel signupViewModel;
 
+    private final UserSignupController signupController;
+    private final ScreenSwitcherController screenSwitcherController;
+
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
     private final JTextField emailInputField = new JTextField(15);
     private final JTextField nameInputField = new JTextField(15);
-
-    private final UserSignupController signupController;
 
     private final JButton signUp;
     private final JButton cancel;
@@ -31,10 +33,11 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     private final ButtonGroup options;
 
 
-    public UserSignupView(UserSignupViewModel signupViewModel, UserSignupController controller) {
-        this.signupController = controller;
+    public UserSignupView(UserSignupViewModel signupViewModel, UserSignupController controller, ScreenSwitcherController screenSwitcherController) {
         this.signupViewModel = signupViewModel;
         this.signupViewModel.addPropertyChangeListener(this);
+        this.signupController = controller;
+        this.screenSwitcherController = screenSwitcherController;
 
         JLabel title = new JLabel(signupViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -103,7 +106,7 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
                         String.valueOf(nameInputField.getText()));
             }
         } else if (evt.getSource().equals(cancel)) {
-            signupController.cancelClicked();
+            screenSwitcherController.switchToSplash();
         }
     }
 

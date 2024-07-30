@@ -1,13 +1,11 @@
 package use_case.login.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import use_case.homescreen.interface_adapter.HomescreenState;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
+import view_model.HomescreenState;
+import view_model.HomescreenViewModel;
+import view_model.SplashViewModel;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
-
-import javax.swing.*;
 
 public class LoginPresenter implements LoginOutputBoundary {
     private final SplashViewModel splashViewModel;
@@ -33,12 +31,6 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        viewManagerModel.firePropertyChanged();
-    }
-
-    @Override
-    public void prepareSplashView() {
-        viewManagerModel.setActiveView(splashViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

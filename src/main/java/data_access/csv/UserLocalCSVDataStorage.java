@@ -170,6 +170,15 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         return audienceUsers;
     }
 
+    @Override
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> allUsers = new ArrayList<>();
+        for (User user : accounts.values()) {
+            allUsers.add(user);
+        }
+        return allUsers;
+    }
+
     private <K, V> void printHashMap(HashMap<K, V> map) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());

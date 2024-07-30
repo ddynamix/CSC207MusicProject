@@ -26,12 +26,7 @@ public class EventScreenInteractor implements EventScreenInputBoundary {
         eventScreenPresenter.prepareCreateEventView(new EventScreenOutputData(loggedInUser, artistUsers, venueUsers));
     }
 
-    @Override
-    public void cancel() {
-        eventScreenPresenter.prepareHomescreenView();
-    }
-
-    // unused method unless i find a way to call this when the view is switched to the event screen
+    // unused method unless i find a way to call this when the view is switched to the event screen (create new use case maybe)
     @Override
     public void updateEvents() {
         ArrayList<Event> myEvents = UserSession.getInstance().getLoggedInUser().getMyEvents();

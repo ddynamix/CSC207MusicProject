@@ -1,12 +1,10 @@
 package use_case.eventcrafter;
 
-import app.interface_adapter_tools.UserSession;
 import data_access.EventAlreadyExistsException;
 import data_access.EventDataAccessInterface;
 import entity.event.Event;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class EventCrafterInteractor implements EventCrafterInputBoundary {
     final EventDataAccessInterface eventDataAccessInterface;
@@ -38,10 +36,5 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
         } catch (EventAlreadyExistsException e) {
             eventCrafterPresenter.prepareFailView("Event already exists.");
         }
-    }
-
-    @Override
-    public void switchToEventScreenCancel() {
-        eventCrafterPresenter.switchToEventScreen();
     }
 }

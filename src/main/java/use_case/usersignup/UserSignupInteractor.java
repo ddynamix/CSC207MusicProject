@@ -39,7 +39,6 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
             try {
                 User user = getUser(signupInputData);
                 userDataAccessInterface.create(user);
-
                 LocalDateTime now = LocalDateTime.now();
                 SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), now.toString());
                 userPresenter.prepareSuccessView(signupOutputData);
@@ -47,11 +46,6 @@ public class UserSignupInteractor implements UserSignupInputBoundary{
                 userPresenter.prepareFailView("Username already exists.");
             }
         }
-    }
-
-    @Override
-    public void cancelSignUp() {
-        userPresenter.prepareSplashView();
     }
 
     /**

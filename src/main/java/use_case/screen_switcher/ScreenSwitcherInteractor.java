@@ -47,10 +47,29 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     }
 
     @Override
+    public void switchToSearchUsers() {
+        screenSwitchPresenter.switchToSearchUsers();
+    }
+
+    @Override
     public void switchToEventCrafter() {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         ArrayList<ArtistUser> artists = userDataAccess.getArtistUsers();
         ArrayList<VenueUser> venues = userDataAccess.getVenueUsers();
         screenSwitchPresenter.switchToEventCrafter(new ScreenSwitcherEventCrafterData(loggedIn, artists, venues));
+    }
+
+    @Override
+    public void switchToIsFollowing() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        ArrayList<User> following = loggedIn.getFollowing();
+        screenSwitchPresenter.switchToIsFollowing(new ScreenSwitcherIsFollowingData(following));
+    }
+
+    @Override
+    public void switchToMyFollowers() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        ArrayList<User> followers = loggedIn.getFollowers();
+        screenSwitchPresenter.switchToMyFollowers(new ScreenSwitcherMyFollowersData(followers));
     }
 }

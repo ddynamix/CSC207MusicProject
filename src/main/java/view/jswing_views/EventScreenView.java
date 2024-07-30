@@ -4,8 +4,8 @@ import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
 import use_case.eventscreen.interface_adapter.EventScreenController;
-import use_case.eventscreen.interface_adapter.EventScreenViewModel;
-import use_case.homescreen.interface_adapter.HomescreenController;
+import view_model.EventScreenViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
@@ -18,6 +18,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     public final String viewName = "event screen";
     private final EventScreenViewModel eventScreenViewModel;
     private final EventScreenController eventScreenController;
+    private final ScreenSwitcherController screenSwitcherController;
     private final JPanel header;
 
     private JList<Event> eventList;
@@ -26,15 +27,15 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     JButton createEventButton;
     JButton backButton;
 
-    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, Header headerOriginal) {
+    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
-        this.eventScreenController = eventScreenController;
         this.eventScreenViewModel.addPropertyChangeListener(this);
+        this.eventScreenController = eventScreenController;
+        this.screenSwitcherController = screenSwitcherController;
         header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
 
         JLabel title = new JLabel(eventScreenViewModel.TITLE_LABEL);
         c.gridx = 1;
@@ -92,7 +93,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         if (e.getSource() == createEventButton) {
             eventScreenController.executeCreateEvent();
         } else if (e.getSource() == backButton) {
-            eventScreenController.executeCancel();
+            screenSwitcherController.switchToHome();
         }
     }
 

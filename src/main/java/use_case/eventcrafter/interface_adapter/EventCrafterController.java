@@ -53,10 +53,6 @@ public class EventCrafterController {
         eventCrafterInteractor.attemptPostEvent(eventCrafterInputData);
     }
 
-    public void switchToEventScreen() {
-        eventCrafterInteractor.switchToEventScreenCancel();
-    }
-
     private ArrayList<String> stringToArrayList(String tags) {
         return new ArrayList<>(Arrays.asList(tags.split(";")));
     }

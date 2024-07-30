@@ -12,8 +12,4 @@ public class EventScreenController {
     public void executeCreateEvent() {
         eventScreenInteractor.createEventClicked();
     }
-
-    public void executeCancel() {
-        eventScreenInteractor.cancel();
-    }
 }
