@@ -22,12 +22,6 @@ public class ControllerCreator {
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
-        controllers.put("createEventController", CreateEventClickedControllerFactory.createCreateEventClickedController(viewManagerModel,
-                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
-                (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
-                (HomescreenViewModel) viewModels.get("homescreenViewModel"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
-
         controllers.put("followUserController", FollowUserControllerFactory.createFollowUserController(
                 (FollowRelationalAccessInterface) dataAccessObjects.get("followRelationalAccessObject")
         ));

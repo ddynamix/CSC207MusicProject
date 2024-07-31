@@ -3,7 +3,6 @@ package view.jswing_views;
 import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
-import use_case.eventscreen.interface_adapter.EventScreenController;
 import view_model.EventScreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.EventListCellRenderer;
@@ -17,7 +16,6 @@ import java.beans.PropertyChangeListener;
 public class EventScreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "event screen";
     private final EventScreenViewModel eventScreenViewModel;
-    private final EventScreenController eventScreenController;
     private final ScreenSwitcherController screenSwitcherController;
     private final JPanel header;
 
@@ -27,10 +25,9 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     JButton createEventButton;
     JButton backButton;
 
-    public EventScreenView(EventScreenViewModel eventScreenViewModel, EventScreenController eventScreenController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
+    public EventScreenView(EventScreenViewModel eventScreenViewModel, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventScreenViewModel.addPropertyChangeListener(this);
-        this.eventScreenController = eventScreenController;
         this.screenSwitcherController = screenSwitcherController;
         header = headerOriginal;
 
@@ -91,7 +88,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createEventButton) {
-            eventScreenController.executeCreateEvent();
+            screenSwitcherController.switchToEventCrafter();
         } else if (e.getSource() == backButton) {
             screenSwitcherController.switchToHome();
         }

@@ -5,7 +5,6 @@ import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
-import use_case.eventscreen.interface_adapter.EventScreenController;
 import use_case.sign_out.interface_adapter.SignOutController;
 import view_model.*;
 import use_case.follow_user.interface_adapter.FollowUserController;
@@ -67,14 +66,13 @@ public class SwingViewCreator implements ViewCreatorInterface {
 
         EventScreenView eventScreenView = new EventScreenView(
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
-                (EventScreenController) controllers.get("eventScreenController"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 headerFactory.createHeader());
         views.add(eventScreenView, eventScreenView.viewName);
 
         EventCrafterView eventCrafterView = new EventCrafterView(
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
-                (EventCrafterController) controllers.get("eventCrafterController"),
+                (EventCrafterController) controllers.get("craftEventController"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 headerFactory.createHeader());
         views.add(eventCrafterView, eventCrafterView.viewName);
