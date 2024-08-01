@@ -3,7 +3,7 @@ package view.jswing_views.utils;
 import javax.swing.*;
 import java.awt.*;
 
-public class UserCellListRenderer extends JPanel implements ListCellRenderer<JPanel> {
+public class CustomListCellRenderer extends JPanel implements ListCellRenderer<JPanel> {
 
     @Override
     public Component getListCellRendererComponent(JList<? extends JPanel> list, JPanel value, int index, boolean isSelected, boolean cellHasFocus) {

@@ -39,6 +39,7 @@ public class Main {
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
+        dataAccessObjects.put("usersEventsRelationalAccessObject", dataAccessFactory.getUsersEventsDAO());
 
         // Create the JFrame
         CardLayout cardLayout = new CardLayout();
@@ -56,6 +57,7 @@ public class Main {
         viewModels.put("signupViewModel", new UserSignupViewModel());
         viewModels.put("homescreenViewModel", new HomescreenViewModel());
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
+        viewModels.put("searchEventsViewModel", new SearchEventsViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
         viewModels.put("myFollowersViewModel", new MyFollowersViewModel());

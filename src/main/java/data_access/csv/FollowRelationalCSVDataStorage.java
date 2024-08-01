@@ -34,7 +34,7 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
                 String header = reader.readLine();
                 assert header.equals(headersToString(headers));
 
-                // This will load all users into memory as User objects
+                // This will load all relationships into the map.
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");

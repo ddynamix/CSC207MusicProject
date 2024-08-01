@@ -4,7 +4,7 @@ import app.interface_adapter_tools.UserSession;
 import entity.user.User;
 import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
-import view.jswing_views.utils.UserCellListRenderer;
+import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.UserListJPanel;
 import view_model.IsFollowingViewModel;
 
@@ -60,7 +60,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         userList = new JList<>(listModel);
         JPopupMenu popupMenu = this.createPopupMenu();
         userList.setComponentPopupMenu(popupMenu);
-        userList.setCellRenderer(new UserCellListRenderer());
+        userList.setCellRenderer(new CustomListCellRenderer());
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userList.setOpaque(false);
 

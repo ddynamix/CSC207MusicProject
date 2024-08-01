@@ -9,7 +9,7 @@ import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.search_users.interface_adapter.SearchUsersController;
 import view_model.SearchUsersViewModel;
-import view.jswing_views.utils.UserCellListRenderer;
+import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.UserListJPanel;
 
 import javax.swing.*;
@@ -103,7 +103,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         userList = new JList<>(listModel);
         JPopupMenu popupMenu = this.createPopupMenu();
         userList.setComponentPopupMenu(popupMenu);
-        userList.setCellRenderer(new UserCellListRenderer());
+        userList.setCellRenderer(new CustomListCellRenderer());
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userList.setOpaque(false);
 

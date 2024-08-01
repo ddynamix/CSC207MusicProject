@@ -1,9 +1,6 @@
 package data_access.csv;
 
-import data_access.DataAccessFactoryInterface;
-import data_access.EventDataAccessInterface;
-import data_access.FollowRelationalAccessInterface;
-import data_access.UserDataAccessInterface;
+import data_access.*;
 
 import java.io.IOException;
 
@@ -35,5 +32,10 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     @Override
     public FollowRelationalAccessInterface getFollowDAO() {
         return followRelationalAccessObject;
+    }
+
+    @Override
+    public UsersEventsRelationalAccessInterface getUsersEventsDAO() {
+        return new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
     }
 }

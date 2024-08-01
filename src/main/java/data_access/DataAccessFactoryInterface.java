@@ -4,4 +4,5 @@ public interface DataAccessFactoryInterface {
     EventDataAccessInterface getEventDAO();
     UserDataAccessInterface getUserDAO();
     FollowRelationalAccessInterface getFollowDAO();
+    UsersEventsRelationalAccessInterface getUsersEventsDAO();
 }

@@ -11,18 +11,20 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final UserSignupViewModel signupViewModel;
     private final HomescreenViewModel homescreenViewModel;
     private final EventScreenViewModel eventScreenViewModel;
+    private final SearchEventsViewModel searchEventsViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
     private final SearchUsersViewModel searchUsersViewModel;
     private final MyFollowersViewModel myFollowersViewModel;
     private final IsFollowingViewModel isFollowingViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
         this.signupViewModel = signupViewModel;
         this.homescreenViewModel = homeViewModel;
         this.eventScreenViewModel = myEventsViewModel;
+        this.searchEventsViewModel = searchEventsViewModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.searchUsersViewModel = searchUsersViewModel;
         this.myFollowersViewModel = myFollowersViewModel;
@@ -68,6 +70,18 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         eventScreenViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(eventScreenViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToSearchEvents(ScreenSwitcherSearchEventsData searchEventsData) {
+        SearchEventsState searchEventsState = new SearchEventsState();
+        searchEventsState.setEventsToDisplay(searchEventsData.getAllEvents());
+
+        searchEventsViewModel.setState(searchEventsState);
+        searchEventsViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(searchEventsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

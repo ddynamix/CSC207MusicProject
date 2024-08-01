@@ -1,6 +1,7 @@
 package use_case.screen_switcher;
 
 import app.interface_adapter_tools.UserSession;
+import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import entity.user.ArtistUser;
 import entity.user.User;
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     private final ScreenSwitcherOutputBoundary screenSwitchPresenter;
     private final UserDataAccessInterface userDataAccess;
+    private final EventDataAccessInterface eventDataAccess;
 
-    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter, UserDataAccessInterface userDataAccessObject) {
+    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
         this.screenSwitchPresenter = screenSwitchPresenter;
         this.userDataAccess = userDataAccessObject;
+        this.eventDataAccess = eventDataAccessObject;
     }
 
     @Override
@@ -44,6 +47,12 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         ArrayList<Event> myEvents = loggedIn.getMyEvents();
         screenSwitchPresenter.switchToMyEvents(new ScreenSwitcherMyEventsData(myEvents, loggedIn));
+    }
+
+    @Override
+    public void switchToSearchEvents() {
+        ArrayList<Event> allEvents = eventDataAccess.getEvents();
+        screenSwitchPresenter.switchToSearchEvents(new ScreenSwitcherSearchEventsData(allEvents));
     }
 
     @Override

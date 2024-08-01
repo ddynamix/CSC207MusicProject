@@ -176,11 +176,12 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
     }
 
     @Override
-    public Event getEventFromTitle(String eventName) throws EventDoesntExistException {
+    public Event getEventFromTitle(String eventName) {
         if (eventExists(eventName)) {
             return events.get(eventName);
         } else {
-            throw new EventDoesntExistException();
+            System.out.println("Event does not exist");
+            return null;
         }
     }
 

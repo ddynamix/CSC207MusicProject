@@ -9,6 +9,6 @@ public interface EventDataAccessInterface {
     boolean eventExists(String eventName);
     void createEvent(Event event) throws EventAlreadyExistsException;
     void deleteEvent(Event event) throws EventDoesntExistException;
-    Event getEventFromTitle(String eventName) throws EventDoesntExistException;
+    Event getEventFromTitle(String eventName);
     ArrayList<Event> getEvents();
 }

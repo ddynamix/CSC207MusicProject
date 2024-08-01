@@ -122,6 +122,10 @@ public class User {
         this.myEvents.add(event);
     }
 
+    public void removeEvent(Event event) {
+        this.myEvents.remove(event);
+    }
+
     public void addFollower(User follower) {
         this.followers.add(follower);
     }

@@ -3,6 +3,8 @@ package view.jswing_views;
 import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
+import view.jswing_views.utils.CustomListCellRenderer;
+import view.jswing_views.utils.EventListJPanel;
 import view_model.EventScreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.EventListCellRenderer;
@@ -19,11 +21,12 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     private final ScreenSwitcherController screenSwitcherController;
     private final JPanel header;
 
-    private JList<Event> eventList;
-    private DefaultListModel<Event> eventListModel;
+    private JList<EventListJPanel> eventList;
+    private DefaultListModel<EventListJPanel> eventListModel;
+    private JPopupMenu popupMenu;
 
-    JButton createEventButton;
-    JButton backButton;
+    private JButton createEventButton;
+    private JButton backButton;
 
     public EventScreenView(EventScreenViewModel eventScreenViewModel, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
@@ -55,8 +58,15 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
 
         eventListModel = new DefaultListModel<>();
         eventList = new JList<>(eventListModel);
-        eventList.setCellRenderer(new EventListCellRenderer());
+        popupMenu = this.createPopupMenu();
+        eventList.setComponentPopupMenu(popupMenu);
+        eventList.setCellRenderer(new CustomListCellRenderer());
+        eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        eventList.setLayoutOrientation(JList.VERTICAL);
+        eventList.setOpaque(false);
+
         JScrollPane scrollPane = new JScrollPane(eventList);
+        scrollPane.setBackground(Color.LIGHT_GRAY);
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 0;
@@ -99,12 +109,55 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         if (evt.getPropertyName().equals("state")) {
             eventListModel.clear();
             for (Event event : eventScreenViewModel.getState().getEvents()) {
-                eventListModel.addElement(event);
+                EventListJPanel eventPanel = new EventListJPanel(event);
+                eventListModel.addElement(eventPanel);
             }
 
-            System.out.println(eventScreenViewModel.getState().getSignedInAs().getUsername());
             User signedInAs = eventScreenViewModel.getState().getSignedInAs();
             createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
+            popupMenu = createPopupMenu(); // Refresh the popup menu
+            eventList.setComponentPopupMenu(popupMenu);
+
         }
+    }
+
+    private JPopupMenu createPopupMenu() {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        eventList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                popupMenu.removeAll();
+
+                EventListJPanel eventPanel = eventList.getSelectedValue();
+                if (eventPanel != null) {
+                    Event event = eventPanel.getEvent();
+                    if (isAudienceUser()) {
+                        JMenuItem viewDetails = new JMenuItem("Remove Event");
+                        viewDetails.addActionListener(ev -> {
+                            // Action for viewing event details
+                        });
+                        popupMenu.add(viewDetails);
+                    } else {
+                        JMenuItem editEvent = new JMenuItem("Edit Event");
+                        editEvent.addActionListener(ev -> {
+                            // Action for editing the event
+                        });
+                        popupMenu.add(editEvent);
+
+                        JMenuItem deleteEvent = new JMenuItem("Delete Event");
+                        deleteEvent.addActionListener(ev -> {
+                            // Action for deleting the event
+                        });
+                        popupMenu.add(deleteEvent);
+                    }
+                }
+            }
+        });
+
+        return popupMenu;
+    }
+
+    private boolean isAudienceUser() {
+        return eventScreenViewModel.getState().getSignedInAs() instanceof AudienceUser;
     }
 }

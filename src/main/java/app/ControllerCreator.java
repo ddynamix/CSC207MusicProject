@@ -6,6 +6,7 @@ import app.interface_adapter_tools.ViewModel;
 import data_access.EventDataAccessInterface;
 import data_access.FollowRelationalAccessInterface;
 import data_access.UserDataAccessInterface;
+import data_access.UsersEventsRelationalAccessInterface;
 import view_model.*;
 
 import java.util.HashMap;
@@ -37,11 +38,13 @@ public class ControllerCreator {
                 (UserSignupViewModel) viewModels.get("signupViewModel"),
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
+                (SearchEventsViewModel) viewModels.get("searchEventsViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
                 (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
                 (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject")));
 
         controllers.put("searchUsersController", SearchUsersControllerFactory.createSearchUsersController(viewManagerModel,
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
@@ -54,6 +57,15 @@ public class ControllerCreator {
                 (SplashViewModel) viewModels.get("splashViewModel"),
                 (LoginViewModel) viewModels.get("loginViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
+
+        controllers.put("searchEventsController", SearchEventsControllerFactory.createSearchEventsController(
+                (SearchEventsViewModel) viewModels.get("searchEventsViewModel"),
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject")
+        ));
+
+        controllers.put("addEventController", AddEventControllerFactory.createAddEventsController(
+                (UsersEventsRelationalAccessInterface) dataAccessObjects.get("usersEventsRelationalAccessObject")
+        ));
 
         return controllers;
     }
