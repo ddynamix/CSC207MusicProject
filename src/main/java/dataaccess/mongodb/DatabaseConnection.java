@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DatabaseConnection {
     public static void main(String[] args) {
-        String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
+        String connectionString = "mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
@@ -28,11 +28,11 @@ public class DatabaseConnection {
                 .build();
 
         // Create a new client and connect to the server
-        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")) {
             try {
                 // Send a ping to confirm a successful connection
-                MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-                MongoCollection<Document> collection = database.getCollection("comments");
+                MongoDatabase database = mongoClient.getDatabase("contentDataBase");
+                MongoCollection<Document> collection = database.getCollection("eventContent");
                 database.runCommand(new Document("ping", 1));
                 System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
                 List<Document> databases = mongoClient.listDatabases().into(new ArrayList<>());
