@@ -3,6 +3,8 @@ package view.jswing_views;
 import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
+import use_case.add_event.interface_adapter.AddEventController;
+import use_case.edit_event.interface_adapter.EditEventController;
 import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.EventListJPanel;
 import view_model.EventScreenViewModel;
@@ -19,6 +21,8 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     public final String viewName = "event screen";
     private final EventScreenViewModel eventScreenViewModel;
     private final ScreenSwitcherController screenSwitcherController;
+    private final AddEventController addEventController;
+    private final EditEventController editEventController;
     private final JPanel header;
 
     private JList<EventListJPanel> eventList;
@@ -28,10 +32,12 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     private JButton createEventButton;
     private JButton backButton;
 
-    public EventScreenView(EventScreenViewModel eventScreenViewModel, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
+    public EventScreenView(EventScreenViewModel eventScreenViewModel, ScreenSwitcherController screenSwitcherController, AddEventController addEventController, EditEventController editEventController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventScreenViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
+        this.addEventController = addEventController;
+        this.editEventController = editEventController;
         header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -134,19 +140,19 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                     if (isAudienceUser()) {
                         JMenuItem viewDetails = new JMenuItem("Remove Event");
                         viewDetails.addActionListener(ev -> {
-                            // Action for viewing event details
+                            addEventController.removeEvent(event);
                         });
                         popupMenu.add(viewDetails);
                     } else {
                         JMenuItem editEvent = new JMenuItem("Edit Event");
                         editEvent.addActionListener(ev -> {
-                            // Action for editing the event
+                            editEventController.editEvent(event);
                         });
                         popupMenu.add(editEvent);
 
                         JMenuItem deleteEvent = new JMenuItem("Delete Event");
                         deleteEvent.addActionListener(ev -> {
-                            // Action for deleting the event
+                            editEventController.deleteEvent(event);
                         });
                         popupMenu.add(deleteEvent);
                     }
