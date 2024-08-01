@@ -14,7 +14,7 @@ public interface IEvent {
     public ArrayList<String> getTags(); // genres, maybe make genre object
     public LocalDateTime getPostDate();
     public String getAttachedMedia(); // change to media object
-    public int getId();
+    public String getId();
 
     public String getDateAndTimeString();
     public String getPostDateString();
