@@ -100,7 +100,6 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     }
 
     }
-
     @Override
     public Map<String, Event> getEvents() { //todo implement. return all events
         Event event = new Event();

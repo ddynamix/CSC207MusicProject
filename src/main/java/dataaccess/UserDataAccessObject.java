@@ -18,6 +18,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
 
+    //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception {
         public UserNotFoundException() {
             super("User not found in the database");
