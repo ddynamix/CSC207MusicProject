@@ -1,7 +1,7 @@
 package data_access.csv;
 
-import data_access.UserAlreadyExistsException;
 import data_access.UserDataAccessInterface;
+import data_access.UserDataAccessObject;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
 import entity.user.User;

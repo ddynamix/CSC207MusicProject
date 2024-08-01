@@ -1,7 +1,7 @@
 package use_case.usersignup;
 
 import data_access.UserDataAccessInterface;
-import data_access.mongodb.UserDataAccessObject;
+import data_access.UserDataAccessObject;
 import entity.user.ArtistUser;
 import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;

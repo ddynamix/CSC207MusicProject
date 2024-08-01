@@ -1,5 +1,4 @@
 package data_access;
-import data_access.mongodb.UserDataAccessObject;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
 import entity.user.User;

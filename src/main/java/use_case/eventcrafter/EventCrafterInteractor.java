@@ -38,7 +38,7 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
 
             eventCrafterPresenter.prepareSuccessView(eventCrafterOutputData);
             System.out.println("Event posted successfully!");
-        } catch (EventAlreadyExistsException | EventAlreadyExistsException e) {
+        } catch (EventAlreadyExistsException e) {
             eventCrafterPresenter.prepareFailView("Event already exists.");
         }
     }

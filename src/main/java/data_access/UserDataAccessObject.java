@@ -1,4 +1,4 @@
-package data_access.mongodb;
+package data_access;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -10,8 +10,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
-import data_access.UserAlreadyExistsException;
-import data_access.UserDataAccessInterface;
 import entity.user.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
