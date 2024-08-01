@@ -116,6 +116,30 @@ public class User {
     }
 
     /**
+     * Set email in database
+     * @param email    String id
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Set name in database
+     * @param name    String id
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set username in database
+     * @param username    String id
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
      * Return past events
      * @return  list    pastEvents
      */

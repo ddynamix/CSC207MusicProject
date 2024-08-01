@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "profile";
@@ -54,7 +55,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(update)){
-            // super controller execute update profile
+            updateProfile();
         } else if (evt.getSource().equals(follow)){
             signedInAs.addFollower(viewUser);
         }
@@ -62,6 +63,28 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+    }
+
+    public void updateProfile(){
+        JOptionPane updater = new JOptionPane();
+        JTextField name = new JTextField();
+        JTextField username = new JTextField();
+        JTextField email = new JTextField();
+
+        updater.add(name);
+        updater.add(username);
+        updater.add(email);
+
+        JButton finished = new JButton("Submit");
+
+        updater.add(finished);
+
+        updater.setVisible(true);
+
+        if (!Objects.equals(name.getText(), "")) {signedInAs.setName(name.getText());}
+        if (!Objects.equals(name.getText(), "")) {signedInAs.setEmail(email.getText());}
+        if (!Objects.equals(name.getText(), "")) {signedInAs.setUsername(username.getText());}
 
     }
 }
