@@ -118,4 +118,9 @@ public class User {
     public ArrayList<Event> getPastEvents() {
         return pastEvents;
     }
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }

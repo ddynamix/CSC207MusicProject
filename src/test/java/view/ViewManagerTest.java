@@ -1,10 +1,11 @@
 package view;
 
-import interface_adapter.ViewManagerModel;
+import app.interface_adapter_tools.ViewManagerModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import view.jswing_views.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;

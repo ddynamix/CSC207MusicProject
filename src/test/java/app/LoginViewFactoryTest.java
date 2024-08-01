@@ -1,17 +1,13 @@
 package app;
 
-import dataaccess.UserDataAccessInterface;
-import interface_adapter.ViewManagerModel;
-import interface_adapter.homescreen.HomescreenViewModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.splash.SplashViewModel;
-import usecase.login.LoginInputBoundary;
-import usecase.login.LoginInteractor;
-import view.LoginView;
+import app.swing_view_factories.LoginViewFactory;
+import data_access.UserDataAccessInterface;
+import app.interface_adapter_tools.ViewManagerModel;
+import use_case.homescreen.interface_adapter.HomescreenViewModel;
+import use_case.login.interface_adapter.LoginViewModel;
+import use_case.splash.interface_adapter.SplashViewModel;
+import view.jswing_views.LoginView;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
