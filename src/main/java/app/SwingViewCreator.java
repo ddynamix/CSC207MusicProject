@@ -119,5 +119,10 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (EditEventController) controllers.get("editEventController"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(eventEditorView, eventEditorView.viewName);
+
+        PostMakerView postMakerView = new PostMakerView(
+                (PostMakerViewModel) viewModels.get("postMakerViewModel"),
+                (PostMakerController) controllers.get("postMakerController"));
+        views.add(postMakerView, postMakerView.viewName);
     }
 }

@@ -15,7 +15,7 @@ public class PostMakerViewModel extends ViewModel {
     private PostMakerState state = new PostMakerState();
 
     public PostMakerViewModel() {
-        super("postmaker view");
+        super("postMaker view");
     }
 
     public void setState(PostMakerState state) {

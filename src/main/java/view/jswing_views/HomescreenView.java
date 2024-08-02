@@ -100,6 +100,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
             screenSwitcherController.switchToSplash();
         } else if (evt.getSource().equals(postButton)){
             screenSwitcherController.switchToPost();
+            System.out.println("Switching to post");
         }
     }
 
