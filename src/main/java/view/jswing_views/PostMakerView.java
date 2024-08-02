@@ -1,11 +1,9 @@
 package view.jswing_views;
 
-import entity.user.ArtistUser;
 import entity.user.User;
-import entity.user.VenueUser;
 import use_case.postMaker.interface_adapter.PostMakerController;
-import use_case.postMaker.interface_adapter.PostMakerState;
-import use_case.postMaker.interface_adapter.PostMakerViewModel;
+import view_model.PostMakerState;
+import view_model.PostMakerViewModel;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;

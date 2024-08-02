@@ -1,12 +1,14 @@
 package view_model;
 
 import entity.event.Event;
+import entity.post.Post;
 import entity.user.User;
 
 import java.util.ArrayList;
 
 public class HomescreenState {
     private ArrayList<Event> events;
+    private ArrayList<Post> Posts;
     private User signedInAs;
 
     public HomescreenState() {
@@ -29,4 +31,6 @@ public class HomescreenState {
     public void setSignedInAs(User signedInAs) {
         this.signedInAs = signedInAs;
     }
+
+    public void setPosts(ArrayList<Post> posts) { this.Posts = posts;}
 }

@@ -48,4 +48,6 @@ public class ScreenSwitcherController {
     public void switchToMyFollowers() {
         screenSwitcherInteractor.switchToMyFollowers();
     }
+
+    public void switchToPost() { screenSwitcherInteractor.switchToPost();}
 }
