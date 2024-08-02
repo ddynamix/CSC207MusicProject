@@ -56,7 +56,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         c.gridx = 2;
         c.gridy = 0;
         c.weightx = 0.5;
-        c.weighty = 0.2;
+        c.weighty = 0.1;
         c.insets = new Insets(5, 0, 0, 5);
         c.anchor = GridBagConstraints.FIRST_LINE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -94,7 +94,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 2;
-        c.weighty = 1;
+        c.weighty = 0.1;
         c.insets = new Insets(0, 0, 0, 0);
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;

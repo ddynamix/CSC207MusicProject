@@ -14,10 +14,8 @@ import java.util.HashMap;
 /*
  * TODO: Display events by profile type on User's profile.
  * TODO: Fix tests.
- * TODO: Edit Event Feature for your events.
  * TODO: Add string search to search users.
  * TODO: Add spotify API Implementation.
- * TODO: Implement my events for audience users.
  */
 
 public class Main {

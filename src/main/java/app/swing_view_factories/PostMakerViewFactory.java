@@ -6,11 +6,11 @@ import app.interface_adapter_tools.ViewManagerModel;
 import use_case.postMaker.interface_adapter.PostMakerController;
 import use_case.postMaker.interface_adapter.PostMakerPresenter;
 import use_case.postMaker.interface_adapter.PostMakerViewModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
 import use_case.postMaker.PostMakerInputBoundary;
 import use_case.postMaker.PostMakerInteractor;
 import use_case.postMaker.PostMakerOutputBoundary;
 import view.jswing_views.PostMakerView;
+import view_model.HomescreenViewModel;
 
 /**
  * Post maker factory

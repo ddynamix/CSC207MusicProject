@@ -49,7 +49,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 0.5;
-        c.weighty = 0.2;
+        c.weighty = 0.1;
         c.insets = new Insets(5, 5, 0, 0);
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -58,7 +58,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         c.gridx = 2;
         c.gridy = 0;
         c.weightx = 0.5;
-        c.weighty = 0.2;
+        c.weighty = 0.1;
         c.insets = new Insets(5, 0, 0, 5);
         c.anchor = GridBagConstraints.FIRST_LINE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
