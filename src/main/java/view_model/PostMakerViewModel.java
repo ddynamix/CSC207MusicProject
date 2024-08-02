@@ -1,4 +1,4 @@
-package use_case.postMaker.interface_adapter;
+package view_model;
 
 import app.interface_adapter_tools.ViewModel;
 

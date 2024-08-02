@@ -16,8 +16,14 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final SearchUsersViewModel searchUsersViewModel;
     private final MyFollowersViewModel myFollowersViewModel;
     private final IsFollowingViewModel isFollowingViewModel;
+    private final PostMakerViewModel postMakerViewModel;
 
-    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel, SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel) {
+    public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
+                                   SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
+                                   HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel,
+                                   SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel,
+                                   SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel,
+                                   IsFollowingViewModel isFollowingViewModel, PostMakerViewModel postMakerViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -29,6 +35,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.searchUsersViewModel = searchUsersViewModel;
         this.myFollowersViewModel = myFollowersViewModel;
         this.isFollowingViewModel = isFollowingViewModel;
+        this.postMakerViewModel = postMakerViewModel;
     }
 
     @Override
@@ -102,6 +109,19 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         eventCrafterViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(eventCrafterViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToPost(ScreenSwitcherPostData postData) {
+        PostMakerState postMakerState = postMakerViewModel.getState();
+        postMakerState.setSignedInAs(postData.getSignedInAs());
+        postMakerState.setPosts(postData.getPosts());
+
+        postMakerViewModel.setState(postMakerState);
+        postMakerViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(postMakerViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 

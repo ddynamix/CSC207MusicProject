@@ -9,6 +9,7 @@ public class HomescreenViewModel extends ViewModel {
     public final String TITLE_LABEL = "Homescreen View";
     public final String EVENT_PAGE_BUTTON_LABEL = "My Events";
     public final String SIGN_OUT_BUTTON_LABEL = "Sign Out";
+    public final String POST_BUTTON_LABEL = "Make a Post";
 
     private HomescreenState state = new HomescreenState();
 

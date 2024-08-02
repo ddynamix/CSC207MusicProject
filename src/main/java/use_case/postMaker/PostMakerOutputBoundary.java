@@ -4,6 +4,4 @@ public interface PostMakerOutputBoundary {
     void prepareSuccessView(PostMakerOutputData postMakerOutputData);
 
     void prepareFailView(String error);
-
-    void switchToHomescreen();
 }

@@ -1,6 +1,7 @@
 package entity.user;
 
 import entity.event.Event;
+import entity.post.Post;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class User {
     private ArrayList<User> followers;
     private ArrayList<User> following;
     private ArrayList<Event> myEvents;
+    private ArrayList<Post> myPosts;
 
     //private Song featuredSong;
 
@@ -40,6 +42,7 @@ public class User {
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.myEvents = new ArrayList<>();
+        this.myPosts = new ArrayList<>();
     }
 
     /**
@@ -146,4 +149,6 @@ public class User {
     public String toString() {
         return this.username;
     }
+
+    public ArrayList<Post> getPosts() {return this.myPosts;}
 }

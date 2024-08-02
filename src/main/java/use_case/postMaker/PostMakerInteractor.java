@@ -1,17 +1,17 @@
 package use_case.postMaker;
 
-import data_access.PostMakerAccessInterface;
+import data_access.PostDataAccessInterface;
 import entity.post.Post;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class PostMakerInteractor implements PostMakerInputBoundary {
-    final PostMakerAccessInterface postMakerAccessInterface;
+    final PostDataAccessInterface postDataAccessInterface;
     final PostMakerOutputBoundary postMakerPresenter;
 
-    public PostMakerInteractor(PostMakerAccessInterface postMakerAccessInterface, PostMakerOutputBoundary postMakerPresenter) {
-        this.postMakerAccessInterface = postMakerAccessInterface;
+    public PostMakerInteractor(PostDataAccessInterface postDataAccessInterface, PostMakerOutputBoundary postMakerPresenter) {
+        this.postDataAccessInterface = postDataAccessInterface;
         this.postMakerPresenter = postMakerPresenter;
     }
 
@@ -21,9 +21,9 @@ public class PostMakerInteractor implements PostMakerInputBoundary {
                 postMakerInputData.getText(),
                 postMakerInputData.getAuthor(),
                 postMakerInputData.getAttachedMedia());
-        postMakerAccessInterface.createPost(post);
+        postDataAccessInterface.createPost(post);
 
-        Collection<Post> values = postMakerAccessInterface.getPosts().values();
+        Collection<Post> values = postDataAccessInterface.getPosts();
         ArrayList<Post> listOfPosts = new ArrayList<>(values);
         PostMakerOutputData postMakerOutputData = new PostMakerOutputData(listOfPosts);
 

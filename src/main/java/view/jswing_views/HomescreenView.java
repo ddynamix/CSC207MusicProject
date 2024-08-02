@@ -1,6 +1,7 @@
 package view.jswing_views;
 
 import entity.user.User;
+import use_case.postMaker.interface_adapter.PostMakerController;
 import view_model.HomescreenState;
 import view_model.HomescreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
@@ -18,6 +19,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final HomescreenViewModel homescreenViewModel;
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
+    private final PostMakerController postMakerController;
     private final JPanel header;
 
     private User signedInAs = null;
@@ -25,13 +27,15 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     JButton eventPageButton;
     JButton signOutButton;
+    JButton postButton;
 
 
-    public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController, SignOutController signOutController, JPanel headerOriginal) {
+    public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController, SignOutController signOutController, PostMakerController postMakerController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
+        this.postMakerController = postMakerController;
         this.header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -71,7 +75,10 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         eventPageButton.addActionListener(this);
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
         signOutButton.addActionListener(this);
+        postButton = new JButton(homescreenViewModel.POST_BUTTON_LABEL);
+        postButton.addActionListener(this);
         buttons.add(eventPageButton);
+        buttons.add(postButton);
         buttons.add(signOutButton);
 
         c.gridwidth = 3;
@@ -91,6 +98,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         } else if (evt.getSource().equals(signOutButton)) {
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
+        } else if (evt.getSource().equals(postButton)){
+            screenSwitcherController.switchToPost();
         }
     }
 

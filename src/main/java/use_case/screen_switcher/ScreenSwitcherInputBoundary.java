@@ -11,4 +11,5 @@ public interface ScreenSwitcherInputBoundary {
     void switchToEventCrafter();
     void switchToIsFollowing();
     void switchToMyFollowers();
+    void switchToPost();
 }

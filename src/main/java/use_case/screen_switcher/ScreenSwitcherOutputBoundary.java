@@ -11,4 +11,6 @@ public interface ScreenSwitcherOutputBoundary {
     void switchToEventCrafter(ScreenSwitcherEventCrafterData eventCrafterData);
     void switchToIsFollowing(ScreenSwitcherIsFollowingData isFollowingData);
     void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData);
+
+    void switchToPost(ScreenSwitcherPostData screenSwitcherPostData);
 }

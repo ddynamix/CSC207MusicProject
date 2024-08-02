@@ -3,10 +3,7 @@ package app;
 import app.controller_factories.*;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
-import data_access.EventDataAccessInterface;
-import data_access.FollowRelationalAccessInterface;
-import data_access.UserDataAccessInterface;
-import data_access.UsersEventsRelationalAccessInterface;
+import data_access.*;
 import view_model.*;
 
 import java.util.HashMap;
@@ -21,6 +18,11 @@ public class ControllerCreator {
         controllers.put("craftEventController", CraftEventControllerFactory.createCraftEventController(viewManagerModel,
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
+
+        controllers.put("makePostController", PostMakerControllerFactory.createMakePostController(viewManagerModel,
+                (PostMakerViewModel) viewModels.get("postMakerViewModel"),
+                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         controllers.put("followUserController", FollowUserControllerFactory.createFollowUserController(
@@ -44,7 +46,8 @@ public class ControllerCreator {
                 (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
                 (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
-                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject")));
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
+                (PostMakerViewModel) viewModels.get("myPostViewModel")));
 
         controllers.put("searchUsersController", SearchUsersControllerFactory.createSearchUsersController(viewManagerModel,
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
