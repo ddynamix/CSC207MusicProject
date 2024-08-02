@@ -64,8 +64,15 @@ public class ControllerCreator {
         ));
 
         controllers.put("addEventController", AddEventControllerFactory.createAddEventsController(
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (UsersEventsRelationalAccessInterface) dataAccessObjects.get("usersEventsRelationalAccessObject")
         ));
+
+        controllers.put("editEventController", EditEventControllerFactory.createEditEventController(viewManagerModel,
+                (EventEditorViewModel) viewModels.get("eventEditorViewModel"),
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
+                (UsersEventsRelationalAccessInterface) dataAccessObjects.get("usersEventsRelationalAccessObject")));
 
         return controllers;
     }

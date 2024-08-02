@@ -62,6 +62,7 @@ public class Main {
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
         viewModels.put("myFollowersViewModel", new MyFollowersViewModel());
         viewModels.put("isFollowingViewModel", new IsFollowingViewModel());
+        viewModels.put("eventEditorViewModel", new EventEditorViewModel());
 
         // Implement all use cases.
         HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);

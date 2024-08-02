@@ -1,5 +1,6 @@
 package data_access.csv;
 
+import app.interface_adapter_tools.UserSession;
 import data_access.EventAlreadyExistsException;
 import data_access.EventDataAccessInterface;
 import data_access.EventDoesntExistException;
@@ -132,12 +133,42 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
             try {
                 events.remove(event.getTitle());
                 deleteEventFromCsv(event.getTitle());
+                UserSession.getInstance().getLoggedInUser().removeEvent(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("Event does not exist");
             throw new EventDoesntExistException();
+        }
+    }
+
+    @Override
+    public void updateEvent(Event event, String title, String description, String date, String tags, String media) throws EventDoesntExistException {
+        if (!eventExists(event.getTitle())) {
+            System.out.println("Event does not exist");
+        } else {
+            try {
+                deleteEventFromCsv(event.getTitle());
+                if (!(title == null || title.isEmpty())) {
+                    event.setTitle(title);
+                }
+                if (!(description == null || description.isEmpty())) {
+                    event.setDescription(description);
+                }
+                if (!(date == null || date.isEmpty())) {
+                    event.setDateAndTime(LocalDateTime.parse(date, formatter));
+                }
+                if (!(tags == null || tags.isEmpty())) {
+                    event.setTags(stringToArrayList(tags));
+                }
+                if (!(media == null || media.isEmpty())) {
+                    event.setAttachedMedia(media);
+                }
+                appendEventToCsv(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

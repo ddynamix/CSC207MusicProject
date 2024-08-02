@@ -5,10 +5,12 @@ import data_access.UsersEventsRelationalAccessInterface;
 import entity.user.User;
 
 public class AddEventInteractor implements AddEventInputBoundary {
+    private final AddEventOutputBoundary addEventPresenter;
     private final UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface;
 
-    public AddEventInteractor(UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface) {
+    public AddEventInteractor(AddEventOutputBoundary addEventPresenter, UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface) {
         this.usersEventsRelationalAccessInterface = usersEventsRelationalAccessInterface;
+        this.addEventPresenter = addEventPresenter;
     }
 
     @Override
@@ -21,5 +23,6 @@ public class AddEventInteractor implements AddEventInputBoundary {
     public void removeEvent(AddEventInputData inputData) {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         usersEventsRelationalAccessInterface.removeEvent(loggedIn, inputData.getEventToAddOrRemove());
+        addEventPresenter.updateEventsView(new AddEventOutputData(UserSession.getInstance().getLoggedInUser().getMyEvents()));
     }
 }

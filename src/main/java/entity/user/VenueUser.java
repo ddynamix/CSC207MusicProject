@@ -91,15 +91,4 @@ public class VenueUser extends User implements uploadable{
     public void updateEventMedia(Event event, String newMedia) {
         event.setAttachedMedia(newMedia);
     }
-
-    /**
-     * Remove event from database
-     * @param event     Event   to be removed
-     */
-    @Override
-    public void removeEvent(Event event){
-        //if (event.venue = this.name){
-            //event.id // ?
-        //}
-    };
 }

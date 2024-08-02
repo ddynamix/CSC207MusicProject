@@ -5,6 +5,7 @@ import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import use_case.add_event.interface_adapter.AddEventController;
+import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
 import use_case.search_events.interface_adapter.SearchEventsController;
 import use_case.sign_out.interface_adapter.SignOutController;
@@ -69,6 +70,8 @@ public class SwingViewCreator implements ViewCreatorInterface {
         EventScreenView eventScreenView = new EventScreenView(
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (AddEventController) controllers.get("addEventController"),
+                (EditEventController) controllers.get("editEventController"),
                 headerFactory.createHeader());
         views.add(eventScreenView, eventScreenView.viewName);
 
@@ -108,5 +111,11 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (FollowUserController)  controllers.get("followUserController"),
                 headerFactory.createHeader());
         views.add(isFollowingView, isFollowingView.viewName);
+
+        EventEditorView eventEditorView = new EventEditorView(
+                (EventEditorViewModel) viewModels.get("eventEditorViewModel"),
+                (EditEventController) controllers.get("editEventController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
+        views.add(eventEditorView, eventEditorView.viewName);
     }
 }

@@ -18,4 +18,8 @@ public class EditEventController {
     public void deleteEvent(Event event) {
         editEventInteractor.deleteEvent(new EditEventInputData(event));
     }
+
+    public void updateEvent(Event eventToAlter, String title, String description, String date, String tags, String media) {
+        editEventInteractor.updateEvent(new EditEventInputData(eventToAlter, title, description, date, tags, media));
+    }
 }
