@@ -2,6 +2,7 @@ package view.jswing_views;
 
 import entity.user.User;
 import use_case.postMaker.interface_adapter.PostMakerController;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view_model.PostMakerState;
 import view_model.PostMakerViewModel;
 import view.jswing_views.utils.LabelTextPanel;
@@ -11,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -19,6 +19,7 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
     public final String viewName = "postMaker view";
     private final PostMakerViewModel postMakerViewModel;
     private final PostMakerController postMakerController;
+    private final ScreenSwitcherController screenSwitcherController;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     final JButton post;
@@ -30,10 +31,15 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
 
     User signedInAs = null;
 
-    public PostMakerView(PostMakerViewModel postMakerViewModel, PostMakerController postMakerController) {
+    public PostMakerView(PostMakerViewModel postMakerViewModel, PostMakerController postMakerController,
+                         ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
+        if (postMakerController == null){
+            throw new IllegalArgumentException("PostMakerController cannot be null - improper initialization");
+        }
         this.postMakerViewModel = postMakerViewModel;
         this.postMakerController = postMakerController;
         this.postMakerViewModel.addPropertyChangeListener(this);
+        this.screenSwitcherController = screenSwitcherController;
 
         post = new JButton(postMakerViewModel.POST_BUTTON_LABEL);
         post.addActionListener(this);
@@ -66,29 +72,25 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(post)) {
-            LocalDateTime now = LocalDateTime.now();
-            String nowFormatted = now.format(formatter);
-
             try {
                 postMakerController.execute(
                         postTitleInputField.getText(),
                         postTextInputField.getText(),
                         signedInAs,
-                        nowFormatted,
                         postAttachedMediaInputField.getText()
                 );
+                screenSwitcherController.switchToHome();
             } catch (NullPointerException exception) {
                 System.out.println("null pointer exception: ");
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Please fill in all fields.");
-                //System.out.println(venue + artist + eventDateInputField.getText() + eventDescriptionInputField.getText() + eventTagsInputField.getText() + nowFormatted + eventAttachedMediaField.getText());
             } catch (DateTimeParseException exception) {
                 System.out.println("date time parse exception: " + exception);
                 JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
             }
         } else if (e.getSource().equals(cancel)) {
             System.out.println("cancel button pressed");
-            postMakerController.switchToHomescreen();
+            screenSwitcherController.switchToHome();
         }
 
     }
@@ -96,5 +98,9 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         PostMakerState state = (PostMakerState) evt.getNewValue();
+        signedInAs = state.getSignedInAs();
+        if (signedInAs == null){
+            throw new IllegalArgumentException("signedInAs is null");
+        }
     }
 }

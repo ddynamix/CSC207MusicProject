@@ -10,7 +10,8 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
     final EventDataAccessInterface eventDataAccessInterface;
     final EventCrafterOutputBoundary eventCrafterPresenter;
 
-    public EventCrafterInteractor(EventDataAccessInterface eventDataAccessInterface, EventCrafterOutputBoundary eventCrafterPresenter) {
+    public EventCrafterInteractor(EventDataAccessInterface eventDataAccessInterface,
+                                  EventCrafterOutputBoundary eventCrafterPresenter) {
         this.eventDataAccessInterface = eventDataAccessInterface;
         this.eventCrafterPresenter = eventCrafterPresenter;
     }

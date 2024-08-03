@@ -22,8 +22,7 @@ public class ControllerCreator {
 
         controllers.put("makePostController", PostMakerControllerFactory.createMakePostController(viewManagerModel,
                 (PostMakerViewModel) viewModels.get("postMakerViewModel"),
-                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
+                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject")));
 
         controllers.put("followUserController", FollowUserControllerFactory.createFollowUserController(
                 (FollowRelationalAccessInterface) dataAccessObjects.get("followRelationalAccessObject")
@@ -45,9 +44,10 @@ public class ControllerCreator {
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
                 (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
                 (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
+                (PostMakerViewModel) viewModels.get("postMakerViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
-                (PostMakerViewModel) viewModels.get("postMakerViewModel")));
+                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject")));
 
         controllers.put("searchUsersController", SearchUsersControllerFactory.createSearchUsersController(viewManagerModel,
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),

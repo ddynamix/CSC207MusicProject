@@ -2,6 +2,7 @@ package use_case.screen_switcher;
 
 import app.interface_adapter_tools.UserSession;
 import data_access.EventDataAccessInterface;
+import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import entity.post.Post;
 import entity.user.ArtistUser;
@@ -16,11 +17,16 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     private final ScreenSwitcherOutputBoundary screenSwitchPresenter;
     private final UserDataAccessInterface userDataAccess;
     private final EventDataAccessInterface eventDataAccess;
+    private final PostDataAccessInterface postDataAccess;
 
-    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
+    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter,
+                                    UserDataAccessInterface userDataAccessObject,
+                                    EventDataAccessInterface eventDataAccessObject,
+                                    PostDataAccessInterface postDataAccessObject) {
         this.screenSwitchPresenter = screenSwitchPresenter;
         this.userDataAccess = userDataAccessObject;
         this.eventDataAccess = eventDataAccessObject;
+        this.postDataAccess = postDataAccessObject;
     }
 
     @Override
@@ -73,7 +79,7 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     @Override
     public void switchToPost() {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
-        ArrayList<Post> posts = loggedIn.getPosts();
+        ArrayList<Post> posts = postDataAccess.getPosts();
         screenSwitchPresenter.switchToPost(new ScreenSwitcherPostData(posts, loggedIn));
     }
 

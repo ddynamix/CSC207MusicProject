@@ -6,8 +6,13 @@ import java.util.ArrayList;
 
 public interface PostDataAccessInterface {
     void createPost(Post post);
-    void deletePost(Post post);
+
+    boolean postExists(String postTitle);
+
+    void deletePost(Post post) throws PostDoesntExistException ;
     Post getPostFromTitle(String PostName);
+
+
     ArrayList<Post> getPosts();
-    void updatePost(Post Post, String title, String text, String media);
+    void updatePost(Post Post, String title, String text, String media) throws PostDoesntExistException ;
 }

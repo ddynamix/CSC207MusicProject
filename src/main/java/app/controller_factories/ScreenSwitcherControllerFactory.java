@@ -2,6 +2,7 @@ package app.controller_factories;
 
 import app.interface_adapter_tools.ViewManagerModel;
 import data_access.EventDataAccessInterface;
+import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import use_case.screen_switcher.ScreenSwitcherInputBoundary;
 import use_case.screen_switcher.ScreenSwitcherInteractor;
@@ -21,12 +22,13 @@ public class ScreenSwitcherControllerFactory {
                                                                           SearchEventsViewModel searchEventsViewModel,
                                                                           EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel,
                                                                           MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel,
+                                                                          PostMakerViewModel myPostMakerViewModel,
                                                                           UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject,
-                                                                          PostMakerViewModel myPostMakerViewModel) {
+                                                                          PostDataAccessInterface postDataAccessObject) {
         ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, userSignupViewModel,
                 homescreenViewModel, eventScreenViewModel, searchEventsViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel,
                 isFollowingViewModel, myPostMakerViewModel);
-        ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject, eventDataAccessObject);
+        ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject, eventDataAccessObject, postDataAccessObject);
 
         return new ScreenSwitcherController(screenSwitcherInteractor);
     }

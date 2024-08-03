@@ -4,14 +4,8 @@ import app.interface_adapter_tools.ViewManagerModel;
 import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import use_case.sign_out.interface_adapter.SignOutController;
-import view_model.EventCrafterViewModel;
-import view_model.EventScreenViewModel;
-import view_model.HomescreenViewModel;
-import view_model.LoginViewModel;
+import view_model.*;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
-import view_model.SearchUsersViewModel;
-import view_model.SplashViewModel;
-import view_model.UserSignupViewModel;
 import view.jswing_views.Header;
 
 public class HeaderFactory {
@@ -23,6 +17,7 @@ public class HeaderFactory {
     private final EventScreenViewModel eventScreenViewModel;
     private final EventCrafterViewModel eventCrafterViewModel;
     private final SearchUsersViewModel searchUsersViewModel;
+    private final PostMakerViewModel postMakerViewModel;
 
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
@@ -30,7 +25,13 @@ public class HeaderFactory {
     private final UserDataAccessInterface userDataAccessObject;
     private final EventDataAccessInterface eventDataAccessObject;
 
-    public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SplashViewModel splashViewModel, UserSignupViewModel signupViewModel, HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel, EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel, ScreenSwitcherController screenSwitcherController, SignOutController signOutController, UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject) {
+    public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
+                         SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
+                         HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel,
+                         EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel,
+                         PostMakerViewModel postMakerViewModel, ScreenSwitcherController screenSwitcherController,
+                         SignOutController signOutController, UserDataAccessInterface userDataAccessObject,
+                         EventDataAccessInterface eventDataAccessObject) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -39,6 +40,7 @@ public class HeaderFactory {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventCrafterViewModel = eventCrafterViewModel;
         this.searchUsersViewModel = searchUsersViewModel;
+        this.postMakerViewModel = postMakerViewModel;
 
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;

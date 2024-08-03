@@ -17,7 +17,6 @@ import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.search_users.interface_adapter.SearchUsersController;
 import use_case.usersignup.interface_adapter.UserSignupController;
 import view.jswing_views.*;
-import view.jswing_views.HomescreenView;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -37,6 +36,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
                 (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
+                (PostMakerViewModel) viewModels.get("postMakerViewModel"),
 
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
@@ -122,7 +122,9 @@ public class SwingViewCreator implements ViewCreatorInterface {
 
         PostMakerView postMakerView = new PostMakerView(
                 (PostMakerViewModel) viewModels.get("postMakerViewModel"),
-                (PostMakerController) controllers.get("postMakerController"));
+                (PostMakerController) controllers.get("makePostController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                headerFactory.createHeader());
         views.add(postMakerView, postMakerView.viewName);
     }
 }

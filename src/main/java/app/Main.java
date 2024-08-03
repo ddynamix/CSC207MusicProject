@@ -36,6 +36,7 @@ public class Main {
         HashMap<String, Object> dataAccessObjects = new HashMap<>();
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
+        dataAccessObjects.put("postDataAccessObject", dataAccessFactory.getPostDAO());
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
         dataAccessObjects.put("usersEventsRelationalAccessObject", dataAccessFactory.getUsersEventsDAO());
 

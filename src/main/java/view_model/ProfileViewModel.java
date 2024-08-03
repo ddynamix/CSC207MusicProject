@@ -4,21 +4,21 @@ import app.interface_adapter_tools.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import view_model.ProfileState;
 
-public class PostMakerViewModel extends ViewModel {
-    public final String TITLE_LABEL = "Post Title";
-    public final String POST_TEXT_LABEL = "Enter Post Content";
-    public final String POST_MEDIA_LABEL = "Enter post media";
-    public final String POST_BUTTON_LABEL = "Post";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private PostMakerState state = new PostMakerState();
 
-    public PostMakerViewModel() {
-        super("postMaker view");
-    }
+public class ProfileViewModel extends ViewModel{
+    public final String TITLE_LABEL = "Profile View";
+    public final String USERNAME_LABEL = "Username:";
+    public final String NAME_LABEL = "Name:";
+    public final String EMAIL_LABEL = "Email:";
 
-    public void setState(PostMakerState state) {
+    private ProfileState state = new ProfileState();
+
+    public ProfileViewModel() { super("Profile");}
+
+    public void setState(ProfileState state) {
         this.state = state;
     }
 
@@ -34,7 +34,7 @@ public class PostMakerViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public PostMakerState getState() {
+    public ProfileState getState() {
         return state;
     }
 }

@@ -9,7 +9,6 @@ public interface IPost {
     public String getText();
     public User getAuthor();
     public int getId();
-    public int getRating();
     public LocalDateTime getTimePosted();
     public String getAttachedMedia(); // Change to media object
 

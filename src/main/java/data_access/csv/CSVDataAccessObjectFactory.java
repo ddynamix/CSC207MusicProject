@@ -7,12 +7,14 @@ import java.io.IOException;
 public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     private final UserDataAccessInterface userDataAccessObject;
     private final EventDataAccessInterface eventDataAccessObject;
+    private final PostDataAccessInterface postDataAccessObject;
     private final FollowRelationalAccessInterface followRelationalAccessObject;
 
     public CSVDataAccessObjectFactory() {
         try {
             userDataAccessObject = new UserLocalCSVDataStorage("./users.csv");
             eventDataAccessObject = new EventLocalCSVDataStorage("./events.csv", userDataAccessObject);
+            postDataAccessObject = new PostLocalCSVDataStorage("./posts.csv", userDataAccessObject);
             followRelationalAccessObject = new FollowRelationalCSVDataStorage("./follows.csv", userDataAccessObject);
         } catch (IOException e) {
             throw new RuntimeException("Could not create CSV data access objects.");
@@ -27,6 +29,11 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     @Override
     public UserDataAccessInterface getUserDAO() {
         return userDataAccessObject;
+    }
+
+    @Override
+    public PostDataAccessInterface getPostDAO() {
+        return postDataAccessObject;
     }
 
     @Override

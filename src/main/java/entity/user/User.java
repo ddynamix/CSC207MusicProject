@@ -97,6 +97,10 @@ public class User {
         return following;
     }
 
+    public void addFollower(User newFollow){
+        this.followers.add(newFollow);
+    }
+
     /**
      * Return ID in database
      * @return  String id
@@ -114,8 +118,32 @@ public class User {
     }
 
     /**
+     * Set email in database
+     * @param email    String id
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Set name in database
+     * @param name    String id
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set username in database
+     * @param username    String id
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
      * Return past events
-     * @return  list    myEvents
+     * @return  list    pastEvents
      */
     public ArrayList<Event> getMyEvents() {
         return myEvents;
@@ -127,10 +155,6 @@ public class User {
 
     public void removeEvent(Event event) {
         this.myEvents.remove(event);
-    }
-
-    public void addFollower(User follower) {
-        this.followers.add(follower);
     }
 
     public void removeFollower(User follower) {
@@ -150,5 +174,7 @@ public class User {
         return this.username;
     }
 
-    public ArrayList<Post> getPosts() {return this.myPosts;}
+    public void addPost(Post post) {this.myPosts.add(post);}
+
+    public void removePost(Post post) {this.myPosts.remove((post));}
 }
