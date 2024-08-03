@@ -119,7 +119,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     }
 
     @Override
-    public void updatePost(Post post, String title, String text, String media) throws PostDoesntExistException {
+    public void updatePost(Post post, String title, String text, String postDate, String media) throws PostDoesntExistException {
         if (!postExists(post.getTitle())) {
             System.out.println("Post does not exist");
         } else {
@@ -130,6 +130,9 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
                 }
                 if (!(text == null || text.isEmpty())) {
                     post.setText(text);
+                }
+                if (!(postDate == null || postDate.isEmpty())) {
+                    post.setPostDate(postDate);
                 }
                 if (!(media == null || media.isEmpty())) {
                     post.setAttachedMedia(media);

@@ -3,6 +3,7 @@ package entity.post;
 import entity.user.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -12,10 +13,12 @@ public class Post implements IPost{
     private String title;
     private String text;
     private final User author;
-    private final LocalDateTime timePosted;
+    private LocalDateTime timePosted;
 
     private int id = 0;
     private String attachedMedia = null;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     //private Event taggedEvent;
 
@@ -93,7 +96,11 @@ public class Post implements IPost{
         this.text = text;
     }
 
-    public void setAttachedMedia(String media) {
-        this.attachedMedia = media;
+    public void setAttachedMedia(String media) {this.attachedMedia = media;}
+
+    public String getDateAndTimeString() {
+        return timePosted.format(formatter);
     }
+
+    public void setPostDate(String postDate) {this.timePosted = LocalDateTime.parse(postDate); }
 }

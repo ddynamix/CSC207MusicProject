@@ -45,4 +45,9 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     public UsersEventsRelationalAccessInterface getUsersEventsDAO() {
         return new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
     }
+
+    @Override
+    public UsersPostsRelationalAccessInterface getUsersPostsDAO() {
+        return new UsersPostsRelationalCSVDataStorage("./users_posts.csv", userDataAccessObject, postDataAccessObject);
+    }
 }

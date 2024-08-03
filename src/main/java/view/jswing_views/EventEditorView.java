@@ -130,7 +130,6 @@ public class EventEditorView extends JPanel implements ActionListener, PropertyC
     private void setFields(EventEditorState state) {
         eventTitleInputField.setText(state.getEventToEdit().getTitle());
         eventDescriptionInputField.setText(state.getEventToEdit().getDescription());
-        eventDateInputField.setText(state.getEventToEdit().getDateAndTimeString());
         eventTagsInputField.setText(String.join(";", state.getEventToEdit().getTags()));
         eventAttachedMediaField.setText(state.getEventToEdit().getAttachedMedia());
     }

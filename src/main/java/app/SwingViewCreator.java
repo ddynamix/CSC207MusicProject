@@ -4,10 +4,14 @@ import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
+
 import use_case.add_event.interface_adapter.AddEventController;
 import use_case.edit_event.interface_adapter.EditEventController;
-import use_case.eventcrafter.interface_adapter.EventCrafterController;
 import use_case.postMaker.interface_adapter.PostMakerController;
+//import use_case.add_post.interface_adapter.AddPostController;
+import use_case.edit_post.interface_adapter.EditPostController;
+
+import use_case.eventcrafter.interface_adapter.EventCrafterController;
 import use_case.search_events.interface_adapter.SearchEventsController;
 import use_case.sign_out.interface_adapter.SignOutController;
 import view_model.*;
@@ -65,6 +69,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
+                (EditPostController) controllers.get("editPostController"),
                 (PostMakerController) controllers.get("postMakerController"),
                 headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);

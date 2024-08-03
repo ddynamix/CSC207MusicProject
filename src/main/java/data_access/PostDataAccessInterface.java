@@ -14,5 +14,5 @@ public interface PostDataAccessInterface {
 
 
     ArrayList<Post> getPosts();
-    void updatePost(Post Post, String title, String text, String media) throws PostDoesntExistException ;
+    void updatePost(Post Post, String title, String text, String postDate, String media) throws PostDoesntExistException ;
 }

@@ -142,11 +142,19 @@ public class User {
     }
 
     /**
-     * Return past events
+     * Return  events
      * @return  list    pastEvents
      */
     public ArrayList<Event> getMyEvents() {
         return myEvents;
+    }
+
+    /**
+     * Return posts
+     * @return  list    myPosts
+     */
+    public ArrayList<Post> getMyPosts() {
+        return myPosts;
     }
 
     public void addEvent(Event event) {

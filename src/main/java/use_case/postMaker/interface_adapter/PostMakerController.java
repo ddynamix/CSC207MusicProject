@@ -12,7 +12,6 @@ public class PostMakerController {
     public PostMakerController(PostMakerInputBoundary postMakerInteractor, PostDataAccessInterface postDataAccessInterface) {
         this.postMakerInteractor = postMakerInteractor;
         this.postDataAccessInterface = postDataAccessInterface;
-        System.out.println("PostMakerController initializer");
     }
 
     public void execute(String title,

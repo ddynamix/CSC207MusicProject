@@ -9,7 +9,6 @@ import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.EventListJPanel;
 import view_model.EventScreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
-import view.jswing_views.utils.EventListCellRenderer;
 
 import javax.swing.*;
 import java.awt.*;

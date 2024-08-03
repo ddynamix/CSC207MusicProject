@@ -77,6 +77,16 @@ public class ControllerCreator {
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (UsersEventsRelationalAccessInterface) dataAccessObjects.get("usersEventsRelationalAccessObject")));
 
+        controllers.put("addPostController", AddPostControllerFactory.createAddPostsController(
+                (HomescreenViewModel) viewModels.get("homeScreenViewModel"),
+                (UsersPostsRelationalAccessInterface) dataAccessObjects.get("usersPostsRelationalAccessObject")
+        ));
+
+        controllers.put("editPostController", EditPostControllerFactory.createEditPostController(viewManagerModel,
+                (PostEditorViewModel) viewModels.get("postEditorViewModel"),
+                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject"),
+                (UsersPostsRelationalAccessInterface) dataAccessObjects.get("usersPostsRelationalAccessObject")));
+
         return controllers;
     }
 }

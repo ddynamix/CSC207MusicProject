@@ -38,7 +38,9 @@ public class Main {
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
         dataAccessObjects.put("postDataAccessObject", dataAccessFactory.getPostDAO());
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
+
         dataAccessObjects.put("usersEventsRelationalAccessObject", dataAccessFactory.getUsersEventsDAO());
+        dataAccessObjects.put("usersPostsRelationalAccessObject", dataAccessFactory.getUsersPostsDAO());
 
         // Create the JFrame
         CardLayout cardLayout = new CardLayout();
