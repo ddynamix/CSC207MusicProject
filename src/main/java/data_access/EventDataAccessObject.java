@@ -5,6 +5,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import entity.event.Event;
 import org.bson.Document;
@@ -33,7 +34,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     public MongoCollection mongoCollection;
 
     public EventDataAccessObject() {
-        String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
+        String connectionString = "mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
@@ -44,7 +45,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
                 .serverApi(serverApi)
                 .build();
 
-        this.mongoClient = MongoClients.create("mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+        this.mongoClient = MongoClients.create("mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
         this.mongoDatabase = mongoClient.getDatabase("contentDataBase");
         this.mongoCollection = mongoDatabase.getCollection("eventContent");
     }
@@ -78,7 +79,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
         if (!eventExists(event.getTitle())) {
             throw new EventDoesntExistException();
         } else {
-            Bson filter = eq("eventName", event.getTitle());
+            Bson filter = Filters.eq("eventName", event.getTitle());
             mongoCollection.deleteOne(filter);
         }
     }
@@ -88,11 +89,16 @@ public class EventDataAccessObject implements EventDataAccessInterface {
         if (!eventExists(eventName)) {
             throw new EventDoesntExistException();
         } else {
-            Bson filter = eq("eventName", eventName);
+            Bson filter = Filters.eq("eventName", eventName);
             MongoCursor iterator = mongoCollection.find(filter).iterator();
-            //todo convert iterator to event
-            return event;
-            ;
+            if (iterator.hasNext()) {
+                return (Event) iterator.next();
+            }
+            else {
+                throw new EventDoesntExistException();
+
+            }
+
         }
     }
 
