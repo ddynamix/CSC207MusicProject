@@ -9,6 +9,8 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     private final EventDataAccessInterface eventDataAccessObject;
     private final PostDataAccessInterface postDataAccessObject;
     private final FollowRelationalAccessInterface followRelationalAccessObject;
+    private final UsersEventsRelationalAccessInterface usersEventsRelationalAccessObject;
+    private final UsersPostsRelationalAccessInterface usersPostsRelationalAccessObject;
 
     public CSVDataAccessObjectFactory() {
         try {
@@ -16,6 +18,8 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
             eventDataAccessObject = new EventLocalCSVDataStorage("./events.csv", userDataAccessObject);
             postDataAccessObject = new PostLocalCSVDataStorage("./posts.csv", userDataAccessObject);
             followRelationalAccessObject = new FollowRelationalCSVDataStorage("./follows.csv", userDataAccessObject);
+            usersEventsRelationalAccessObject = new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
+            usersPostsRelationalAccessObject = new UsersPostsRelationalCSVDataStorage("./users_posts.csv", userDataAccessObject, postDataAccessObject);
         } catch (IOException e) {
             throw new RuntimeException("Could not create CSV data access objects.");
         }
@@ -43,11 +47,11 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
 
     @Override
     public UsersEventsRelationalAccessInterface getUsersEventsDAO() {
-        return new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
+        return usersEventsRelationalAccessObject;
     }
 
     @Override
     public UsersPostsRelationalAccessInterface getUsersPostsDAO() {
-        return new UsersPostsRelationalCSVDataStorage("./users_posts.csv", userDataAccessObject, postDataAccessObject);
+        return usersPostsRelationalAccessObject;
     }
 }
