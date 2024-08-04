@@ -96,9 +96,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
             }
             else {
                 throw new EventDoesntExistException();
-
             }
-
         }
     }
 

@@ -14,8 +14,7 @@ public interface UserDataAccessInterface {
     void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
     void create(User user) throws UserDataAccessObject.DuplicateUsernameException;
     void delete(User user) throws UserDataAccessObject.UserNotFoundException;
-
-    User getUserFromUsername(String username);
+    User getUserFromUsername(String username) throws UserDataAccessObject.UserNotFoundException;
     ArrayList<ArtistUser> getArtistUsers();
     ArrayList<VenueUser> getVenueUsers();
     ArrayList<AudienceUser> getAudienceUsers();

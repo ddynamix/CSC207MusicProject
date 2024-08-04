@@ -4,12 +4,10 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
+import entity.event.Event;
 import entity.user.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -155,8 +153,18 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public User getUserFromUsername(String username) {
-        return null; // TODO: Implement
+    public User getUserFromUsername(String userName) throws UserNotFoundException {
+        if (!userExistsInDatabase(userName)) {
+            throw new UserNotFoundException();
+        } else {
+            Bson filter = Filters.eq("userName", userName);
+            MongoCursor iterator = mongoCollection.find(filter).iterator();
+            if (iterator.hasNext()) {
+                return (User) iterator.next();
+            } else {
+                throw new UserNotFoundException();
+            }
+        }
     }
 
     @Override
