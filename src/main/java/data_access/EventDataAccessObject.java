@@ -11,6 +11,7 @@ import entity.event.Event;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -105,7 +106,7 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     @Override
     public Map<String, Event> getEvents() { //todo implement. return all events
         Event event = new Event();
-        Map<String, Event> events = new Map<>("place", event);
+        Map<String, Event> events = new HashMap<>("place", event);
         return events;
     }
 }

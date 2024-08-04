@@ -1,6 +1,5 @@
 package use_case.eventcrafter;
 
-import data_access.EventAlreadyExistsException;
 import data_access.EventDataAccessInterface;
 import data_access.EventDataAccessObject;
 import entity.event.Event;
@@ -38,7 +37,7 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
 
             eventCrafterPresenter.prepareSuccessView(eventCrafterOutputData);
             System.out.println("Event posted successfully!");
-        } catch (EventAlreadyExistsException e) {
+        } catch (EventDataAccessObject.EventAlreadyExistsException e) {
             eventCrafterPresenter.prepareFailView("Event already exists.");
         }
     }
