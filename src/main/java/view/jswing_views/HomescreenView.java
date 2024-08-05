@@ -1,10 +1,13 @@
 package view.jswing_views;
 
+import entity.event.Event;
 import entity.post.Post;
+import entity.user.AudienceUser;
 import entity.user.User;
 import use_case.edit_post.interface_adapter.EditPostController;
 import use_case.postMaker.interface_adapter.PostMakerController;
 import view.jswing_views.utils.CustomListCellRenderer;
+import view.jswing_views.utils.EventListJPanel;
 import view.jswing_views.utils.PostListJPanel;
 import view_model.HomescreenState;
 import view_model.HomescreenViewModel;
@@ -31,6 +34,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final JPanel header;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    private JScrollPane scrollPane;
+
     private JList<PostListJPanel> postList;
     private DefaultListModel<PostListJPanel> postListModel;
     private JPopupMenu popupMenu;
@@ -42,21 +47,17 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton signOutButton;
     JButton postButton;
 
-    final JTextField postTitleInputField = new JTextField(15);
-    final JTextField postTextInputField = new JTextField(15);
-    final JTextField postDateInputField = new JTextField(15);
-    final JTextField eventAttachedMediaField = new JTextField(15);
-
-
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
                           SignOutController signOutController, EditPostController editPostController,
                           PostMakerController postMakerController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
+        this.homescreenViewModel.addPropertyChangeListener(this);
+
         this.editPostController = editPostController;
         this.postMakerController = postMakerController;
-        this.homescreenViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
+
         this.header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -97,10 +98,9 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         postList.setComponentPopupMenu(popupMenu);
         postList.setCellRenderer(new CustomListCellRenderer());
         postList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        postList.setLayoutOrientation(JList.VERTICAL);
         postList.setOpaque(false);
 
-        JScrollPane scrollPane = new JScrollPane(postList);
+        scrollPane = new JScrollPane(postList);
         scrollPane.setBackground(Color.LIGHT_GRAY);
         c.gridx = 0;
         c.gridy = 1;
@@ -109,11 +109,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.gridwidth = 3;
         c.insets = new Insets(10, 5, 10, 5);
         c.fill = GridBagConstraints.BOTH;
-
-//        for (Post p : signedInAs.getMyPosts()){
-//            scrollPane.add(p);
-//        }
         this.add(scrollPane, c);
+
 
         JPanel buttons = new JPanel();
         eventPageButton = new JButton(homescreenViewModel.EVENT_PAGE_BUTTON_LABEL);
@@ -134,48 +131,47 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+
+    }
+
+    private void updatePostLists() {
+        System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
+
+        postListModel.clear();
+        scrollPane = new JScrollPane();
+        for (Post p : signedInAs.getMyPosts()) {
+            scrollPane.add(new PostListJPanel(p));
+        }
+        this.repaint();
+
+        popupMenu = createPopupMenu(); // Refresh the popup menu
+        postList.setComponentPopupMenu(popupMenu);
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
+        if (signedInAs != null) {
+            updatePostLists();
+        }
         if (evt.getSource().equals(postButton)) {
-            LocalDateTime now = LocalDateTime.now();
-            String nowFormatted = now.format(formatter);
-
-            try {
-                postMakerController.execute(
-                        postTitleInputField.getText(),
-                        postTextInputField.getText(),
-                        signedInAs,
-                        postDateInputField.getText()
-                );
-            } catch (NullPointerException exception) {
-                System.out.println("null pointer exception: ");
-                exception.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Please fill in all fields.");
-            } catch (DateTimeParseException exception) {
-                System.out.println("date time parse exception: " + exception);
-                JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
-            }
+            screenSwitcherController.switchToPost();
         } else if (evt.getSource().equals(eventPageButton)) {
             screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(signOutButton)) {
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
-        } else if (evt.getSource().equals(postButton)){
-            screenSwitcherController.switchToPost();
-            System.out.println("Switching to post");
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        HomescreenState state = (HomescreenState) evt.getNewValue();
+        signedInAs = state.getSignedInAs();
+        System.out.println(signedInAs.getMyPosts());
+        if (evt.getPropertyName().equals("state") && !signedInAs.getMyPosts().isEmpty()) {
+            updatePostLists();
+        }
         try {
-            HomescreenState state = (HomescreenState) evt.getNewValue();
-            this.signedInAs = state.getSignedInAs();
-            popupMenu = createPopupMenu(); // Refresh the popup menu
-            postList.setComponentPopupMenu(popupMenu);
-
             if (signedInAs == null) {
                 welcome_message.setText("Not signed in");
             } else {

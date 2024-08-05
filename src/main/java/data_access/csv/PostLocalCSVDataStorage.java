@@ -10,7 +10,6 @@ import entity.post.Post;
 import entity.user.User;
 
 import java.io.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -23,16 +22,18 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     private final UserDataAccessInterface userDataAccessObject;
 
     public PostLocalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccessObject) throws IOException {
-
-        csvFile = new File(csvPath);
         this.userDataAccessObject = userDataAccessObject;
+        csvFile = new File(csvPath);
+
         headers.put("title", 0);
         headers.put("text", 1);
         headers.put("author", 2);
-        headers.put("postData", 3);
+        headers.put("postDate", 3);
         headers.put("attachedMedia", 4);
 
-        if (csvFile.length() == 0) {
+        if (headers.size() != 5){
+            throw new ArrayIndexOutOfBoundsException("The headers array is improperly initialized - should be 5 elements");
+        } else if (csvFile.length() == 0) {
             createFile();
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
@@ -42,8 +43,20 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
                 // This will load all posts into memory as Post objects
                 String row;
+
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
+
+//                    if (headers.containsKey("title")){System.out.println("title " + col[0] + ".");}
+//                    if (headers.containsKey("text")) {System.out.println("text " + col[1] + ".");}
+//                    if (headers.containsKey("author")){System.out.println("author " + col[2] + ".");}
+//                    if (headers.containsKey("postDate")){System.out.println("postDate " + col[3] + ".");}
+//                    if (headers.containsKey("attachedMedia")){System.out.println("attachedMedia " + col[4] + ".");}
+
+                    if (col.length != 5){
+                        System.out.println("Length = " + col.length + "\n" + Arrays.toString(col));
+                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5" + col);
+                    }
                     String title = String.valueOf(col[headers.get("title")]);
                     String text = String.valueOf(col[headers.get("text")]);
                     User author = stringToUser(String.valueOf(col[headers.get("author")]));
@@ -51,6 +64,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
                     Post post = new Post(title, text, author, attachedMedia);
                     posts.put(title, post);
+                    author.addPost(post);
                 }
             }
         }
@@ -95,6 +109,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         appendPostToCsv(post);
         posts.put(post.getTitle(), post);
         post.getAuthor().addPost(post);
+        post.getAuthor().addPost(post);
     }
 
     @Override
@@ -119,7 +134,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     }
 
     @Override
-    public void updatePost(Post post, String title, String text, String postDate, String media) throws PostDoesntExistException {
+    public void updatePost(Post post, String title, String text, String media) throws PostDoesntExistException {
         if (!postExists(post.getTitle())) {
             System.out.println("Post does not exist");
         } else {
@@ -130,9 +145,6 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
                 }
                 if (!(text == null || text.isEmpty())) {
                     post.setText(text);
-                }
-                if (!(postDate == null || postDate.isEmpty())) {
-                    post.setPostDate(postDate);
                 }
                 if (!(media == null || media.isEmpty())) {
                     post.setAttachedMedia(media);
@@ -157,7 +169,6 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
                     String title = data[headers.get("title")];
                     String text = data[headers.get("text")];
                     User author = userDataAccessObject.getUserFromUsername(data[headers.get("author")]);
-                    LocalDateTime postDate = LocalDateTime.parse(data[headers.get("postData")], formatter);
                     String attachedMedia = data[headers.get("attachedMedia")];
 
                     Post post = new Post(title, text, author, attachedMedia);
@@ -186,7 +197,5 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     }
 
     @Override
-    public ArrayList<Post> getPosts() {
-        return new ArrayList<>(posts.values());
-    }
+    public ArrayList<Post> getPosts() {return new ArrayList<>(posts.values());}
 }

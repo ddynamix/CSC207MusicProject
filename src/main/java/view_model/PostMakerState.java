@@ -25,6 +25,10 @@ public class PostMakerState {
     }
 
     public void setPosts(ArrayList<Post> postsToDisplay) {
+        posts = postsToDisplay;
+    }
 
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 }

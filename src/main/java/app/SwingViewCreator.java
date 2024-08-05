@@ -70,7 +70,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
                 (EditPostController) controllers.get("editPostController"),
-                (PostMakerController) controllers.get("postMakerController"),
+                (PostMakerController) controllers.get("makePostController"),
                 headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);
 
@@ -131,5 +131,11 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 headerFactory.createHeader());
         views.add(postMakerView, postMakerView.viewName);
+
+        PostEditorView postEditorView = new PostEditorView(
+                (PostEditorViewModel) viewModels.get("postEditorViewModel"),
+                (EditPostController) controllers.get("editPostController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
+        views.add(postEditorView, postEditorView.viewName);
     }
 }

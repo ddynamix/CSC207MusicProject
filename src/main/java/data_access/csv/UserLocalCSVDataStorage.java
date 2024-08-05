@@ -45,7 +45,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
                     String password = String.valueOf(col[headers.get("password")]);
                     String email = String.valueOf(col[headers.get("email")]);
                     String name = String.valueOf(col[headers.get("name")]);
-                    String creationTime = String.valueOf(col[headers.get("creation_time")]);
                     String type = String.valueOf(col[headers.get("type")]);
 
                     if (type.equals("artistuser")) {

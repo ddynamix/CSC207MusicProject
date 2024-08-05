@@ -8,7 +8,6 @@ public class EditPostInputData {
     private final String title;
     private final String text;
     private final String media;
-    private final String postDate;
 
 
     public EditPostInputData(Post postToAlter) {
@@ -16,14 +15,12 @@ public class EditPostInputData {
 
         this.title = "";
         this.text = "";
-        this.postDate = "";
         this.media = "";
     }
 
-    public EditPostInputData(Post postToAlter, String title, String text, String postDate, String media) {
+    public EditPostInputData(Post postToAlter, String title, String text, String media) {
         this.title = title;
         this.text = text;
-        this.postDate = postDate;
         this.media = media;
 
         this.postToAlter = postToAlter;
@@ -42,6 +39,4 @@ public class EditPostInputData {
     public String getMedia() {
         return media;
     }
-
-    public String getPostDate() {return postDate.toString();}
 }

@@ -102,5 +102,4 @@ public class Post implements IPost{
         return timePosted.format(formatter);
     }
 
-    public void setPostDate(String postDate) {this.timePosted = LocalDateTime.parse(postDate); }
 }

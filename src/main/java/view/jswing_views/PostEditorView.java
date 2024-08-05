@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -22,8 +21,6 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
     private final PostEditorViewModel postEditorViewModel;
     private final EditPostController editPostController;
     private final ScreenSwitcherController screenSwitcherController;
-
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     final JButton publishChanges;
     final JButton cancel;
@@ -106,7 +103,7 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
         if (evt.getSource().equals(publishChanges)) {
             try {
                 editPostController.updatePost(postEditorViewModel.getState().getPostToEdit(),
-                        postTitleInputField.getText(), postTextInputField.getText(), postDateInputField.getText(),
+                        postTitleInputField.getText(), postTextInputField.getText(),
                         postAttachedMediaField.getText());
             } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Invalid date format. Please use the format yyyy-MM-dd HH:mm", "Error", JOptionPane.ERROR_MESSAGE);

@@ -122,7 +122,6 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
             createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
             popupMenu = createPopupMenu(); // Refresh the popup menu
             eventList.setComponentPopupMenu(popupMenu);
-
         }
     }
 

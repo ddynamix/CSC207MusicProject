@@ -19,7 +19,7 @@ public class EditPostController {
         editPostInteractor.deletePost(new EditPostInputData(post));
     }
 
-    public void updatePost(Post postToAlter, String title, String text, String postDate, String media) {
-        editPostInteractor.updatePost(new EditPostInputData(postToAlter, title, text, postDate, media));
+    public void updatePost(Post postToAlter, String title, String text, String media) {
+        editPostInteractor.updatePost(new EditPostInputData(postToAlter, title, text, media));
     }
 }
