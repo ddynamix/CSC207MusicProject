@@ -33,7 +33,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final PostMakerController postMakerController;
     private final JPanel header;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final JScrollPane scrollPane;
+
+    private JScrollPane scrollPane;
 
     private JList<PostListJPanel> postList;
     private DefaultListModel<PostListJPanel> postListModel;
@@ -46,23 +47,18 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton signOutButton;
     JButton postButton;
 
-    final JTextField postTitleInputField = new JTextField(15);
-    final JTextField postTextInputField = new JTextField(15);
-    final JTextField postDateInputField = new JTextField(15);
-    final JTextField eventAttachedMediaField = new JTextField(15);
-
-
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
                           SignOutController signOutController, EditPostController editPostController,
                           PostMakerController postMakerController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
+        this.homescreenViewModel.addPropertyChangeListener(this);
+
         this.editPostController = editPostController;
         this.postMakerController = postMakerController;
-        this.homescreenViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
+
         this.header = headerOriginal;
-        this.scrollPane = new JScrollPane(postList);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -102,9 +98,9 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         postList.setComponentPopupMenu(popupMenu);
         postList.setCellRenderer(new CustomListCellRenderer());
         postList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        postList.setLayoutOrientation(JList.VERTICAL);
         postList.setOpaque(false);
 
+        scrollPane = new JScrollPane(postList);
         scrollPane.setBackground(Color.LIGHT_GRAY);
         c.gridx = 0;
         c.gridy = 1;
@@ -135,13 +131,21 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+
     }
 
     private void updatePostLists() {
+        System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
 
+        postListModel.clear();
+        scrollPane = new JScrollPane();
         for (Post p : signedInAs.getMyPosts()) {
             scrollPane.add(new PostListJPanel(p));
         }
+        this.repaint();
+
+        popupMenu = createPopupMenu(); // Refresh the popup menu
+        postList.setComponentPopupMenu(popupMenu);
     }
 
     @Override
@@ -163,17 +167,9 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     public void propertyChange(PropertyChangeEvent evt) {
         HomescreenState state = (HomescreenState) evt.getNewValue();
         signedInAs = state.getSignedInAs();
-        if (evt.getPropertyName().equals("state")) {
-            postListModel.clear();
-            for (Post post : homescreenViewModel.getState().getSignedInAs().getMyPosts()) {
-                PostListJPanel postListPanel = new PostListJPanel(post);
-                postListModel.addElement(postListPanel);
-            }
-            this.repaint();
-
-            popupMenu = createPopupMenu(); // Refresh the popup menu
-            postList.setComponentPopupMenu(popupMenu);
-
+        System.out.println(signedInAs.getMyPosts());
+        if (evt.getPropertyName().equals("state") && !signedInAs.getMyPosts().isEmpty()) {
+            updatePostLists();
         }
         try {
             if (signedInAs == null) {
@@ -181,7 +177,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
             } else {
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
                 System.out.println("HomescreenView received new state: " + state);
-                updatePostLists();
             }
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");

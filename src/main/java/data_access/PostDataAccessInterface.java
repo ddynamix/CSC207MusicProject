@@ -10,9 +10,10 @@ public interface PostDataAccessInterface {
     boolean postExists(String postTitle);
 
     void deletePost(Post post) throws PostDoesntExistException ;
+
     Post getPostFromTitle(String PostName);
 
 
     ArrayList<Post> getPosts();
-    void updatePost(Post Post, String title, String text, String postDate, String media) throws PostDoesntExistException ;
+    void updatePost(Post Post, String title, String text, String media) throws PostDoesntExistException ;
 }
