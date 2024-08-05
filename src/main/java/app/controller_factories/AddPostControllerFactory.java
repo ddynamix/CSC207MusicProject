@@ -14,7 +14,7 @@ public class AddPostControllerFactory {
     private AddPostControllerFactory() {}
 
     public static AddPostController createAddPostsController(HomescreenViewModel homescreenViewModel,
-                                                             UsersPostsRelationalAccessInterface userPostsRelationalAccessObject) {
+                                                             UsersPostsRelationalAccessInterface usersPostsRelationalAccessObject) {
         AddPostOutputBoundary addPostPresenter = new AddPostPresenter(homescreenViewModel);
         AddPostInputBoundary addPostInteractor = new AddPostInteractor(addPostPresenter, usersPostsRelationalAccessObject);
 

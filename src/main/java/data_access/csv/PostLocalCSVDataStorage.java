@@ -29,8 +29,12 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         headers.put("title", 0);
         headers.put("text", 1);
         headers.put("author", 2);
-        headers.put("postData", 3);
+        headers.put("postDate", 3);
         headers.put("attachedMedia", 4);
+
+        if (headers.size() != 5){
+            throw new ArrayIndexOutOfBoundsException("The headers array is improperly initialized - should be 5 elements");
+        }
 
         if (csvFile.length() == 0) {
             createFile();
@@ -42,8 +46,20 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
                 // This will load all posts into memory as Post objects
                 String row;
+
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
+
+                    if (headers.containsKey("title")){System.out.println("title " + col[0] + ".");}
+                    if (headers.containsKey("text")) {System.out.println("text " + col[1] + ".");}
+                    if (headers.containsKey("author")){System.out.println("author " + col[2] + ".");}
+                    if (headers.containsKey("postDate")){System.out.println("postDate " + col[3] + ".");}
+                    if (headers.containsKey("attachedMedia")){System.out.println("attachedMedia " + col[4] + ".");}
+
+                    if (col.length != 5){
+                        System.out.println("Length = " + col.length + "\n" + Arrays.toString(col));
+                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5");
+                    }
                     String title = String.valueOf(col[headers.get("title")]);
                     String text = String.valueOf(col[headers.get("text")]);
                     User author = stringToUser(String.valueOf(col[headers.get("author")]));
@@ -51,6 +67,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
                     Post post = new Post(title, text, author, attachedMedia);
                     posts.put(title, post);
+                    //author.addPost(post);
                 }
             }
         }

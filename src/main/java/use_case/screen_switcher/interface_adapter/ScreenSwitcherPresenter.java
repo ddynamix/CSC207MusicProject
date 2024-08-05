@@ -115,6 +115,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToPost(ScreenSwitcherPostData postData) {
         PostMakerState postMakerState = postMakerViewModel.getState();
+        postMakerState.setSignedInAs(postMakerState.getSignedInAs());
         postMakerState.setSignedInAs(postData.getSignedInAs());
         postMakerState.setPosts(postData.getPosts());
 
