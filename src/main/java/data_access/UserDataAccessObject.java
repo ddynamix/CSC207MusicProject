@@ -43,7 +43,7 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     private User user;
 
     public UserDataAccessObject() {
-        String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
+        String connectionString = "mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
@@ -54,7 +54,7 @@ public class UserDataAccessObject implements UserDataAccessInterface {
                 .serverApi(serverApi)
                 .build();
 
-        this.mongoClient = MongoClients.create("mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+        this.mongoClient = MongoClients.create("mongodb+srv://tasnimreza:csc207@cluster0.vlnfmzu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
         this.mongoDatabase = mongoClient.getDatabase("userDataBase");
     }
 
@@ -153,11 +153,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public User getUserFromUsername(String userName) throws UserNotFoundException {
-        if (!userExistsInDatabase(userName)) {
+    public User getUserFromUsername(String username) throws UserNotFoundException {
+        if (!userExistsInDatabase(username)) {
             throw new UserNotFoundException();
         } else {
-            Bson filter = Filters.eq("userName", userName);
+            Bson filter = Filters.eq("userName", username);
             MongoCursor iterator = mongoCollection.find(filter).iterator();
             if (iterator.hasNext()) {
                 return (User) iterator.next();
@@ -169,25 +169,57 @@ public class UserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public ArrayList<ArtistUser> getArtistUsers() {
-        return null;
+        FindIterable<Document> collection = mongoDatabase.getCollection("artistUser").find();
+        ArrayList<ArtistUser> artistUsers = new ArrayList<>();
+        for (Document document : collection) {
+            ArtistUser artistUser = (ArtistUser) instantiateUser(document);
+            artistUsers.add(artistUser);
+        }
+        return artistUsers;
     }
 
     @Override
     public ArrayList<VenueUser> getVenueUsers() {
-        return null;
+        FindIterable<Document> collection = mongoDatabase.getCollection("venueUser").find();
+        ArrayList<VenueUser> venueUsers = new ArrayList<>();
+        for (Document document : collection) {
+            VenueUser venueUser = (VenueUser) instantiateUser(document);
+            venueUsers.add(venueUser);
+        }
+        return venueUsers;
     }
 
     @Override
     public ArrayList<AudienceUser> getAudienceUsers() {
-        return null;
+        FindIterable<Document> collection = mongoDatabase.getCollection("audienceUser").find();
+        ArrayList<AudienceUser> audienceUsers = new ArrayList<>();
+        for (Document document : collection) {
+            AudienceUser audienceUser = (AudienceUser) instantiateUser(document);
+            audienceUsers.add(audienceUser);
+        }
+        return audienceUsers;
     }
 
     @Override
     public boolean passwordMatches(String username, String password) {
-       return false;
+        User user = getUserFromUsername(username); //todo this needs a try block
+        MongoCollection collection = getCollectionByType(user);
+        MongoCursor iterator = collection.find(Filters.eq("username", username)).iterator();
+        if (iterator.hasNext()) {
+
+        }
+
+
+
+
     }
 
     public void appendToFollowers(User newFollower){
 
+    }
+
+    private User instantiateUser(Document document) {
+        FindIterable<Document> collection = mongoDatabase.getCollection("artistUser").find();
+        //call constructor, instatiate artist, user, audience, etc, as per necessary
     }
 }
