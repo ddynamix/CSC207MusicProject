@@ -2,31 +2,28 @@ package view_model;
 
 import entity.user.User;
 
-import java.util.ArrayList;
-
 public class ProfileState {
-    private User signedInAs;
     private User viewing;
+    private boolean isLoggedIn;
 
     public ProfileState() {
-        this.signedInAs = null;
         this.viewing = null;
-    }
-
-    public void setSignedInAs(User signedInAs) {
-        this.signedInAs = signedInAs;
-    }
-
-    public User getSignedInAs() {
-        return signedInAs;
-    }
-
-    public void setViewing(User viewing) {
-        this.viewing = viewing;
+        this.isLoggedIn = false;
     }
 
     public User getViewing() {
         return viewing;
     }
 
+    public void setViewing(User viewing) {
+        this.viewing = viewing;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
 }

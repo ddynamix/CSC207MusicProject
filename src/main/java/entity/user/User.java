@@ -2,13 +2,14 @@ package entity.user;
 
 import entity.event.Event;
 import entity.post.Post;
+import entity.song.Song;
 
 import java.util.ArrayList;
 
 /**
  * Parent class User
  */
-public class User {
+public abstract class User {
     private String username;
     private String password;
     private String email;
@@ -21,7 +22,7 @@ public class User {
     private ArrayList<Event> myEvents;
     private ArrayList<Post> myPosts;
 
-    //private Song featuredSong;
+    private Song featuredSong;
 
     /**
      * Create instance of the User class <br>
@@ -185,4 +186,20 @@ public class User {
     public void addPost(Post post) {this.myPosts.add(post);}
 
     public void removePost(Post post) {this.myPosts.remove((post));}
+
+    public int getNumFollowers() {
+        return this.followers.size();
+    }
+
+    public int getNumFollowing() {
+        return this.following.size();
+    }
+
+    public Song getFeaturedSong() {
+        return featuredSong;
+    }
+
+    public void setFeaturedSong(Song featuredSong) {
+        this.featuredSong = featuredSong;
+    }
 }
