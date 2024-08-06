@@ -208,10 +208,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         if (iterator.hasNext()) {
 
         }
-
-
-
-
     }
 
     public void appendToFollowers(User newFollower){
