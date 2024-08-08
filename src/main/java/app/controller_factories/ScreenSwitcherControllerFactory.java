@@ -22,12 +22,12 @@ public class ScreenSwitcherControllerFactory {
                                                                           SearchEventsViewModel searchEventsViewModel,
                                                                           EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel,
                                                                           MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel,
-                                                                          PostMakerViewModel myPostMakerViewModel,
+                                                                          PostMakerViewModel myPostMakerViewModel, ProfileViewModel profileViewModel,
                                                                           UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject,
                                                                           PostDataAccessInterface postDataAccessObject) {
         ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, userSignupViewModel,
                 homescreenViewModel, eventScreenViewModel, searchEventsViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel,
-                isFollowingViewModel, myPostMakerViewModel);
+                isFollowingViewModel, myPostMakerViewModel, profileViewModel);
         ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject, eventDataAccessObject, postDataAccessObject);
 
         return new ScreenSwitcherController(screenSwitcherInteractor);

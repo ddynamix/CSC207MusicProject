@@ -50,4 +50,8 @@ public class ScreenSwitcherController {
     }
 
     public void switchToPost() { screenSwitcherInteractor.switchToPost();}
+
+    public void switchToMyProfile() {
+        screenSwitcherInteractor.switchToMyProfile();
+    }
 }

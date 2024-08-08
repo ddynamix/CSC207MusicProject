@@ -17,13 +17,15 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final MyFollowersViewModel myFollowersViewModel;
     private final IsFollowingViewModel isFollowingViewModel;
     private final PostMakerViewModel postMakerViewModel;
+    private final ProfileViewModel profileViewModel;
 
     public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                    SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
                                    HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel,
                                    SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel,
                                    SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel,
-                                   IsFollowingViewModel isFollowingViewModel, PostMakerViewModel postMakerViewModel) {
+                                   IsFollowingViewModel isFollowingViewModel, PostMakerViewModel postMakerViewModel,
+                                   ProfileViewModel profileViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -36,6 +38,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.myFollowersViewModel = myFollowersViewModel;
         this.isFollowingViewModel = isFollowingViewModel;
         this.postMakerViewModel = postMakerViewModel;
+        this.profileViewModel = profileViewModel;
     }
 
     @Override
@@ -147,6 +150,18 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         isFollowingViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(isFollowingViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToMyProfile(ScreenSwitcherProfileData profileData) {
+        ProfileState profileState = profileViewModel.getState();
+        profileState.setViewing(profileData.getUser());
+
+        profileViewModel.setState(profileState);
+        profileViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(profileViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 }

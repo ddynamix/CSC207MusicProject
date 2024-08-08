@@ -118,8 +118,7 @@ public class Header extends JPanel implements ActionListener {
         if (evt.getSource().equals(getMenuItems().get(0))) {  // Home
             screenSwitcherController.switchToHome();
         } else if (evt.getSource().equals(getMenuItems().get(1))) {  // My Profile
-            // not implemented
-            System.out.println("Not implemented yet.");
+            screenSwitcherController.switchToMyProfile();
         } else if (evt.getSource().equals(getMenuItems().get(2))) {  // My Events
             screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(getMenuItems().get(3))) {  // Explore Events

@@ -7,6 +7,7 @@ import app.interface_adapter_tools.ViewModel;
 
 import use_case.add_event.interface_adapter.AddEventController;
 import use_case.edit_event.interface_adapter.EditEventController;
+import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.postMaker.interface_adapter.PostMakerController;
 //import use_case.add_post.interface_adapter.AddPostController;
 import use_case.edit_post.interface_adapter.EditPostController;
@@ -137,5 +138,12 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (EditPostController) controllers.get("editPostController"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(postEditorView, postEditorView.viewName);
+
+        ProfileView profileView = new ProfileView(
+                (ProfileViewModel) viewModels.get("profileViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (PlayMusicController) controllers.get("playMusicController"),
+                headerFactory.createHeader());
+        views.add(profileView, profileView.viewName);
     }
 }

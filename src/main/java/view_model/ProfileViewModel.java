@@ -14,6 +14,11 @@ public class ProfileViewModel extends ViewModel{
     public final String NAME_LABEL = "Name: ";
     public final String PLAY_MUSIC_LABEL = "Play Music";
     public final String FAVOURITE_SONG_LABEL = "Favourite Song: ";
+    public final String FOLLOWERS_LABEL = "Followers: ";
+    public final String FOLLOWING_LABEL = "Following: ";
+    public final String NO_PREVIEW_ERROR = "No preview available for this song";
+    public final String NO_SONG_LABEL = "No favourite song";
+    public final String STOP_MUSIC_LABEL = "Stop Music";
 
     private ProfileState state = new ProfileState();
 

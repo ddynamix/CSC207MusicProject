@@ -12,4 +12,5 @@ public interface ScreenSwitcherInputBoundary {
     void switchToIsFollowing();
     void switchToMyFollowers();
     void switchToPost();
+    void switchToMyProfile();
 }

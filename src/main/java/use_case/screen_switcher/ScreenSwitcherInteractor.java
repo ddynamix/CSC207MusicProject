@@ -9,7 +9,6 @@ import entity.user.ArtistUser;
 import entity.user.User;
 import entity.event.Event;
 import entity.user.VenueUser;
-import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 
 import java.util.ArrayList;
 
@@ -95,5 +94,11 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         ArrayList<User> followers = loggedIn.getFollowers();
         screenSwitchPresenter.switchToMyFollowers(new ScreenSwitcherMyFollowersData(followers));
+    }
+
+    @Override
+    public void switchToMyProfile() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        screenSwitchPresenter.switchToMyProfile(new ScreenSwitcherProfileData(loggedIn));
     }
 }
