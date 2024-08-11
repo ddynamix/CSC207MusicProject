@@ -35,8 +35,10 @@ public class SplashView extends JPanel implements ActionListener {
 
         JPanel buttons = new JPanel();
         signupB = new JButton(splashViewModel.SIGN_UP_BUTTON_LABEL);
+        signupB.setToolTipText("Click to Create a New Account");
         buttons.add(signupB);
         loginB = new JButton(splashViewModel.LOGIN_BUTTON_LABEL);
+        loginB.setToolTipText("Login into your account");
         buttons.add(loginB);
 
         signupB.addActionListener(this);

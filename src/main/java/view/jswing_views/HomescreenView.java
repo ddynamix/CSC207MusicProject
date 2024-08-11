@@ -112,10 +112,13 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         JPanel buttons = new JPanel();
         eventPageButton = new JButton(homescreenViewModel.EVENT_PAGE_BUTTON_LABEL);
         eventPageButton.addActionListener(this);
+        eventPageButton.setToolTipText("Click to see your events");
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
         signOutButton.addActionListener(this);
+        signOutButton.setToolTipText("Click to sign out of the program");
         postButton = new JButton(homescreenViewModel.POST_BUTTON_LABEL);
         postButton.addActionListener(this);
+        postButton.setToolTipText("Click to create a post on your feed");
         buttons.add(eventPageButton);
         buttons.add(postButton);
         buttons.add(signOutButton);

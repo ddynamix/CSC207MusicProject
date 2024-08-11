@@ -87,6 +87,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         JPanel buttons = new JPanel();
         backButton = new JButton(searchEventsViewModel.BACK_BUTTON_LABEL);
         backButton.addActionListener(this);
+        backButton.setToolTipText("Return to previous screen");
         buttons.add(backButton);
 
         c.gridwidth = 3;
@@ -139,6 +140,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
                         Event event = eventPanel.getEvent();
                         if (inMyUserEvents(event)) {
                             JMenuItem removeEvent = new JMenuItem("Remove Event");
+                            removeEvent.setToolTipText("Click to remove event");
                             removeEvent.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
@@ -148,6 +150,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
                             popupMenu.add(removeEvent);
                         } else {
                             JMenuItem addEvent = new JMenuItem("Add Event");
+                            addEvent.setToolTipText("Click to add to your events list");
                             addEvent.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {

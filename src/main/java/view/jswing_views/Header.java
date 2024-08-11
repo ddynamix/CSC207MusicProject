@@ -48,6 +48,7 @@ public class Header extends JPanel implements ActionListener {
                 menu.show(waffleButton, e.getX(), e.getY());
             }
         });
+        waffleButton.setToolTipText("Click to view different options");
 
         Dimension height = this.getPreferredSize();
         height.height = 50;
