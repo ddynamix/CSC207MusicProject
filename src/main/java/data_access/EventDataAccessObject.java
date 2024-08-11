@@ -8,10 +8,11 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.InsertOneResult;
 import entity.event.Event;
+import entity.user.VenueUser;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -97,18 +98,24 @@ public class EventDataAccessObject implements EventDataAccessInterface {
             }
             else {
                 throw new EventDoesntExistException();
-
             }
-
         }
     }
 
     @Override
-    public Map<String, Event> getEvents() { //todo implement. return all events
-        Event event = new Event();
-        Map<String, Event> events = new HashMap<>("place", event);
+    public ArrayList<Event> getEvents() { //todo implement. return all events
+        ArrayList<Event> events = new ArrayList<>();
+        FindIterable<Document> collection = mongoDatabase.getCollection("eventContent").find();
         return events;
     }
 }
 
 
+//FindIterable<Document> collection = mongoDatabase.getCollection("venueUser").find();
+//ArrayList<VenueUser> venueUsers = new ArrayList<>();
+  //      for (Document document : collection) {
+//VenueUser venueUser = (VenueUser) instantiateUser(document);
+  //          venueUsers.add(venueUser);
+    //    }
+      //          return venueUsers;
+    //}

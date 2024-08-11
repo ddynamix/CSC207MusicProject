@@ -1,8 +1,8 @@
 package data_access;
 
 import entity.event.Event;
-import data_access.EventDataAccessObject;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface EventDataAccessInterface {
