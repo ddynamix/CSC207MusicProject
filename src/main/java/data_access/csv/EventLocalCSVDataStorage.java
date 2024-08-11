@@ -1,8 +1,9 @@
 package data_access.csv;
 
-import data_access.EventAlreadyExistsException;
+import data_access.EventDataAccessObject.EventAlreadyExistsException;
+import data_access.EventDataAccessObject.EventDoesntExistException;
 import data_access.EventDataAccessInterface;
-import data_access.EventDoesntExistException;
+import data_access.EventDataAccessObject;
 import data_access.UserDataAccessInterface;
 import entity.event.Event;
 import entity.user.User;
@@ -57,6 +58,8 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
                     Event event = new Event(title, artist, venue, dateAndTime, description, tags, postDate, attachedMedia);
                     events.put(title, event);
                 }
+            } catch (data_access.UserDataAccessObject.UserNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -157,6 +160,8 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
                     tempEvents.put(title, event);
                 }
             }
+        } catch (data_access.UserDataAccessObject.UserNotFoundException e) {
+            e.printStackTrace();
         }
 
         // Rewrite the CSV without the deleted event
@@ -169,11 +174,11 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
     }
 
     @Override
-    public Event getEventFromTitle(String eventName) throws EventDoesntExistException {
+    public Event getEventFromTitle(String eventName) throws EventDataAccessObject.EventDoesntExistException {
         if (eventExists(eventName)) {
             return events.get(eventName);
         } else {
-            throw new EventDoesntExistException();
+            throw new EventDataAccessObject.EventDoesntExistException();
         }
     }
 
