@@ -1,14 +1,16 @@
 package entity.event;
 
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface IEvent {
     public String getTitle();
-    public User getArtist();
-    public String getVenue();
+    public ArtistUser getArtist();
+    public VenueUser getVenue();
     public LocalDateTime getDateAndTime();
     public String getDescription();
     public ArrayList<String> getTags(); // genres, maybe make genre object

@@ -5,7 +5,6 @@ import data_access.EventDataAccessObject;
 import entity.event.Event;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class EventCrafterInteractor implements EventCrafterInputBoundary {
     final EventDataAccessInterface eventDataAccessInterface;
@@ -19,8 +18,6 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
     @Override
     public void attemptPostEvent(EventCrafterInputData eventCrafterInputData) {
         try {
-            System.out.println(eventCrafterInputData.getArtist().getUsername());
-
             Event event = new Event(eventCrafterInputData.getTitle(),
                     eventCrafterInputData.getArtist(),
                     eventCrafterInputData.getVenue(),
@@ -31,19 +28,13 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
                     eventCrafterInputData.getAttachedMedia());
             eventDataAccessInterface.createEvent(event);
 
-            Collection<Event> values = eventDataAccessInterface.getEvents().values();
-            ArrayList<Event> listOfEvents = new ArrayList<>(values);
-            EventCrafterOutputData eventCrafterOutputData = new EventCrafterOutputData(listOfEvents);
+            ArrayList<Event> events = eventDataAccessInterface.getEvents();
+            EventCrafterOutputData eventCrafterOutputData = new EventCrafterOutputData(events);
 
             eventCrafterPresenter.prepareSuccessView(eventCrafterOutputData);
             System.out.println("Event posted successfully!");
         } catch (EventDataAccessObject.EventAlreadyExistsException e) {
             eventCrafterPresenter.prepareFailView("Event already exists.");
         }
-    }
-
-    @Override
-    public void switchToHomescreen() {
-        eventCrafterPresenter.prepareSuccessView(new EventCrafterOutputData(new ArrayList<>()));
     }
 }

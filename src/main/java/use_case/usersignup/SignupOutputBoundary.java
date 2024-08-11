@@ -6,5 +6,4 @@ package use_case.usersignup;
 public interface SignupOutputBoundary {
     void prepareSuccessView(SignupOutputData user);
     void prepareFailView(String error);
-    void prepareSplashView();
 }

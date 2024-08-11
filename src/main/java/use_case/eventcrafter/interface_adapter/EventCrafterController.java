@@ -1,7 +1,9 @@
 package use_case.eventcrafter.interface_adapter;
 
 import data_access.UserDataAccessInterface;
+import entity.user.ArtistUser;
 import entity.user.User;
+import entity.user.VenueUser;
 import use_case.eventcrafter.EventCrafterInputBoundary;
 import use_case.eventcrafter.EventCrafterInputData;
 
@@ -36,13 +38,15 @@ public class EventCrafterController {
 
         System.out.println("EventCrafterController: excecute: artist: " + artist);
         try {
-            User artistUser = userDataAccessInterface.getUserFromUsername(artist);
-        System.out.println(artistUser);
+            ArtistUser artistUser = userDataAccessInterface.getUserFromUsername(artist);
+            System.out.println(artistUser);
+            VenueUser venueUser = userDataAccessInterface.getUserFromUsername(venue);
+
         EventCrafterInputData eventCrafterInputData = new EventCrafterInputData(
                 title,
                 description,
                 artistUser,
-                venue,
+                venueUser,
                 dateAndTimeFormatted,
                 tagsFormatted,
                 postDateFormatted,
@@ -52,10 +56,6 @@ public class EventCrafterController {
         } catch (data_access.UserDataAccessObject.UserNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public void switchToHomescreen() {
-        eventCrafterInteractor.switchToHomescreen();
     }
 
     private ArrayList<String> stringToArrayList(String tags) {

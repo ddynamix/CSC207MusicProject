@@ -1,7 +1,7 @@
 package view.jswing_views;
 
-import use_case.splash.interface_adapter.SplashController;
-import use_case.splash.interface_adapter.SplashViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import view_model.SplashViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,19 +16,19 @@ public class SplashView extends JPanel implements ActionListener {
     public final String viewName = "splash";
     private final SplashViewModel splashViewModel;
 
-    private final SplashController splashController;
+    private final ScreenSwitcherController screenSwitcherController;
 
     final JButton signupB;
     final JButton loginB;
 
     /**
      * Creation of splash view
-     * @param splashController controller for splash screen
      * @param splashViewModel model for splash screen
+     * @param screenSwitcherController switches screens
      */
-    public SplashView(SplashViewModel splashViewModel, SplashController splashController) {
+    public SplashView(SplashViewModel splashViewModel, ScreenSwitcherController screenSwitcherController) {
         this.splashViewModel = splashViewModel;
-        this.splashController = splashController;
+        this.screenSwitcherController = screenSwitcherController;
 
         JLabel title = new JLabel(splashViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -54,9 +54,9 @@ public class SplashView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(signupB)) {
-            splashController.signUpClicked();
+            screenSwitcherController.switchToSignup();
         } else if (evt.getSource().equals(loginB)) {
-            splashController.logInClicked();
+            screenSwitcherController.switchToLogin();
         }
     }
 }

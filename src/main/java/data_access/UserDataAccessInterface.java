@@ -14,10 +14,11 @@ public interface UserDataAccessInterface {
     void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
     void create(User user) throws UserDataAccessObject.UserAlreadyExistsException;
     void delete(User user) throws UserDataAccessObject.UserNotFoundException;
-    User getUserFromUsername(String username) throws UserDataAccessObject.UserNotFoundException;
+    <T extends User> T getUserFromUsername(String username) throws UserDataAccessObject.UserNotFoundException;
     ArrayList<ArtistUser> getArtistUsers();
     ArrayList<VenueUser> getVenueUsers();
     ArrayList<AudienceUser> getAudienceUsers();
+    ArrayList<User> getAllUsers();
 
     boolean passwordMatches(String username, String password);
 

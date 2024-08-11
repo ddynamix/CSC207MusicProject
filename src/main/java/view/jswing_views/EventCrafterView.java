@@ -4,11 +4,13 @@ import entity.user.ArtistUser;
 import entity.user.User;
 import entity.user.VenueUser;
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
-import use_case.eventcrafter.interface_adapter.EventCrafterState;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
+import view_model.EventCrafterState;
+import view_model.EventCrafterViewModel;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -21,7 +23,10 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
     public final String viewName = "eventcrafter view";
     private final EventCrafterViewModel eventCrafterViewModel;
     private final EventCrafterController eventCrafterController;
+    private final ScreenSwitcherController screenSwitcherController;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    final JPanel header;
 
     final JButton postEvent;
     final JButton cancel;
@@ -31,53 +36,95 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
     final JTextField eventDateInputField = new JTextField(15);
     final JTextField eventTagsInputField = new JTextField(15);
     final JTextField eventAttachedMediaField = new JTextField(15);
+    JPanel creationPanel;
     JComboBox<ArtistUser> artistComboBox;
     JComboBox<VenueUser> venueComboBox;
 
     User signedInAs = null;
 
-    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController) {
+    public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventCrafterViewModel = eventCrafterViewModel;
-        this.eventCrafterController = eventCrafterController;
         this.eventCrafterViewModel.addPropertyChangeListener(this);
+        this.eventCrafterController = eventCrafterController;
+        this.screenSwitcherController = screenSwitcherController;
+        this.header = headerOriginal;
 
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        JLabel title = new JLabel(eventCrafterViewModel.TITLE_LABEL);
+
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 5, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(title, c);
+
+        c.gridx = 2;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 0, 0, 5);
+        c.anchor = GridBagConstraints.FIRST_LINE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(header, c);
+
+        creationPanel = new JPanel();
+        creationPanel.setLayout(new BoxLayout(creationPanel, BoxLayout.Y_AXIS));
+
+        LabelTextPanel eventTitleInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_NAME_LABEL), eventTitleInputField);
+        eventTitleInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(eventTitleInfo);
         artistComboBox = new JComboBox<>(eventCrafterViewModel.getState().getArtistUsers().toArray(new ArtistUser[0]));
         venueComboBox = new JComboBox<>(eventCrafterViewModel.getState().getVenueUsers().toArray(new VenueUser[0]));
+        artistComboBox.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        venueComboBox.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        if (signedInAs instanceof ArtistUser) {
+            creationPanel.add(venueComboBox);
+        } else if (signedInAs instanceof VenueUser) {
+            creationPanel.add(artistComboBox);
+        }
+        LabelTextPanel eventDescriptionInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_DESCRIPTION_LABEL), eventDescriptionInputField);
+        eventDescriptionInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(eventDescriptionInfo);
+        LabelTextPanel eventDateInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_DATE_LABEL), eventDateInputField);
+        eventDateInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(eventDateInfo);
+        LabelTextPanel eventTagsInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_TAGS_LABEL), eventTagsInputField);
+        eventTagsInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(eventTagsInfo);
+        LabelTextPanel eventAttachedMediaInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_ATTACHED_MEDIA_LABEL), eventAttachedMediaField);
+        eventAttachedMediaInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(eventAttachedMediaInfo);
 
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+        this.add(creationPanel, c);
+
+        JPanel buttons = new JPanel();
         postEvent = new JButton(eventCrafterViewModel.POST_EVENT_BUTTON_LABEL);
         postEvent.addActionListener(this);
         cancel = new JButton(eventCrafterViewModel.CANCEL_BUTTON_LABEL);
         cancel.addActionListener(this);
-
-        JPanel buttons = new JPanel();
         buttons.add(postEvent);
         buttons.add(cancel);
-        buttons.setAlignmentY(JPanel.BOTTOM_ALIGNMENT);
-        buttons.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        LabelTextPanel eventTitleInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_NAME_LABEL), eventTitleInputField);
-        LabelTextPanel eventDescriptionInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_DESCRIPTION_LABEL), eventDescriptionInputField);
-        LabelTextPanel eventDateInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_DATE_LABEL), eventDateInputField);
-        LabelTextPanel eventTagsInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_TAGS_LABEL), eventTagsInputField);
-        LabelTextPanel eventAttachedMediaInfo = new LabelTextPanel(new JLabel(eventCrafterViewModel.EVENT_ATTACHED_MEDIA_LABEL), eventAttachedMediaField);
-
-        JLabel title = new JLabel(eventCrafterViewModel.TITLE_LABEL);
-        title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(eventTitleInfo);
-        this.add(eventDescriptionInfo);
-        this.add(eventDateInfo);
-        this.add(eventTagsInfo);
-        this.add(eventAttachedMediaInfo);
-        if (signedInAs instanceof ArtistUser) {
-            this.add(venueComboBox);
-        } else if (signedInAs instanceof VenueUser) {
-            this.add(artistComboBox);
-        }
-        this.add(buttons);
+        c.gridx = 1;
+        c.gridy = 2;
+        c.weighty = 0.2;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 0, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(buttons, c);
     }
 
     @Override
@@ -117,8 +164,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
                 JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
             }
         } else if (e.getSource().equals(cancel)) {
-            System.out.println("cancel button pressed");
-            eventCrafterController.switchToHomescreen();
+            screenSwitcherController.switchToMyEvents();
         }
 
     }
@@ -149,11 +195,15 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
         this.remove(venueComboBox);
 
         if (eventCrafterViewModel.getState().getSignedInAs() instanceof ArtistUser) {
-            this.add(venueComboBox);
+            creationPanel.add(venueComboBox);
+            venueComboBox.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
         } else if (eventCrafterViewModel.getState().getSignedInAs() instanceof VenueUser) {
-            this.add(artistComboBox);
+            creationPanel.add(artistComboBox);
+            artistComboBox.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
         }
 
+        creationPanel.revalidate();
+        creationPanel.repaint();
         this.revalidate();
         this.repaint();
     }

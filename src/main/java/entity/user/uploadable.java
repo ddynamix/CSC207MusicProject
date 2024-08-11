@@ -11,10 +11,9 @@ import java.util.ArrayList;
  * Implemented by VenueUser and AudienceUser
  */
 public interface uploadable {
-    public Event createNewEvent(String title, User artist, String venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia, int id);
     public void contactFollowers(Post post);
     public void updateEventTitle(Event event, String newTitle);
-    public void updateEventVenue(Event event, String newVenue);
+    public void updateEventVenue(Event event, VenueUser newVenue);
     public void updateEventTime(Event event, LocalDateTime newTime);
     public void updateEventDescription(Event event, String newDescription);
     public void updateEventTags(Event event, ArrayList<String> newTags);

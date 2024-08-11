@@ -1,7 +1,6 @@
 package entity.user;
 
 import entity.event.Event;
-import entity.post.Post;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class User {
 
     private ArrayList<User> followers;
     private ArrayList<User> following;
-    private ArrayList<Event> pastEvents;
+    private ArrayList<Event> myEvents;
 
     //private Song featuredSong;
 
@@ -40,7 +39,7 @@ public class User {
 
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
-        this.pastEvents = new ArrayList<>();
+        this.myEvents = new ArrayList<>();
     }
 
     /**
@@ -113,10 +112,30 @@ public class User {
 
     /**
      * Return past events
-     * @return  list    pastEvents
+     * @return  list    myEvents
      */
-    public ArrayList<Event> getPastEvents() {
-        return pastEvents;
+    public ArrayList<Event> getMyEvents() {
+        return myEvents;
+    }
+
+    public void addEvent(Event event) {
+        this.myEvents.add(event);
+    }
+
+    public void addFollower(User follower) {
+        this.followers.add(follower);
+    }
+
+    public void removeFollower(User follower) {
+        this.followers.remove(follower);
+    }
+
+    public void addFollowing(User following) {
+        this.following.add(following);
+    }
+
+    public void removeFollowing(User following) {
+        this.following.remove(following);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package use_case.login;
 
+import app.interface_adapter_tools.UserSession;
 import data_access.UserDataAccessInterface;
 import data_access.UserDataAccessObject;
 import entity.user.User;
@@ -22,17 +23,14 @@ public class LoginInteractor implements LoginInputBoundary {
         } else {
             try {
                 User user = userDataAccessObject.getUserFromUsername(loginInputData.getUsername());
-                LoginOutputData loginOutputData = new LoginOutputData(user);
-                loginPresenter.prepareSuccessView(loginOutputData);
+                UserSession.getInstance().setLoggedInUser(user);
+                loginPresenter.prepareSuccessView(new LoginOutputData(user));
                 System.out.println("Login successful!");
             } catch (UserDataAccessObject.UserNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-    }
 
-    @Override
-    public void cancelLogin() {
-        loginPresenter.prepareSplashView();
+
+        }
     }
 }

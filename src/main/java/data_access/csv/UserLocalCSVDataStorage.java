@@ -81,11 +81,12 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public User getUserFromUsername(String username) {
+    public <T extends User> T getUserFromUsername(String username) {
         // printHashMap(accounts);
         if (userExistsInDatabase(username)) {
-            return accounts.get(username);
+            return (T) accounts.get(username);
         } else {
             System.err.println("User not found in database.");
             return null;
@@ -167,6 +168,15 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
             }
         }
         return audienceUsers;
+    }
+
+    @Override
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> allUsers = new ArrayList<>();
+        for (User user : accounts.values()) {
+            allUsers.add(user);
+        }
+        return allUsers;
     }
 
     private <K, V> void printHashMap(HashMap<K, V> map) {

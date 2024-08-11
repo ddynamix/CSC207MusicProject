@@ -1,82 +1,102 @@
 package app;
 
-import app.swing_view_factories.*;
 import data_access.EventDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
-import use_case.splash.interface_adapter.SplashViewModel;
-import use_case.eventcrafter.interface_adapter.EventCrafterViewModel;
-import use_case.homescreen.interface_adapter.HomescreenViewModel;
-import use_case.login.interface_adapter.LoginViewModel;
-import use_case.usersignup.interface_adapter.UserSignupViewModel;
+import use_case.eventcrafter.interface_adapter.EventCrafterController;
+import use_case.sign_out.interface_adapter.SignOutController;
+import view_model.*;
+import use_case.follow_user.interface_adapter.FollowUserController;
+import use_case.login.interface_adapter.LoginController;
+import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
+import use_case.search_users.interface_adapter.SearchUsersController;
+import use_case.usersignup.interface_adapter.UserSignupController;
 import view.jswing_views.*;
 import view.jswing_views.HomescreenView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 
 public class SwingViewCreator implements ViewCreatorInterface {
-    private final JFrame application = new JFrame("Music App");
-
     // prevent instantiation
     public SwingViewCreator() {
     }
 
     @Override
-    public void createAllViews(HashMap<String, ViewModel> viewModels, HashMap<String, Object> dataAccessObjects) {
-        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        CardLayout cardLayout = new CardLayout();
-        JPanel views = new JPanel(cardLayout);
-        application.add(views);
-
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-        new ViewManager(views, cardLayout, viewManagerModel);
-
-        SplashView splashView = SplashViewFactory.createSplashView(viewManagerModel,
+    public void createAllViews(JPanel views, ViewManagerModel viewManagerModel, HashMap<String, ViewModel> viewModels, HashMap<String, Object> controllers, HashMap<String, Object> dataAccessObjects) {
+        HeaderFactory headerFactory = new HeaderFactory(viewManagerModel,
                 (LoginViewModel) viewModels.get("loginViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
-                (UserSignupViewModel) viewModels.get("signupViewModel"));
+                (UserSignupViewModel) viewModels.get("signupViewModel"),
+                (HomescreenViewModel) viewModels.get("homescreenViewModel"),
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
+                (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
+                (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
+
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (SignOutController) controllers.get("signOutController"),
+
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
+                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"));
+
+        SplashView splashView = new SplashView(
+                (SplashViewModel) viewModels.get("splashViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(splashView, splashView.viewName);
 
-        UserSignupView userSignupView = UserSignupViewFactory.createSignupView(viewManagerModel,
-                (LoginViewModel) viewModels.get("loginViewModel"),
+        UserSignupView userSignupView = new UserSignupView(
                 (UserSignupViewModel) viewModels.get("signupViewModel"),
-                (SplashViewModel) viewModels.get("splashViewModel"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+                (UserSignupController) controllers.get("userSignupController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(userSignupView, userSignupView.viewName);
 
-        LoginView loginView = LoginViewFactory.createLoginView(viewManagerModel,
+        LoginView loginView = new LoginView(
                 (LoginViewModel) viewModels.get("loginViewModel"),
-                (SplashViewModel) viewModels.get("splashViewModel"),
-                (HomescreenViewModel) viewModels.get("homescreenViewModel"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+                (LoginController) controllers.get("loginController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(loginView, loginView.viewName);
 
-        HomescreenView homescreenView = HomescreenViewFactory.createHomescreenView(viewManagerModel,
-                (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
+        HomescreenView homescreenView = new HomescreenView(
                 (HomescreenViewModel) viewModels.get("homescreenViewModel"),
-                (SplashViewModel) viewModels.get("splashViewModel"),
-                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (SignOutController) controllers.get("signOutController"),
+                headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);
 
-        EventCrafterView eventCrafterView = EventCrafterViewFactory.createEventCrafterView(viewManagerModel,
-                (HomescreenViewModel) viewModels.get("homescreenViewModel"),
+        EventScreenView eventScreenView = new EventScreenView(
+                (EventScreenViewModel) viewModels.get("eventScreenViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                headerFactory.createHeader());
+        views.add(eventScreenView, eventScreenView.viewName);
+
+        EventCrafterView eventCrafterView = new EventCrafterView(
                 (EventCrafterViewModel) viewModels.get("eventCrafterViewModel"),
-                (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
-                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"));
+                (EventCrafterController) controllers.get("craftEventController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                headerFactory.createHeader());
         views.add(eventCrafterView, eventCrafterView.viewName);
 
-        // Set the initial view
-        viewManagerModel.setActiveView(splashView.viewName);
-        viewManagerModel.firePropertyChanged();
-    }
+        SearchUserView searchUserView = new SearchUserView(
+                (SearchUsersViewModel) viewModels.get("searchUsersViewModel"),
+                (SearchUsersController) controllers.get("searchUsersController"),
+                (FollowUserController)  controllers.get("followUserController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                headerFactory.createHeader());
+        views.add(searchUserView, searchUserView.viewName);
 
-    @Override
-    public void run() {
-        application.pack();
-        application.setVisible(true);
+        MyFollowersView myFollowersView = new MyFollowersView(
+                (MyFollowersViewModel) viewModels.get("myFollowersViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (FollowUserController)  controllers.get("followUserController"),
+                headerFactory.createHeader());
+        views.add(myFollowersView, myFollowersView.viewName);
+
+        IsFollowingView isFollowingView = new IsFollowingView(
+                (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"),
+                (FollowUserController)  controllers.get("followUserController"),
+                headerFactory.createHeader());
+        views.add(isFollowingView, isFollowingView.viewName);
     }
 }

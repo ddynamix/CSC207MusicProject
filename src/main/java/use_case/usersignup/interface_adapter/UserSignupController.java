@@ -17,8 +17,4 @@ public class UserSignupController {
 
         userSignupUseCaseInteractor.attemptSignUp(signupInputData);
     }
-
-    public void cancelClicked() {
-        userSignupUseCaseInteractor.cancelSignUp();
-    }
 }
