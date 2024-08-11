@@ -138,6 +138,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                 EventListJPanel eventPanel = eventList.getSelectedValue();
                 if (eventPanel != null) {
                     Event event = eventPanel.getEvent();
+                    // Audience can only remove from their list but not the database
                     if (isAudienceUser()) {
                         JMenuItem viewDetails = new JMenuItem("Remove Event");
                         viewDetails.addActionListener(ev -> {
@@ -145,6 +146,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                         });
                         popupMenu.add(viewDetails);
                     } else {
+                        // Venue and Artist can update the database
                         JMenuItem editEvent = new JMenuItem("Edit Event");
                         editEvent.addActionListener(ev -> {
                             editEventController.editEvent(event);

@@ -156,11 +156,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 PostListJPanel postPanel = new PostListJPanel(p);
                 postListModel.addElement(postPanel);
             }
-            System.out.println(postList.getModel().getSize() + " post\n" + scrollPane);
-            this.revalidate();
             this.repaint();
 
-            popupMenu = createPopupMenu(); // Refresh the popup menu
             postList.setComponentPopupMenu(popupMenu);
         }
         try {
@@ -186,15 +183,17 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 if (postPanel != null) {
                     Post post = postPanel.getPost();
 
-                    JMenuItem viewDetails = new JMenuItem("Edit Post");
-                    viewDetails.addActionListener(ev -> {
+                    JMenuItem editPost = new JMenuItem("Edit Post");
+                    editPost.addActionListener(ev -> {
                         editPostController.editPost(post);
                     });
-                    popupMenu.add(viewDetails);
+                    popupMenu.add(editPost);
 
                     JMenuItem deletePost = new JMenuItem("Delete Post");
                     deletePost.addActionListener(ev -> {
                         editPostController.deletePost(post);
+                        homescreenViewModel.firePropertyChanged();
+                        this.repaint();
                     });
                     popupMenu.add(deletePost);
                 }
