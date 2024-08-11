@@ -101,13 +101,10 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(publishChanges)) {
-            try {
-                editPostController.updatePost(postEditorViewModel.getState().getPostToEdit(),
-                        postTitleInputField.getText(), postTextInputField.getText(),
-                        postAttachedMediaField.getText());
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Invalid date format. Please use the format yyyy-MM-dd HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            editPostController.updatePost(postEditorViewModel.getState().getPostToEdit(),
+                    postTitleInputField.getText(), postTextInputField.getText(),
+                    postAttachedMediaField.getText());
+            screenSwitcherController.switchToHome();
         } else if (evt.getSource().equals(cancel)) {
             screenSwitcherController.switchToHome();
         }

@@ -8,10 +8,12 @@ import view_model.PostMakerViewModel;
 import view.jswing_views.utils.LabelTextPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -22,12 +24,14 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
     private final ScreenSwitcherController screenSwitcherController;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    JPanel creationPanel;
     final JButton post;
     final JButton cancel;
 
     final JTextField postTitleInputField = new JTextField(15);
     final JTextField postTextInputField = new JTextField(15);
     final JTextField postAttachedMediaInputField = new JTextField(15);
+    private final Header header;
 
     User signedInAs = null;
 
@@ -37,36 +41,75 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
             throw new IllegalArgumentException("PostMakerController cannot be null - improper initialization");
         }
         this.postMakerViewModel = postMakerViewModel;
-        this.postMakerController = postMakerController;
         this.postMakerViewModel.addPropertyChangeListener(this);
+        this.postMakerController = postMakerController;
         this.screenSwitcherController = screenSwitcherController;
+        this.header = headerOriginal;
 
-        post = new JButton(postMakerViewModel.POST_BUTTON_LABEL);
-        post.addActionListener(this);
-        cancel = new JButton(postMakerViewModel.CANCEL_BUTTON_LABEL);
-        cancel.addActionListener(this);
-
-        JPanel buttons = new JPanel();
-        buttons.add(post);
-        buttons.add(cancel);
-        buttons.setAlignmentY(JPanel.BOTTOM_ALIGNMENT);
-        buttons.setAlignmentX(JPanel.CENTER_ALIGNMENT);
-
-        LabelTextPanel postTitleInfo = new LabelTextPanel(new JLabel(postMakerViewModel.TITLE_LABEL), postTitleInputField);
-        LabelTextPanel postTextInfo = new LabelTextPanel(new JLabel(postMakerViewModel.POST_TEXT_LABEL), postTextInputField);
-        LabelTextPanel postMediaInfo = new LabelTextPanel(new JLabel(postMakerViewModel.POST_MEDIA_LABEL), postAttachedMediaInputField);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
         JLabel title = new JLabel(postMakerViewModel.TITLE_LABEL);
         title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 5, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(title, c);
 
-        this.add(title);
-        this.add(postTitleInfo);
-        this.add(postTextInfo);
-        this.add(postMediaInfo);
+        c.gridx = 2;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.2;
+        c.insets = new Insets(5, 0, 0, 5);
+        c.anchor = GridBagConstraints.FIRST_LINE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(header, c);
 
-        this.add(buttons);
+        creationPanel = new JPanel();
+        creationPanel.setLayout(new BoxLayout(creationPanel, BoxLayout.Y_AXIS));
+
+        LabelTextPanel postTitleInfo = new LabelTextPanel(new JLabel(postMakerViewModel.TITLE_LABEL), postTitleInputField);
+        postTitleInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(postTitleInfo);
+
+        LabelTextPanel postTextInfo = new LabelTextPanel(new JLabel(postMakerViewModel.POST_TEXT_LABEL), postTextInputField);
+        postTextInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(postTextInfo);
+
+        LabelTextPanel postMediaInfo = new LabelTextPanel(new JLabel(postMakerViewModel.POST_MEDIA_LABEL), postAttachedMediaInputField);
+        postMediaInfo.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+        creationPanel.add(postMediaInfo);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+        this.add(creationPanel, c);
+
+        JPanel buttons = new JPanel();
+        post = new JButton(postMakerViewModel.POST_BUTTON_LABEL);
+        post.addActionListener(this);
+        cancel = new JButton(postMakerViewModel.CANCEL_BUTTON_LABEL);
+        cancel.addActionListener(this);
+        buttons.add(post);
+        buttons.add(cancel);
+        c.gridx = 1;
+        c.gridy = 2;
+        c.weighty = 0.2;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 0, 0, 0);
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(buttons, c);
+
     }
 
     @Override
@@ -84,9 +127,6 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
                 System.out.println("null pointer exception: ");
                 exception.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Please fill in all fields.");
-            } catch (DateTimeParseException exception) {
-                System.out.println("date time parse exception: " + exception);
-                JOptionPane.showMessageDialog(this, "Please enter a valid date and time.");
             }
         } else if (e.getSource().equals(cancel)) {
             System.out.println("cancel button pressed");
@@ -102,5 +142,7 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
         if (signedInAs == null){
             throw new IllegalArgumentException("signedInAs is null");
         }
+        this.revalidate();
+        this.repaint();
     }
 }

@@ -1,13 +1,10 @@
 package view.jswing_views;
 
-import entity.event.Event;
 import entity.post.Post;
-import entity.user.AudienceUser;
 import entity.user.User;
+import use_case.add_post.interface_adapter.AddPostController;
 import use_case.edit_post.interface_adapter.EditPostController;
-import use_case.postMaker.interface_adapter.PostMakerController;
 import view.jswing_views.utils.CustomListCellRenderer;
-import view.jswing_views.utils.EventListJPanel;
 import view.jswing_views.utils.PostListJPanel;
 import view_model.HomescreenState;
 import view_model.HomescreenViewModel;
@@ -30,7 +27,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
     private final EditPostController editPostController;
-    private final PostMakerController postMakerController;
+    private final AddPostController addPostController;
     private final JPanel header;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -49,12 +46,12 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
                           SignOutController signOutController, EditPostController editPostController,
-                          PostMakerController postMakerController, JPanel headerOriginal) {
+                          AddPostController addPostController, JPanel headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenViewModel.addPropertyChangeListener(this);
 
         this.editPostController = editPostController;
-        this.postMakerController = postMakerController;
+        this.addPostController = addPostController;
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
 
@@ -134,25 +131,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     }
 
-    private void updatePostLists() {
-        System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
-
-        postListModel.clear();
-        scrollPane = new JScrollPane();
-        for (Post p : signedInAs.getMyPosts()) {
-            scrollPane.add(new PostListJPanel(p));
-        }
-        this.repaint();
-
-        popupMenu = createPopupMenu(); // Refresh the popup menu
-        postList.setComponentPopupMenu(popupMenu);
-    }
-
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (signedInAs != null) {
-            updatePostLists();
-        }
         if (evt.getSource().equals(postButton)) {
             screenSwitcherController.switchToPost();
         } else if (evt.getSource().equals(eventPageButton)) {
@@ -167,9 +147,21 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     public void propertyChange(PropertyChangeEvent evt) {
         HomescreenState state = (HomescreenState) evt.getNewValue();
         signedInAs = state.getSignedInAs();
-        System.out.println(signedInAs.getMyPosts());
-        if (evt.getPropertyName().equals("state") && !signedInAs.getMyPosts().isEmpty()) {
-            updatePostLists();
+        System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
+        System.out.println(postList.getModel().getSize() + " post in pane");
+        if (evt.getPropertyName().equals("state")) {
+            postListModel.clear();
+            scrollPane = new JScrollPane();
+            for (Post p : signedInAs.getMyPosts()) {
+                PostListJPanel postPanel = new PostListJPanel(p);
+                postListModel.addElement(postPanel);
+            }
+            System.out.println(postList.getModel().getSize() + " post\n" + scrollPane);
+            this.revalidate();
+            this.repaint();
+
+            popupMenu = createPopupMenu(); // Refresh the popup menu
+            postList.setComponentPopupMenu(popupMenu);
         }
         try {
             if (signedInAs == null) {
@@ -194,11 +186,11 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 if (postPanel != null) {
                     Post post = postPanel.getPost();
 
-                    JMenuItem editPost = new JMenuItem("Edit Post");
-                    editPost.addActionListener(ev -> {
+                    JMenuItem viewDetails = new JMenuItem("Edit Post");
+                    viewDetails.addActionListener(ev -> {
                         editPostController.editPost(post);
                     });
-                    popupMenu.add(editPost);
+                    popupMenu.add(viewDetails);
 
                     JMenuItem deletePost = new JMenuItem("Delete Post");
                     deletePost.addActionListener(ev -> {

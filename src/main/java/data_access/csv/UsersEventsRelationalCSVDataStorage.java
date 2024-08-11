@@ -19,16 +19,10 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
     // The keys are the users and the values are a list of events that they are attending.
     private final HashMap<User, ArrayList<Event>> relationships = new HashMap<>();
 
-    private final UserDataAccessInterface userDataAccess;
-    private final EventDataAccessInterface eventDataAccess;
-
     public UsersEventsRelationalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess, EventDataAccessInterface eventDataAccess) {
         csvFile = new File(csvPath);
         headers.put("user_id", 0);
         headers.put("event_id", 1);
-
-        this.userDataAccess = userDataAccess;
-        this.eventDataAccess = eventDataAccess;
 
         if (csvFile.length() == 0) {
             createFile();
@@ -92,7 +86,7 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
         }
         relationships.get(user).add(event);
         user.addEvent(event);
-        try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile, true))) {
+         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile, true))) {
             writer.println(user.getUsername() + "," + event.getTitle());
         } catch (IOException e) {
             e.printStackTrace();

@@ -112,7 +112,9 @@ public class EventEditorView extends JPanel implements ActionListener, PropertyC
         if (evt.getSource().equals(publishChanges)) {
             try {
                 formatter.parse(eventDateInputField.getText());
-                editEventController.updateEvent(eventEditorViewModel.getState().getEventToEdit(), eventTitleInputField.getText(), eventDescriptionInputField.getText(), eventDateInputField.getText(), eventTagsInputField.getText(), eventAttachedMediaField.getText());
+                editEventController.updateEvent(eventEditorViewModel.getState().getEventToEdit(),
+                        eventTitleInputField.getText(), eventDescriptionInputField.getText(), eventDateInputField.getText(),
+                        eventTagsInputField.getText(), eventAttachedMediaField.getText());
             } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(this, "Invalid date format. Please use the format yyyy-MM-dd HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
             }

@@ -40,7 +40,8 @@ public class EditEventInteractor implements EditEventInputBoundary {
     @Override
     public void updateEvent(EditEventInputData inputData) {
         try {
-            eventDataAccessInterface.updateEvent(inputData.getEventToAlter(), inputData.getTitle(), inputData.getDescription(), inputData.getDate(), inputData.getTags(), inputData.getMedia());
+            eventDataAccessInterface.updateEvent(inputData.getEventToAlter(), inputData.getTitle(),
+                    inputData.getDescription(), inputData.getDate(), inputData.getTags(), inputData.getMedia());
             ArrayList<Event> updatedEvents = UserSession.getInstance().getLoggedInUser().getMyEvents();
             editEventPresenter.prepareSuccessView(new EditEventsSuccessOutputData(updatedEvents));
         } catch (EventDoesntExistException e) {

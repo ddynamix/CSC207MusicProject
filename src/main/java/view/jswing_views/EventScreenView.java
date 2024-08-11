@@ -98,6 +98,8 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+
+        System.out.println(eventList.getModel().getSize() + " evenr in pane\n" + scrollPane);
     }
 
     @Override
@@ -122,6 +124,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
             createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
             popupMenu = createPopupMenu(); // Refresh the popup menu
             eventList.setComponentPopupMenu(popupMenu);
+            System.out.println("User has " + signedInAs.getMyEvents().size() + " events");
         }
     }
 

@@ -13,7 +13,7 @@ public interface PostDataAccessInterface {
 
     Post getPostFromTitle(String PostName);
 
+    void updatePost(Post Post, String title, String text, String media) throws PostDoesntExistException ;
 
     ArrayList<Post> getPosts();
-    void updatePost(Post Post, String title, String text, String media) throws PostDoesntExistException ;
 }
