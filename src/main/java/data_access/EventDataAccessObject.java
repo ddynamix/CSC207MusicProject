@@ -104,8 +104,8 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     }
 
     @Override
-    public Map<String, Event> getEvents() {
-        Map<String, Event> events = new HashMap<>();
+    public ArrayList<Event> getEvents() {
+        ArrayList<Event> events = new ArrayList<>();
         FindIterable<Document> collection = mongoDatabase.getCollection("eventContent").find();
         //todo get event data from collection into the events hashmap
         return events;

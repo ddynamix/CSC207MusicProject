@@ -2,6 +2,7 @@ package data_access.csv;
 
 import data_access.FollowRelationalAccessInterface;
 import data_access.UserDataAccessInterface;
+import data_access.UserDataAccessObject;
 import entity.user.User;
 
 import java.io.*;
@@ -50,7 +51,8 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
                 }
 
                 applyFollowingToUsers();
-
+            } catch (UserDataAccessObject.UserNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
