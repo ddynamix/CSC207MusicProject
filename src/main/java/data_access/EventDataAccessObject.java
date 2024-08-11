@@ -13,6 +13,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -103,9 +104,10 @@ public class EventDataAccessObject implements EventDataAccessInterface {
     }
 
     @Override
-    public ArrayList<Event> getEvents() { //todo implement. return all events
-        ArrayList<Event> events = new ArrayList<>();
+    public Map<String, Event> getEvents() {
+        Map<String, Event> events = new HashMap<>();
         FindIterable<Document> collection = mongoDatabase.getCollection("eventContent").find();
+        //todo get event data from collection into the events hashmap
         return events;
     }
 }
