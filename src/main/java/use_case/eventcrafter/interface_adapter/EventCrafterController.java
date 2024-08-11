@@ -35,7 +35,8 @@ public class EventCrafterController {
         ArrayList<String> tagsFormatted = stringToArrayList(tags);
 
         System.out.println("EventCrafterController: excecute: artist: " + artist);
-        User artistUser = userDataAccessInterface.getUserFromUsername(artist);
+        try {
+            User artistUser = userDataAccessInterface.getUserFromUsername(artist);
         System.out.println(artistUser);
         EventCrafterInputData eventCrafterInputData = new EventCrafterInputData(
                 title,
@@ -47,8 +48,10 @@ public class EventCrafterController {
                 postDateFormatted,
                 attachedMedia
         );
-
         eventCrafterInteractor.attemptPostEvent(eventCrafterInputData);
+        } catch (data_access.UserDataAccessObject.UserNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void switchToHomescreen() {

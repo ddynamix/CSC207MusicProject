@@ -117,12 +117,12 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     }
 
     @Override
-    public void create(User user) throws UserDataAccessObject.DuplicateUsernameException {
+    public void create(User user) throws UserDataAccessObject.UserAlreadyExistsException {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
             appendUserToCsv(user.getUsername(), user.getPassword(), user.getEmail(), user.getName(), user.getClass().getSimpleName().toLowerCase());
         } else {
-            throw new UserDataAccessObject.DuplicateUsernameException();
+            throw new UserDataAccessObject.UserAlreadyExistsException();
         }
     }
 

@@ -18,15 +18,14 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class UserDataAccessObject implements UserDataAccessInterface {
 
-    //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception {
         public UserNotFoundException() {
             super("User not found in the database");
         }
     }
 
-    public static class DuplicateUsernameException extends Exception {
-        public DuplicateUsernameException() {
+    public static class UserAlreadyExistsException extends Exception {
+        public UserAlreadyExistsException() {
             super("Username already exists in the database");
         }
     }
@@ -127,9 +126,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public void create(User user) throws DuplicateUsernameException {
+    public void create(User user) throws UserAlreadyExistsException {
         if (userExistsInDatabase(user.getUsername())) {
-            throw new DuplicateUsernameException();
+            throw new UserAlreadyExistsException();
         } else {
             Document document = new Document("username", user.getUsername())
                     .append("password", user.getPassword())
@@ -202,12 +201,19 @@ public class UserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public boolean passwordMatches(String username, String password) {
-        User user = getUserFromUsername(username); //todo this needs a try block
-        MongoCollection collection = getCollectionByType(user);
-        MongoCursor iterator = collection.find(Filters.eq("username", username)).iterator();
-        if (iterator.hasNext()) {
-
+        try {
+            User user = getUserFromUsername(username); //todo this needs a try block
+            MongoCollection collection = getCollectionByType(user);
+            MongoCursor iterator = collection.find(Filters.eq("username", username)).iterator();
+            if (iterator.hasNext()) {
+                return user.getPassword().equals(password);
+            } else {
+                return false;
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     public void appendToFollowers(User newFollower){
@@ -217,5 +223,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     private User instantiateUser(Document document) {
         FindIterable<Document> collection = mongoDatabase.getCollection("artistUser").find();
         //call constructor, instatiate artist, user, audience, etc, as per necessary
+        return user;
     }
 }

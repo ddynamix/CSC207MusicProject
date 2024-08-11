@@ -12,7 +12,7 @@ public interface UserDataAccessInterface {
     void updateUsername(User user, String newUsername) throws UserDataAccessObject.UserNotFoundException;
     void updatePassword(User user, String newPassword, String confirmPassword) throws UserDataAccessObject.PasswordMismatchException, UserDataAccessObject.UserNotFoundException;
     void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
-    void create(User user) throws UserDataAccessObject.DuplicateUsernameException;
+    void create(User user) throws UserDataAccessObject.UserAlreadyExistsException;
     void delete(User user) throws UserDataAccessObject.UserNotFoundException;
     User getUserFromUsername(String username) throws UserDataAccessObject.UserNotFoundException;
     ArrayList<ArtistUser> getArtistUsers();
