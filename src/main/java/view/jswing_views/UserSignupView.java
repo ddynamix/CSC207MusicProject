@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view_model.UserSignupState;
 import use_case.usersignup.interface_adapter.UserSignupController;
@@ -90,6 +91,7 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         this.add(emailInfo);
         this.add(nameInfo);
         this.add(buttons);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     public void actionPerformed(ActionEvent evt) {

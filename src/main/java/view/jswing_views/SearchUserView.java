@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import app.interface_adapter_tools.UserSession;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
@@ -132,6 +133,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     @Override

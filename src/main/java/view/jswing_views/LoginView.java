@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.login.interface_adapter.LoginController;
 import view_model.LoginState;
 import view_model.LoginViewModel;
@@ -61,6 +62,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(passwordInfo);
         this.add(passwordErrorField);
         this.add(buttons);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     public void actionPerformed(ActionEvent evt) {

@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.sign_out.interface_adapter.SignOutController;
 
@@ -11,12 +12,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import static app.interface_adapter_tools.Theme.ThemeManager.toggleTheme;
+
 public class Header extends JPanel implements ActionListener {
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
 
     private JButton waffleButton;
     private JPopupMenu menu;
+    JButton colourMode;
 
     public Header(ScreenSwitcherController screenSwitcherController, SignOutController signOutController) {
         this.screenSwitcherController = screenSwitcherController;
@@ -33,7 +37,6 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("Following"));
         options.add(new JMenuItem("Followers"));
         options.add(new JMenuItem("Explore Users"));
-        options.add(new JMenuItem("Sign Out"));
 
         // Create menu and add items to it
         this.menu = createMenu(options);
@@ -57,6 +60,18 @@ public class Header extends JPanel implements ActionListener {
         // Set up the panel layout
         this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         this.add(this.waffleButton);
+
+        colourMode = new JButton("Toggle Colour Mode");
+        colourMode.addActionListener(e -> {
+            System.out.println("Toggle Theme button clicked"); // Debugging
+            toggleTheme();
+            app.Main.themeUpdate();
+            Theme.ThemeManager.applyTheme(this);
+            this.revalidate();  // Revalidate the component hierarchy
+            this.repaint();     // Repaint to apply new colors
+        });
+        this.add(colourMode);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
@@ -140,6 +155,10 @@ public class Header extends JPanel implements ActionListener {
         } else if (evt.getSource().equals(getMenuItems().get(9))) {  // SignOut
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
+        }
+
+        if (evt.getSource().equals(colourMode)) { // Dark Mode
+            toggleTheme();
         }
     }
 }

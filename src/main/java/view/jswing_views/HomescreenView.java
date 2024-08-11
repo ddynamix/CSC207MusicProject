@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import entity.post.Post;
 import entity.user.User;
 import use_case.add_post.interface_adapter.AddPostController;
@@ -20,6 +21,8 @@ import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import static app.interface_adapter_tools.Theme.ThemeManager.isDarkMode;
 
 public class HomescreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
@@ -98,7 +101,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         postList.setOpaque(false);
 
         scrollPane = new JScrollPane(postList);
-        scrollPane.setBackground(Color.LIGHT_GRAY);
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 0;
@@ -132,6 +134,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
 
+        Theme.ThemeManager.applyTheme(this);
     }
 
     @Override
@@ -170,6 +173,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
                 System.out.println("HomescreenView received new state: " + state);
             }
+            Theme.ThemeManager.applyTheme(this);
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");
         }
@@ -177,7 +181,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
-
+        Theme.ThemeManager.applyTheme(this);
         postList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 popupMenu.removeAll();
