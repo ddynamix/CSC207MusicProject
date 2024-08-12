@@ -88,6 +88,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             addSong.addActionListener(this);
         } else {
             JPanel song = new JPanel();
+            song.setLayout(new BoxLayout(song, BoxLayout.Y_AXIS));
             song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + favouriteSong.getName()));
             song.add(playMusic = new JButton(profileViewModel.PLAY_MUSIC_LABEL));
             playMusic.addActionListener(this);
@@ -101,9 +102,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         c.weightx = 1;
         c.weighty = 1;
         c.gridwidth = 3;
-        c.insets = new Insets(5, 5, 0, 0);
+        c.insets = new Insets(5, 5, 5, 5);
         c.anchor = GridBagConstraints.LINE_START;
-        c.fill = GridBagConstraints.HORIZONTAL;
         this.add(content, c);
     }
 

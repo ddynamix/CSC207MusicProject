@@ -8,18 +8,28 @@ import java.net.URL;
 
 public class PlayMusicInteractor implements PlayMusicInputBoundary {
     private Player player;
+    private Thread playerThread;
+
+    private boolean isPlaying = false;
 
     public PlayMusicInteractor() {
     }
 
     public void playMusic(PlayMusicInputData inputData) {
-        try (InputStream inputStream = getInputStream(inputData.getFilepath())) {
-            System.out.println("Playing music..." + inputData.getFilepath());
-            player = new Player(inputStream);
-            player.play();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (isPlaying) {
+            stopMusic();
         }
+        playerThread = new Thread(() -> {
+            try (InputStream inputStream = getInputStream(inputData.getFilepath())) {
+                System.out.println("Playing music..." + inputData.getFilepath());
+                player = new Player(inputStream);
+                player.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        playerThread.start();
+        isPlaying = true;
     }
 
     private InputStream getInputStream(String path) throws Exception {
@@ -34,6 +44,10 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
         if (player != null) {
             player.close();
         }
+        if (playerThread != null && playerThread.isAlive()) {
+            playerThread.interrupt();
+        }
+        isPlaying = false;
     }
 
     public void noPreview() throws NoPreviewAvailableException {
