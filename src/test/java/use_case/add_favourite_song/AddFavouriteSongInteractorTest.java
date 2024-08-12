@@ -1,5 +1,6 @@
 package use_case.add_favourite_song;
 
+import data_access.RelationalSongDataAccessInterface;
 import data_access.SongDataAccessInterface;
 import entity.song.Song;
 import entity.user.ArtistUser;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -18,12 +20,14 @@ public class AddFavouriteSongInteractorTest {
 
     private AddFavouriteSongInteractor addFavouriteSongInteractor;
     private SongDataAccessInterface songDataAccessInterface;
+    private RelationalSongDataAccessInterface relationalSongDataAccessInterface;
     private User user;
 
     @BeforeEach
     public void setUp() {
         songDataAccessInterface = mock(SongDataAccessInterface.class);
-        addFavouriteSongInteractor = new AddFavouriteSongInteractor(songDataAccessInterface);
+        relationalSongDataAccessInterface = mock(RelationalSongDataAccessInterface.class);
+        addFavouriteSongInteractor = new AddFavouriteSongInteractor(songDataAccessInterface, relationalSongDataAccessInterface);
         user = new ArtistUser("testUser", "Test User", "testPass", "testMail");
     }
 
@@ -32,7 +36,7 @@ public class AddFavouriteSongInteractorTest {
         String songName = "Test Song";
         String songArtist = "Test Artist";
         String songAlbum = "Test Album";
-        LocalDateTime songReleaseDate = LocalDateTime.now();
+        LocalDate songReleaseDate = LocalDate.now();
         String songURL = "http://testurl.com";
         ArrayList<String> songTags = new ArrayList<>();
         songTags.add("Test Genre");

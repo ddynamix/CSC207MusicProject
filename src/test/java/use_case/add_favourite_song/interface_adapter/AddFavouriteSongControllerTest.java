@@ -1,5 +1,6 @@
 package use_case.add_favourite_song.interface_adapter;
 
+import data_access.RelationalSongDataAccessInterface;
 import data_access.SongDataAccessInterface;
 import data_access.UserAlreadyExistsException;
 import data_access.UserDataAccessInterface;
@@ -21,6 +22,7 @@ public class AddFavouriteSongControllerTest {
     private SpotifyService spotifyService;
     private UserDataAccessInterface userRepository;
     private SongDataAccessInterface songDataAccess;
+    private RelationalSongDataAccessInterface relationalSongDataAccess;
     private AddFavouriteSongInputBoundary addFavouriteSongInteractor;
     private User user;
 
@@ -29,7 +31,8 @@ public class AddFavouriteSongControllerTest {
         spotifyService = mock(SpotifyService.class);
         userRepository = mock(UserDataAccessInterface.class);
         songDataAccess = mock(SongDataAccessInterface.class);
-        addFavouriteSongInteractor = new AddFavouriteSongInteractor(songDataAccess);
+        relationalSongDataAccess = mock(RelationalSongDataAccessInterface.class);
+        addFavouriteSongInteractor = new AddFavouriteSongInteractor(songDataAccess, relationalSongDataAccess);
         addFavouriteSongController = new AddFavouriteSongController(addFavouriteSongInteractor, spotifyService, songDataAccess);
         user = new ArtistUser("testUser", "Test User", "test password", "test email");
     }

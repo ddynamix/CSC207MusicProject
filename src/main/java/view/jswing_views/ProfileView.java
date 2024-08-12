@@ -82,16 +82,13 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         content.add(new JLabel(profileViewModel.FOLLOWING_LABEL + numFollowing));
         content.add(Box.createVerticalStrut(10)); // Add vertical space
 
-        // for testing purposes
-        if (false) {
-        //if (favouriteSong == null) {
+        if (favouriteSong == null) {
             content.add(new JLabel(profileViewModel.NO_SONG_LABEL));
             content.add(addSong = new JButton(profileViewModel.ADD_SONG_LABEL));
             addSong.addActionListener(this);
         } else {
             JPanel song = new JPanel();
-            //song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + favouriteSong.getName()));
-            song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + "Baby, I'm Yours"));
+            song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + favouriteSong.getName()));
             song.add(playMusic = new JButton(profileViewModel.PLAY_MUSIC_LABEL));
             playMusic.addActionListener(this);
             song.add(stopMusic = new JButton(profileViewModel.STOP_MUSIC_LABEL));

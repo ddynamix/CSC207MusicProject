@@ -1,5 +1,6 @@
 package entity.song;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -7,12 +8,12 @@ public class Song implements ISong {
     private String name;
     private String artist;
     private String album;
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
     private ArrayList<String> tags;
     private String URL;
     private int id;
 
-    public Song(String name, String artist, String album, LocalDateTime releaseDate, ArrayList<String> tags, String URL, int id) {
+    public Song(String name, String artist, String album, LocalDate releaseDate, ArrayList<String> tags, String URL, int id) {
         this.name = name;
         this.artist = artist;
         this.album = album;
@@ -38,7 +39,7 @@ public class Song implements ISong {
     }
 
     @Override
-    public LocalDateTime getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 

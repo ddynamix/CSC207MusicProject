@@ -92,7 +92,8 @@ public class ControllerCreator {
         controllers.put("playMusicController", PlayMusicControllerFactory.createPlayMusicController());
 
         controllers.put("addFavouriteSongController", AddFavouriteSongControllerFactory.createAddFavouriteSongController(
-                (SongDataAccessInterface) dataAccessObjects.get("songDataAccessObject")
+                (SongDataAccessInterface) dataAccessObjects.get("songDataAccessObject"),
+                (RelationalSongDataAccessInterface) dataAccessObjects.get("relationalSongDataAccessObject")
         ));
 
         return controllers;

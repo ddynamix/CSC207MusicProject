@@ -3,10 +3,9 @@ package use_case.add_favourite_song.interface_adapter;
 import data_access.SongDataAccessInterface;
 import data_access.spotify.SpotifyService;
 import entity.user.User;
-import net.bytebuddy.asm.Advice;
 import use_case.add_favourite_song.AddFavouriteSongInputBoundary;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +35,8 @@ public class AddFavouriteSongController {
         addFavouriteSongInteractor.addFavouriteSong(name, artist, album, parseDate(releaseDate), url, parseTags(tags), id, user);
     }
 
-    private LocalDateTime parseDate(String date) {
-        return LocalDateTime.parse(date, formatter);
+    private LocalDate parseDate(String date) {
+        return LocalDate.parse(date, formatter);
     }
 
     private ArrayList<String> parseTags(String tags) {

@@ -22,7 +22,7 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
             followRelationalAccessObject = new FollowRelationalCSVDataStorage("./follows.csv", userDataAccessObject);
             usersEventsRelationalAccessObject = new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
             usersPostsRelationalAccessObject = new UsersPostsRelationalCSVDataStorage("./users_posts.csv", userDataAccessObject, postDataAccessObject);
-            songDataAccessObject = new SongCSVDataStorage("./songStorage.csv", userDataAccessObject);
+            songDataAccessObject = new SongCSVDataStorage("./songStorage.csv");
             relationalSongDataAccessObject = new RelationalSongCSVDataAccess("./relationalSongStorage.csv", userDataAccessObject, songDataAccessObject);
         } catch (IOException e) {
             throw new RuntimeException("Could not create CSV data access objects.");

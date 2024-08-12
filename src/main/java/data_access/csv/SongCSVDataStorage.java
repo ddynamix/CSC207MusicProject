@@ -1,5 +1,6 @@
 package data_access.csv;
 
+import data_access.RelationalSongDataAccessInterface;
 import data_access.SongDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import entity.post.Post;
@@ -7,6 +8,7 @@ import entity.song.Song;
 import entity.user.User;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,10 +20,7 @@ public class SongCSVDataStorage implements SongDataAccessInterface {
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<Integer, Song> songs = new HashMap<>();
 
-    private final UserDataAccessInterface userDataAccess;
-
-    public SongCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess) throws IOException {
-        this.userDataAccess = userDataAccess;
+    public SongCSVDataStorage(String csvPath) throws IOException {
         csvFile = new File(csvPath);
 
         headers.put("name", 0);
@@ -61,7 +60,7 @@ public class SongCSVDataStorage implements SongDataAccessInterface {
                     String URL = String.valueOf(col[headers.get("URL")]);
                     int id = Integer.parseInt(String.valueOf(col[headers.get("id")]));
 
-                    LocalDateTime releaseDateLocalDateTime = stringToLocalDateTime(releaseDate);
+                    LocalDate releaseDateLocalDateTime = stringToLocalDate(releaseDate);
                     ArrayList<String> tagsList = stringToTags(tags);
 
                     Song song = new Song(name, artist, album, releaseDateLocalDateTime, tagsList, URL, id);
@@ -76,8 +75,8 @@ public class SongCSVDataStorage implements SongDataAccessInterface {
         return new ArrayList<>(Arrays.asList(string.split(";")));
     }
 
-    private LocalDateTime stringToLocalDateTime(String string) {
-        return LocalDateTime.parse(string, formatter);
+    private LocalDate stringToLocalDate(String string) {
+        return LocalDate.parse(string, formatter);
     }
 
     private void createFile() {
