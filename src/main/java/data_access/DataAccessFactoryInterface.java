@@ -8,4 +8,6 @@ public interface DataAccessFactoryInterface {
     FollowRelationalAccessInterface getFollowDAO();
     UsersEventsRelationalAccessInterface getUsersEventsDAO();
     UsersPostsRelationalAccessInterface getUsersPostsDAO();
+    SongDataAccessInterface getSongDAO();
+    RelationalSongDataAccessInterface getRelationalSongDAO();
 }

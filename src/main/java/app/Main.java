@@ -4,6 +4,7 @@ import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
+import data_access.spotify.SpotifyService;
 import view_model.*;
 import view.jswing_views.ViewManager;
 
@@ -40,6 +41,9 @@ public class Main {
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
         dataAccessObjects.put("usersEventsRelationalAccessObject", dataAccessFactory.getUsersEventsDAO());
         dataAccessObjects.put("usersPostsRelationalAccessObject", dataAccessFactory.getUsersPostsDAO());
+        dataAccessObjects.put("songDataAccessObject", dataAccessFactory.getSongDAO());
+        dataAccessObjects.put("relationalSongDataAccessObject", dataAccessFactory.getRelationalSongDAO());
+
 
         // Create the JFrame
         CardLayout cardLayout = new CardLayout();

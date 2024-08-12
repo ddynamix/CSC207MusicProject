@@ -10,14 +10,16 @@ public class Song implements ISong {
     private LocalDateTime releaseDate;
     private ArrayList<String> tags;
     private String URL;
+    private int id;
 
-    public Song(String name, String artist, String album, LocalDateTime releaseDate, ArrayList<String> tags, String URL) {
+    public Song(String name, String artist, String album, LocalDateTime releaseDate, ArrayList<String> tags, String URL, int id) {
         this.name = name;
         this.artist = artist;
         this.album = album;
         this.releaseDate = releaseDate;
         this.tags = tags;
         this.URL = URL;
+        this.id = id;
     }
 
     @Override
@@ -48,5 +50,9 @@ public class Song implements ISong {
     @Override
     public String getURL() {
         return URL;
+    }
+
+    public int getId() {
+        return id;
     }
 }

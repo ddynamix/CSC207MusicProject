@@ -1,5 +1,6 @@
 package use_case.eventcrafter;
 
+import app.interface_adapter_tools.UserSession;
 import data_access.EventAlreadyExistsException;
 import data_access.EventDataAccessInterface;
 import entity.event.Event;
@@ -29,7 +30,7 @@ public class EventCrafterInteractor implements EventCrafterInputBoundary {
                     eventCrafterInputData.getAttachedMedia());
             eventDataAccessInterface.createEvent(event);
 
-            ArrayList<Event> events = eventDataAccessInterface.getEvents();
+            ArrayList<Event> events = UserSession.getInstance().getLoggedInUser().getMyEvents();
             EventCrafterOutputData eventCrafterOutputData = new EventCrafterOutputData(events);
 
             eventCrafterPresenter.prepareSuccessView(eventCrafterOutputData);

@@ -28,7 +28,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         headers.put("name", 3);
         headers.put("creation_time", 4);
         headers.put("type", 5);
-
         if (csvFile.length() == 0) {
             createFile();
         } else {

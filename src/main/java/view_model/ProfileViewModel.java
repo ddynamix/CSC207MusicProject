@@ -19,6 +19,7 @@ public class ProfileViewModel extends ViewModel{
     public final String NO_PREVIEW_ERROR = "No preview available for this song";
     public final String NO_SONG_LABEL = "No favourite song";
     public final String STOP_MUSIC_LABEL = "Stop Music";
+    public final String ADD_SONG_LABEL = "Add Song";
 
     private ProfileState state = new ProfileState();
 

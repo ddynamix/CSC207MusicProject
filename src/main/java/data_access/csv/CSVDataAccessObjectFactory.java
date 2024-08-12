@@ -11,6 +11,8 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     private final FollowRelationalAccessInterface followRelationalAccessObject;
     private final UsersEventsRelationalAccessInterface usersEventsRelationalAccessObject;
     private final UsersPostsRelationalAccessInterface usersPostsRelationalAccessObject;
+    private final SongDataAccessInterface songDataAccessObject;
+    private final RelationalSongDataAccessInterface relationalSongDataAccessObject;
 
     public CSVDataAccessObjectFactory() {
         try {
@@ -20,6 +22,8 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
             followRelationalAccessObject = new FollowRelationalCSVDataStorage("./follows.csv", userDataAccessObject);
             usersEventsRelationalAccessObject = new UsersEventsRelationalCSVDataStorage("./users_events.csv", userDataAccessObject, eventDataAccessObject);
             usersPostsRelationalAccessObject = new UsersPostsRelationalCSVDataStorage("./users_posts.csv", userDataAccessObject, postDataAccessObject);
+            songDataAccessObject = new SongCSVDataStorage("./songStorage.csv", userDataAccessObject);
+            relationalSongDataAccessObject = new RelationalSongCSVDataAccess("./relationalSongStorage.csv", userDataAccessObject, songDataAccessObject);
         } catch (IOException e) {
             throw new RuntimeException("Could not create CSV data access objects.");
         }
@@ -53,5 +57,15 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
     @Override
     public UsersPostsRelationalAccessInterface getUsersPostsDAO() {
         return usersPostsRelationalAccessObject;
+    }
+
+    @Override
+    public SongDataAccessInterface getSongDAO() {
+        return songDataAccessObject;
+    }
+
+    @Override
+    public RelationalSongDataAccessInterface getRelationalSongDAO() {
+        return relationalSongDataAccessObject;
     }
 }

@@ -4,6 +4,7 @@ import app.controller_factories.*;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import data_access.*;
+import data_access.spotify.SpotifyService;
 import view_model.*;
 
 import java.util.HashMap;
@@ -56,7 +57,7 @@ public class ControllerCreator {
 
         controllers.put("signOutController", SignOutControllerFactory.createSignOutController());
 
-        controllers.put("signUpController", SignUpControllerFactory.createSignUpController(viewManagerModel,
+        controllers.put("userSignupController", SignUpControllerFactory.createSignUpController(viewManagerModel,
                 (UserSignupViewModel) viewModels.get("signupViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
                 (LoginViewModel) viewModels.get("loginViewModel"),
@@ -89,6 +90,10 @@ public class ControllerCreator {
                 (UsersPostsRelationalAccessInterface) dataAccessObjects.get("usersPostsRelationalAccessObject")));
 
         controllers.put("playMusicController", PlayMusicControllerFactory.createPlayMusicController());
+
+        controllers.put("addFavouriteSongController", AddFavouriteSongControllerFactory.createAddFavouriteSongController(
+                (SongDataAccessInterface) dataAccessObjects.get("songDataAccessObject")
+        ));
 
         return controllers;
     }

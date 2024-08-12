@@ -6,6 +6,7 @@ import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 
 import use_case.add_event.interface_adapter.AddEventController;
+import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.postMaker.interface_adapter.PostMakerController;
@@ -143,6 +144,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ProfileViewModel) viewModels.get("profileViewModel"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (PlayMusicController) controllers.get("playMusicController"),
+                (AddFavouriteSongController) controllers.get("addFavouriteSongController"),
                 headerFactory.createHeader());
         views.add(profileView, profileView.viewName);
     }

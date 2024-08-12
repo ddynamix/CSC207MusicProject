@@ -80,6 +80,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.insets = new Insets(5, 0, 0, 5);
         c.anchor = GridBagConstraints.FIRST_LINE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
+        header.setToolTipText("Click to open navigation options.");
         this.add(header, c);
 
         welcome_message = new JLabel("Signed in as: \n" + signedInAs);
@@ -109,16 +110,20 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.gridwidth = 3;
         c.insets = new Insets(10, 5, 10, 5);
         c.fill = GridBagConstraints.BOTH;
+        scrollPane.setToolTipText("This is where you will see your post when you follow users.");
         this.add(scrollPane, c);
 
 
         JPanel buttons = new JPanel();
         eventPageButton = new JButton(homescreenViewModel.EVENT_PAGE_BUTTON_LABEL);
         eventPageButton.addActionListener(this);
+        eventPageButton.setToolTipText("Click here to view your events.");
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
         signOutButton.addActionListener(this);
+        signOutButton.setToolTipText("Click here to sign out.");
         postButton = new JButton(homescreenViewModel.POST_BUTTON_LABEL);
         postButton.addActionListener(this);
+        postButton.setToolTipText("Click here to create a post.");
         buttons.add(eventPageButton);
         buttons.add(postButton);
         buttons.add(signOutButton);

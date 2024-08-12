@@ -2,6 +2,8 @@ package view.jswing_views;
 
 import entity.song.Song;
 import entity.user.User;
+import use_case.add_favourite_song.AddFavouriteSongInputBoundary;
+import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
@@ -19,6 +21,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final ProfileViewModel profileViewModel;
     private final ScreenSwitcherController screenSwitcherController;
     private final PlayMusicController playMusicController;
+    private final AddFavouriteSongController addFavouriteSongController;
     private final Header header;
 
     private User usersProfile;
@@ -33,12 +36,14 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private JButton home;
     private JButton playMusic;
     private JButton stopMusic;
+    private JButton addSong;
 
-    public ProfileView(ProfileViewModel profileViewModel, ScreenSwitcherController screenSwitcherController, PlayMusicController playMusicController, Header headerOriginal) {
+    public ProfileView(ProfileViewModel profileViewModel, ScreenSwitcherController screenSwitcherController, PlayMusicController playMusicController, AddFavouriteSongController addFavouriteSongController, Header headerOriginal) {
         this.profileViewModel = profileViewModel;
         this.profileViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.playMusicController = playMusicController;
+        this.addFavouriteSongController = addFavouriteSongController;
         this.header = headerOriginal;
     }
 
@@ -77,11 +82,16 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         content.add(new JLabel(profileViewModel.FOLLOWING_LABEL + numFollowing));
         content.add(Box.createVerticalStrut(10)); // Add vertical space
 
-        if (favouriteSong == null) {
+        // for testing purposes
+        if (false) {
+        //if (favouriteSong == null) {
             content.add(new JLabel(profileViewModel.NO_SONG_LABEL));
+            content.add(addSong = new JButton(profileViewModel.ADD_SONG_LABEL));
+            addSong.addActionListener(this);
         } else {
             JPanel song = new JPanel();
-            song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + favouriteSong.getName()));
+            //song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + favouriteSong.getName()));
+            song.add(new JLabel(profileViewModel.FAVOURITE_SONG_LABEL + "Baby, I'm Yours"));
             song.add(playMusic = new JButton(profileViewModel.PLAY_MUSIC_LABEL));
             playMusic.addActionListener(this);
             song.add(stopMusic = new JButton(profileViewModel.STOP_MUSIC_LABEL));
@@ -110,13 +120,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             screenSwitcherController.switchToHome();
         } else if (evt.getSource() == playMusic) {
             try {
-                playMusicController.playMusic(new Song("Baby", "Justin Bieber", "My World 2.0", null, null, null));
+                playMusicController.playMusic(new Song("Baby, I'm Yours", "Breakbot", "Baby, I'm Yours", null, null, null, 0));
             } catch (NoPreviewAvailableException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, profileViewModel.NO_PREVIEW_ERROR);
             }
         } else if (evt.getSource() == stopMusic) {
             playMusicController.stopMusic();
+        } else if (evt.getSource() == addSong) {
+            showAddSongDialog();
         }
     }
 
@@ -128,7 +140,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             this.favouriteSong = usersProfile.getFeaturedSong();
             this.numFollowers = usersProfile.getNumFollowers();
             this.numFollowing = usersProfile.getNumFollowing();
+            this.removeAll();
             this.paintView();
+        }
+    }
+
+    private void showAddSongDialog() {
+        String songName = JOptionPane.showInputDialog(this, "Enter song name:", "Add Song", JOptionPane.PLAIN_MESSAGE);
+        if (songName != null && !songName.trim().isEmpty()) {
+            addFavouriteSongController.addFavouriteSong(songName, usersProfile);
         }
     }
 }
