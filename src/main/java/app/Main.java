@@ -87,6 +87,7 @@ public class Main {
         int x = (screenSize.width - application.getWidth()) / 2;
         int y = (screenSize.height - application.getHeight()) / 2;
         application.setLocation(x, y);
+        application.setIconImage(new ImageIcon("src/main/resources/icon.png").getImage());
 
         // Start the application
         application.setVisible(true);

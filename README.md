@@ -65,3 +65,7 @@ Our runable main.java file is in src/main/java/app
 - Event
 - Post
 - Song
+
+## Attributions
+- Icon: <a href="https://www.flaticon.com/free-icons/music" title="music icons">Music icons created by Freepik</a>
+- Festival Gif: <a href="https://www.youtube.com/watch?v=1wlR4ECGJR8" title="Courtesy of PSM InfoTech">Courtesy of PSM InfoTech</a>
