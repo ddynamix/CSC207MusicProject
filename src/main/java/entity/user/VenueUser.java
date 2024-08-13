@@ -21,11 +21,19 @@ public class VenueUser extends User implements uploadable{
         super(name, username, password, email);
     }
 
+    /**
+     * add event to user
+     * @param event to be added
+     */
     @Override
     public void addEvent(Event event) {
         this.getMyEvents().add(event);
     }
 
+    /**
+     * remove event from user
+     * @param event to be removed
+     */
     @Override
     public void removeEvent(Event event) {this.getMyEvents().remove(event);}
 

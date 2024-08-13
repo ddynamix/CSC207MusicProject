@@ -8,23 +8,40 @@ import entity.post.Post;
 
 import java.util.ArrayList;
 
+/**
+ * interactor for edit post use case
+ */
 public class EditPostInteractor implements EditPostInputBoundary {
     private final EditPostOutputBoundary editPostPresenter;
     private final PostDataAccessInterface postDataAccessInterface;
     private final UsersPostsRelationalAccessInterface usersPostsRelationalAccessInterface;
 
+    /**
+     * create instance of interactor for edit post use case
+     * @param editPostPresenter
+     * @param postDataAccessInterface
+     * @param usersPostsRelationalAccessInterface
+     */
     public EditPostInteractor(EditPostOutputBoundary editPostPresenter, PostDataAccessInterface postDataAccessInterface, UsersPostsRelationalAccessInterface usersPostsRelationalAccessInterface) {
         this.editPostPresenter = editPostPresenter;
         this.postDataAccessInterface = postDataAccessInterface;
         this.usersPostsRelationalAccessInterface = usersPostsRelationalAccessInterface;
     }
 
+    /**
+     * update post
+     * @param inputData new data
+     */
     @Override
     public void editPost(EditPostInputData inputData) {
         EditPostOutputData outputData = new EditPostOutputData(inputData.getPostToAlter());
         editPostPresenter.goToPostEditor(outputData);
     }
 
+    /**
+     * remove data
+     * @param inputData new data
+     */
     @Override
     public void deletePost(EditPostInputData inputData) {
         try {
@@ -37,6 +54,10 @@ public class EditPostInteractor implements EditPostInputBoundary {
         }
     }
 
+    /**
+     * update post
+     * @param inputData new data
+     */
     @Override
     public void updatePost(EditPostInputData inputData) {
         try {

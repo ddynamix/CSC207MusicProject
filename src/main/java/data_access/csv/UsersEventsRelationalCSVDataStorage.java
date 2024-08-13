@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Create DAO of events compared to users
+ */
 public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationalAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -19,6 +22,12 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
     // The keys are the users and the values are a list of events that they are attending.
     private final HashMap<User, ArrayList<Event>> relationships = new HashMap<>();
 
+    /**
+     * Create DAO for events to user
+     * @param csvPath local path to file
+     * @param userDataAccess DAO for users
+     * @param eventDataAccess DAO for events
+     */
     public UsersEventsRelationalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess, EventDataAccessInterface eventDataAccess) {
         csvFile = new File(csvPath);
         headers.put("user_id", 0);
@@ -55,6 +64,9 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
         }
     }
 
+    /**
+     * Create local file
+     */
     private void createFile() {
         if (csvFile.length() == 0) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
@@ -65,10 +77,18 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
         }
     }
 
+    /**
+     * Convert data into string
+     * @param headers data entry
+     * @return formatted string
+     */
     private String headersToString(Map<String, Integer> headers) {
         return String.join(",", headers.keySet());
     }
 
+    /**
+     * add all events to their users
+     */
     private void applyEventsToUsers() {
         for (Map.Entry<User, ArrayList<Event>> entry : relationships.entrySet()) {
             User user = entry.getKey();
@@ -79,6 +99,11 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
         }
     }
 
+    /**
+     * all event to its user
+     * @param user author
+     * @param event to be added
+     */
     @Override
     public void addEvent(User user, Event event) {
         if (!relationships.containsKey(user)) {
@@ -93,6 +118,11 @@ public class UsersEventsRelationalCSVDataStorage implements UsersEventsRelationa
         }
     }
 
+    /**
+     * remove event from CSV
+     * @param user author
+     * @param event to be removed
+     */
     @Override
     public void removeEvent(User user, Event event) {
         if (relationships.containsKey(user)) {

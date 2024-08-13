@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * view for follower
+ */
 public class MyFollowersView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "my followers";
     private final MyFollowersViewModel myFollowersViewModel;
@@ -27,6 +30,13 @@ public class MyFollowersView extends JPanel implements ActionListener, PropertyC
     private JList<UserListJPanel> userList;
     private DefaultListModel<UserListJPanel> listModel;
 
+    /**
+     * create view for follower
+     * @param myFollowersViewModel model for follower view
+     * @param screenSwitcherController controllor for switcher
+     * @param followUserController controller for follower
+     * @param headerOriginal header
+     */
     public MyFollowersView(MyFollowersViewModel myFollowersViewModel, ScreenSwitcherController screenSwitcherController, FollowUserController followUserController, Header headerOriginal) {
         this.myFollowersViewModel = myFollowersViewModel;
         myFollowersViewModel.addPropertyChangeListener(this);
@@ -90,6 +100,9 @@ public class MyFollowersView extends JPanel implements ActionListener, PropertyC
         this.add(buttons, c);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(homeButton)) {
@@ -97,6 +110,10 @@ public class MyFollowersView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -111,6 +128,10 @@ public class MyFollowersView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * create popup menu for each follower
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 

@@ -1,13 +1,21 @@
 package view.jswing_views.utils;
 
+import app.interface_adapter_tools.Theme;
 import entity.event.Event;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JPanel for event
+ */
 public class EventListJPanel extends JPanel {
     private final Event event;
 
+    /**
+     * create instance of panel
+     * @param event to be converted
+     */
     public EventListJPanel(Event event) {
         this.event = event;
 
@@ -86,8 +94,13 @@ public class EventListJPanel extends JPanel {
         c.anchor = GridBagConstraints.LAST_LINE_END;
         c.insets = new Insets(5, 5, 0, 0);
         this.add(tagsLabel, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * access event
+     * @return event
+     */
     public Event getEvent() {
         return event;
     }

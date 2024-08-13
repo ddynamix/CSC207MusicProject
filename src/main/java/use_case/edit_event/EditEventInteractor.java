@@ -8,23 +8,40 @@ import entity.event.Event;
 
 import java.util.ArrayList;
 
+/**
+ * interactor for edit event use case
+ */
 public class EditEventInteractor implements EditEventInputBoundary {
     private final EditEventOutputBoundary editEventPresenter;
     private final EventDataAccessInterface eventDataAccessInterface;
     private final UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface;
 
+    /**
+     * create interactor for edit event use case
+     * @param editEventPresenter presenter for edit event use case
+     * @param eventDataAccessInterface event DAO
+     * @param usersEventsRelationalAccessInterface user -> event DAO
+     */
     public EditEventInteractor(EditEventOutputBoundary editEventPresenter, EventDataAccessInterface eventDataAccessInterface, UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface) {
         this.editEventPresenter = editEventPresenter;
         this.eventDataAccessInterface = eventDataAccessInterface;
         this.usersEventsRelationalAccessInterface = usersEventsRelationalAccessInterface;
     }
 
+    /**
+     * update event
+     * @param inputData new data
+     */
     @Override
     public void editEvent(EditEventInputData inputData) {
         EditEventOutputData outputData = new EditEventOutputData(inputData.getEventToAlter());
         editEventPresenter.goToEventEditor(outputData);
     }
 
+    /**
+     * remove event
+     * @param inputData new data
+     */
     @Override
     public void deleteEvent(EditEventInputData inputData) {
         try {
@@ -37,6 +54,10 @@ public class EditEventInteractor implements EditEventInputBoundary {
         }
     }
 
+    /**
+     * update data
+     * @param inputData new data
+     */
     @Override
     public void updateEvent(EditEventInputData inputData) {
         try {

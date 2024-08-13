@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import entity.user.ArtistUser;
 import entity.user.User;
 import entity.user.VenueUser;
@@ -134,6 +135,7 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     @Override

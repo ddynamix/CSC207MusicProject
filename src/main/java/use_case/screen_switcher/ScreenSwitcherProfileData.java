@@ -2,14 +2,25 @@ package use_case.screen_switcher;
 
 import entity.user.User;
 
+/**
+ * profile data for switcher
+ */
 public class ScreenSwitcherProfileData {
-    User userToDisplay;
+    User signedInUser;
 
-    public ScreenSwitcherProfileData(User userToDisplay) {
-        this.userToDisplay = userToDisplay;
+    /**
+     * set profile data
+     * @param signedInUser current login
+     */
+    public ScreenSwitcherProfileData(User signedInUser) {
+        this.signedInUser = signedInUser;
     }
 
-    public User getUser() {
-        return userToDisplay;
+    /**
+     * access current login
+     * @return current login
+     */
+    public User getSignedInUser() {
+        return signedInUser;
     }
 }

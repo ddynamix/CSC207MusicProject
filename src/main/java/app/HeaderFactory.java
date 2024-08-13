@@ -8,6 +8,9 @@ import view_model.*;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.Header;
 
+/**
+ * Create headers
+ */
 public class HeaderFactory {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
@@ -25,6 +28,22 @@ public class HeaderFactory {
     private final UserDataAccessInterface userDataAccessObject;
     private final EventDataAccessInterface eventDataAccessObject;
 
+    /**
+     * create a header
+     * @param viewManagerModel model for switching view models
+     * @param loginViewModel model for login use case
+     * @param splashViewModel model for splash view
+     * @param signupViewModel model for sign up use case
+     * @param homescreenViewModel model for homescreen view
+     * @param eventScreenViewModel model for event view
+     * @param eventCrafterViewModel model for event use case
+     * @param searchUsersViewModel model for user search use case
+     * @param postMakerViewModel model for post use case
+     * @param screenSwitcherController controller for changing views
+     * @param signOutController controller for sign out use case
+     * @param userDataAccessObject DAO for accessing users
+     * @param eventDataAccessObject DAO for accessing events
+     */
     public HeaderFactory(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                          SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
                          HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel,
@@ -50,8 +69,10 @@ public class HeaderFactory {
 
     }
 
+    /**
+     * @return new instantiation of Header
+     */
     public Header createHeader() {
-
         return new Header(screenSwitcherController, signOutController);
     }
 }

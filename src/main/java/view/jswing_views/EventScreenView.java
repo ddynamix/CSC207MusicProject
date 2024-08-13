@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import entity.event.Event;
 import entity.user.AudienceUser;
 import entity.user.User;
@@ -63,6 +64,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
 
         eventListModel = new DefaultListModel<>();
         eventList = new JList<>(eventListModel);
+        Theme.ThemeManager.applyTheme(eventList);
         popupMenu = this.createPopupMenu();
         eventList.setComponentPopupMenu(popupMenu);
         eventList.setCellRenderer(new CustomListCellRenderer());
@@ -70,16 +72,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         eventList.setLayoutOrientation(JList.VERTICAL);
         eventList.setOpaque(false);
 
-        JScrollPane scrollPane = new JScrollPane(eventList);
-        scrollPane.setBackground(Color.LIGHT_GRAY);
-        c.gridx = 0;
-        c.gridy = 1;
-        c.weightx = 0;
-        c.weighty = 1;
-        c.gridwidth = 3;
-        c.insets = new Insets(10, 5, 10, 5);
-        c.fill = GridBagConstraints.BOTH;
-        this.add(scrollPane, c);
+        JScrollPane scrollPane = createScrollPane(c);
 
         JPanel buttons = new JPanel();
         createEventButton = new JButton(eventScreenViewModel.CREATE_EVENT_BUTTON_LABEL);
@@ -100,7 +93,25 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         this.add(buttons, c);
 
         System.out.println(eventList.getModel().getSize() + " evenr in pane\n" + scrollPane);
+        Theme.ThemeManager.applyTheme(this);
     }
+
+    private JScrollPane createScrollPane(GridBagConstraints c) {
+        JScrollPane scrollPane = new JScrollPane(eventList);
+        Theme.ThemeManager.applyTheme(this);
+        scrollPane.setBackground(Color.LIGHT_GRAY);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+        Theme.ThemeManager.applyTheme(scrollPane);
+        this.add(scrollPane, c);
+        return scrollPane;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -117,7 +128,9 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
             eventListModel.clear();
             for (Event event : eventScreenViewModel.getState().getEvents()) {
                 EventListJPanel eventPanel = new EventListJPanel(event);
+                Theme.ThemeManager.applyTheme(eventPanel);
                 eventListModel.addElement(eventPanel);
+                Theme.ThemeManager.applyTheme(eventList);
             }
 
             User signedInAs = eventScreenViewModel.getState().getSignedInAs();
@@ -130,7 +143,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
 
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
-
+        Theme.ThemeManager.applyTheme(popupMenu);
         eventList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 popupMenu.removeAll();

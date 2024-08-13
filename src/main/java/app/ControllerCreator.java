@@ -9,10 +9,20 @@ import view_model.*;
 
 import java.util.HashMap;
 
+/**
+ * instantiate all controllers
+ */
 public class ControllerCreator {
     private ControllerCreator() {
     }
 
+    /**
+     * Instantiate all controllers
+     * @param viewManagerModel model for switching view models
+     * @param viewModels map of title string -> ViewModel
+     * @param dataAccessObjects DAO for all objects
+     * @return map of all controllers by title string -> Object
+     */
     public static HashMap<String, Object> createControllers(ViewManagerModel viewManagerModel, HashMap<String, ViewModel> viewModels, HashMap<String, Object> dataAccessObjects) {
         HashMap<String, Object> controllers = new HashMap<>();
 

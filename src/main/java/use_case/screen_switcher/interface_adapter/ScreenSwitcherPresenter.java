@@ -4,6 +4,9 @@ import app.interface_adapter_tools.ViewManagerModel;
 import use_case.screen_switcher.*;
 import view_model.*;
 
+/**
+ * presenter for switcher use case
+ */
 public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final LoginViewModel loginViewModel;
@@ -19,6 +22,21 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final PostMakerViewModel postMakerViewModel;
     private final ProfileViewModel profileViewModel;
 
+    /**
+     * create instance of presenter for switcher use case
+     * @param viewManagerModel manager for changing models
+     * @param loginViewModel model for login use case
+     * @param splashViewModel model for splash view
+     * @param signupViewModel model for signup use case
+     * @param homeViewModel model for homescreen
+     * @param myEventsViewModel model for event screen
+     * @param searchEventsViewModel model for event search use case
+     * @param eventCrafterViewModel model for event use case
+     * @param searchUsersViewModel model for user search use case
+     * @param myFollowersViewModel model for follower use case
+     * @param isFollowingViewModel model for following use case
+     * @param postMakerViewModel model for post use case
+     */
     public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                    SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
                                    HomescreenViewModel homeViewModel, EventScreenViewModel myEventsViewModel,
@@ -41,24 +59,37 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.profileViewModel = profileViewModel;
     }
 
+    /**
+     * change view to login
+     */
     @Override
     public void switchToLogin() {
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to splash
+     */
     @Override
     public void switchToSplash() {
         viewManagerModel.setActiveView(splashViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to signup
+     */
     @Override
     public void switchToSignup() {
         viewManagerModel.setActiveView(signupViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to homescreen
+     * @param signedInData current login
+     */
     @Override
     public void switchToHome(ScreenSwitcherLoggedInData signedInData) {
         HomescreenState homescreenState = homescreenViewModel.getState();
@@ -71,6 +102,10 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to event screen
+     * @param myEventsData event data
+     */
     @Override
     public void switchToMyEvents(ScreenSwitcherMyEventsData myEventsData) {
         EventScreenState eventScreenState = new EventScreenState();
@@ -84,6 +119,10 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to event search
+     * @param searchEventsData event data
+     */
     @Override
     public void switchToSearchEvents(ScreenSwitcherSearchEventsData searchEventsData) {
         SearchEventsState searchEventsState = new SearchEventsState();
@@ -96,12 +135,19 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to user search
+     */
     @Override
     public void switchToSearchUsers() {
         viewManagerModel.setActiveView(searchUsersViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to event crafter
+     * @param eventScreenData events data
+     */
     @Override
     public void switchToEventCrafter(ScreenSwitcherEventCrafterData eventCrafterData) {
         EventCrafterState eventCrafterState = eventCrafterViewModel.getState();
@@ -114,6 +160,10 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to make post
+     * @param postData posts data
+     */
     @Override
     public void switchToPost(ScreenSwitcherPostData postData) {
         PostMakerState postMakerState = postMakerViewModel.getState();
@@ -126,6 +176,10 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to follower
+     * @param myFollowersData follower data
+     */
     @Override
     public void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData) {
         MyFollowersState myFollowersState = myFollowersViewModel.getState();
@@ -138,6 +192,10 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * change view to following
+     * @param isFollowingData following data
+     */
     @Override
     public void switchToIsFollowing(ScreenSwitcherIsFollowingData isFollowingData) {
         IsFollowingState isFollowingState = isFollowingViewModel.getState();

@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * view for post use case
+ */
 public class PostMakerView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "postMaker view";
     private final PostMakerViewModel postMakerViewModel;
@@ -35,6 +38,13 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
 
     User signedInAs = null;
 
+    /**
+     * create post view
+     * @param postMakerViewModel model for post use case
+     * @param postMakerController controller for post use case
+     * @param screenSwitcherController controller for switcher
+     * @param headerOriginal header
+     */
     public PostMakerView(PostMakerViewModel postMakerViewModel, PostMakerController postMakerController,
                          ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         if (postMakerController == null){
@@ -112,6 +122,9 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
 
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(post)) {
@@ -135,6 +148,10 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
 
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         PostMakerState state = (PostMakerState) evt.getNewValue();

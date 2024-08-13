@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import entity.event.Event;
 import entity.post.Post;
 import entity.user.AudienceUser;
@@ -25,14 +26,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * Homescreen View
+ */
 public class HomescreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomescreenViewModel homescreenViewModel;
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
     private final EditPostController editPostController;
-    private final AddPostController addPostController;
-    private final JPanel header;
+    private final Header header;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private JScrollPane scrollPane;
@@ -48,14 +52,21 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     JButton signOutButton;
     JButton postButton;
 
+    /**
+     * Create homescreen view
+     * @param homescreenViewModel model for home screen
+     * @param screenSwitcherController controller for switcher
+     * @param signOutController controller for sign out use case
+     * @param editPostController controller for edit post use case
+     * @param headerOriginal header
+     */
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
                           SignOutController signOutController, EditPostController editPostController,
-                          AddPostController addPostController, JPanel headerOriginal) {
+                          Header headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenViewModel.addPropertyChangeListener(this);
 
         this.editPostController = editPostController;
-        this.addPostController = addPostController;
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
 
@@ -103,7 +114,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         postList.setOpaque(false);
 
         scrollPane = new JScrollPane(postList);
-        scrollPane.setBackground(Color.LIGHT_GRAY);
+        Theme.ThemeManager.applyTheme(scrollPane);
         c.gridx = 0;
         c.gridy = 1;
         c.weightx = 0;
@@ -138,8 +149,12 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
 
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(postButton)) {
@@ -152,6 +167,10 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         HomescreenState state = (HomescreenState) evt.getNewValue();
@@ -167,6 +186,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
             }
             this.repaint();
 
+            Theme.ThemeManager.applyTheme(scrollPane);
+
             postList.setComponentPopupMenu(popupMenu);
         }
         try {
@@ -176,14 +197,19 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
                 System.out.println("HomescreenView received new state: " + state);
             }
+            Theme.ThemeManager.applyTheme(this);
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");
         }
     }
 
+    /**
+     * create popup menu for each post
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
-
+        Theme.ThemeManager.applyTheme(this);
         postList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 popupMenu.removeAll();

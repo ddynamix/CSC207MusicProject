@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.login.interface_adapter.LoginController;
 import view_model.LoginState;
 import view_model.LoginViewModel;
@@ -13,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * create view for login use case
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
@@ -30,6 +34,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton logIn;
     final JButton cancel;
 
+    /**
+     * create instance of login view
+     * @param loginViewModel model for login use case
+     * @param loginController controller for login use case
+     * @param screenSwitcherController controller for switcher
+     */
     public LoginView(LoginViewModel loginViewModel, LoginController loginController, ScreenSwitcherController screenSwitcherController) {
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
@@ -66,8 +76,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(passwordInfo, c);
         this.add(passwordErrorField, c);
         this.add(buttons, c);
+
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(logIn)) {
             System.out.println("log in button pressed");
@@ -77,12 +92,20 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
         setFields(state);
     }
 
+    /**
+     * set field from user input
+     * @param state current state
+     */
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
         passwordInputField.setText(state.getPassword());

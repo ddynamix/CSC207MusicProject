@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.sign_out.interface_adapter.SignOutController;
 
@@ -11,13 +12,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import static app.interface_adapter_tools.Theme.ThemeManager.toggleTheme;
+
+/**
+ * create header JPanel to be added to frame view
+ */
 public class Header extends JPanel implements ActionListener {
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
 
     private JButton waffleButton;
     private JPopupMenu menu;
+    JButton colourMode;
 
+    /**
+     * create header panel
+     * @param screenSwitcherController controller for switcher
+     * @param signOutController controller for sign out use case
+     */
     public Header(ScreenSwitcherController screenSwitcherController, SignOutController signOutController) {
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
@@ -31,7 +43,6 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("Following"));
         options.add(new JMenuItem("Followers"));
         options.add(new JMenuItem("Explore Users"));
-        options.add(new JMenuItem("Sign Out"));
 
         // Create menu and add items to it
         this.menu = createMenu(options);
@@ -55,8 +66,25 @@ public class Header extends JPanel implements ActionListener {
         // Set up the panel layout
         this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         this.add(this.waffleButton);
+
+        colourMode = new JButton("Toggle Colour Mode");
+        colourMode.addActionListener(e -> {
+            System.out.println("Toggle Theme button clicked"); // Debugging
+            toggleTheme();
+            app.Main.themeUpdate();
+            Theme.ThemeManager.applyTheme(this);
+            this.revalidate();  // Revalidate the component hierarchy
+            this.repaint();     // Repaint to apply new colors
+        });
+        this.add(colourMode);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * create menu for each of the functions in menu
+     * @param items MenuItems to be added
+     * @return menu
+     */
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
         JPopupMenu newMenu = new JPopupMenu();
         for (JMenuItem item : items) {
@@ -66,6 +94,10 @@ public class Header extends JPanel implements ActionListener {
         return newMenu;
     }
 
+    /**
+     * Create button and icon with the menu
+     * @return button
+     */
     private static JButton createWaffleButton() {
         final int WIDTH = 30;
         final int HEIGHT = 30;
@@ -102,6 +134,10 @@ public class Header extends JPanel implements ActionListener {
         return button;
     }
 
+    /**
+     * access menu items
+     * @return list of items
+     */
     public ArrayList<JMenuItem> getMenuItems() {
         ArrayList<JMenuItem> menuItems = new ArrayList<>();
         for (Component component : menu.getComponents()) {
@@ -112,6 +148,9 @@ public class Header extends JPanel implements ActionListener {
         return menuItems;
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(getMenuItems().get(0))) {  // Home
@@ -131,6 +170,10 @@ public class Header extends JPanel implements ActionListener {
         } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
+        }
+
+        if (evt.getSource().equals(colourMode)) { // Dark Mode
+            toggleTheme();
         }
     }
 }

@@ -101,21 +101,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     }
 
     @Override
-    public void updateUsername(User user, String newUsername) {
-
-    }
-
-    @Override
-    public void updatePassword(User user, String newPassword, String confirmPassword) {
-
-    }
-
-    @Override
-    public void updateEmail(User user, String newEmail) {
-
-    }
-
-    @Override
     public void create(User user) throws UserAlreadyExistsException {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
@@ -125,10 +110,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
-    @Override
-    public void delete(User user) {
-
-    }
 
     @Override
     public boolean passwordMatches(String username, String password) {

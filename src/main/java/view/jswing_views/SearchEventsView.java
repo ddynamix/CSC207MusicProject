@@ -18,6 +18,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * view for event search
+ */
 public class SearchEventsView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search events";
     private final SearchEventsViewModel searchEventsViewModel;
@@ -34,6 +37,14 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
 
     private final JButton backButton;
 
+    /**
+     * create event search view
+     * @param searchEventsViewModel model for event search use case
+     * @param searchEventsController controlloer for event search use case
+     * @param addEventController controller for adding event
+     * @param screenSwitcherController controller for switcher
+     * @param headerOriginal header
+     */
     public SearchEventsView(SearchEventsViewModel searchEventsViewModel, SearchEventsController searchEventsController, AddEventController addEventController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.searchEventsViewModel = searchEventsViewModel;
         this.searchEventsViewModel.addPropertyChangeListener(this);
@@ -100,6 +111,9 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         this.add(buttons, c);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -110,6 +124,10 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -127,6 +145,10 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         }
     }
 
+    /**
+     * create popup menu for each event
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 
@@ -171,6 +193,9 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
         return user.getMyEvents().contains(event);
     }
 
+    /**
+     * @return if audience member
+     */
     private boolean isAudienceUser() {
         return UserSession.getInstance().getLoggedInUser() instanceof AudienceUser;
     }

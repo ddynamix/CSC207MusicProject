@@ -4,6 +4,9 @@ import entity.post.Post;
 
 import java.util.ArrayList;
 
+/**
+ * interface for post DAO
+ */
 public interface PostDataAccessInterface {
     void createPost(Post post);
 

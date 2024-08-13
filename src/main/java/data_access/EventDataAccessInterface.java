@@ -5,6 +5,9 @@ import entity.event.Event;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * interface for Event DAO
+ */
 public interface EventDataAccessInterface {
     boolean eventExists(String eventName);
     void createEvent(Event event) throws EventAlreadyExistsException;

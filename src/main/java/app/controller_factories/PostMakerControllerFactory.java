@@ -9,10 +9,20 @@ import data_access.PostDataAccessInterface;
 import use_case.postMaker.interface_adapter.PostMakerPresenter;
 import view_model.PostMakerViewModel;
 
+/**
+ * Create post maker controllers
+ */
 public class PostMakerControllerFactory {
 
     private PostMakerControllerFactory() {}
 
+    /**
+     * create post maker controller
+     * @param viewManagerModel model for switching view models
+     * @param postScreenViewModel model for view
+     * @param postDataAccessObject DAO for accessing posts
+     * @return new instance f PostMakerController
+     */
     public static PostMakerController createMakePostController(ViewManagerModel viewManagerModel,
                                                                PostMakerViewModel postScreenViewModel,
                                                                PostDataAccessInterface postDataAccessObject) {

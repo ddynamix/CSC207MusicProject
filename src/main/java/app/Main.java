@@ -1,5 +1,6 @@
 package app;
 
+import app.interface_adapter_tools.Theme;
 import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
@@ -20,10 +21,13 @@ import java.util.HashMap;
  */
 
 public class Main {
+    static JFrame application;
+
     public static void main(String[] args) {
         // Create JFrame
-        final JFrame application = new JFrame("Music App");
+        application = new JFrame("Music App");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        application.getContentPane().setBackground(new Color(200, 200, 200));
 
         // Here, you will choose how to display the app.
         ViewCreatorInterface viewCreatorInterface = new SwingViewCreator();
@@ -90,6 +94,16 @@ public class Main {
         application.setIconImage(new ImageIcon("src/main/resources/icon.png").getImage());
 
         // Start the application
+        themeUpdate();
         application.setVisible(true);
     }
+
+    public static void themeUpdate() {
+        SwingUtilities.invokeLater(() -> {
+            Theme.ThemeManager.applyTheme(application.getContentPane());
+            application.getContentPane().revalidate();
+            application.getContentPane().repaint();
+        });
+    }
+
 }

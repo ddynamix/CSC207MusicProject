@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * interface for Song Object
+ */
 public interface ISong {
     public String getName();
     public String getArtist();

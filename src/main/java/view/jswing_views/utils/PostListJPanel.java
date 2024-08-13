@@ -1,13 +1,21 @@
 package view.jswing_views.utils;
 
+import app.interface_adapter_tools.Theme;
 import entity.post.Post;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JPanel for post
+ */
 public class PostListJPanel extends JPanel {
     private final Post post;
 
+    /**
+     * create instance of panel
+     * @param post to be converted
+     */
     public PostListJPanel(Post post) {
         this.post = post;
 
@@ -63,8 +71,13 @@ public class PostListJPanel extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(5, 5, 0, 0);
         this.add(dateLabel, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * access post
+     * @return post
+     */
     public Post getPost() {
         return post;
     }

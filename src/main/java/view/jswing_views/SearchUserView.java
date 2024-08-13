@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import app.interface_adapter_tools.UserSession;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
@@ -19,6 +20,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * View for user searching
+ */
 public class SearchUserView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search users";
     private final SearchUsersViewModel searchUsersViewModel;
@@ -34,6 +38,14 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
 
     JComboBox<String> searchTypeDropdown;
 
+    /**
+     * create user search view
+     * @param searchUsersViewModel model for user search use case
+     * @param searchUsersController controller for user search use case
+     * @param followUserController controller for user follow use case
+     * @param screenSwitcherController controller for switcher
+     * @param headerOriginal header
+     */
     public SearchUserView(SearchUsersViewModel searchUsersViewModel, SearchUsersController searchUsersController, FollowUserController followUserController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.searchUsersViewModel = searchUsersViewModel;
         this.searchUsersController = searchUsersController;
@@ -132,8 +144,12 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -144,6 +160,10 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -158,6 +178,10 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * create the popup menu for each user
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 

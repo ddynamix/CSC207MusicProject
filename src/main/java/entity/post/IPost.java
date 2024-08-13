@@ -4,6 +4,9 @@ import entity.user.User;
 
 import java.time.LocalDateTime;
 
+/**
+ * interface for post object
+ */
 public interface IPost {
     public String getTitle();
     public String getText();
