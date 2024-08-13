@@ -6,9 +6,16 @@ import entity.post.Post;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JPanel for post
+ */
 public class PostListJPanel extends JPanel {
     private final Post post;
 
+    /**
+     * create instance of panel
+     * @param post to be converted
+     */
     public PostListJPanel(Post post) {
         this.post = post;
 
@@ -67,6 +74,10 @@ public class PostListJPanel extends JPanel {
         Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * access post
+     * @return post
+     */
     public Post getPost() {
         return post;
     }

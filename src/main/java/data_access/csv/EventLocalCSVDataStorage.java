@@ -7,7 +7,6 @@ import data_access.EventDoesntExistException;
 import data_access.UserDataAccessInterface;
 import entity.event.Event;
 import entity.user.ArtistUser;
-import entity.user.User;
 import entity.user.VenueUser;
 
 import java.io.*;
@@ -15,6 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Event DAO
+ */
 public class EventLocalCSVDataStorage implements EventDataAccessInterface {
     private final File csvFile;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -23,6 +25,12 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
 
     private final UserDataAccessInterface userDataAccessObject;
 
+    /**
+     * create event DAO
+     * @param csvPath local file path
+     * @param userDataAccessObject user DAO
+     * @throws IOException input output exception for types and params
+     */
     public EventLocalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccessObject) throws IOException {
         this.userDataAccessObject = userDataAccessObject;
 
@@ -67,6 +75,9 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * create new CSV file
+     */
     public void createFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
             writer.println(headersToString(headers));
@@ -75,6 +86,10 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * add event to CSV
+     * @param event to be added
+     */
     private void appendEventToCsv(Event event) {
         try (FileWriter fw = new FileWriter(csvFile, true);
              BufferedWriter bw = new BufferedWriter(fw);
@@ -85,6 +100,11 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * convert event to string
+     * @param event to be converted
+     * @return formatted string
+     */
     private String eventToString(Event event) {
         return event.getTitle() + ","
                 + event.getArtist().getUsername() + ","
@@ -96,23 +116,48 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
                 + event.getAttachedMedia();
     }
 
+    /**
+     * convert header into string
+     * @param headers to be converted
+     * @return formatted string
+     */
     private String headersToString(Map<String, Integer> headers) {
         return String.join(",", headers.keySet());
     }
 
+    /**
+     * convert the string to an arraylist
+     * @param tags string read from CSV
+     * @return list of tags
+     */
     private ArrayList<String> stringToArrayList(String tags) {
         return new ArrayList<>(Arrays.asList(tags.split(";")));
     }
 
+    /**
+     * convert array list into a string
+     * @param tags array to be converted
+     * @return formatted string
+     */
     private String arrayListToString(ArrayList<String> tags) {
         return String.join(";", tags);
     }
 
+    /**
+     * Check if event is in CSV
+     * @param eventName title to search for
+     * @return boolean
+     */
     @Override
     public boolean eventExists(String eventName) {
         return events.containsKey(eventName);
     }
 
+    /**
+     * add event to CSV
+     * @param event to be added
+     * @throws EventAlreadyExistsException exception for event already in CSV
+     */
     @Override
     public void createEvent(Event event) throws EventAlreadyExistsException {
         if (!eventExists(event.getTitle())) {
@@ -128,6 +173,11 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * remove event from CSV
+     * @param event to be removed
+     * @throws EventDoesntExistException exception for event not in CSV
+     */
     @Override
     public void deleteEvent(Event event) throws EventDoesntExistException {
         if (eventExists(event.getTitle())) {
@@ -144,6 +194,16 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * change data in event
+     * @param event current version
+     * @param title new title
+     * @param description new description
+     * @param date new date
+     * @param tags new tags
+     * @param media new media
+     * @throws EventDoesntExistException exception for event not in CSV
+     */
     @Override
     public void updateEvent(Event event, String title, String description, String date, String tags, String media) throws EventDoesntExistException {
         if (!eventExists(event.getTitle())) {
@@ -173,6 +233,11 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * remove event from CSV
+     * @param eventName title of event
+     * @throws IOException input output exception for types and parameters
+     */
     public void deleteEventFromCsv(String eventName) throws IOException {
         Map<String, Event> tempEvents = new HashMap<>();
 
@@ -207,6 +272,11 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * find Event for title
+     * @param eventName title to be searched for
+     * @return found Event
+     */
     @Override
     public Event getEventFromTitle(String eventName) {
         if (eventExists(eventName)) {
@@ -217,6 +287,10 @@ public class EventLocalCSVDataStorage implements EventDataAccessInterface {
         }
     }
 
+    /**
+     * access all the events
+     * @return arraylist of events
+     */
     @Override
     public ArrayList<Event> getEvents() {
         return new ArrayList<>(events.values());

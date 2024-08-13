@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * DAO for access to posts compared to user
+ */
 public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -20,6 +23,12 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
     // The keys are the users and the values are a list of posts that they are attending.
     private final HashMap<User, ArrayList<Post>> relationships = new HashMap<>();
 
+    /**
+     * create new DAO
+     * @param csvPath string to local file
+     * @param userDataAccess DAO for users
+     * @param postDataAccess DAO for posts
+     */
     public UsersPostsRelationalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess, PostDataAccessInterface postDataAccess) {
         csvFile = new File(csvPath);
         headers.put("user_id", 0);
@@ -56,6 +65,9 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
         }
     }
 
+    /**
+     * Create new CSV if not implemented
+     */
     private void createFile() {
         if (csvFile.length() == 0) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
@@ -67,10 +79,18 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
     }
 
 
+    /**
+     * Convert CSV entry into string
+     * @param headers data
+     * @return formatted string
+     */
     private String headersToString(Map<String, Integer> headers) {
         return String.join(",", headers.keySet());
     }
 
+    /**
+     * add all posts to their user
+     */
     private void applyPostsToUsers() {
         for (Map.Entry<User, ArrayList<Post>> entry : relationships.entrySet()) {
             User user = entry.getKey();
@@ -81,6 +101,11 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
         }
     }
 
+    /**
+     * add a post to its user
+     * @param user author
+     * @param post object to add
+     */
     @Override
     public void addPost(User user, Post post) {
         if (!relationships.containsKey(user)) {
@@ -95,6 +120,11 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
         }
     }
 
+    /**
+     * remove for CSV
+     * @param user author of post
+     * @param post object to be removed
+     */
     @Override
     public void removePost(User user, Post post) {
         if (relationships.containsKey(user)) {

@@ -15,6 +15,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Enumeration;
 
+/**
+ *
+ */
 public class UserSignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "user sign up";
     private final UserSignupViewModel signupViewModel;
@@ -34,6 +37,12 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     private final ButtonGroup options;
 
 
+    /**
+     * create sign up view
+     * @param signupViewModel model for sign up use case
+     * @param controller current controller
+     * @param screenSwitcherController controller for screen switcher
+     */
     public UserSignupView(UserSignupViewModel signupViewModel, UserSignupController controller, ScreenSwitcherController screenSwitcherController) {
         this.signupViewModel = signupViewModel;
         this.signupViewModel.addPropertyChangeListener(this);
@@ -94,6 +103,9 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     public void actionPerformed(ActionEvent evt) {
         String type = "";
 
@@ -117,6 +129,10 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UserSignupState state = (UserSignupState) evt.getNewValue();

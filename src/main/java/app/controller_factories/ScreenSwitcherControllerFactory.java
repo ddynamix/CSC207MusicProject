@@ -12,10 +12,32 @@ import use_case.screen_switcher.interface_adapter.ScreenSwitcherPresenter;
 import view_model.*;
 
 
+/**
+ * Create screen switcher controllers
+ */
 public class ScreenSwitcherControllerFactory {
 
     private ScreenSwitcherControllerFactory() {}
 
+    /**
+     * Create a screen switcher controller
+     * @param viewManagerModel model to change view model
+     * @param loginViewModel model for login use case
+     * @param splashViewModel model for splash view
+     * @param userSignupViewModel model for signup use case
+     * @param homescreenViewModel model for homescreen view
+     * @param eventScreenViewModel model for event screen view
+     * @param searchEventsViewModel model for event search use case
+     * @param eventCrafterViewModel model for event use case
+     * @param searchUsersViewModel model for user search use case
+     * @param myFollowersViewModel model for followers view
+     * @param isFollowingViewModel model for following view
+     * @param myPostMakerViewModel model for post use case
+     * @param userDataAccessObject DAO to access users
+     * @param eventDataAccessObject DAO to access events
+     * @param postDataAccessObject DAO to access posts
+     * @return new instance of ScreenSwitcherController
+     */
     public static ScreenSwitcherController createScreenSwitcherController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                                                           SplashViewModel splashViewModel, UserSignupViewModel userSignupViewModel,
                                                                           HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel,

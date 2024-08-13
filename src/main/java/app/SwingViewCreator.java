@@ -27,10 +27,20 @@ import javax.swing.*;
 import java.util.HashMap;
 
 public class SwingViewCreator implements ViewCreatorInterface {
-    // prevent instantiation
+    /**
+     * empty contructor to prevent instantiation
+     */
     public SwingViewCreator() {
     }
 
+    /**
+     * instantiation of all views
+     * @param views accumulator of all views
+     * @param viewManagerModel model for switching views
+     * @param viewModels map of title string -> ViewModel
+     * @param controllers map of title string -> Object
+     * @param dataAccessObjects map of title string -> DAOs
+     */
     @Override
     public void createAllViews(JPanel views, ViewManagerModel viewManagerModel, HashMap<String, ViewModel> viewModels,
                                HashMap<String, Object> controllers, HashMap<String, Object> dataAccessObjects) {
@@ -72,7 +82,6 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
                 (EditPostController) controllers.get("editPostController"),
-                (AddPostController) controllers.get("addPostController"),
                 headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);
 

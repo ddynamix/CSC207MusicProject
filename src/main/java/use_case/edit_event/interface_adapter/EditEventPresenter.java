@@ -9,17 +9,30 @@ import view_model.EventEditorViewModel;
 import view_model.EventScreenState;
 import view_model.EventScreenViewModel;
 
+/**
+ * presenter for edit event use case
+ */
 public class EditEventPresenter implements EditEventOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final EventEditorViewModel eventEditorViewModel;
     private final EventScreenViewModel eventScreenViewModel;
 
+    /**
+     * create instance of present for edit event use case
+     * @param viewManagerModel manager to change models
+     * @param eventEditorViewModel model for edit event use case
+     * @param eventScreenViewModel model for event screen
+     */
     public EditEventPresenter(ViewManagerModel viewManagerModel, EventEditorViewModel eventEditorViewModel, EventScreenViewModel eventScreenViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.eventEditorViewModel = eventEditorViewModel;
         this.eventScreenViewModel = eventScreenViewModel;
     }
 
+    /**
+     * switch to editor screen
+     * @param outputData to be set
+     */
     @Override
     public void goToEventEditor(EditEventOutputData outputData) {
         EventEditorState eventEditorState = eventEditorViewModel.getState();
@@ -31,6 +44,10 @@ public class EditEventPresenter implements EditEventOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * build success view
+     * @param outputData view data
+     */
     @Override
     public void prepareSuccessView(EditEventsSuccessOutputData outputData) {
         EventScreenState eventScreenState = eventScreenViewModel.getState();

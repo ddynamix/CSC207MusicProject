@@ -22,11 +22,19 @@ public class ArtistUser extends User implements uploadable {
         super(name, username, password, email);
     }
 
+    /**
+     * add event to ArtistUser
+     * @param event to be added
+     */
     @Override
     public void addEvent(Event event) {
         this.getMyEvents().add(event);
     }
 
+    /**
+     * remove event from ArtistUser
+     * @param event to be removed
+     */
     @Override
     public void removeEvent(Event event) {this.getMyEvents().remove(event);}
 }

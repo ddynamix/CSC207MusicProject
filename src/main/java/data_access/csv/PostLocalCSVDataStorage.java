@@ -15,6 +15,9 @@ import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Post DAO
+ */
 public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     private final File csvFile;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -23,6 +26,12 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
     private final UserDataAccessInterface userDataAccessObject;
 
+    /**
+     * create DAO for posts
+     * @param csvPath file path
+     * @param userDataAccessObject user DAO
+     * @throws IOException input output exception for false types and parameters
+     */
     public PostLocalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccessObject) throws IOException {
         this.userDataAccessObject = userDataAccessObject;
         csvFile = new File(csvPath);
@@ -72,6 +81,9 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
+    /**
+     * create CSV file
+     */
     public void createFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
             writer.println(headersToString(headers));
@@ -80,6 +92,10 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
+    /**
+     * Add post to CSV
+     * @param post to be added
+     */
     private void appendPostToCsv(Post post) {
         try (FileWriter fw = new FileWriter(csvFile, true);
              BufferedWriter bw = new BufferedWriter(fw);
@@ -90,6 +106,11 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
+    /**
+     * convert post object to string
+     * @param post to be converted
+     * @return formatted string
+     */
     private String postToString(Post post) {
         return post.getTitle() + ","
                 + post.getText() + ","
@@ -98,14 +119,28 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
                 + post.getAttachedMedia();
     }
 
+    /**
+     * Convert header to string
+     * @param headers to be converted
+     * @return formatted string
+     */
     private String headersToString(Map<String, Integer> headers) {
         return String.join(",", headers.keySet());
     }
 
+    /**
+     * find User object from username
+     * @param author username of the user
+     * @return User of given username
+     */
     private User stringToUser(String author) {
         return userDataAccessObject.getUserFromUsername(author);
     }
 
+    /**
+     * Create post in CSV
+     * @param post to be added
+     */
     @Override
     public void createPost(Post post) {
         System.out.println(post.getTitle() + " " + post.getAuthor());
@@ -114,12 +149,21 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         post.getAuthor().addPost(post);
     }
 
-
+    /**
+     * check if post is in CSV
+     * @param postTitle to be searched for
+     * @return boolean
+     */
     @Override
     public boolean postExists(String postTitle) {
         return posts.containsKey(postTitle);
     }
 
+    /**
+     * remove post from CSV
+     * @param post to be removed
+     * @throws PostDoesntExistException exception for post already not in CSV
+     */
     @Override
     public void deletePost(Post post) throws PostDoesntExistException {
         if (postExists(post.getTitle())) {
@@ -136,6 +180,14 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
+    /**
+     * Change post in CSV
+     * @param post original Post object
+     * @param title new title
+     * @param text new text content
+     * @param media new media
+     * @throws PostDoesntExistException exception for post not existing
+     */
     @Override
     public void updatePost(Post post, String title, String text, String media) throws PostDoesntExistException {
         try {
@@ -158,11 +210,20 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
     }
 
+    /**
+     * access all posts
+     * @return arraylist of posts in database
+     */
     @Override
     public ArrayList<Post> getPosts() {
         return new ArrayList<>(posts.values());
     }
 
+    /**
+     * remove post from CSV
+     * @param postName post title to be removed
+     * @throws IOException input output exception for types and parameters
+     */
     public void deletePostFromCsv(String postName) throws IOException {
         Map<String, Post> tempPosts = new HashMap<>();
 
@@ -193,6 +254,11 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
+    /**
+     * Find Post for its title
+     * @param postName title of post
+     * @return Post of given title
+     */
     @Override
     public Post getPostFromTitle(String postName) {
         if (postExists(postName)) {

@@ -6,9 +6,16 @@ import entity.event.Event;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JPanel for event
+ */
 public class EventListJPanel extends JPanel {
     private final Event event;
 
+    /**
+     * create instance of panel
+     * @param event to be converted
+     */
     public EventListJPanel(Event event) {
         this.event = event;
 
@@ -90,6 +97,10 @@ public class EventListJPanel extends JPanel {
         Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * access event
+     * @return event
+     */
     public Event getEvent() {
         return event;
     }

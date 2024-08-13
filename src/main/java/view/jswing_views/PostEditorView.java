@@ -17,6 +17,9 @@ import java.beans.PropertyChangeListener;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * view for post editor
+ */
 public class PostEditorView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "post editor";
     private final PostEditorViewModel postEditorViewModel;
@@ -32,8 +35,13 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
     final JTextField postDateInputField = new JTextField(15);
 
 
-
-    public PostEditorView(PostEditorViewModel postEditorViewModel, EditPostController editPostController, 
+    /**
+     * create view for post edit use case
+     * @param postEditorViewModel model for post edit use case
+     * @param editPostController controller for post edit use case
+     * @param screenSwitcherController controller for switcher
+     */
+    public PostEditorView(PostEditorViewModel postEditorViewModel, EditPostController editPostController,
                           ScreenSwitcherController screenSwitcherController) {
         this.postEditorViewModel = postEditorViewModel;
         this.postEditorViewModel.addPropertyChangeListener(this);
@@ -106,6 +114,9 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
         Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(publishChanges)) {
@@ -118,12 +129,20 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         PostEditorState state = (PostEditorState) evt.getNewValue();
         setFields(state);
     }
 
+    /**
+     * set the variables from user input
+     * @param state current state
+     */
     private void setFields(PostEditorState state) {
         postTitleInputField.setText(state.getPostToEdit().getTitle());
         postTextInputField.setText(state.getPostToEdit().getText());

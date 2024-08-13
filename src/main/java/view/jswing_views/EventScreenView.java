@@ -64,6 +64,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
 
         eventListModel = new DefaultListModel<>();
         eventList = new JList<>(eventListModel);
+        Theme.ThemeManager.applyTheme(eventList);
         popupMenu = this.createPopupMenu();
         eventList.setComponentPopupMenu(popupMenu);
         eventList.setCellRenderer(new CustomListCellRenderer());
@@ -106,6 +107,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         c.gridwidth = 3;
         c.insets = new Insets(10, 5, 10, 5);
         c.fill = GridBagConstraints.BOTH;
+        Theme.ThemeManager.applyTheme(scrollPane);
         this.add(scrollPane, c);
         return scrollPane;
     }
@@ -129,7 +131,6 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                 Theme.ThemeManager.applyTheme(eventPanel);
                 eventListModel.addElement(eventPanel);
                 Theme.ThemeManager.applyTheme(eventList);
-
             }
 
             User signedInAs = eventScreenViewModel.getState().getSignedInAs();

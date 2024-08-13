@@ -157,37 +157,69 @@ public class User {
         return myPosts;
     }
 
+    /**
+     * add event to user
+     * @param event to be added
+     */
     public void addEvent(Event event) {
         this.myEvents.add(event);
         System.out.println("User has " + this.getMyEvents().size() + " events");
         System.out.println("Event " + event.getTitle() + " added to user");
     }
 
+    /**
+     * remove event from user
+     * @param event to be removed
+     */
     public void removeEvent(Event event) {
         this.myEvents.remove(event);
     }
 
+    /**
+     * remove follower from user
+     * @param follower to be removed
+     */
     public void removeFollower(User follower) {
         this.followers.remove(follower);
     }
 
+    /**
+     * add following to user
+     * @param following to be added
+     */
     public void addFollowing(User following) {
         this.following.add(following);
     }
 
+    /**
+     * remove following
+     * @param following to be removed
+     */
     public void removeFollowing(User following) {
         this.following.remove(following);
     }
 
+    /**
+     * convert to string
+     * @return formatted string
+     */
     @Override
     public String toString() {
         return this.username;
     }
 
+    /**
+     * add post to user
+     * @param post to be added
+     */
     public void addPost(Post post) {this.myPosts.add(post);
         System.out.println("User has " + this.getMyPosts().size() + " posts");
         System.out.println("Post " + post.getTitle() + " added to user");
     }
 
+    /**
+     * removed post from user
+     * @param post to be removed
+     */
     public void removePost(Post post) {this.myPosts.remove((post));}
 }

@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 import static app.interface_adapter_tools.Theme.ThemeManager.toggleTheme;
 
+/**
+ * create header JPanel to be added to frame view
+ */
 public class Header extends JPanel implements ActionListener {
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
@@ -22,6 +25,11 @@ public class Header extends JPanel implements ActionListener {
     private JPopupMenu menu;
     JButton colourMode;
 
+    /**
+     * create header panel
+     * @param screenSwitcherController controller for switcher
+     * @param signOutController controller for sign out use case
+     */
     public Header(ScreenSwitcherController screenSwitcherController, SignOutController signOutController) {
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
@@ -74,6 +82,11 @@ public class Header extends JPanel implements ActionListener {
         Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * create menu for each of the functions in menu
+     * @param items MenuItems to be added
+     * @return menu
+     */
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
         JPopupMenu newMenu = new JPopupMenu();
         for (JMenuItem item : items) {
@@ -83,6 +96,10 @@ public class Header extends JPanel implements ActionListener {
         return newMenu;
     }
 
+    /**
+     * Create button and icon with the menu
+     * @return button
+     */
     private static JButton createWaffleButton() {
         final int WIDTH = 30;
         final int HEIGHT = 30;
@@ -119,6 +136,10 @@ public class Header extends JPanel implements ActionListener {
         return button;
     }
 
+    /**
+     * access menu items
+     * @return list of items
+     */
     public ArrayList<JMenuItem> getMenuItems() {
         ArrayList<JMenuItem> menuItems = new ArrayList<>();
         for (Component component : menu.getComponents()) {
@@ -129,6 +150,9 @@ public class Header extends JPanel implements ActionListener {
         return menuItems;
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(getMenuItems().get(0))) {  // Home

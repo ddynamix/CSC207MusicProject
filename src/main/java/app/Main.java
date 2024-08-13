@@ -89,6 +89,7 @@ public class Main {
         application.setLocation(x, y);
 
         // Start the application
+        themeUpdate();
         application.setVisible(true);
     }
 
