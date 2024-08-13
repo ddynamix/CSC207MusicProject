@@ -160,6 +160,8 @@ public abstract class User {
 
     public void addEvent(Event event) {
         this.myEvents.add(event);
+        System.out.println("User has " + this.getMyEvents().size() + " events");
+        System.out.println("Event " + event.getTitle() + " added to user");
     }
 
     public void removeEvent(Event event) {
@@ -183,7 +185,10 @@ public abstract class User {
         return this.username;
     }
 
-    public void addPost(Post post) {this.myPosts.add(post);}
+    public void addPost(Post post) {this.myPosts.add(post);
+        System.out.println("User has " + this.getMyPosts().size() + " posts");
+        System.out.println("Post " + post.getTitle() + " added to user");
+    }
 
     public void removePost(Post post) {this.myPosts.remove((post));}
 

@@ -6,6 +6,7 @@ import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 
 import use_case.add_event.interface_adapter.AddEventController;
+import use_case.add_post.interface_adapter.AddPostController;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.play_music.interface_adapter.PlayMusicController;
@@ -33,7 +34,8 @@ public class SwingViewCreator implements ViewCreatorInterface {
     }
 
     @Override
-    public void createAllViews(JPanel views, ViewManagerModel viewManagerModel, HashMap<String, ViewModel> viewModels, HashMap<String, Object> controllers, HashMap<String, Object> dataAccessObjects) {
+    public void createAllViews(JPanel views, ViewManagerModel viewManagerModel, HashMap<String, ViewModel> viewModels,
+                               HashMap<String, Object> controllers, HashMap<String, Object> dataAccessObjects) {
         HeaderFactory headerFactory = new HeaderFactory(viewManagerModel,
                 (LoginViewModel) viewModels.get("loginViewModel"),
                 (SplashViewModel) viewModels.get("splashViewModel"),
@@ -72,7 +74,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
                 (EditPostController) controllers.get("editPostController"),
-                (PostMakerController) controllers.get("makePostController"),
+                (AddPostController) controllers.get("addPostController"),
                 headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);
 

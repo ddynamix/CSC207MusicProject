@@ -50,6 +50,12 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
         this.screenSwitcherController = screenSwitcherController;
         this.header = headerOriginal;
 
+        eventTitleInputField.setToolTipText("Enter the title of your event");
+        eventDescriptionInputField.setToolTipText("Enter the description of your event");
+        eventDateInputField.setToolTipText("Enter the date your event will be held");
+        eventTagsInputField.setToolTipText("Enter some key words to describe your event");
+        eventAttachedMediaField.setToolTipText("Enter your media");
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -113,8 +119,10 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
         JPanel buttons = new JPanel();
         postEvent = new JButton(eventCrafterViewModel.POST_EVENT_BUTTON_LABEL);
         postEvent.addActionListener(this);
+        postEvent.setToolTipText("Click here to save your event");
         cancel = new JButton(eventCrafterViewModel.CANCEL_BUTTON_LABEL);
         cancel.addActionListener(this);
+        cancel.setToolTipText("Click to return to the home page");
         buttons.add(postEvent);
         buttons.add(cancel);
 

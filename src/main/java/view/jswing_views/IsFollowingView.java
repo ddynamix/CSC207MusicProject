@@ -79,6 +79,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         JPanel buttons = new JPanel();
         homeButton = new JButton(isFollowingViewModel.HOME_BUTTON_LABEL);
         homeButton.addActionListener(this);
+        homeButton.setToolTipText("Return to Home Page");
         buttons.add(homeButton);
         c.gridwidth = 3;
         c.gridx = 0;

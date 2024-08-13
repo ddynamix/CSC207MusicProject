@@ -47,8 +47,11 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         JLabel questionLabel = new JLabel("Which type of user are you:");
         this.add(questionLabel);
         JRadioButton signupAudience = new JRadioButton("Audience");
+        signupAudience.setToolTipText("A user that only views events but does not create them");
         JRadioButton signupArtist = new JRadioButton("Artist");
+        signupArtist.setToolTipText("A user that creates events they are performing");
         JRadioButton signupVenue = new JRadioButton("Venue");
+        signupVenue.setToolTipText("A user that creates events they are hosting");
         options = new ButtonGroup();
         options.add(signupAudience);
         options.add(signupArtist);
@@ -72,8 +75,10 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
 
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
+        signUp.setToolTipText("Click to create your account");
         cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+        signUp.setToolTipText("Click to return to the opening page");
 
         signUp.addActionListener(this);
         cancel.addActionListener(this);

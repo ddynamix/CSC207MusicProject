@@ -27,9 +27,8 @@ public class PostMakerInteractor implements PostMakerInputBoundary {
                 postMakerInputData.getAttachedMedia());
         postDataAccessInterface.createPost(post);
 
-        Collection<Post> values = postDataAccessInterface.getPosts();
-        ArrayList<Post> listOfPosts = new ArrayList<>(values);
-        PostMakerOutputData postMakerOutputData = new PostMakerOutputData(listOfPosts);
+        ArrayList<Post> values = postDataAccessInterface.getPosts();
+        PostMakerOutputData postMakerOutputData = new PostMakerOutputData(values);
 
         postMakerPresenter.prepareSuccessView(postMakerOutputData);
         System.out.println("Post posted successfully!");

@@ -39,6 +39,10 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
         this.editPostController = editPostController;
         this.screenSwitcherController = screenSwitcherController;
 
+        postTitleInputField.setToolTipText("Enter the title of your post");
+        postTextInputField.setToolTipText("Enter the content of your post");
+        postAttachedMediaField.setToolTipText("Enter your media");
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -83,9 +87,11 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
         JPanel buttons = new JPanel();
         publishChanges = new JButton(postEditorViewModel.PUBLISH_BUTTON_LABEL);
         publishChanges.addActionListener(this);
+        publishChanges.setToolTipText("Click to update your post");
         buttons.add(publishChanges);
         cancel = new JButton(postEditorViewModel.CANCEL_BUTTON_LABEL);
         cancel.addActionListener(this);
+        cancel.setToolTipText("Click to return to the home page");
         buttons.add(cancel);
 
         c.gridx = 1;
@@ -101,13 +107,10 @@ public class PostEditorView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(publishChanges)) {
-            try {
-                editPostController.updatePost(postEditorViewModel.getState().getPostToEdit(),
-                        postTitleInputField.getText(), postTextInputField.getText(),
-                        postAttachedMediaField.getText());
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Invalid date format. Please use the format yyyy-MM-dd HH:mm", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            editPostController.updatePost(postEditorViewModel.getState().getPostToEdit(),
+                    postTitleInputField.getText(), postTextInputField.getText(),
+                    postAttachedMediaField.getText());
+            screenSwitcherController.switchToHome();
         } else if (evt.getSource().equals(cancel)) {
             screenSwitcherController.switchToHome();
         }

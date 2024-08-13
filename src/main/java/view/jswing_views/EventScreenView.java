@@ -98,6 +98,8 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+
+        System.out.println(eventList.getModel().getSize() + " evenr in pane\n" + scrollPane);
     }
 
     @Override
@@ -122,6 +124,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
             createEventButton.setVisible(!(signedInAs instanceof AudienceUser));
             popupMenu = createPopupMenu(); // Refresh the popup menu
             eventList.setComponentPopupMenu(popupMenu);
+            System.out.println("User has " + signedInAs.getMyEvents().size() + " events");
         }
     }
 
@@ -135,6 +138,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                 EventListJPanel eventPanel = eventList.getSelectedValue();
                 if (eventPanel != null) {
                     Event event = eventPanel.getEvent();
+                    // Audience can only remove from their list but not the database
                     if (isAudienceUser()) {
                         JMenuItem viewDetails = new JMenuItem("Remove Event");
                         viewDetails.addActionListener(ev -> {
@@ -142,6 +146,7 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                         });
                         popupMenu.add(viewDetails);
                     } else {
+                        // Venue and Artist can update the database
                         JMenuItem editEvent = new JMenuItem("Edit Event");
                         editEvent.addActionListener(ev -> {
                             editEventController.editEvent(event);

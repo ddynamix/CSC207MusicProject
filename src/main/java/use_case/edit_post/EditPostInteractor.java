@@ -40,7 +40,8 @@ public class EditPostInteractor implements EditPostInputBoundary {
     @Override
     public void updatePost(EditPostInputData inputData) {
         try {
-            postDataAccessInterface.updatePost(inputData.getPostToAlter(), inputData.getTitle(), inputData.getText(), inputData.getMedia());
+            postDataAccessInterface.updatePost(inputData.getPostToAlter(), inputData.getTitle(), inputData.getText(),
+                    inputData.getMedia());
             ArrayList<Post> updatedPosts = UserSession.getInstance().getLoggedInUser().getMyPosts();
             editPostPresenter.prepareSuccessView(new EditPostsSuccessOutputData(updatedPosts));
         } catch (PostDoesntExistException e) {

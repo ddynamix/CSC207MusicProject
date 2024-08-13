@@ -20,16 +20,10 @@ public class UsersPostsRelationalCSVDataStorage implements UsersPostsRelationalA
     // The keys are the users and the values are a list of posts that they are attending.
     private final HashMap<User, ArrayList<Post>> relationships = new HashMap<>();
 
-    private final UserDataAccessInterface userDataAccess;
-    private final PostDataAccessInterface postDataAccess;
-
     public UsersPostsRelationalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess, PostDataAccessInterface postDataAccess) {
         csvFile = new File(csvPath);
         headers.put("user_id", 0);
         headers.put("post_id", 1);
-
-        this.userDataAccess = userDataAccess;
-        this.postDataAccess = postDataAccess;
 
         if (csvFile.length() == 0) {
             createFile();

@@ -121,6 +121,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         JPanel buttons = new JPanel();
         backButton = new JButton(searchUsersViewModel.BACK_BUTTON_LABEL);
         backButton.addActionListener(this);
+        backButton.setToolTipText("Click to return to the previous page");
         buttons.add(backButton);
 
         c.gridwidth = 3;

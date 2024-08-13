@@ -6,8 +6,10 @@ import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import data_access.PostDoesntExistException;
 
+import entity.event.Event;
 import entity.post.Post;
 import entity.user.User;
+import org.mockito.internal.matchers.Null;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;
@@ -64,7 +66,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
                     Post post = new Post(title, text, author, attachedMedia);
                     posts.put(title, post);
-                    author.addPost(post);
+                    author.addPost(post); //a
                 }
             }
         }
@@ -106,11 +108,12 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
     @Override
     public void createPost(Post post) {
+        System.out.println(post.getTitle() + " " + post.getAuthor());
         appendPostToCsv(post);
         posts.put(post.getTitle(), post);
         post.getAuthor().addPost(post);
-        post.getAuthor().addPost(post);
     }
+
 
     @Override
     public boolean postExists(String postTitle) {
@@ -135,25 +138,29 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
 
     @Override
     public void updatePost(Post post, String title, String text, String media) throws PostDoesntExistException {
-        if (!postExists(post.getTitle())) {
-            System.out.println("Post does not exist");
-        } else {
-            try {
-                deletePostFromCsv(post.getTitle());
-                if (!(title == null || title.isEmpty())) {
-                    post.setTitle(title);
-                }
-                if (!(text == null || text.isEmpty())) {
-                    post.setText(text);
-                }
-                if (!(media == null || media.isEmpty())) {
-                    post.setAttachedMedia(media);
-                }
-                appendPostToCsv(post);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            deletePostFromCsv(post.getTitle());
+            if (!(title == null || title.isEmpty())) {
+                post.setTitle(title);
             }
+            if (!(text == null || text.isEmpty())) {
+                post.setText(text);
+            }
+            if (!(media == null || media.isEmpty())) {
+                post.setAttachedMedia(media);
+            }
+            appendPostToCsv(post);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(NullPointerException e) {
+            System.out.println("Post does not exist");
         }
+
+    }
+
+    @Override
+    public ArrayList<Post> getPosts() {
+        return new ArrayList<>(posts.values());
     }
 
     public void deletePostFromCsv(String postName) throws IOException {
@@ -196,6 +203,4 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
         }
     }
 
-    @Override
-    public ArrayList<Post> getPosts() {return new ArrayList<>(posts.values());}
 }
