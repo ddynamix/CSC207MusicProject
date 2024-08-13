@@ -4,7 +4,7 @@ import app.interface_adapter_tools.UserSession;
 import entity.user.User;
 import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
-import view.jswing_views.utils.UserCellListRenderer;
+import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.UserListJPanel;
 import view_model.IsFollowingViewModel;
 
@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * view for following
+ */
 public class IsFollowingView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "is following";
     private final IsFollowingViewModel isFollowingViewModel;
@@ -27,6 +30,13 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
     private JList<UserListJPanel> userList;
     private DefaultListModel<UserListJPanel> listModel;
 
+    /**
+     * create view for following
+     * @param isFollowingViewModel model for following view
+     * @param screenSwitcherController controller for switcher
+     * @param followUserController controller for following view
+     * @param headerOriginal header
+     */
     public IsFollowingView(IsFollowingViewModel isFollowingViewModel, ScreenSwitcherController screenSwitcherController, FollowUserController followUserController, Header headerOriginal) {
         this.isFollowingViewModel = isFollowingViewModel;
         this.isFollowingViewModel.addPropertyChangeListener(this);
@@ -60,7 +70,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         userList = new JList<>(listModel);
         JPopupMenu popupMenu = this.createPopupMenu();
         userList.setComponentPopupMenu(popupMenu);
-        userList.setCellRenderer(new UserCellListRenderer());
+        userList.setCellRenderer(new CustomListCellRenderer());
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userList.setOpaque(false);
 
@@ -79,6 +89,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         JPanel buttons = new JPanel();
         homeButton = new JButton(isFollowingViewModel.HOME_BUTTON_LABEL);
         homeButton.addActionListener(this);
+        homeButton.setToolTipText("Return to Home Page");
         buttons.add(homeButton);
         c.gridwidth = 3;
         c.gridx = 0;
@@ -90,6 +101,9 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         this.add(buttons, c);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(homeButton)) {
@@ -97,6 +111,10 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -111,6 +129,10 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
         }
     }
 
+    /**
+     * create popup menu for each following
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 

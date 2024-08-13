@@ -1,6 +1,16 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
+import entity.event.Event;
+import entity.post.Post;
+import entity.user.AudienceUser;
 import entity.user.User;
+import use_case.add_post.interface_adapter.AddPostController;
+import use_case.edit_post.interface_adapter.EditPostController;
+import use_case.postMaker.interface_adapter.PostMakerController;
+import view.jswing_views.utils.CustomListCellRenderer;
+import view.jswing_views.utils.EventListJPanel;
+import view.jswing_views.utils.PostListJPanel;
 import view_model.HomescreenState;
 import view_model.HomescreenViewModel;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
@@ -12,26 +22,54 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+
+/**
+ * Homescreen View
+ */
 public class HomescreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomescreenViewModel homescreenViewModel;
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
-    private final JPanel header;
+    private final EditPostController editPostController;
+    private final Header header;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    private JScrollPane scrollPane;
+
+    private JList<PostListJPanel> postList;
+    private DefaultListModel<PostListJPanel> postListModel;
+    private JPopupMenu popupMenu;
 
     private User signedInAs = null;
     JLabel welcome_message;
 
     JButton eventPageButton;
     JButton signOutButton;
+    JButton postButton;
 
-
-    public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController, SignOutController signOutController, JPanel headerOriginal) {
+    /**
+     * Create homescreen view
+     * @param homescreenViewModel model for home screen
+     * @param screenSwitcherController controller for switcher
+     * @param signOutController controller for sign out use case
+     * @param editPostController controller for edit post use case
+     * @param headerOriginal header
+     */
+    public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
+                          SignOutController signOutController, EditPostController editPostController,
+                          Header headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
         this.homescreenViewModel.addPropertyChangeListener(this);
+
+        this.editPostController = editPostController;
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
+
         this.header = headerOriginal;
 
         this.setLayout(new GridBagLayout());
@@ -54,6 +92,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.insets = new Insets(5, 0, 0, 5);
         c.anchor = GridBagConstraints.FIRST_LINE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
+        header.setToolTipText("Click to open navigation options.");
         this.add(header, c);
 
         welcome_message = new JLabel("Signed in as: \n" + signedInAs);
@@ -66,27 +105,61 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(welcome_message, c);
 
+        postListModel = new DefaultListModel<>();
+        postList = new JList<>(postListModel);
+        popupMenu = this.createPopupMenu();
+        postList.setComponentPopupMenu(popupMenu);
+        postList.setCellRenderer(new CustomListCellRenderer());
+        postList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        postList.setOpaque(false);
+
+        scrollPane = new JScrollPane(postList);
+        Theme.ThemeManager.applyTheme(scrollPane);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+        scrollPane.setToolTipText("This is where you will see your post when you follow users.");
+        this.add(scrollPane, c);
+
+
         JPanel buttons = new JPanel();
         eventPageButton = new JButton(homescreenViewModel.EVENT_PAGE_BUTTON_LABEL);
         eventPageButton.addActionListener(this);
+        eventPageButton.setToolTipText("Click to see your events");
         signOutButton = new JButton(homescreenViewModel.SIGN_OUT_BUTTON_LABEL);
         signOutButton.addActionListener(this);
+        signOutButton.setToolTipText("Click to sign out of the program");
+        postButton = new JButton(homescreenViewModel.POST_BUTTON_LABEL);
+        postButton.addActionListener(this);
+        postButton.setToolTipText("Click to create a post on your feed");
         buttons.add(eventPageButton);
+        buttons.add(postButton);
         buttons.add(signOutButton);
 
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 2;
-        c.weighty = 1;
-        c.insets = new Insets(10, 0, 0, 0);
+        c.weighty = 0.1;
+        c.insets = new Insets(5, 0, 0, 0);
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource().equals(eventPageButton)) {
+        if (evt.getSource().equals(postButton)) {
+            screenSwitcherController.switchToPost();
+        } else if (evt.getSource().equals(eventPageButton)) {
             screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(signOutButton)) {
             signOutController.executeSignOut();
@@ -94,20 +167,74 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        try {
-            HomescreenState state = (HomescreenState) evt.getNewValue();
-            this.signedInAs = state.getSignedInAs();
+        HomescreenState state = (HomescreenState) evt.getNewValue();
+        signedInAs = state.getSignedInAs();
+        System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
+        System.out.println(postList.getModel().getSize() + " post in pane");
+        if (evt.getPropertyName().equals("state")) {
+            postListModel.clear();
+            scrollPane = new JScrollPane();
+            for (Post p : signedInAs.getMyPosts()) {
+                PostListJPanel postPanel = new PostListJPanel(p);
+                postListModel.addElement(postPanel);
+            }
+            this.repaint();
 
+            Theme.ThemeManager.applyTheme(scrollPane);
+
+            postList.setComponentPopupMenu(popupMenu);
+        }
+        try {
             if (signedInAs == null) {
                 welcome_message.setText("Not signed in");
             } else {
                 welcome_message.setText("Signed in as: " + signedInAs.getUsername());
                 System.out.println("HomescreenView received new state: " + state);
             }
+            Theme.ThemeManager.applyTheme(this);
         } catch (ClassCastException e) {
             System.out.println("Error: HomescreenView received an unexpected event.");
         }
+    }
+
+    /**
+     * create popup menu for each post
+     * @return menu
+     */
+    private JPopupMenu createPopupMenu() {
+        JPopupMenu popupMenu = new JPopupMenu();
+        Theme.ThemeManager.applyTheme(this);
+        postList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                popupMenu.removeAll();
+
+                PostListJPanel postPanel = postList.getSelectedValue();
+                if (postPanel != null) {
+                    Post post = postPanel.getPost();
+
+                    JMenuItem editPost = new JMenuItem("Edit Post");
+                    editPost.addActionListener(ev -> {
+                        editPostController.editPost(post);
+                    });
+                    popupMenu.add(editPost);
+
+                    JMenuItem deletePost = new JMenuItem("Delete Post");
+                    deletePost.addActionListener(ev -> {
+                        editPostController.deletePost(post);
+                        homescreenViewModel.firePropertyChanged();
+                        this.repaint();
+                    });
+                    popupMenu.add(deletePost);
+                }
+            }
+        });
+
+        return popupMenu;
     }
 }

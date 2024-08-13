@@ -39,35 +39,35 @@ public class UserSignupData {
      * return username
      * @return String username
      */
-    String getUsername() {return username;}
+    public String getUsername() {return username;}
 
     /**
      * Return password
      * @return String password
      */
-    String getPassword() {return password;}
+    public String getPassword() {return password;}
 
     /**
      * Return repeated password entry
      * @return String repeatPass
      */
-    String getRepeatPass() {return repeatPass;}
+    public String getRepeatPass() {return repeatPass;}
 
     /**
      * Return email
      * @return String email
      */
-    String getEmail() {return email;}
+    public String getEmail() {return email;}
 
     /**
      * Return name
      * @return String name
      */
-    String getName() {return name;}
+    public String getName() {return name;}
 
     /**
      * Return type of user
      * @return String type
      */
-    String getType(){return type;}
+    public String getType(){return type;}
 }

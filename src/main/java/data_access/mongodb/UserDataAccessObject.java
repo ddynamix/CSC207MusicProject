@@ -81,7 +81,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         return mongoCollection.find(filter).iterator().hasNext();
     }
 
-    @Override
     public void updateUsername(User user, String newUsername) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
@@ -97,7 +96,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         }
     }
 
-    @Override
     public void updatePassword(User user, String newPassword, String confirmPassword) throws PasswordMismatchException, UserNotFoundException {
         Document query = new Document("password", newPassword);
         try {
@@ -116,7 +114,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
 
-    @Override
     public void updateEmail(User user, String newEmail) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
@@ -147,7 +144,6 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         }
     }
 
-    @Override
     public void delete(User user) throws UserNotFoundException {
         if (userExistsInDatabase(user.getUsername())) {
             Bson filter = Filters.eq("username", user.getUsername());

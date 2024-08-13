@@ -9,9 +9,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * JPanel for user
+ */
 public class UserListJPanel extends JPanel {
     private final User user;
 
+    /**
+     * create instance of panel
+     * @param user to be converted to panel
+     */
     public UserListJPanel(User user) {
         this.user = user;
 
@@ -73,6 +80,9 @@ public class UserListJPanel extends JPanel {
         this.add(infoLabel, c);
     }
 
+    /** access user
+     * @return user
+     */
     public User getUser() {
         return user;
     }

@@ -18,7 +18,7 @@ public class Event implements IEvent {
     private LocalDateTime dateAndTime;
     private String description;
     private ArrayList<String> tags;
-    private LocalDateTime postDate;
+    private final LocalDateTime postDate;
     private String attachedMedia;
     private int id;
 
