@@ -1,10 +1,15 @@
 package data_access.spotify;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PreviewMP3Downloader {
     public static void downloadMP3(String url, String outputFilePath) throws IOException {
+        if (url == null || url.isEmpty()) {
+            throw new MalformedURLException("URL is null or empty");
+        }
+
         File outputFile = new File(outputFilePath);
         File parentDir = outputFile.getParentFile();
 

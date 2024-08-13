@@ -19,10 +19,16 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
         if (isPlaying) {
             stopMusic();
         }
+        try {
+            InputStream inputStream = getInputStream(inputData.getFilepath());
+            player = new Player(inputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
         playerThread = new Thread(() -> {
-            try (InputStream inputStream = getInputStream(inputData.getFilepath())) {
-                System.out.println("Playing music..." + inputData.getFilepath());
-                player = new Player(inputStream);
+            try {
                 player.play();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -32,7 +38,8 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
         isPlaying = true;
     }
 
-    private InputStream getInputStream(String path) throws Exception {
+
+    InputStream getInputStream(String path) throws Exception {
         if (path.startsWith("http://") || path.startsWith("https://")) {
             return new URL(path).openStream();
         } else {

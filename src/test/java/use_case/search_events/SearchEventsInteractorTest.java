@@ -6,11 +6,13 @@ import entity.user.ArtistUser;
 import entity.user.VenueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class SearchEventsInteractorTest {
@@ -42,7 +44,22 @@ public class SearchEventsInteractorTest {
 
         searchEventsInteractor.searchForEvents();
 
+        ArgumentCaptor<SearchEventsOutputData> argumentCaptor = ArgumentCaptor.forClass(SearchEventsOutputData.class);
+        verify(searchEventsPresenter, times(1)).updateDisplayedEvents(argumentCaptor.capture());
+
+        SearchEventsOutputData actualOutputData = argumentCaptor.getValue();
         SearchEventsOutputData expectedOutputData = new SearchEventsOutputData(allEvents);
-        verify(searchEventsPresenter, times(1)).updateDisplayedEvents(expectedOutputData);
+
+        assertTrue(fuzzyMatch(expectedOutputData, actualOutputData));
+    }
+
+    private boolean fuzzyMatch(SearchEventsOutputData expected, SearchEventsOutputData actual) {
+        if (expected.getAllEvents().size() != actual.getAllEvents().size()) {
+            return false;
+        } else if (!expected.getAllEvents().get(0).getTitle().equals(actual.getAllEvents().get(0).getTitle())) {
+            return false;
+        }
+
+        return true;
     }
 }

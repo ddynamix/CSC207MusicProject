@@ -25,6 +25,9 @@ public class EditPostControllerTest {
 
     @Test
     public void testEditPost() {
+        Post post = new Post("Test Post", "Test Content", null, null);
+        editPostController.editPost(post);
+
         ArgumentCaptor<EditPostInputData> inputDataCaptor = ArgumentCaptor.forClass(EditPostInputData.class);
         verify(editPostInteractor, times(1)).editPost(inputDataCaptor.capture());
 

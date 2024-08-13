@@ -5,6 +5,7 @@ import data_access.UsersPostsRelationalAccessInterface;
 import entity.post.Post;
 import entity.user.AudienceUser;
 import entity.user.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -20,6 +21,7 @@ public class AddPostInteractorTest {
     private AddPostOutputBoundary addPostPresenter;
     private UsersPostsRelationalAccessInterface usersPostsRelationalAccessInterface;
     private User user;
+    private Post post;
 
     @BeforeEach
     public void setUp() {
@@ -27,12 +29,13 @@ public class AddPostInteractorTest {
         usersPostsRelationalAccessInterface = mock(UsersPostsRelationalAccessInterface.class);
         addPostInteractor = new AddPostInteractor(addPostPresenter, usersPostsRelationalAccessInterface);
         user = new AudienceUser("testUser", "Test User", "testPass", "testMail");
+        post = new Post("Test Post", "Test Content", null, null);
         UserSession.getInstance().setLoggedInUser(user);
     }
 
+
     @Test
     public void testAddPost() {
-        Post post = new Post("Test Post", "Test Content", null, null);
         AddPostInputData inputData = new AddPostInputData(post);
 
         addPostInteractor.addPost(inputData);
@@ -47,9 +50,7 @@ public class AddPostInteractorTest {
 
     @Test
     public void testRemovePost() {
-        Post post = new Post("Test Post", "Test Content", null, null);
         AddPostInputData inputData = new AddPostInputData(post);
-        user.addPost(post);
 
         addPostInteractor.removePost(inputData);
 

@@ -31,7 +31,6 @@ public class EventCrafterPresenter implements EventCrafterOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
         viewManagerModel.firePropertyChanged();
     }
 }

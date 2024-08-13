@@ -28,6 +28,7 @@ public class EventCrafterPresenterTest {
 
     @Test
     public void testPrepareSuccessView() {
+        System.out.println("Starting testPrepareSuccessView");
         EventCrafterOutputData outputData = new EventCrafterOutputData(new ArrayList<>());
 
         EventScreenState eventScreenState = new EventScreenState();
@@ -43,14 +44,17 @@ public class EventCrafterPresenterTest {
 
         EventScreenState capturedState = stateCaptor.getValue();
         assertEquals(outputData.getEvents(), capturedState.getEvents());
+        System.out.println("Finished testPrepareSuccessView");
     }
 
     @Test
     public void testPrepareFailView() {
+        System.out.println("Starting testPrepareFailView");
         String error = "Test Error";
 
         eventCrafterPresenter.prepareFailView(error);
 
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        System.out.println("Finished testPrepareFailView");
     }
 }

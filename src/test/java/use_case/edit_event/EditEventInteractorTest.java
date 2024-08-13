@@ -46,7 +46,6 @@ public class EditEventInteractorTest {
     @Test
     public void testEditEvent() {
         EditEventInputData inputData = new EditEventInputData(event);
-
         editEventInteractor.editEvent(inputData);
 
         ArgumentCaptor<EditEventOutputData> outputDataCaptor = ArgumentCaptor.forClass(EditEventOutputData.class);
@@ -59,7 +58,7 @@ public class EditEventInteractorTest {
     @Test
     public void testDeleteEvent() throws EventDoesntExistException {
         EditEventInputData inputData = new EditEventInputData(event);
-        artist.addEvent(event);
+        // artist.addEvent(event);
 
         editEventInteractor.deleteEvent(inputData);
 

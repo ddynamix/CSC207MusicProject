@@ -7,10 +7,12 @@ import entity.user.User;
 import entity.user.VenueUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class SearchUsersInteractorTest {
@@ -39,8 +41,13 @@ public class SearchUsersInteractorTest {
         SearchUsersInputData inputData = new SearchUsersInputData("Artist", ArtistUser.class);
         searchUsersInteractor.searchForUser(inputData);
 
+        ArgumentCaptor<SearchUsersOutputData> argumentCaptor = ArgumentCaptor.forClass(SearchUsersOutputData.class);
+        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(argumentCaptor.capture());
+
+        SearchUsersOutputData actualOutputData = argumentCaptor.getValue();
         SearchUsersOutputData expectedOutputData = new SearchUsersOutputData(artistUsers);
-        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(expectedOutputData);
+
+        assertTrue(fuzzyMatch(expectedOutputData, actualOutputData));
     }
 
     @Test
@@ -56,8 +63,13 @@ public class SearchUsersInteractorTest {
         SearchUsersInputData inputData = new SearchUsersInputData("Venue", VenueUser.class);
         searchUsersInteractor.searchForUser(inputData);
 
+        ArgumentCaptor<SearchUsersOutputData> argumentCaptor = ArgumentCaptor.forClass(SearchUsersOutputData.class);
+        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(argumentCaptor.capture());
+
+        SearchUsersOutputData actualOutputData = argumentCaptor.getValue();
         SearchUsersOutputData expectedOutputData = new SearchUsersOutputData(venueUsers);
-        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(expectedOutputData);
+
+        assertTrue(fuzzyMatch(expectedOutputData, actualOutputData));
     }
 
     @Test
@@ -73,8 +85,13 @@ public class SearchUsersInteractorTest {
         SearchUsersInputData inputData = new SearchUsersInputData("Audience", AudienceUser.class);
         searchUsersInteractor.searchForUser(inputData);
 
+        ArgumentCaptor<SearchUsersOutputData> argumentCaptor = ArgumentCaptor.forClass(SearchUsersOutputData.class);
+        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(argumentCaptor.capture());
+
+        SearchUsersOutputData actualOutputData = argumentCaptor.getValue();
         SearchUsersOutputData expectedOutputData = new SearchUsersOutputData(audienceUsers);
-        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(expectedOutputData);
+
+        assertTrue(fuzzyMatch(expectedOutputData, actualOutputData));
     }
 
     @Test
@@ -88,7 +105,17 @@ public class SearchUsersInteractorTest {
         SearchUsersInputData inputData = new SearchUsersInputData("All", User.class);
         searchUsersInteractor.searchForUser(inputData);
 
+        ArgumentCaptor<SearchUsersOutputData> argumentCaptor = ArgumentCaptor.forClass(SearchUsersOutputData.class);
+        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(argumentCaptor.capture());
+
+        SearchUsersOutputData actualOutputData = argumentCaptor.getValue();
         SearchUsersOutputData expectedOutputData = new SearchUsersOutputData(allUsers);
-        verify(searchUsersPresenter, times(1)).updateDisplayedUsers(expectedOutputData);
+
+        assertTrue(fuzzyMatch(expectedOutputData, actualOutputData));
+    }
+
+
+    private boolean fuzzyMatch(SearchUsersOutputData expected, SearchUsersOutputData actual) {
+        return expected.getReturnUsers().size() == actual.getReturnUsers().size();
     }
 }

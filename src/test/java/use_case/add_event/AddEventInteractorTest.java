@@ -23,6 +23,7 @@ public class AddEventInteractorTest {
     private AddEventOutputBoundary addEventPresenter;
     private UsersEventsRelationalAccessInterface usersEventsRelationalAccessInterface;
     private User user;
+    private Event testEvent;
 
     @BeforeEach
     public void setUp() {
@@ -31,16 +32,17 @@ public class AddEventInteractorTest {
         addEventInteractor = new AddEventInteractor(addEventPresenter, usersEventsRelationalAccessInterface);
         user = new AudienceUser("testUser", "Test User", "testUser", "testMail");
         UserSession.getInstance().setLoggedInUser(user);
-    }
 
-    @Test
-    public void testAddEvent() {
         ArtistUser artist = new ArtistUser("testUser", "Test User", "testPass", "testMail");
         VenueUser venue = new VenueUser("testUser", "Test User", "testPass", "testMail");
         LocalDateTime testDate = LocalDateTime.now();
         ArrayList<String> testTags = new ArrayList<>();
-        Event event = new Event("Test Event", artist, venue, testDate, "Test Description", testTags, testDate, "testMedia");        AddEventInputData inputData = new AddEventInputData(event);
+        testEvent = new Event("Test Event", artist, venue, testDate, "Test Description", testTags, testDate, "testMedia");
+    }
 
+    @Test
+    public void testAddEvent() {
+        AddEventInputData inputData = new AddEventInputData(testEvent);
         addEventInteractor.addEvent(inputData);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
@@ -48,19 +50,12 @@ public class AddEventInteractorTest {
         verify(usersEventsRelationalAccessInterface, times(1)).addEvent(userCaptor.capture(), eventCaptor.capture());
 
         assertEquals(user, userCaptor.getValue());
-        assertEquals(event, eventCaptor.getValue());
+        assertEquals(testEvent, eventCaptor.getValue());
     }
 
     @Test
     public void testRemoveEvent() {
-        ArtistUser artist = new ArtistUser("testUser", "Test User", "testPass", "testMail");
-        VenueUser venue = new VenueUser("testUser", "Test User", "testPass", "testMail");
-        LocalDateTime testDate = LocalDateTime.now();
-        ArrayList<String> testTags = new ArrayList<>();
-        Event event = new Event("Test Event", artist, venue, testDate, "Test Description", testTags, testDate, "testMedia");
-        AddEventInputData inputData = new AddEventInputData(event);
-        user.addEvent(event);
-
+        AddEventInputData inputData = new AddEventInputData(testEvent);
         addEventInteractor.removeEvent(inputData);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
@@ -68,7 +63,7 @@ public class AddEventInteractorTest {
         verify(usersEventsRelationalAccessInterface, times(1)).removeEvent(userCaptor.capture(), eventCaptor.capture());
 
         assertEquals(user, userCaptor.getValue());
-        assertEquals(event, eventCaptor.getValue());
+        assertEquals(testEvent, eventCaptor.getValue());
 
         ArgumentCaptor<AddEventOutputData> outputDataCaptor = ArgumentCaptor.forClass(AddEventOutputData.class);
         verify(addEventPresenter, times(1)).updateEventsView(outputDataCaptor.capture());

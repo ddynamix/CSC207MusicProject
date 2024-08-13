@@ -2,36 +2,38 @@ package use_case.play_music.interface_adapter;
 
 import data_access.spotify.PreviewMP3Downloader;
 import data_access.spotify.SpotifyService;
+import data_access.spotify.SpotifyServiceInterface;
 import entity.song.Song;
 import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.PlayMusicInputBoundary;
 import use_case.play_music.PlayMusicInputData;
 
+import java.io.IOException;
+
 public class PlayMusicController {
     PlayMusicInputBoundary playMusicInteractor;
-    SpotifyService spotifyService;
+    SpotifyServiceInterface spotifyService;
 
-    public PlayMusicController(PlayMusicInputBoundary playMusicInteractor, SpotifyService spotifyService) {
+    public PlayMusicController(PlayMusicInputBoundary playMusicInteractor, SpotifyServiceInterface spotifyService) {
         this.playMusicInteractor = playMusicInteractor;
         this.spotifyService = spotifyService;
     }
 
-    public void playMusic(Song songToPlay) throws NoPreviewAvailableException {
-        PreviewMP3Downloader previewMP3Downloader = new PreviewMP3Downloader();
-        String previewURL = spotifyService.getPreviewUrl(songToPlay.getName());
-
-        // If there is no preview available for that spotify song; not all songs have previews
+    public void playMusic(Song song) throws NoPreviewAvailableException {
+        String previewURL = spotifyService.getPreviewUrl(song.getName());
         if (previewURL == null || previewURL.isEmpty()) {
             playMusicInteractor.noPreview();
+            return;
         }
-        System.out.println("Preview URL: " + previewURL);
-        String outputFilePath = "/songs/downloaded_file_" + System.currentTimeMillis() + ".mp3";
+
+        String filepath = "/songs/downloaded_file_" + song.getId() + ".mp3";
         try {
-            previewMP3Downloader.downloadMP3(previewURL, outputFilePath);
-        } catch (Exception e) {
-            e.printStackTrace();
+            PreviewMP3Downloader.downloadMP3(previewURL, filepath);
+            PlayMusicInputData inputData = new PlayMusicInputData(filepath);
+            playMusicInteractor.playMusic(inputData);
+        } catch (IOException e) {
+            throw new NoPreviewAvailableException("Failed to download preview");
         }
-        playMusicInteractor.playMusic(new PlayMusicInputData(outputFilePath));
     }
 
     public void stopMusic() {

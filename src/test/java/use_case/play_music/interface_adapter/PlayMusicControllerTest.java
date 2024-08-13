@@ -1,6 +1,6 @@
 package use_case.play_music.interface_adapter;
 
-import data_access.spotify.SpotifyService;
+import data_access.spotify.SpotifyServiceInterface;
 import entity.song.Song;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.PlayMusicInputBoundary;
 import use_case.play_music.PlayMusicInputData;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,19 +18,19 @@ public class PlayMusicControllerTest {
 
     private PlayMusicController playMusicController;
     private PlayMusicInputBoundary playMusicInteractor;
-    private SpotifyService spotifyService;
+    private SpotifyServiceInterface spotifyService;
 
     @BeforeEach
     public void setUp() {
         playMusicInteractor = mock(PlayMusicInputBoundary.class);
-        spotifyService = mock(SpotifyService.class);
+        spotifyService = mock(SpotifyServiceInterface.class);
         playMusicController = new PlayMusicController(playMusicInteractor, spotifyService);
     }
 
     @Test
     public void testPlayMusic_WithPreview() throws NoPreviewAvailableException {
-        Song songToPlay = new Song("testSong", "testArtist", "testAlbum", LocalDateTime.now(), null,  "", 1);
-        String previewURL = "http://example.com/preview.mp3";
+        Song songToPlay = new Song("Baby, I'm Yours", "testArtist", "testAlbum", LocalDate.now(), null,  "", 1);
+        String previewURL = "https://p.scdn.co/mp3-preview/0d5a20ec4d3e9367944534d280a4461c67101218?cid=acf0c836dea14da9a440cf55706b4a90";
 
         when(spotifyService.getPreviewUrl(songToPlay.getName())).thenReturn(previewURL);
 
@@ -45,7 +45,7 @@ public class PlayMusicControllerTest {
 
     @Test
     public void testPlayMusic_NoPreview() throws NoPreviewAvailableException {
-        Song songToPlay = new Song("testSong", "testArtist", "testAlbum", LocalDateTime.now(), null,  "", 1);
+        Song songToPlay = new Song("testSong", "testArtist", "testAlbum", LocalDate.now(), null,  null, 1);
 
         when(spotifyService.getPreviewUrl(songToPlay.getName())).thenReturn(null);
 

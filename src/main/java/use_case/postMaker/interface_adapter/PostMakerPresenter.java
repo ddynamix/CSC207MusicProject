@@ -34,7 +34,6 @@ public class PostMakerPresenter implements PostMakerOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
         viewManagerModel.firePropertyChanged();
     }
 }

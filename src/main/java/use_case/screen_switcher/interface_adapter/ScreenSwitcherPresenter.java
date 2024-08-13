@@ -62,10 +62,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToHome(ScreenSwitcherLoggedInData signedInData) {
         HomescreenState homescreenState = homescreenViewModel.getState();
+        if (homescreenState == null) {
+            homescreenState = new HomescreenState();
+            homescreenViewModel.setState(homescreenState);
+        }
         homescreenState.setSignedInAs(signedInData.getSignedInUser());
-        homescreenViewModel.setState(homescreenState);
-        homescreenViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView(homescreenViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -102,15 +103,13 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     }
 
     @Override
-    public void switchToEventCrafter(ScreenSwitcherEventCrafterData eventScreenData) {
+    public void switchToEventCrafter(ScreenSwitcherEventCrafterData eventCrafterData) {
         EventCrafterState eventCrafterState = eventCrafterViewModel.getState();
-        eventCrafterState.setSignedInAs(eventScreenData.getSignedInAs());
-        eventCrafterState.setArtistUsers(eventScreenData.getArtistUsers());
-        eventCrafterState.setVenueUsers(eventScreenData.getVenueUsers());
-
-        eventCrafterViewModel.setState(eventCrafterState);
-        eventCrafterViewModel.firePropertyChanged();
-
+        if (eventCrafterState == null) {
+            eventCrafterState = new EventCrafterState();
+            eventCrafterViewModel.setState(eventCrafterState);
+        }
+        eventCrafterState.setSignedInAs(eventCrafterData.getSignedInAs());
         viewManagerModel.setActiveView(eventCrafterViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -118,13 +117,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToPost(ScreenSwitcherPostData postData) {
         PostMakerState postMakerState = postMakerViewModel.getState();
-        postMakerState.setSignedInAs(postMakerState.getSignedInAs());
+        if (postMakerState == null) {
+            postMakerState = new PostMakerState();
+            postMakerViewModel.setState(postMakerState);
+        }
         postMakerState.setSignedInAs(postData.getSignedInAs());
-        postMakerState.setPosts(postData.getPosts());
-
-        postMakerViewModel.setState(postMakerState);
-        postMakerViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView(postMakerViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -132,11 +129,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToMyFollowers(ScreenSwitcherMyFollowersData myFollowersData) {
         MyFollowersState myFollowersState = myFollowersViewModel.getState();
+        if (myFollowersState == null) {
+            myFollowersState = new MyFollowersState();
+            myFollowersViewModel.setState(myFollowersState);
+        }
         myFollowersState.setUsersToDisplay(myFollowersData.getUsersToDisplay());
-
-        myFollowersViewModel.setState(myFollowersState);
-        myFollowersViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView(myFollowersViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -144,11 +141,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToIsFollowing(ScreenSwitcherIsFollowingData isFollowingData) {
         IsFollowingState isFollowingState = isFollowingViewModel.getState();
+        if (isFollowingState == null) {
+            isFollowingState = new IsFollowingState();
+            isFollowingViewModel.setState(isFollowingState);
+        }
         isFollowingState.setUsersToDisplay(isFollowingData.getUsersToDisplay());
-
-        isFollowingViewModel.setState(isFollowingState);
-        isFollowingViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView(isFollowingViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -156,11 +153,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     @Override
     public void switchToMyProfile(ScreenSwitcherProfileData profileData) {
         ProfileState profileState = profileViewModel.getState();
+        if (profileState == null) {
+            profileState = new ProfileState();
+            profileViewModel.setState(profileState);
+        }
         profileState.setViewing(profileData.getUser());
-
-        profileViewModel.setState(profileState);
-        profileViewModel.firePropertyChanged();
-
         viewManagerModel.setActiveView(profileViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }

@@ -14,6 +14,7 @@ import view_model.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ScreenSwitcherPresenterTest {
@@ -79,9 +80,14 @@ public class ScreenSwitcherPresenterTest {
     public void testSwitchToHome() {
         AudienceUser signedInUser = new AudienceUser("testUser", "Test User", "testPass", "testMail");
         ScreenSwitcherLoggedInData signedInData = new ScreenSwitcherLoggedInData(signedInUser);
+        HomescreenState homescreenState = new HomescreenState();
+        when(homescreenViewModel.getState()).thenReturn(homescreenState);
+
         screenSwitcherPresenter.switchToHome(signedInData);
+
         verify(viewManagerModel, times(1)).setActiveView(homescreenViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(signedInUser, homescreenState.getSignedInAs());
     }
 
     @Test
@@ -132,18 +138,28 @@ public class ScreenSwitcherPresenterTest {
     public void testSwitchToEventCrafter() {
         AudienceUser signedInUser = new AudienceUser("testUser", "Test User", "testPass", "testMail");
         ScreenSwitcherEventCrafterData eventCrafterData = new ScreenSwitcherEventCrafterData(signedInUser, null, null);
+        EventCrafterState eventCrafterState = new EventCrafterState();
+        when(eventCrafterViewModel.getState()).thenReturn(eventCrafterState);
+
         screenSwitcherPresenter.switchToEventCrafter(eventCrafterData);
+
         verify(viewManagerModel, times(1)).setActiveView(eventCrafterViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(signedInUser, eventCrafterState.getSignedInAs());
     }
 
     @Test
     public void testSwitchToPost() {
         AudienceUser signedInUser = new AudienceUser("testUser", "Test User", "testPass", "testMail");
         ScreenSwitcherPostData postData = new ScreenSwitcherPostData(null, signedInUser);
+        PostMakerState postMakerState = new PostMakerState();
+        when(postMakerViewModel.getState()).thenReturn(postMakerState);
+
         screenSwitcherPresenter.switchToPost(postData);
+
         verify(viewManagerModel, times(1)).setActiveView(postMakerViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(signedInUser, postMakerState.getSignedInAs());
     }
 
     @Test
@@ -155,9 +171,14 @@ public class ScreenSwitcherPresenterTest {
         followers.add(user2);
 
         ScreenSwitcherMyFollowersData myFollowersData = new ScreenSwitcherMyFollowersData(followers);
+        MyFollowersState myFollowersState = new MyFollowersState();
+        when(myFollowersViewModel.getState()).thenReturn(myFollowersState);
+
         screenSwitcherPresenter.switchToMyFollowers(myFollowersData);
+
         verify(viewManagerModel, times(1)).setActiveView(myFollowersViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(followers, myFollowersState.getUsersToDisplay());
     }
 
     @Test
@@ -169,17 +190,27 @@ public class ScreenSwitcherPresenterTest {
         followers.add(user2);
 
         ScreenSwitcherIsFollowingData isFollowingData = new ScreenSwitcherIsFollowingData(followers);
+        IsFollowingState isFollowingState = new IsFollowingState();
+        when(isFollowingViewModel.getState()).thenReturn(isFollowingState);
+
         screenSwitcherPresenter.switchToIsFollowing(isFollowingData);
+
         verify(viewManagerModel, times(1)).setActiveView(isFollowingViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(followers, isFollowingState.getUsersToDisplay());
     }
 
     @Test
     public void testSwitchToMyProfile() {
-        AudienceUser user = new AudienceUser("User1", "User 1", "testPass", "testMail");
-        ScreenSwitcherProfileData profileData = new ScreenSwitcherProfileData(user);
+        AudienceUser signedInUser = new AudienceUser("testUser", "Test User", "testPass", "testMail");
+        ScreenSwitcherProfileData profileData = new ScreenSwitcherProfileData(signedInUser);
+        ProfileState profileState = new ProfileState();
+        when(profileViewModel.getState()).thenReturn(profileState);
+
         screenSwitcherPresenter.switchToMyProfile(profileData);
+
         verify(viewManagerModel, times(1)).setActiveView(profileViewModel.getViewName());
         verify(viewManagerModel, times(1)).firePropertyChanged();
+        assertEquals(signedInUser, profileState.getViewing());
     }
 }

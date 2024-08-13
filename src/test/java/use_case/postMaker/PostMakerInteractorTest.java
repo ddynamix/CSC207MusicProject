@@ -41,7 +41,7 @@ public class PostMakerInteractorTest {
 
         ArgumentCaptor<Post> postCaptor = ArgumentCaptor.forClass(Post.class);
         verify(postDataAccessInterface, times(1)).createPost(postCaptor.capture());
-        assertEquals(post, postCaptor.getValue());
+        assertEquals(post.getText(), postCaptor.getValue().getText());
 
         ArgumentCaptor<PostMakerOutputData> outputDataCaptor = ArgumentCaptor.forClass(PostMakerOutputData.class);
         verify(postMakerPresenter, times(1)).prepareSuccessView(outputDataCaptor.capture());

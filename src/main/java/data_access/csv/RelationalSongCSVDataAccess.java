@@ -81,6 +81,7 @@ public class RelationalSongCSVDataAccess implements RelationalSongDataAccessInte
     @Override
     public void addFavourite(User user, Song song) {
         if (!relationships.containsKey(user)) {
+            System.out.println("Adding favourite song to user.");
             relationships.put(user, song);
             user.setFeaturedSong(song);
             try (FileWriter fw = new FileWriter(csvFile, true);
@@ -91,6 +92,7 @@ public class RelationalSongCSVDataAccess implements RelationalSongDataAccessInte
                 e.printStackTrace();
             }
         } else {
+            System.out.println("User already has a favourite song. Use replaceFavourite instead.");
             relationships.replace(user, song);
             user.setFeaturedSong(song);
             replaceFavouriteInCsv(user, song);

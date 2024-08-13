@@ -18,19 +18,19 @@ import org.apache.hc.core5.http.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SpotifyService {
-    private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+public class SpotifyService implements SpotifyServiceInterface {
+    private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(System.getenv("spotifyClientID"))
             .setClientSecret(System.getenv("spotifyClientSecret"))
             .build();
 
-    private static final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+    private final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
 
     public SpotifyService() {
         setClientCredentials();
     }
 
-    private static void setClientCredentials() {
+    private void setClientCredentials() {
         try {
             final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
 
@@ -43,7 +43,8 @@ public class SpotifyService {
         }
     }
 
-    public static String getSongName(String songName) {
+    @Override
+    public String getSongName(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -54,7 +55,8 @@ public class SpotifyService {
         return null;
     }
 
-    public static String getSongArtist(String songName) {
+    @Override
+    public String getSongArtist(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -65,7 +67,8 @@ public class SpotifyService {
         return null;
     }
 
-    public static String getSongAlbum(String songName) {
+    @Override
+    public String getSongAlbum(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -76,7 +79,8 @@ public class SpotifyService {
         return null;
     }
 
-    public static String getSongReleaseDate(String songName) {
+    @Override
+    public String getSongReleaseDate(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -87,7 +91,8 @@ public class SpotifyService {
         return null;
     }
 
-    public static String getSongTags(String songName) {
+    @Override
+    public String getSongTags(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -99,7 +104,8 @@ public class SpotifyService {
         return null;
     }
 
-    public static String getPreviewUrl(String songName) {
+    @Override
+    public String getPreviewUrl(String songName) {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
@@ -110,7 +116,7 @@ public class SpotifyService {
         return null;
     }
 
-    private static Artist getFullArtist(String artistId) {
+    private Artist getFullArtist(String artistId) {
         GetArtistRequest getArtistRequest = spotifyApi.getArtist(artistId).build();
         try {
             return getArtistRequest.execute();

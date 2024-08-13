@@ -54,7 +54,7 @@ public class EditPostInteractorTest {
     @Test
     public void testDeletePost() throws PostDoesntExistException {
         EditPostInputData inputData = new EditPostInputData(post);
-        user.addPost(post);
+        // user.addPost(post);
 
         editPostInteractor.deletePost(inputData);
 

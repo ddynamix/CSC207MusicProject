@@ -28,7 +28,7 @@ public class LoginPresenterTest {
         viewManagerModel = mock(ViewManagerModel.class);
         loginPresenter = new LoginPresenter(splashViewModel, homescreenViewModel, viewManagerModel);
 
-        signedInAs = new AudienceUser("testUser", "Test User", "testPass", "testMail");
+        signedInAs = new AudienceUser("Test User", "testUser", "testPass", "testMail");
     }
 
     @Test
@@ -40,7 +40,7 @@ public class LoginPresenterTest {
 
         loginPresenter.prepareSuccessView(loginOutputData);
 
-        assertEquals("testUser", homescreenState.getSignedInAs());
+        assertEquals("testUser", homescreenState.getSignedInAs().getUsername());
         verify(homescreenViewModel, times(1)).setState(homescreenState);
         verify(homescreenViewModel, times(1)).firePropertyChanged();
         verify(viewManagerModel, times(1)).setActiveView(homescreenViewModel.getViewName());
