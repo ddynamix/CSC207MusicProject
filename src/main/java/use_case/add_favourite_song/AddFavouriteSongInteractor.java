@@ -12,10 +12,12 @@ import java.util.ArrayList;
 public class AddFavouriteSongInteractor implements AddFavouriteSongInputBoundary {
     private SongDataAccessInterface songDataAccessInterface;
     private RelationalSongDataAccessInterface relationalSongDataAccessInterface;
+    private AddFavouriteSongOutputBoundary addFavouriteSongPresenter;
 
-    public AddFavouriteSongInteractor(SongDataAccessInterface songDataAccessInterface, RelationalSongDataAccessInterface relationalSongDataAccessInterface) {
+    public AddFavouriteSongInteractor(AddFavouriteSongOutputBoundary addFavouriteSongPresenter, SongDataAccessInterface songDataAccessInterface, RelationalSongDataAccessInterface relationalSongDataAccessInterface) {
         this.songDataAccessInterface = songDataAccessInterface;
         this.relationalSongDataAccessInterface = relationalSongDataAccessInterface;
+        this.addFavouriteSongPresenter = addFavouriteSongPresenter;
     }
 
     @Override
@@ -23,5 +25,6 @@ public class AddFavouriteSongInteractor implements AddFavouriteSongInputBoundary
         Song song = new Song(songName, songArtist, songAlbum, songReleaseDate, songTags, songURL, id);
         songDataAccessInterface.createSong(song);
         relationalSongDataAccessInterface.addFavourite(user, song);
+        addFavouriteSongPresenter.updateFavouriteSong();
     }
 }

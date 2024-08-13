@@ -106,9 +106,11 @@ public class SpotifyService implements SpotifyServiceInterface {
 
     @Override
     public String getPreviewUrl(String songName) {
+        System.out.println("Searching for song: " + songName);
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(songName).market(CountryCode.NA).build();
         try {
             Track track = searchTracksRequest.execute().getItems()[0];
+            System.out.println(track.getName() + " " + track.getPreviewUrl());
             return track.getPreviewUrl();
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             e.printStackTrace();

@@ -2,11 +2,14 @@ package app.interface_adapter_tools;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Singleton pattern for changing the Theme: colour changer across all views
  */
 public class Theme {
+    public static ArrayList<Component> overridenComponents = new ArrayList<>(); // Add components that need specific colours here.
+
     public static final Color LIGHT_BACKGROUND = Color.WHITE;
     public static final Color LIGHT_FOREGROUND = Color.BLACK;
 
@@ -33,7 +36,9 @@ public class Theme {
             }
             if (component instanceof Container) {
                 for (Component child : ((Container) component).getComponents()) {
-                    applyTheme(child);
+                    if (!overridenComponents.contains(child)) {
+                        applyTheme(child);
+                    }
                 }
             }
         }
@@ -44,6 +49,14 @@ public class Theme {
         public static void toggleTheme() {
             isDarkMode = !isDarkMode;
         }
+
+        /**
+         * Adds a component to the list of components that should be overriden
+         *
+         * @param component the component to be overriden
+         */
+        public static void addOverridenComponent(Component component) {
+            overridenComponents.add(component);
+        }
     }
 }
-

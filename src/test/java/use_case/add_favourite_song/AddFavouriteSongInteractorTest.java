@@ -8,6 +8,7 @@ import entity.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import view_model.ProfileViewModel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 public class AddFavouriteSongInteractorTest {
 
+    private AddFavouriteSongOutputBoundary addFavouriteSongOutputBoundary;
     private AddFavouriteSongInteractor addFavouriteSongInteractor;
     private SongDataAccessInterface songDataAccessInterface;
     private RelationalSongDataAccessInterface relationalSongDataAccessInterface;
@@ -25,9 +27,10 @@ public class AddFavouriteSongInteractorTest {
 
     @BeforeEach
     public void setUp() {
+        addFavouriteSongOutputBoundary = mock(AddFavouriteSongOutputBoundary.class);
         songDataAccessInterface = mock(SongDataAccessInterface.class);
         relationalSongDataAccessInterface = mock(RelationalSongDataAccessInterface.class);
-        addFavouriteSongInteractor = new AddFavouriteSongInteractor(songDataAccessInterface, relationalSongDataAccessInterface);
+        addFavouriteSongInteractor = new AddFavouriteSongInteractor(addFavouriteSongOutputBoundary, songDataAccessInterface, relationalSongDataAccessInterface);
         user = new ArtistUser("testUser", "Test User", "testPass", "testMail");
     }
 

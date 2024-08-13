@@ -102,6 +102,7 @@ public class ControllerCreator {
         controllers.put("playMusicController", PlayMusicControllerFactory.createPlayMusicController());
 
         controllers.put("addFavouriteSongController", AddFavouriteSongControllerFactory.createAddFavouriteSongController(
+                (ProfileViewModel) viewModels.get("profileViewModel"),
                 (SongDataAccessInterface) dataAccessObjects.get("songDataAccessObject"),
                 (RelationalSongDataAccessInterface) dataAccessObjects.get("relationalSongDataAccessObject")
         ));

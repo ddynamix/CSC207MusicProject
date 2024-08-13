@@ -21,13 +21,14 @@ public class PlayMusicController {
 
     public void playMusic(Song song) throws NoPreviewAvailableException {
         String previewURL = spotifyService.getPreviewUrl(song.getName());
-        if (previewURL == null || previewURL.isEmpty()) {
+        if (previewURL == null || previewURL.isEmpty() || previewURL.equals("null")) {
             playMusicInteractor.noPreview();
             return;
         }
 
-        String filepath = "/songs/downloaded_file_" + song.getId() + ".mp3";
+        String filepath = "src/main/resources/songs/downloaded_file_" + song.getId() + ".mp3";
         try {
+            System.out.println("Downloading preview" + previewURL + "to" + filepath);
             PreviewMP3Downloader.downloadMP3(previewURL, filepath);
             PlayMusicInputData inputData = new PlayMusicInputData(filepath);
             playMusicInteractor.playMusic(inputData);

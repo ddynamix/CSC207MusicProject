@@ -117,7 +117,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             screenSwitcherController.switchToHome();
         } else if (evt.getSource() == playMusic) {
             try {
-                playMusicController.playMusic(new Song("Baby, I'm Yours", "Breakbot", "Baby, I'm Yours", null, null, null, 0));
+                playMusicController.playMusic(favouriteSong);
             } catch (NoPreviewAvailableException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, profileViewModel.NO_PREVIEW_ERROR);

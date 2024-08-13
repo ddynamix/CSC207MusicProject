@@ -233,10 +233,16 @@ public abstract class User {
     }
 
     public Song getFeaturedSong() {
+        if (featuredSong == null) {
+            System.out.println("User has no featured song");
+            return null;
+        }
+        System.out.println("User has featured song: " + featuredSong.getName());
         return featuredSong;
     }
 
     public void setFeaturedSong(Song featuredSong) {
+        System.out.println("User has set featured song: " + featuredSong.getName());
         this.featuredSong = featuredSong;
     }
 }

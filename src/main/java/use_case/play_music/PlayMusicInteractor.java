@@ -2,6 +2,7 @@ package use_case.play_music;
 
 import javazoom.jl.player.Player;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -30,6 +31,8 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
         playerThread = new Thread(() -> {
             try {
                 player.play();
+                // Once the player finishes playing, delete the file
+                deleteFile(inputData.getFilepath());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -37,7 +40,6 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
         playerThread.start();
         isPlaying = true;
     }
-
 
     InputStream getInputStream(String path) throws Exception {
         if (path.startsWith("http://") || path.startsWith("https://")) {
@@ -55,6 +57,19 @@ public class PlayMusicInteractor implements PlayMusicInputBoundary {
             playerThread.interrupt();
         }
         isPlaying = false;
+    }
+
+    private void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("File deleted: " + filePath);
+            } else {
+                System.out.println("Failed to delete file: " + filePath);
+            }
+        } else {
+            System.out.println("File not found: " + filePath);
+        }
     }
 
     public void noPreview() throws NoPreviewAvailableException {

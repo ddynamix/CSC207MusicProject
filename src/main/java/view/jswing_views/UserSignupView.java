@@ -123,6 +123,8 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
                         String.valueOf(repeatPasswordInputField.getPassword()),
                         String.valueOf(emailInputField.getText()),
                         String.valueOf(nameInputField.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a user type");
             }
         } else if (evt.getSource().equals(cancel)) {
             screenSwitcherController.switchToSplash();

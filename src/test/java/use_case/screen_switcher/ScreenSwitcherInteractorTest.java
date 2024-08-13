@@ -190,6 +190,6 @@ public class ScreenSwitcherInteractorTest {
 
         ArgumentCaptor<ScreenSwitcherProfileData> captor = ArgumentCaptor.forClass(ScreenSwitcherProfileData.class);
         verify(screenSwitchPresenter, times(1)).switchToMyProfile(captor.capture());
-        assertEquals(loggedInUser, captor.getValue().getUser());
+        assertEquals(loggedInUser, captor.getValue().getSignedInUser());
     }
 }
