@@ -128,7 +128,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         c.gridx = 0;
         c.gridy = 2;
         c.weighty = 0.1;
-        c.insets = new Insets(0, 0, 0, 0);
+        c.insets = new Insets(5, 0, 0, 0);
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);

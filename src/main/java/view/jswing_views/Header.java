@@ -28,8 +28,6 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("My Profile"));
         options.add(new JMenuItem("My Events"));
         options.add(new JMenuItem("Explore Events"));
-        options.add(new JMenuItem("My Artists"));
-        options.add(new JMenuItem("My Venues"));
         options.add(new JMenuItem("Following"));
         options.add(new JMenuItem("Followers"));
         options.add(new JMenuItem("Explore Users"));
@@ -124,19 +122,13 @@ public class Header extends JPanel implements ActionListener {
             screenSwitcherController.switchToMyEvents();
         } else if (evt.getSource().equals(getMenuItems().get(3))) {  // Explore Events
             screenSwitcherController.switchToSearchEvents();
-        } else if (evt.getSource().equals(getMenuItems().get(4))) {  // My Artists
-            // not implemented
-            System.out.println("Not implemented yet.");
-        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Venues
-            // not implemented
-            System.out.println("Not implemented yet.");
-        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Following
+        } else if (evt.getSource().equals(getMenuItems().get(4))) {  // Following
             screenSwitcherController.switchToIsFollowing();
-        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // My Followers
+        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
             screenSwitcherController.switchToMyFollowers();
-        } else if (evt.getSource().equals(getMenuItems().get(8))) {  // Explore Users
+        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Explore Users
             screenSwitcherController.switchToSearchUsers();
-        } else if (evt.getSource().equals(getMenuItems().get(9))) {  // SignOut
+        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
         }

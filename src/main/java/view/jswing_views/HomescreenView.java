@@ -132,8 +132,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 2;
-        c.weighty = 1;
-        c.insets = new Insets(10, 0, 0, 0);
+        c.weighty = 0.1;
+        c.insets = new Insets(5, 0, 0, 0);
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);

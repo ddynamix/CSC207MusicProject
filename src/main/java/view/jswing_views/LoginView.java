@@ -36,6 +36,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginController = loginController;
         this.screenSwitcherController = screenSwitcherController;
 
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.insets = new Insets(10, 0, 10, 0);
+        c.anchor = GridBagConstraints.CENTER;
+
         JLabel title = new JLabel(loginViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -53,14 +60,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logIn.addActionListener(this);
         cancel.addActionListener(this);
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
-        this.add(buttons);
+        this.add(title, c);
+        this.add(usernameInfo, c);
+        this.add(usernameErrorField, c);
+        this.add(passwordInfo, c);
+        this.add(passwordErrorField, c);
+        this.add(buttons, c);
     }
 
     public void actionPerformed(ActionEvent evt) {
