@@ -7,15 +7,13 @@ import entity.user.VenueUser;
 
 import java.util.ArrayList;
 
+/**
+ * interface for user DAO
+ */
 public interface UserDataAccessInterface {
     // Data Access Interface - implement CRUD operations for User entity
     boolean userExistsInDatabase(String username);
-    void updateUsername(User user, String newUsername) throws UserDataAccessObject.UserNotFoundException;
-    void updatePassword(User user, String newPassword, String confirmPassword) throws UserDataAccessObject.PasswordMismatchException, UserDataAccessObject.UserNotFoundException;
-    void updateEmail(User user, String newEmail) throws UserDataAccessObject.UserNotFoundException;
     void create(User user) throws UserAlreadyExistsException;
-    void delete(User user) throws UserDataAccessObject.UserNotFoundException;
-
     <T extends User> T getUserFromUsername(String username);
     ArrayList<ArtistUser> getArtistUsers();
     ArrayList<VenueUser> getVenueUsers();

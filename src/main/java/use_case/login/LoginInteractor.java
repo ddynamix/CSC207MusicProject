@@ -4,15 +4,27 @@ import app.interface_adapter_tools.UserSession;
 import data_access.UserDataAccessInterface;
 import entity.user.User;
 
+/**
+ * interactor for login use case
+ */
 public class LoginInteractor implements LoginInputBoundary {
     final UserDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary loginPresenter;
 
+    /**
+     * create instance of interactor for login use case
+     * @param userDataAccessObject user DAO
+     * @param loginPresenter presenter for login use case
+     */
     public LoginInteractor(UserDataAccessInterface userDataAccessObject, LoginOutputBoundary loginPresenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.loginPresenter = loginPresenter;
     }
 
+    /**
+     * check login and continue actions
+     * @param loginInputData data to check
+     */
     @Override
     public void attemptLogin(LoginInputData loginInputData) {
         if (!userDataAccessObject.userExistsInDatabase(loginInputData.getUsername())) {

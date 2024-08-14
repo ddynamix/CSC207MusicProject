@@ -1,9 +1,11 @@
 package app;
 
+import app.interface_adapter_tools.Theme;
 import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
+import data_access.spotify.SpotifyService;
 import view_model.*;
 import view.jswing_views.ViewManager;
 
@@ -14,17 +16,18 @@ import java.util.HashMap;
 /*
  * TODO: Display events by profile type on User's profile.
  * TODO: Fix tests.
- * TODO: Edit Event Feature for your events.
  * TODO: Add string search to search users.
  * TODO: Add spotify API Implementation.
- * TODO: Implement my events for audience users.
  */
 
 public class Main {
+    static JFrame application;
+
     public static void main(String[] args) {
         // Create JFrame
-        final JFrame application = new JFrame("Music App");
+        application = new JFrame("Music App");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        application.getContentPane().setBackground(new Color(200, 200, 200));
 
         // Here, you will choose how to display the app.
         ViewCreatorInterface viewCreatorInterface = new SwingViewCreator();
@@ -38,7 +41,13 @@ public class Main {
         HashMap<String, Object> dataAccessObjects = new HashMap<>();
         dataAccessObjects.put("userDataAccessObject", dataAccessFactory.getUserDAO());
         dataAccessObjects.put("eventDataAccessObject", dataAccessFactory.getEventDAO());
+        dataAccessObjects.put("postDataAccessObject", dataAccessFactory.getPostDAO());
         dataAccessObjects.put("followRelationalAccessObject", dataAccessFactory.getFollowDAO());
+        dataAccessObjects.put("usersEventsRelationalAccessObject", dataAccessFactory.getUsersEventsDAO());
+        dataAccessObjects.put("usersPostsRelationalAccessObject", dataAccessFactory.getUsersPostsDAO());
+        dataAccessObjects.put("songDataAccessObject", dataAccessFactory.getSongDAO());
+        dataAccessObjects.put("relationalSongDataAccessObject", dataAccessFactory.getRelationalSongDAO());
+
 
         // Create the JFrame
         CardLayout cardLayout = new CardLayout();
@@ -56,10 +65,15 @@ public class Main {
         viewModels.put("signupViewModel", new UserSignupViewModel());
         viewModels.put("homescreenViewModel", new HomescreenViewModel());
         viewModels.put("eventScreenViewModel", new EventScreenViewModel());
+        viewModels.put("searchEventsViewModel", new SearchEventsViewModel());
         viewModels.put("eventCrafterViewModel", new EventCrafterViewModel());
         viewModels.put("searchUsersViewModel", new SearchUsersViewModel());
         viewModels.put("myFollowersViewModel", new MyFollowersViewModel());
         viewModels.put("isFollowingViewModel", new IsFollowingViewModel());
+        viewModels.put("eventEditorViewModel", new EventEditorViewModel());
+        viewModels.put("postMakerViewModel", new PostMakerViewModel());
+        viewModels.put("postEditorViewModel", new PostEditorViewModel());
+        viewModels.put("profileViewModel", new ProfileViewModel());
 
         // Implement all use cases.
         HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);
@@ -77,8 +91,18 @@ public class Main {
         int x = (screenSize.width - application.getWidth()) / 2;
         int y = (screenSize.height - application.getHeight()) / 2;
         application.setLocation(x, y);
+        application.setIconImage(new ImageIcon("src/main/resources/icon.png").getImage());
 
         // Start the application
+        themeUpdate();
         application.setVisible(true);
+    }
+
+    public static void themeUpdate() {
+        SwingUtilities.invokeLater(() -> {
+            Theme.ThemeManager.applyTheme(application.getContentPane());
+            application.getContentPane().revalidate();
+            application.getContentPane().repaint();
+        });
     }
 }

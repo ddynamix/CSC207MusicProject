@@ -28,7 +28,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         headers.put("name", 3);
         headers.put("creation_time", 4);
         headers.put("type", 5);
-
         if (csvFile.length() == 0) {
             createFile();
         } else {
@@ -45,7 +44,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
                     String password = String.valueOf(col[headers.get("password")]);
                     String email = String.valueOf(col[headers.get("email")]);
                     String name = String.valueOf(col[headers.get("name")]);
-                    String creationTime = String.valueOf(col[headers.get("creation_time")]);
                     String type = String.valueOf(col[headers.get("type")]);
 
                     if (type.equals("artistuser")) {
@@ -103,21 +101,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     }
 
     @Override
-    public void updateUsername(User user, String newUsername) {
-
-    }
-
-    @Override
-    public void updatePassword(User user, String newPassword, String confirmPassword) {
-
-    }
-
-    @Override
-    public void updateEmail(User user, String newEmail) {
-
-    }
-
-    @Override
     public void create(User user) throws UserAlreadyExistsException {
         if (!userExistsInDatabase(user.getUsername())) {
             accounts.put(user.getUsername(), user);
@@ -127,10 +110,6 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
-    @Override
-    public void delete(User user) {
-
-    }
 
     @Override
     public boolean passwordMatches(String username, String password) {

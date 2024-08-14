@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * DAO for user to following
+ */
 public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -19,6 +22,12 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
 
     private final UserDataAccessInterface userDataAccess;
 
+    /**
+     * create DAO
+     * @param csvPath local file path
+     * @param userDataAccess user DAO
+     * @throws IOException input output exception for types and parameters
+     */
     public FollowRelationalCSVDataStorage(String csvPath, UserDataAccessInterface userDataAccess) throws IOException {
         csvFile = new File(csvPath);
         headers.put("follower_id", 0);
@@ -34,7 +43,7 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
                 String header = reader.readLine();
                 assert header.equals(headersToString(headers));
 
-                // This will load all users into memory as User objects
+                // This will load all relationships into the map.
                 String row;
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
@@ -57,6 +66,9 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
         }
     }
 
+    /**
+     * create new file
+     */
     private void createFile() {
         if (csvFile.length() == 0) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
@@ -67,10 +79,18 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
         }
     }
 
+    /**
+     * convert header to string
+     * @param headers to be converted
+     * @return formated header
+     */
     private String headersToString(Map<String, Integer> headers) {
         return String.join(",", headers.keySet());
     }
 
+    /**
+     * add followings to their users
+     */
     private void applyFollowingToUsers() {
         for (Map.Entry<User, ArrayList<User>> entry : relationships.entrySet()) {
             User followee = entry.getKey();
@@ -82,6 +102,11 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
         }
     }
 
+    /**
+     * add follower to user
+     * @param follower the logged in user
+     * @param followee the user being followed
+     */
     @Override
     public void addFollower(User follower, User followee) {
         if (!relationships.containsKey(followee) || !relationships.get(followee).contains(follower)) {
@@ -101,6 +126,11 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
         }
     }
 
+    /**
+     * remove from CSV
+     * @param follower the logged in user
+     * @param followee the user being unfollowed
+     */
     @Override
     public void removeFollower(User follower, User followee) {
         if (relationships.containsKey(followee) && relationships.get(followee).contains(follower)) {

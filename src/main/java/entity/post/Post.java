@@ -3,6 +3,7 @@ package entity.post;
 import entity.user.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -11,14 +12,14 @@ import java.util.ArrayList;
 public class Post implements IPost{
     private String title;
     private String text;
-    private User author;
+    private final User author;
     private LocalDateTime timePosted;
 
-    private int rating = 0;
     private int id = 0;
     private String attachedMedia = null;
 
-    //private Media content;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     //private Event taggedEvent;
 
 
@@ -36,7 +37,6 @@ public class Post implements IPost{
         this.timePosted = LocalDateTime.now();
         this.id = 0; // should be generated
         this.attachedMedia = attachedMedia;
-        this.rating = 0; //default value
     }
 
     /**
@@ -64,14 +64,6 @@ public class Post implements IPost{
     }
 
     /**
-     * Return rating of post
-     * @return  int rating
-     */
-    public int getRating() {
-        return rating;
-    }
-
-    /**
      * Return ID of post in database
      * @return  int     id
      */
@@ -95,22 +87,19 @@ public class Post implements IPost{
         return attachedMedia;
     }
 
-    /**
-     * Share the post with a designated user
-     * @param destination   User    who the post is being sent to
-     */
-    public void share(User destination){
-        destination.getEmail(); // send somehow
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    /**
-     * Share the post with a multiple users
-     * @param people   ArrayList<User>    who the post is being sent to
-     */
-    public void share(ArrayList<User> people){
-        for (User destination : people){
-            destination.getEmail(); // send somehow
-        }
-
+    public void setText(String text) {
+        this.text = text;
     }
+
+    public void setAttachedMedia(String media) {this.attachedMedia = media;}
+
+    public String getDateAndTimeString() {
+        return timePosted.format(formatter);
+    }
+
 }

@@ -6,8 +6,11 @@ public interface ScreenSwitcherInputBoundary {
     void switchToSignup();
     void switchToHome();
     void switchToMyEvents();
+    void switchToSearchEvents();
     void switchToSearchUsers();
     void switchToEventCrafter();
     void switchToIsFollowing();
     void switchToMyFollowers();
+    void switchToPost();
+    void switchToMyProfile();
 }
