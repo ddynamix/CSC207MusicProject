@@ -31,9 +31,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.thelinmichael</groupId>
+            <groupId>se.michaelthelin.spotify</groupId>
             <artifactId>spotify-web-api-java</artifactId>
-            <version>master-SNAPSHOT</version>
+            <version>8.4.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javazoom/jlayer -->
         <dependency>

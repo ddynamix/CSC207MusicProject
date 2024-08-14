@@ -4,29 +4,31 @@
 package data_access.spotify;
 
 import com.neovisionaries.i18n.CountryCode;
-import com.wrapper.spotify.*;
-import com.wrapper.spotify.exceptions.SpotifyWebApiException;
-import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
-import com.wrapper.spotify.model_objects.specification.Track;
-import com.wrapper.spotify.model_objects.AbstractModelObject;
-import com.wrapper.spotify.model_objects.specification.Artist;
-import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
-import com.wrapper.spotify.requests.data.artists.GetArtistRequest;
-import com.wrapper.spotify.requests.data.search.simplified.SearchTracksRequest;
 import org.apache.hc.core5.http.ParseException;
+import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
+import se.michaelthelin.spotify.model_objects.specification.Artist;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import se.michaelthelin.spotify.requests.data.artists.GetArtistRequest;
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class SpotifyService implements SpotifyServiceInterface {
     private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(System.getenv("spotifyClientID"))
-            .setClientSecret(System.getenv("spotifyClientSecret"))
+            .setClientId(System.getenv("SPOTIFY_CLIENT_ID"))
+            .setClientSecret(System.getenv("SPOTIFY_TOKEN"))
             .build();
 
     private final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
 
     public SpotifyService() {
+        var env = System.getenv();
+        System.out.println("Client ID: " + System.getenv("SPOTIFY_CLIENT_ID"));
+        System.out.println("Client Secret: " + System.getenv("SPOTIFY_TOKEN"));
         setClientCredentials();
     }
 

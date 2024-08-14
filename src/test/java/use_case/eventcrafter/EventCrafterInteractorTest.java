@@ -1,7 +1,6 @@
 package use_case.eventcrafter;
 
 import app.interface_adapter_tools.UserSession;
-import com.wrapper.spotify.model_objects.specification.Artist;
 import data_access.EventAlreadyExistsException;
 import data_access.EventDataAccessInterface;
 import entity.event.Event;
