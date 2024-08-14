@@ -65,7 +65,6 @@ public class Header extends JPanel implements ActionListener {
 
         // Set up the panel layout
         this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
-        this.add(this.waffleButton);
 
         colourMode = new JButton("Toggle Colour Mode");
         colourMode.addActionListener(e -> {
@@ -77,6 +76,8 @@ public class Header extends JPanel implements ActionListener {
             this.repaint();     // Repaint to apply new colors
         });
         this.add(colourMode);
+
+        this.add(this.waffleButton);
         Theme.ThemeManager.applyTheme(this);
     }
 

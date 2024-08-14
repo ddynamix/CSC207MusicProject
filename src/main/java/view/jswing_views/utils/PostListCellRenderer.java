@@ -18,13 +18,23 @@ public class PostListCellRenderer extends DefaultListCellRenderer {
      * @param cellHasFocus True if the specified cell has the focus.
      * @return the container component
      */
+//    @Override
+//    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+//        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+//        if (value instanceof Post) {
+//            Post post = (Post) value;
+//            setText(post.getTitle() + " - " + post.getText() + " - " + post.getAttachedMedia() + " Posted: " + post.getTimePosted());
+//        }
+//        return this;
+//    }
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        if (value instanceof Post) {
-            Post post = (Post) value;
-            setText(post.getTitle() + " - " + post.getText() + " - " + post.getAttachedMedia() + " Posted: " + post.getTimePosted());
+        if (value instanceof PostListJPanel) {
+            PostListJPanel panel = (PostListJPanel) value;
+            // Ensure the panel is displayed correctly
+            return panel;
         }
-        return this;
+        // Default rendering if not a PostListJPanel
+        return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
     }
 }

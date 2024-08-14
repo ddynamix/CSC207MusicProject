@@ -1,6 +1,7 @@
 package app;
 
 import data_access.EventDataAccessInterface;
+import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
@@ -84,6 +85,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (SignOutController) controllers.get("signOutController"),
                 (EditPostController) controllers.get("editPostController"),
+                (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject"),
                 headerFactory.createHeader());
         views.add(homescreenView, homescreenView.viewName);
 
@@ -156,6 +158,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (PlayMusicController) controllers.get("playMusicController"),
                 (AddFavouriteSongController) controllers.get("addFavouriteSongController"),
+                (EditPostController) controllers.get("editPostController"),
                 headerFactory.createHeader());
         views.add(profileView, profileView.viewName);
     }

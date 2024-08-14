@@ -6,10 +6,8 @@ import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
 import data_access.PostDoesntExistException;
 
-import entity.event.Event;
 import entity.post.Post;
 import entity.user.User;
-import org.mockito.internal.matchers.Null;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;

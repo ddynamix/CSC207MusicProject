@@ -135,7 +135,7 @@ public class PostMakerView extends JPanel implements ActionListener, PropertyCha
                         signedInAs,
                         postAttachedMediaInputField.getText()
                 );
-                screenSwitcherController.switchToHome();
+                screenSwitcherController.switchToMyProfile();
             } catch (NullPointerException exception) {
                 System.out.println("null pointer exception: ");
                 exception.printStackTrace();

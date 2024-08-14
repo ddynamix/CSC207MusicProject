@@ -1,15 +1,12 @@
 package view.jswing_views;
 
 import app.interface_adapter_tools.Theme;
-import entity.event.Event;
+import data_access.PostDataAccessInterface;
 import entity.post.Post;
-import entity.user.AudienceUser;
 import entity.user.User;
-import use_case.add_post.interface_adapter.AddPostController;
 import use_case.edit_post.interface_adapter.EditPostController;
-import use_case.postMaker.interface_adapter.PostMakerController;
 import view.jswing_views.utils.CustomListCellRenderer;
-import view.jswing_views.utils.EventListJPanel;
+import view.jswing_views.utils.PostListCellRenderer;
 import view.jswing_views.utils.PostListJPanel;
 import view_model.HomescreenState;
 import view_model.HomescreenViewModel;
@@ -22,9 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 
 /**
@@ -35,9 +29,8 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
     private final HomescreenViewModel homescreenViewModel;
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
-    private final EditPostController editPostController;
     private final Header header;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final PostDataAccessInterface postAccess;
 
     private JScrollPane scrollPane;
 
@@ -54,19 +47,20 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
     /**
      * Create homescreen view
-     * @param homescreenViewModel model for home screen
+     * @param homescreenViewModel      model for home screen
      * @param screenSwitcherController controller for switcher
-     * @param signOutController controller for sign out use case
-     * @param editPostController controller for edit post use case
-     * @param headerOriginal header
+     * @param signOutController        controller for sign out use case
+     * @param editPostController       controller for edit post use case
+     * @param postDataAccessObject
+     * @param headerOriginal           header
      */
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,
                           SignOutController signOutController, EditPostController editPostController,
-                          Header headerOriginal) {
+                          PostDataAccessInterface postDataAccessObject, Header headerOriginal) {
         this.homescreenViewModel = homescreenViewModel;
+        this.postAccess = postDataAccessObject;
         this.homescreenViewModel.addPropertyChangeListener(this);
 
-        this.editPostController = editPostController;
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
 
@@ -107,23 +101,11 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
 
         postListModel = new DefaultListModel<>();
         postList = new JList<>(postListModel);
-        popupMenu = this.createPopupMenu();
-        postList.setComponentPopupMenu(popupMenu);
-        postList.setCellRenderer(new CustomListCellRenderer());
+        postList.setCellRenderer(new PostListCellRenderer());
         postList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         postList.setOpaque(false);
 
-        scrollPane = new JScrollPane(postList);
-        Theme.ThemeManager.applyTheme(scrollPane);
-        c.gridx = 0;
-        c.gridy = 1;
-        c.weightx = 0;
-        c.weighty = 1;
-        c.gridwidth = 3;
-        c.insets = new Insets(10, 5, 10, 5);
-        c.fill = GridBagConstraints.BOTH;
-        scrollPane.setToolTipText("This is where you will see your post when you follow users.");
-        this.add(scrollPane, c);
+        scrollPane = createScrollPane();
 
 
         JPanel buttons = new JPanel();
@@ -152,6 +134,34 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         Theme.ThemeManager.applyTheme(this);
     }
 
+    private JScrollPane createScrollPane() {
+        JScrollPane scrollPane = new JScrollPane(postList);
+        Theme.ThemeManager.applyTheme(this);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 1;
+        c.weightx = 0;
+        c.weighty = 1;
+        c.gridwidth = 3;
+        c.insets = new Insets(10, 5, 10, 5);
+        c.fill = GridBagConstraints.BOTH;
+
+        for (Post post : postAccess.getPosts()) {
+            PostListJPanel postPanel = new PostListJPanel(post);
+            postListModel.addElement(postPanel);
+        }
+        postList.setCellRenderer(new CustomListCellRenderer());
+        postList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        postList.setOpaque(false);
+        postList.revalidate();
+        postList.repaint();
+        scrollPane.revalidate();
+        scrollPane.repaint();
+        Theme.ThemeManager.applyTheme(scrollPane);
+        this.add(scrollPane, c);
+        return scrollPane;
+    }
+
     /**
      * @param evt the event to be processed
      */
@@ -177,19 +187,6 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         signedInAs = state.getSignedInAs();
         System.out.println("User has " + signedInAs.getMyPosts().size() + " posts");
         System.out.println(postList.getModel().getSize() + " post in pane");
-        if (evt.getPropertyName().equals("state")) {
-            postListModel.clear();
-            scrollPane = new JScrollPane();
-            for (Post p : signedInAs.getMyPosts()) {
-                PostListJPanel postPanel = new PostListJPanel(p);
-                postListModel.addElement(postPanel);
-            }
-            this.repaint();
-
-            Theme.ThemeManager.applyTheme(scrollPane);
-
-            postList.setComponentPopupMenu(popupMenu);
-        }
         try {
             if (signedInAs == null) {
                 welcome_message.setText("Not signed in");
@@ -203,38 +200,5 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
-    /**
-     * create popup menu for each post
-     * @return menu
-     */
-    private JPopupMenu createPopupMenu() {
-        JPopupMenu popupMenu = new JPopupMenu();
-        Theme.ThemeManager.applyTheme(this);
-        postList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                popupMenu.removeAll();
 
-                PostListJPanel postPanel = postList.getSelectedValue();
-                if (postPanel != null) {
-                    Post post = postPanel.getPost();
-
-                    JMenuItem editPost = new JMenuItem("Edit Post");
-                    editPost.addActionListener(ev -> {
-                        editPostController.editPost(post);
-                    });
-                    popupMenu.add(editPost);
-
-                    JMenuItem deletePost = new JMenuItem("Delete Post");
-                    deletePost.addActionListener(ev -> {
-                        editPostController.deletePost(post);
-                        homescreenViewModel.firePropertyChanged();
-                        this.repaint();
-                    });
-                    popupMenu.add(deletePost);
-                }
-            }
-        });
-
-        return popupMenu;
-    }
 }

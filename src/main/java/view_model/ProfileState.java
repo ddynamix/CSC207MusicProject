@@ -26,4 +26,12 @@ public class ProfileState {
     public void setLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
     }
+
+    /**
+     * access current logged in user
+     * @return signinas
+     */
+    public User getSignedInAs() {
+        return viewing;
+    }
 }

@@ -59,6 +59,7 @@ public class CSVDataAccessObjectFactory implements DataAccessFactoryInterface {
      */
     @Override
     public PostDataAccessInterface getPostDAO() {
+        System.out.println("Total Posts: " + postDataAccessObject.getPosts().size());
         return postDataAccessObject;
     }
 
