@@ -1,7 +1,10 @@
 package use_case.screen_switcher;
 
 import app.interface_adapter_tools.UserSession;
+import data_access.EventDataAccessInterface;
+import data_access.PostDataAccessInterface;
 import data_access.UserDataAccessInterface;
+import entity.post.Post;
 import entity.user.ArtistUser;
 import entity.user.User;
 import entity.event.Event;
@@ -12,10 +15,17 @@ import java.util.ArrayList;
 public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     private final ScreenSwitcherOutputBoundary screenSwitchPresenter;
     private final UserDataAccessInterface userDataAccess;
+    private final EventDataAccessInterface eventDataAccess;
+    private final PostDataAccessInterface postDataAccess;
 
-    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter, UserDataAccessInterface userDataAccessObject) {
+    public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter,
+                                    UserDataAccessInterface userDataAccessObject,
+                                    EventDataAccessInterface eventDataAccessObject,
+                                    PostDataAccessInterface postDataAccessObject) {
         this.screenSwitchPresenter = screenSwitchPresenter;
         this.userDataAccess = userDataAccessObject;
+        this.eventDataAccess = eventDataAccessObject;
+        this.postDataAccess = postDataAccessObject;
     }
 
     @Override
@@ -47,6 +57,12 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     }
 
     @Override
+    public void switchToSearchEvents() {
+        ArrayList<Event> allEvents = eventDataAccess.getEvents();
+        screenSwitchPresenter.switchToSearchEvents(new ScreenSwitcherSearchEventsData(allEvents));
+    }
+
+    @Override
     public void switchToSearchUsers() {
         screenSwitchPresenter.switchToSearchUsers();
     }
@@ -57,6 +73,13 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
         ArrayList<ArtistUser> artists = userDataAccess.getArtistUsers();
         ArrayList<VenueUser> venues = userDataAccess.getVenueUsers();
         screenSwitchPresenter.switchToEventCrafter(new ScreenSwitcherEventCrafterData(loggedIn, artists, venues));
+    }
+
+    @Override
+    public void switchToPost() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        ArrayList<Post> posts = postDataAccess.getPosts();
+        screenSwitchPresenter.switchToPost(new ScreenSwitcherPostData(posts, loggedIn));
     }
 
     @Override
@@ -71,5 +94,11 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
         ArrayList<User> followers = loggedIn.getFollowers();
         screenSwitchPresenter.switchToMyFollowers(new ScreenSwitcherMyFollowersData(followers));
+    }
+
+    @Override
+    public void switchToMyProfile() {
+        User loggedIn = UserSession.getInstance().getLoggedInUser();
+        screenSwitchPresenter.switchToMyProfile(new ScreenSwitcherProfileData(loggedIn));
     }
 }

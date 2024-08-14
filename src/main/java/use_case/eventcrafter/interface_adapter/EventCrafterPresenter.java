@@ -8,15 +8,27 @@ import use_case.eventcrafter.EventCrafterOutputData;
 
 import javax.swing.*;
 
+/**
+ * present for event use case
+ */
 public class EventCrafterPresenter implements EventCrafterOutputBoundary {
     private final EventScreenViewModel eventScreenViewModel;
     private final ViewManagerModel viewManagerModel;
 
+    /**
+     * create instance of present for event use case
+     * @param eventScreenViewModel model for event screen
+     * @param viewManagerModel manager for changing models
+     */
     public EventCrafterPresenter(EventScreenViewModel eventScreenViewModel, ViewManagerModel viewManagerModel) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * create view of event screen
+     * @param eventCrafterOutputData data for screen
+     */
     @Override
     public void prepareSuccessView(EventCrafterOutputData eventCrafterOutputData) {
         EventScreenState eventScreenState = eventScreenViewModel.getState();
@@ -29,9 +41,12 @@ public class EventCrafterPresenter implements EventCrafterOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * create dialogue for error
+     * @param error custom message
+     */
     @Override
     public void prepareFailView(String error) {
-        JOptionPane.showMessageDialog(null, error);
         viewManagerModel.firePropertyChanged();
     }
 }

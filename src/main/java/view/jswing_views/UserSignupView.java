@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view_model.UserSignupState;
 import use_case.usersignup.interface_adapter.UserSignupController;
@@ -14,6 +15,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Enumeration;
 
+/**
+ *
+ */
 public class UserSignupView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "user sign up";
     private final UserSignupViewModel signupViewModel;
@@ -33,6 +37,12 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
     private final ButtonGroup options;
 
 
+    /**
+     * create sign up view
+     * @param signupViewModel model for sign up use case
+     * @param controller current controller
+     * @param screenSwitcherController controller for screen switcher
+     */
     public UserSignupView(UserSignupViewModel signupViewModel, UserSignupController controller, ScreenSwitcherController screenSwitcherController) {
         this.signupViewModel = signupViewModel;
         this.signupViewModel.addPropertyChangeListener(this);
@@ -47,8 +57,11 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         JLabel questionLabel = new JLabel("Which type of user are you:");
         this.add(questionLabel);
         JRadioButton signupAudience = new JRadioButton("Audience");
+        signupAudience.setToolTipText("A user that only views events but does not create them");
         JRadioButton signupArtist = new JRadioButton("Artist");
+        signupArtist.setToolTipText("A user that creates events they are performing");
         JRadioButton signupVenue = new JRadioButton("Venue");
+        signupVenue.setToolTipText("A user that creates events they are hosting");
         options = new ButtonGroup();
         options.add(signupAudience);
         options.add(signupArtist);
@@ -72,8 +85,10 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
 
         signUp = new JButton(signupViewModel.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
+        signUp.setToolTipText("Click to create your account");
         cancel = new JButton(signupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
+        signUp.setToolTipText("Click to return to the opening page");
 
         signUp.addActionListener(this);
         cancel.addActionListener(this);
@@ -85,8 +100,12 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
         this.add(emailInfo);
         this.add(nameInfo);
         this.add(buttons);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     public void actionPerformed(ActionEvent evt) {
         String type = "";
 
@@ -104,12 +123,18 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
                         String.valueOf(repeatPasswordInputField.getPassword()),
                         String.valueOf(emailInputField.getText()),
                         String.valueOf(nameInputField.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a user type");
             }
         } else if (evt.getSource().equals(cancel)) {
             screenSwitcherController.switchToSplash();
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UserSignupState state = (UserSignupState) evt.getNewValue();

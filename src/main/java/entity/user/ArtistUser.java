@@ -23,82 +23,18 @@ public class ArtistUser extends User implements uploadable {
     }
 
     /**
-     * Contact the followers of this user
-     * @param postToShare   Post    content being sent
+     * add event to ArtistUser
+     * @param event to be added
      */
     @Override
-    public void contactFollowers(Post postToShare){
-        for (User user: this.getFollowers()){
-            postToShare.share(user);
-        }
+    public void addEvent(Event event) {
+        this.getMyEvents().add(event);
     }
 
     /**
-     * Update event.title
-     * @param event     Event
-     * @param newTitle  String
+     * remove event from ArtistUser
+     * @param event to be removed
      */
     @Override
-    public void updateEventTitle(Event event, String newTitle) {
-        event.setTitle(newTitle);
-    }
-
-    /**
-     * Update event.venue
-     * @param event     Event
-     * @param newVenue  String
-     */
-    @Override
-    public void updateEventVenue(Event event, VenueUser newVenue) {
-        event.setVenue(newVenue);
-    }
-
-    /**
-     * Update event.dataAndTime
-     * @param event     Event
-     * @param newTime   LocalDateTime
-     */
-    @Override
-    public void updateEventTime(Event event, LocalDateTime newTime) {
-        event.setDateAndTime(newTime);
-    }
-
-    /**
-     * Update event.description
-     * @param event             Event
-     * @param newDescription    String
-     */
-    @Override
-    public void updateEventDescription(Event event, String newDescription) {
-        event.setDescription(newDescription);
-    }
-
-    /**
-     * Update event.tags
-     * @param event     Event
-     * @param newTags   ArrayList<String>
-     */
-    @Override
-    public void updateEventTags(Event event, ArrayList<String> newTags) {
-        event.setTags(newTags);
-    }
-
-    /**
-     * Update event.attachedMedia
-     * @param event     Event
-     * @param newMedia  String
-     */
-    @Override
-    public void updateEventMedia(Event event, String newMedia) {
-        event.setAttachedMedia(newMedia);
-    }
-
-    /**
-     * Remove event from database
-     * @param event     Event   to be removed
-     */
-    @Override
-    public void removeEvent(Event event){
-        // remove id from database
-    };
+    public void removeEvent(Event event) {this.getMyEvents().remove(event);}
 }

@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.sign_out.interface_adapter.SignOutController;
 
@@ -11,13 +12,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import static app.interface_adapter_tools.Theme.ThemeManager.toggleTheme;
+
+/**
+ * create header JPanel to be added to frame view
+ */
 public class Header extends JPanel implements ActionListener {
     private final ScreenSwitcherController screenSwitcherController;
     private final SignOutController signOutController;
 
     private JButton waffleButton;
     private JPopupMenu menu;
+    JButton colourMode;
 
+    /**
+     * create header panel
+     * @param screenSwitcherController controller for switcher
+     * @param signOutController controller for sign out use case
+     */
     public Header(ScreenSwitcherController screenSwitcherController, SignOutController signOutController) {
         this.screenSwitcherController = screenSwitcherController;
         this.signOutController = signOutController;
@@ -27,12 +39,10 @@ public class Header extends JPanel implements ActionListener {
         options.add(new JMenuItem("Home"));
         options.add(new JMenuItem("My Profile"));
         options.add(new JMenuItem("My Events"));
-        options.add(new JMenuItem("My Artists"));
-        options.add(new JMenuItem("My Venues"));
+        options.add(new JMenuItem("Explore Events"));
         options.add(new JMenuItem("Following"));
         options.add(new JMenuItem("Followers"));
         options.add(new JMenuItem("Explore Users"));
-        options.add(new JMenuItem("Sign Out"));
 
         // Create menu and add items to it
         this.menu = createMenu(options);
@@ -47,6 +57,7 @@ public class Header extends JPanel implements ActionListener {
                 menu.show(waffleButton, e.getX(), e.getY());
             }
         });
+        waffleButton.setToolTipText("Click to view different options");
 
         Dimension height = this.getPreferredSize();
         height.height = 50;
@@ -55,8 +66,25 @@ public class Header extends JPanel implements ActionListener {
         // Set up the panel layout
         this.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         this.add(this.waffleButton);
+
+        colourMode = new JButton("Toggle Colour Mode");
+        colourMode.addActionListener(e -> {
+            System.out.println("Toggle Theme button clicked"); // Debugging
+            toggleTheme();
+            app.Main.themeUpdate();
+            Theme.ThemeManager.applyTheme(this);
+            this.revalidate();  // Revalidate the component hierarchy
+            this.repaint();     // Repaint to apply new colors
+        });
+        this.add(colourMode);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * create menu for each of the functions in menu
+     * @param items MenuItems to be added
+     * @return menu
+     */
     private JPopupMenu createMenu(ArrayList<JMenuItem> items) {
         JPopupMenu newMenu = new JPopupMenu();
         for (JMenuItem item : items) {
@@ -66,6 +94,10 @@ public class Header extends JPanel implements ActionListener {
         return newMenu;
     }
 
+    /**
+     * Create button and icon with the menu
+     * @return button
+     */
     private static JButton createWaffleButton() {
         final int WIDTH = 30;
         final int HEIGHT = 30;
@@ -102,6 +134,10 @@ public class Header extends JPanel implements ActionListener {
         return button;
     }
 
+    /**
+     * access menu items
+     * @return list of items
+     */
     public ArrayList<JMenuItem> getMenuItems() {
         ArrayList<JMenuItem> menuItems = new ArrayList<>();
         for (Component component : menu.getComponents()) {
@@ -112,30 +148,32 @@ public class Header extends JPanel implements ActionListener {
         return menuItems;
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource().equals(getMenuItems().get(0))) {  // Home
             screenSwitcherController.switchToHome();
         } else if (evt.getSource().equals(getMenuItems().get(1))) {  // My Profile
-            // not implemented
-            System.out.println("Not implemented yet.");
+            screenSwitcherController.switchToMyProfile();
         } else if (evt.getSource().equals(getMenuItems().get(2))) {  // My Events
             screenSwitcherController.switchToMyEvents();
-        } else if (evt.getSource().equals(getMenuItems().get(3))) {  // My Artists
-            // not implemented
-            System.out.println("Not implemented yet.");
-        } else if (evt.getSource().equals(getMenuItems().get(4))) {  // My Venues
-            // not implemented
-            System.out.println("Not implemented yet.");
-        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // Following
+        } else if (evt.getSource().equals(getMenuItems().get(3))) {  // Explore Events
+            screenSwitcherController.switchToSearchEvents();
+        } else if (evt.getSource().equals(getMenuItems().get(4))) {  // Following
             screenSwitcherController.switchToIsFollowing();
-        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // My Followers
+        } else if (evt.getSource().equals(getMenuItems().get(5))) {  // My Followers
             screenSwitcherController.switchToMyFollowers();
-        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // Explore Users
+        } else if (evt.getSource().equals(getMenuItems().get(6))) {  // Explore Users
             screenSwitcherController.switchToSearchUsers();
-        } else if (evt.getSource().equals(getMenuItems().get(8))) {  // SignOut
+        } else if (evt.getSource().equals(getMenuItems().get(7))) {  // SignOut
             signOutController.executeSignOut();
             screenSwitcherController.switchToSplash();
+        }
+
+        if (evt.getSource().equals(colourMode)) { // Dark Mode
+            toggleTheme();
         }
     }
 }

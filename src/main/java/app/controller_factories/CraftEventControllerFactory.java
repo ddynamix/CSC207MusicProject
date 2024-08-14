@@ -14,7 +14,10 @@ public class CraftEventControllerFactory {
 
     private CraftEventControllerFactory() {}
 
-    public static EventCrafterController createCraftEventController(ViewManagerModel viewManagerModel, EventScreenViewModel eventScreenViewModel, EventDataAccessInterface eventDataAccessObject, UserDataAccessInterface userDataAccessObject) {
+    public static EventCrafterController createCraftEventController(ViewManagerModel viewManagerModel,
+                                                                    EventScreenViewModel eventScreenViewModel,
+                                                                    EventDataAccessInterface eventDataAccessObject,
+                                                                    UserDataAccessInterface userDataAccessObject) {
         EventCrafterOutputBoundary eventCrafterPresenter = new EventCrafterPresenter(eventScreenViewModel, viewManagerModel);
         EventCrafterInputBoundary eventCrafterInteractor = new EventCrafterInteractor(eventDataAccessObject, eventCrafterPresenter);
 

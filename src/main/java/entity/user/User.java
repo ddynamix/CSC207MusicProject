@@ -1,13 +1,15 @@
 package entity.user;
 
 import entity.event.Event;
+import entity.post.Post;
+import entity.song.Song;
 
 import java.util.ArrayList;
 
 /**
  * Parent class User
  */
-public class User {
+public abstract class User {
     private String username;
     private String password;
     private String email;
@@ -18,8 +20,9 @@ public class User {
     private ArrayList<User> followers;
     private ArrayList<User> following;
     private ArrayList<Event> myEvents;
+    private ArrayList<Post> myPosts;
 
-    //private Song featuredSong;
+    private Song featuredSong;
 
     /**
      * Create instance of the User class <br>
@@ -40,6 +43,7 @@ public class User {
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.myEvents = new ArrayList<>();
+        this.myPosts = new ArrayList<>();
     }
 
     /**
@@ -94,6 +98,10 @@ public class User {
         return following;
     }
 
+    public void addFollower(User newFollow){
+        this.followers.add(newFollow);
+    }
+
     /**
      * Return ID in database
      * @return  String id
@@ -111,35 +119,130 @@ public class User {
     }
 
     /**
-     * Return past events
-     * @return  list    myEvents
+     * Set email in database
+     * @param email    String id
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Set name in database
+     * @param name    String id
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Set username in database
+     * @param username    String id
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Return  events
+     * @return  list    pastEvents
      */
     public ArrayList<Event> getMyEvents() {
         return myEvents;
     }
 
+    /**
+     * Return posts
+     * @return  list    myPosts
+     */
+    public ArrayList<Post> getMyPosts() {
+        return myPosts;
+    }
+
+    /**
+     * add event to user
+     * @param event to be added
+     */
     public void addEvent(Event event) {
         this.myEvents.add(event);
+        System.out.println("User has " + this.getMyEvents().size() + " events");
+        System.out.println("Event " + event.getTitle() + " added to user");
     }
 
-    public void addFollower(User follower) {
-        this.followers.add(follower);
+    /**
+     * remove event from user
+     * @param event to be removed
+     */
+    public void removeEvent(Event event) {
+        this.myEvents.remove(event);
     }
 
+    /**
+     * remove follower from user
+     * @param follower to be removed
+     */
     public void removeFollower(User follower) {
         this.followers.remove(follower);
     }
 
+    /**
+     * add following to user
+     * @param following to be added
+     */
     public void addFollowing(User following) {
         this.following.add(following);
     }
 
+    /**
+     * remove following
+     * @param following to be removed
+     */
     public void removeFollowing(User following) {
         this.following.remove(following);
     }
 
+    /**
+     * convert to string
+     * @return formatted string
+     */
     @Override
     public String toString() {
         return this.username;
+    }
+
+    /**
+     * add post to user
+     * @param post to be added
+     */
+    public void addPost(Post post) {this.myPosts.add(post);
+        System.out.println("User has " + this.getMyPosts().size() + " posts");
+        System.out.println("Post " + post.getTitle() + " added to user");
+    }
+
+    /**
+     * removed post from user
+     * @param post to be removed
+     */
+    public void removePost(Post post) {this.myPosts.remove((post));}
+
+    public int getNumFollowers() {
+        return this.followers.size();
+    }
+
+    public int getNumFollowing() {
+        return this.following.size();
+    }
+
+    public Song getFeaturedSong() {
+        if (featuredSong == null) {
+            System.out.println("User has no featured song");
+            return null;
+        }
+        System.out.println("User has featured song: " + featuredSong.getName());
+        return featuredSong;
+    }
+
+    public void setFeaturedSong(Song featuredSong) {
+        System.out.println("User has set featured song: " + featuredSong.getName());
+        this.featuredSong = featuredSong;
     }
 }

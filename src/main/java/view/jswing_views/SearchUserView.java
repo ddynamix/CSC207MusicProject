@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import app.interface_adapter_tools.UserSession;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
@@ -9,7 +10,7 @@ import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import use_case.search_users.interface_adapter.SearchUsersController;
 import view_model.SearchUsersViewModel;
-import view.jswing_views.utils.UserCellListRenderer;
+import view.jswing_views.utils.CustomListCellRenderer;
 import view.jswing_views.utils.UserListJPanel;
 
 import javax.swing.*;
@@ -19,6 +20,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * View for user searching
+ */
 public class SearchUserView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "search users";
     private final SearchUsersViewModel searchUsersViewModel;
@@ -34,6 +38,14 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
 
     JComboBox<String> searchTypeDropdown;
 
+    /**
+     * create user search view
+     * @param searchUsersViewModel model for user search use case
+     * @param searchUsersController controller for user search use case
+     * @param followUserController controller for user follow use case
+     * @param screenSwitcherController controller for switcher
+     * @param headerOriginal header
+     */
     public SearchUserView(SearchUsersViewModel searchUsersViewModel, SearchUsersController searchUsersController, FollowUserController followUserController, ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.searchUsersViewModel = searchUsersViewModel;
         this.searchUsersController = searchUsersController;
@@ -103,7 +115,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         userList = new JList<>(listModel);
         JPopupMenu popupMenu = this.createPopupMenu();
         userList.setComponentPopupMenu(popupMenu);
-        userList.setCellRenderer(new UserCellListRenderer());
+        userList.setCellRenderer(new CustomListCellRenderer());
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userList.setOpaque(false);
 
@@ -121,18 +133,23 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         JPanel buttons = new JPanel();
         backButton = new JButton(searchUsersViewModel.BACK_BUTTON_LABEL);
         backButton.addActionListener(this);
+        backButton.setToolTipText("Click to return to the previous page");
         buttons.add(backButton);
 
         c.gridwidth = 3;
         c.gridx = 0;
         c.gridy = 2;
         c.weighty = 0.1;
-        c.insets = new Insets(0, 0, 0, 0);
+        c.insets = new Insets(5, 0, 0, 0);
         c.anchor = GridBagConstraints.PAGE_END;
         c.fill = GridBagConstraints.HORIZONTAL;
         this.add(buttons, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
+    /**
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
@@ -143,6 +160,10 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -157,6 +178,10 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         }
     }
 
+    /**
+     * create the popup menu for each user
+     * @return menu
+     */
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 

@@ -1,9 +1,5 @@
 package entity.user;
 
-import entity.event.Event;
-import entity.post.Post;
-
-import java.util.ArrayList;
 
 /**
  * AudienceUser Class
@@ -22,25 +18,5 @@ public class AudienceUser extends User{
         super(name, username, password, email);
     }
 
-    /**
-     * Create a Post object created by and specified by this user
-     * @param title         post.title
-     * @param text          post.text
-     * @param attachedMedia post.attachedMedia
-     * @return  Post        the post created
-     */
-    public Post post(String title, String text, String attachedMedia){
-        return new Post(title, text, this, attachedMedia);
-    }
-
-    /**
-     * Share a post with this user's followers
-     * @param post  Post    the post to share
-     */
-    public void share(Post post){
-        for (User user: this.getFollowing()){
-            post.share(user);
-        }
-    }
 }
 
