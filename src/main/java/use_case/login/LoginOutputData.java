@@ -12,7 +12,7 @@ public class LoginOutputData {
 
     /**
      * create instance of output data for login use case
-     * @param signedInAs
+     * @param signedInAs current login
      */
     public LoginOutputData(User signedInAs) {
         this.signedInAs = signedInAs;

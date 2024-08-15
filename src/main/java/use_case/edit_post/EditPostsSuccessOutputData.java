@@ -12,7 +12,7 @@ public class EditPostsSuccessOutputData {
 
     /**
      * create instance of correct output data for edit post use case
-     * @param posts
+     * @param posts list of posts to be saved
      */
     public EditPostsSuccessOutputData(ArrayList<Post> posts) {
         this.posts = posts;

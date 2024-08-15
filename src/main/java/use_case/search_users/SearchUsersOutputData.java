@@ -11,8 +11,8 @@ public class SearchUsersOutputData {
     private final ArrayList<? extends User> returnUsers;
 
     /**
-     * create instance of output data for user serach use case
-     * @param returnUsers
+     * create instance of output data for user search use case
+     * @param returnUsers users to be saved in output
      */
     public SearchUsersOutputData(ArrayList<? extends User> returnUsers) {
         this.returnUsers = returnUsers;

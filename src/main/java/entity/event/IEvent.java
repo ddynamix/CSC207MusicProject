@@ -6,6 +6,9 @@ import entity.user.VenueUser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * interface for event objects
+ */
 public interface IEvent {
     public String getTitle();
     public ArtistUser getArtist();

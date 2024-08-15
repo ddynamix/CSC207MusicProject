@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * view for event use case
+ */
 public class EventCrafterView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "eventcrafter view";
     private final EventCrafterViewModel eventCrafterViewModel;
@@ -43,6 +46,13 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
 
     User signedInAs = null;
 
+    /**
+     * create instance of view for event use case
+     * @param eventCrafterViewModel view model for event use case
+     * @param eventCrafterController controller for event use case
+     * @param screenSwitcherController switcher
+     * @param headerOriginal header panel
+     */
     public EventCrafterView(EventCrafterViewModel eventCrafterViewModel, EventCrafterController eventCrafterController,
                             ScreenSwitcherController screenSwitcherController, Header headerOriginal) {
         this.eventCrafterViewModel = eventCrafterViewModel;

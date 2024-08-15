@@ -98,6 +98,10 @@ public abstract class User {
         return following;
     }
 
+    /**
+     * append follower to followers
+     * @param newFollow to be added
+     */
     public void addFollower(User newFollow){
         this.followers.add(newFollow);
     }
@@ -224,14 +228,26 @@ public abstract class User {
      */
     public void removePost(Post post) {this.myPosts.remove((post));}
 
+    /**
+     * access number of followers
+     * @return size of followers
+     */
     public int getNumFollowers() {
         return this.followers.size();
     }
 
+    /**
+     * access number of following
+     * @return size of following
+     */
     public int getNumFollowing() {
         return this.following.size();
     }
 
+    /**
+     * access song
+     * @return song
+     */
     public Song getFeaturedSong() {
         if (featuredSong == null) {
             System.out.println("User has no featured song");
@@ -241,6 +257,10 @@ public abstract class User {
         return featuredSong;
     }
 
+    /**
+     * change song
+     * @param featuredSong to be set
+     */
     public void setFeaturedSong(Song featuredSong) {
         System.out.println("User has set featured song: " + featuredSong.getName());
         this.featuredSong = featuredSong;

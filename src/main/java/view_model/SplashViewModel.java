@@ -32,7 +32,7 @@ public class SplashViewModel extends ViewModel {
     /**
      * Add listener
      * Note: Observable Design Pattern
-     * @param listener
+     * @param listener object relying on data
      */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

@@ -72,9 +72,9 @@ public class EventCrafterController {
     }
 
     /**
-     * convert string to array list
+     * convert string to ArrayList
      * @param tags string from data
-     * @return array of tags
+     * @return ArrayList of tags
      */
     private ArrayList<String> stringToArrayList(String tags) {
         return new ArrayList<>(Arrays.asList(tags.split(";")));

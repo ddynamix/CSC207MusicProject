@@ -12,7 +12,7 @@ public class EventCrafterOutputData {
 
     /**
      * create instance of output data for event use case
-     * @param events
+     * @param events to be saved and displayed
      */
     public EventCrafterOutputData(ArrayList<Event> events) {
         this.events = events;

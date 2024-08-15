@@ -23,6 +23,9 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * view for profile screen
+ */
 public class ProfileView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "profile";
     private final ProfileViewModel profileViewModel;
@@ -51,6 +54,15 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private JScrollPane scrollPane;
 
 
+    /**
+     * create instance for view
+     * @param profileViewModel view model for profile screen
+     * @param screenSwitcherController controller and switcher
+     * @param playMusicController controller for play music use case
+     * @param addFavouriteSongController controller for add favourite song use case
+     * @param editPostController controller for edit post use case
+     * @param headerOriginal header panel
+     */
     public ProfileView(ProfileViewModel profileViewModel, ScreenSwitcherController screenSwitcherController,
                        PlayMusicController playMusicController, AddFavouriteSongController addFavouriteSongController,
                        EditPostController editPostController, Header headerOriginal) {
@@ -247,7 +259,6 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
                     JMenuItem deletePost = new JMenuItem("Delete Post");
                     deletePost.addActionListener(ev -> {
                         editPostController.deletePost(post);
-//                        profileViewModel.firePropertyChanged();
                         this.repaint();
                     });
                     popupMenu.add(deletePost);

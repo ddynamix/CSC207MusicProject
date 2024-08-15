@@ -12,7 +12,7 @@ public class AddPostOutputData {
 
     /**
      * create instance of outputdata
-     * @param postsToDisplay
+     * @param postsToDisplay ArrayList of posts to add to data
      */
     public AddPostOutputData(ArrayList<Post> postsToDisplay) {
         this.postsToDisplay = postsToDisplay;

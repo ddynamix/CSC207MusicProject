@@ -10,15 +10,28 @@ import use_case.play_music.PlayMusicInputData;
 
 import java.io.IOException;
 
+/**
+ * create controllers for play music use case
+ */
 public class PlayMusicController {
     PlayMusicInputBoundary playMusicInteractor;
     SpotifyServiceInterface spotifyService;
 
+    /**
+     * create an instance of controller for play music use case
+     * @param playMusicInteractor interactor for play music use case
+     * @param spotifyService music access
+     */
     public PlayMusicController(PlayMusicInputBoundary playMusicInteractor, SpotifyServiceInterface spotifyService) {
         this.playMusicInteractor = playMusicInteractor;
         this.spotifyService = spotifyService;
     }
 
+    /**
+     * start audio
+     * @param song to be players
+     * @throws NoPreviewAvailableException exception for preview error
+     */
     public void playMusic(Song song) throws NoPreviewAvailableException {
         String previewURL = spotifyService.getPreviewUrl(song.getName());
         if (previewURL == null || previewURL.isEmpty() || previewURL.equals("null")) {
@@ -37,6 +50,9 @@ public class PlayMusicController {
         }
     }
 
+    /**
+     * end audio
+     */
     public void stopMusic() {
         playMusicInteractor.stopMusic();
     }

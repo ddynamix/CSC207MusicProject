@@ -20,9 +20,18 @@ import java.util.HashMap;
  * TODO: Add spotify API Implementation.
  */
 
+/**
+ * Main runable program
+ * creates frame and instantiates lists of required objects
+ * starts application
+ */
 public class Main {
     static JFrame application;
 
+    /**
+     * runable
+     * @param args program parameters
+     */
     public static void main(String[] args) {
         // Create JFrame
         application = new JFrame("Music App");
@@ -98,6 +107,9 @@ public class Main {
         application.setVisible(true);
     }
 
+    /**
+     * ability to change to dark mode and back
+     */
     public static void themeUpdate() {
         SwingUtilities.invokeLater(() -> {
             Theme.ThemeManager.applyTheme(application.getContentPane());

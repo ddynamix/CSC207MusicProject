@@ -18,9 +18,9 @@ public class EditPostInteractor implements EditPostInputBoundary {
 
     /**
      * create instance of interactor for edit post use case
-     * @param editPostPresenter
-     * @param postDataAccessInterface
-     * @param usersPostsRelationalAccessInterface
+     * @param editPostPresenter presenter to pass information to view
+     * @param postDataAccessInterface data access for posts
+     * @param usersPostsRelationalAccessInterface data access for user : posts
      */
     public EditPostInteractor(EditPostOutputBoundary editPostPresenter, PostDataAccessInterface postDataAccessInterface, UsersPostsRelationalAccessInterface usersPostsRelationalAccessInterface) {
         this.editPostPresenter = editPostPresenter;

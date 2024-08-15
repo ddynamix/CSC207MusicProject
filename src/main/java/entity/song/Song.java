@@ -24,6 +24,7 @@ public class Song implements ISong {
      * @param releaseDate of song
      * @param tags apllied to song
      * @param URL of song through API
+     * @param id
      * @param Id of the song
      */
     public Song(String name, String artist, String album, LocalDate releaseDate, ArrayList<String> tags, String URL, int id) {
@@ -90,6 +91,10 @@ public class Song implements ISong {
         return URL;
     }
 
+    /**
+     * access id
+     * @return int id
+     */
     public int getId() {
         return id;
     }

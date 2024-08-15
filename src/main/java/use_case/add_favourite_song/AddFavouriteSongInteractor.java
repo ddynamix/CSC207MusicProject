@@ -9,11 +9,20 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Create interactors for add favourite song use case
+ */
 public class AddFavouriteSongInteractor implements AddFavouriteSongInputBoundary {
     private SongDataAccessInterface songDataAccessInterface;
     private RelationalSongDataAccessInterface relationalSongDataAccessInterface;
     private AddFavouriteSongOutputBoundary addFavouriteSongPresenter;
 
+    /**
+     * create instance of interactor for add favourite song use case
+     * @param addFavouriteSongPresenter presenter to pass information to view
+     * @param songDataAccessInterface data access for songs
+     * @param relationalSongDataAccessInterface data access for user : songs
+     */
     public AddFavouriteSongInteractor(AddFavouriteSongOutputBoundary addFavouriteSongPresenter, SongDataAccessInterface songDataAccessInterface, RelationalSongDataAccessInterface relationalSongDataAccessInterface) {
         this.songDataAccessInterface = songDataAccessInterface;
         this.relationalSongDataAccessInterface = relationalSongDataAccessInterface;

@@ -7,12 +7,18 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ * interactor for play music use case
+ */
 public class PlayMusicInteractor implements PlayMusicInputBoundary {
     private Player player;
     private Thread playerThread;
 
     private boolean isPlaying = false;
 
+    /**
+     * create empty instance
+     */
     public PlayMusicInteractor() {
     }
 

@@ -51,7 +51,7 @@ public class HomescreenView extends JPanel implements ActionListener, PropertyCh
      * @param screenSwitcherController controller for switcher
      * @param signOutController        controller for sign out use case
      * @param editPostController       controller for edit post use case
-     * @param postDataAccessObject
+     * @param postDataAccessObject      data access for posts
      * @param headerOriginal           header
      */
     public HomescreenView(HomescreenViewModel homescreenViewModel, ScreenSwitcherController screenSwitcherController,

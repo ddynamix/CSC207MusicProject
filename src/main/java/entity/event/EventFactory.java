@@ -6,6 +6,9 @@ import entity.user.VenueUser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * create events
+ */
 public class EventFactory {
     public Event createEvent(String title, ArtistUser artist, VenueUser venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, String attachedMedia) {
         LocalDateTime postDate = LocalDateTime.now();

@@ -12,7 +12,7 @@ public class AddPostController {
 
     /**
      * create controller for add post controller
-     * @param addPostInteractor
+     * @param addPostInteractor interactor information
      */
     public AddPostController(AddPostInputBoundary addPostInteractor) {
         this.addPostInteractor = addPostInteractor;

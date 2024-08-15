@@ -13,8 +13,8 @@ public class AddPostInteractor implements AddPostInputBoundary {
 
     /**
      * create instance of interactor for add post use case
-     * @param addPostPresenter
-     * @param usersPostsRelationalAccessInterface
+     * @param addPostPresenter presenter to update view
+     * @param usersPostsRelationalAccessInterface data access interface
      */
     public AddPostInteractor(AddPostOutputBoundary addPostPresenter, UsersPostsRelationalAccessInterface usersPostsRelationalAccessInterface) {
         this.usersPostsRelationalAccessInterface = usersPostsRelationalAccessInterface;

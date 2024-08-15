@@ -20,8 +20,14 @@ import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
 
+/**
+ * create user DAO
+ */
 public class UserDataAccessObject implements UserDataAccessInterface {
 
+    /**
+     * exception for search without result
+     */
     //TODO: implement the following exceptions
     public static class UserNotFoundException extends Exception {
         public UserNotFoundException() {
@@ -29,12 +35,18 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         }
     }
 
+    /**
+     * exception for two users of equal username
+     */
     public static class DuplicateUsernameException extends Exception {
         public DuplicateUsernameException() {
             super("Username already exists in the database");
         }
     }
 
+    /**
+     * exception for password entries not matching
+     */
     public static class PasswordMismatchException extends Exception {
         public PasswordMismatchException() {
             super("Passwords do not match");
@@ -48,6 +60,9 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     private MongoCollection mongoCollection;
     private User user;
 
+    /**
+     * user DAO
+     */
     public UserDataAccessObject() {
         String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 
@@ -64,6 +79,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         this.mongoDatabase = mongoClient.getDatabase("userDataBase");
     }
 
+    /**
+     * access objects by type
+     * @param user of type to be accessed
+     * @return mongo collection of desired user type
+     */
     public MongoCollection getCollectionByType(User user) {
         if (user instanceof ArtistUser) {
             return mongoDatabase.getCollection("artistUser");
@@ -81,6 +101,12 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         return mongoCollection.find(filter).iterator().hasNext();
     }
 
+    /**
+     * change username
+     * @param user of name to be changed
+     * @param newUsername to be set
+     * @throws UserNotFoundException non existent
+     */
     public void updateUsername(User user, String newUsername) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
@@ -96,6 +122,14 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         }
     }
 
+    /**
+     * change password
+     * @param user of password to be changed
+     * @param newPassword to be set
+     * @param confirmPassword to be confirmed
+     * @throws PasswordMismatchException non equivalent
+     * @throws UserNotFoundException non existent
+     */
     public void updatePassword(User user, String newPassword, String confirmPassword) throws PasswordMismatchException, UserNotFoundException {
         Document query = new Document("password", newPassword);
         try {
@@ -114,6 +148,12 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     }
 
 
+    /**
+     * change email
+     * @param user of email to be changed
+     * @param newEmail to be set
+     * @throws UserNotFoundException non existent
+     */
     public void updateEmail(User user, String newEmail) throws UserNotFoundException {
         try (MongoClient mongoClient = MongoClients.create(System.getProperty("mongodb.uri"))) {
             MongoDatabase mongoDatabase = mongoClient.getDatabase("userDataBase");
@@ -144,6 +184,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
         }
     }
 
+    /**
+     * remove user
+     * @param user to be removed
+     * @throws UserNotFoundException non existent
+     */
     public void delete(User user) throws UserNotFoundException {
         if (userExistsInDatabase(user.getUsername())) {
             Bson filter = Filters.eq("username", user.getUsername());

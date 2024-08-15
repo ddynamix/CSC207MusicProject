@@ -33,6 +33,7 @@ public class ScreenSwitcherControllerFactory {
      * @param myFollowersViewModel model for followers view
      * @param isFollowingViewModel model for following view
      * @param myPostMakerViewModel model for post use case
+     * @param profileViewModel model for profile view
      * @param userDataAccessObject DAO to access users
      * @param eventDataAccessObject DAO to access events
      * @param postDataAccessObject DAO to access posts

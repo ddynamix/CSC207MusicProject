@@ -19,6 +19,13 @@ public class UserSignupPresenter implements SignupOutputBoundary {
     private final SplashViewModel splashViewModel;
     private final ViewManagerModel viewManagerModel;
 
+    /**
+     * create instance of presenter for user sign up use case
+     * @param viewManagerModel manager for changing models
+     * @param signupViewModel view model for sign up use case
+     * @param splashViewModel view model for splash view
+     * @param loginViewModel view model for login use case
+     */
     public UserSignupPresenter(ViewManagerModel viewManagerModel,
                                UserSignupViewModel signupViewModel,
                                SplashViewModel splashViewModel,

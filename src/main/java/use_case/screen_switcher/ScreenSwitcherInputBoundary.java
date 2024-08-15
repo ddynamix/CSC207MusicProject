@@ -1,5 +1,8 @@
 package use_case.screen_switcher;
 
+/**
+ * interface for switcher input
+ */
 public interface ScreenSwitcherInputBoundary {
     void switchToLogin();
     void switchToSplash();

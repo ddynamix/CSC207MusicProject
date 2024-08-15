@@ -2,29 +2,35 @@ package view_model;
 
 import entity.user.User;
 
+/**
+ * create states for profile view
+ */
 public class ProfileState {
     private User viewing;
     private boolean isLoggedIn;
 
+    /**
+     * create instance of state
+     */
     public ProfileState() {
         this.viewing = null;
         this.isLoggedIn = false;
     }
 
+    /**
+     * access current login
+     * @return viewing
+     */
     public User getViewing() {
         return viewing;
     }
 
+    /**
+     * change login
+     * @param viewing to be set
+     */
     public void setViewing(User viewing) {
         this.viewing = viewing;
-    }
-
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        isLoggedIn = loggedIn;
     }
 
     /**

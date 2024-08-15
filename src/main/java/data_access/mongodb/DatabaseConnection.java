@@ -14,6 +14,10 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Connect application to the correct database
+ * Could be MongoDB or CSV
+ */
 public class DatabaseConnection {
     public static void main(String[] args) {
         String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";

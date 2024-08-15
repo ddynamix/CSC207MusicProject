@@ -11,8 +11,8 @@ public class SearchUsersInputData {
 
     /**
      * create instance of input data for user search use case
-     * @param keywordToSearch
-     * @param userClassToSearch
+     * @param keywordToSearch string to be searched
+     * @param userClassToSearch user object to search
      */
     public SearchUsersInputData(String keywordToSearch, Class<? extends User> userClassToSearch) {
         this.keywordToSearch = keywordToSearch;

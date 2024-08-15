@@ -12,7 +12,7 @@ public class EditEventController {
 
     /**
      * create instance of controller for edit event use case
-     * @param editEventInteractor
+     * @param editEventInteractor interactor to pass information to controller
      */
     public EditEventController(EditEventInputBoundary editEventInteractor) {
         this.editEventInteractor = editEventInteractor;

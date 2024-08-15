@@ -88,16 +88,32 @@ public class Post implements IPost{
     }
 
 
+    /**
+     * change title
+     * @param title to be set
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * change text
+     * @param text to be set
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * change media
+     * @param media to be set
+     */
     public void setAttachedMedia(String media) {this.attachedMedia = media;}
 
+    /**
+     * access date and time
+     * @return data
+     */
     public String getDateAndTimeString() {
         return timePosted.format(formatter);
     }

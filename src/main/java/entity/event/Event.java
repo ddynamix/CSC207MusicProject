@@ -31,11 +31,12 @@ public class Event implements IEvent {
      * @param venue         String              venue
      * @param dateAndTime   LocalDateTime       event time
      * @param description   String              description of event
-     * @param tags          ArrayList<String>   tags
+     * @param tags          ArrayList<>         tags
      * @param postDate      LocalDateTime       date event posted
      * @param attachedMedia String              media of event
      */
-    public Event(String title, ArtistUser artist, VenueUser venue, LocalDateTime dateAndTime, String description, ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
+    public Event(String title, ArtistUser artist, VenueUser venue, LocalDateTime dateAndTime, String description,
+                 ArrayList<String> tags, LocalDateTime postDate, String attachedMedia) {
         this.title = title;
         this.artist = artist;
         this.venue = venue;
@@ -89,7 +90,7 @@ public class Event implements IEvent {
 
     /**
      * Return tags
-     * @return ArrayList<String> tags
+     * @return ArrayList<> tags of String
      */
     public ArrayList<String> getTags() {
         return tags;
@@ -148,7 +149,7 @@ public class Event implements IEvent {
 
     /**
      * Update tags
-     * @param tags Arraylist<String>
+     * @param tags Arraylist<> of String
      */
     public void setTags(ArrayList<String> tags) { this.tags = tags; }
 

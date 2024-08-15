@@ -12,7 +12,7 @@ public class SearchUsersController {
 
     /**
      * create instance of controller for user search use case
-     * @param searchUsersInteractor
+     * @param searchUsersInteractor interactor to pass information to controller
      */
     public SearchUsersController(SearchUsersInputBoundary searchUsersInteractor) {
         this.searchUsersInteractor = searchUsersInteractor;

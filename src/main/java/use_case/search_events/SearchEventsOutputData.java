@@ -12,7 +12,7 @@ public class SearchEventsOutputData {
 
     /**
      * create instance of output data for event search use case
-     * @param allEvents
+     * @param allEvents list of all events in databas3
      */
     public SearchEventsOutputData(ArrayList<Event> allEvents) {
         this.allEvents = allEvents;

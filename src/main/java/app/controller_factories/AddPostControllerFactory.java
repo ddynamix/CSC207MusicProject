@@ -9,10 +9,19 @@ import use_case.add_post.interface_adapter.AddPostController;
 import use_case.add_post.interface_adapter.AddPostPresenter;
 import view_model.HomescreenViewModel;
 
+/**
+ * Create controllers for add post use case
+ */
 public class AddPostControllerFactory {
 
     private AddPostControllerFactory() {}
 
+    /**
+     * create an instance of controller for add post use case
+     * @param homescreenViewModel
+     * @param usersPostsRelationalAccessObject
+     * @return
+     */
     public static AddPostController createAddPostsController(HomescreenViewModel homescreenViewModel,
                                                              UsersPostsRelationalAccessInterface usersPostsRelationalAccessObject) {
         AddPostOutputBoundary addPostPresenter = new AddPostPresenter(homescreenViewModel);

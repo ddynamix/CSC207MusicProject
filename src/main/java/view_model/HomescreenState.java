@@ -27,6 +27,10 @@ public class HomescreenState {
      */
     public void setPosts(ArrayList<Post> posts) {this.posts = posts;}
 
+    /**
+     * return posts
+     * @return arraylist of posts
+     */
     public ArrayList<Post> getPosts() {
         return posts;
     }

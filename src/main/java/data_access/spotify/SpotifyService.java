@@ -17,6 +17,9 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequ
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * spotify access
+ */
 public class SpotifyService implements SpotifyServiceInterface {
     private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(System.getenv("SPOTIFY_CLIENT_ID"))
@@ -25,6 +28,9 @@ public class SpotifyService implements SpotifyServiceInterface {
 
     private final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
 
+    /**
+     * create instance of spotify access
+     */
     public SpotifyService() {
         var env = System.getenv();
         System.out.println("Client ID: " + System.getenv("SPOTIFY_CLIENT_ID"));

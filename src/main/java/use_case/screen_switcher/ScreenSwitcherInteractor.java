@@ -12,12 +12,22 @@ import entity.user.VenueUser;
 
 import java.util.ArrayList;
 
+/**
+ * interactor for switcher use case
+ */
 public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     private final ScreenSwitcherOutputBoundary screenSwitchPresenter;
     private final UserDataAccessInterface userDataAccess;
     private final EventDataAccessInterface eventDataAccess;
     private final PostDataAccessInterface postDataAccess;
 
+    /**
+     * create instance of interactor for switcher use case
+     * @param screenSwitchPresenter presenter for switcher use case
+     * @param userDataAccessObject user DAO
+     * @param eventDataAccessObject event DAO
+     * @param postDataAccessObject post DAO
+     */
     public ScreenSwitcherInteractor(ScreenSwitcherOutputBoundary screenSwitchPresenter,
                                     UserDataAccessInterface userDataAccessObject,
                                     EventDataAccessInterface eventDataAccessObject,

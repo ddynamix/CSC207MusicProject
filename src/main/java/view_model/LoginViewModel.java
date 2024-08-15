@@ -5,6 +5,9 @@ import app.interface_adapter_tools.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * view model for login use case
+ */
 public class LoginViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Log In View";

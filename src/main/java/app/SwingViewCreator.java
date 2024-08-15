@@ -29,6 +29,9 @@ import view.jswing_views.*;
 import javax.swing.*;
 import java.util.HashMap;
 
+/**
+ * create instance of all views
+ */
 public class SwingViewCreator implements ViewCreatorInterface {
     /**
      * empty contructor to prevent instantiation

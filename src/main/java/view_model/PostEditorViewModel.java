@@ -5,6 +5,9 @@ import app.interface_adapter_tools.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * create view models for post editor use case
+ */
 public class PostEditorViewModel extends ViewModel {
     public final String TITLE_LABEL = "Edit your post:";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
@@ -15,6 +18,9 @@ public class PostEditorViewModel extends ViewModel {
 
     private PostEditorState state = new PostEditorState();
 
+    /**
+     * create instance of view model for post ediotr use case
+     */
     public PostEditorViewModel() {
         super("post editor");
     }
@@ -31,10 +37,18 @@ public class PostEditorViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    /**
+     * access state
+     * @return state
+     */
     public PostEditorState getState() {
         return state;
     }
 
+    /**
+     * change state
+     * @param state to be set
+     */
     public void setState(PostEditorState state) {
         this.state = state;
     }

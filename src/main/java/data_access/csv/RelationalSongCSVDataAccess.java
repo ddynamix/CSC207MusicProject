@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * data access for user -> posts
+ */
 public class RelationalSongCSVDataAccess implements RelationalSongDataAccessInterface {
     private final File csvFile;
     private final UserDataAccessInterface userDataAccess;
@@ -20,6 +23,12 @@ public class RelationalSongCSVDataAccess implements RelationalSongDataAccessInte
     //  The keys are the user and the values are the song that they favourite.
     private final HashMap<User, Song> relationships = new HashMap<>();
 
+    /**
+     * create instance of data access
+     * @param csvPath local file path
+     * @param userDataAccess user DAO
+     * @param songDataAccess song DAO
+     */
     public RelationalSongCSVDataAccess(String csvPath, UserDataAccessInterface userDataAccess, SongDataAccessInterface songDataAccess) {
         csvFile = new File(csvPath);
         this.userDataAccess = userDataAccess;

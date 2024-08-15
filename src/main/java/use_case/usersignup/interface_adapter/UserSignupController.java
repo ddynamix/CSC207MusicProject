@@ -13,7 +13,7 @@ public class UserSignupController {
 
     /**
      * create instance of controller for user sign up use case
-     * @param userSignupUseCaseInteractor
+     * @param userSignupUseCaseInteractor interactor to pass information to controller
      */
     public UserSignupController(UserSignupInputBoundary userSignupUseCaseInteractor) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;

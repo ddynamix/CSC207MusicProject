@@ -91,6 +91,9 @@ public class ScreenSwitcherController {
      */
     public void switchToPost() { screenSwitcherInteractor.switchToPost();}
 
+    /**
+     * interactor change to profile
+     */
     public void switchToMyProfile() {
         screenSwitcherInteractor.switchToMyProfile();
     }

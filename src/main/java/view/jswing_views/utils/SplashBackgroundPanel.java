@@ -3,9 +3,16 @@ package view.jswing_views.utils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * create image panel
+ */
 public class SplashBackgroundPanel extends JPanel {
     private Image backgroundImage;
 
+    /**
+     * create instance of background panel
+     * @param backgroundImage image to display
+     */
     public SplashBackgroundPanel(Image backgroundImage) {
         this.backgroundImage = backgroundImage;
     }

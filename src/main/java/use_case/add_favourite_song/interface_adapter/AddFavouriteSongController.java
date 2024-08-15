@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Create controllers for add favourite song use case
+ */
 public class AddFavouriteSongController {
     private final AddFavouriteSongInputBoundary addFavouriteSongInteractor;
     private final SpotifyServiceInterface spotifyService;
@@ -18,12 +21,23 @@ public class AddFavouriteSongController {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * create an instance of controller for the add favourite song use case3
+     * @param addFavouriteSongInteractor interactor to pass information to controller
+     * @param spotifyService data access to Spotify APi
+     * @param songDataAccess data access for song
+     */
     public AddFavouriteSongController(AddFavouriteSongInputBoundary addFavouriteSongInteractor, SpotifyServiceInterface spotifyService, SongDataAccessInterface songDataAccess) {
         this.addFavouriteSongInteractor = addFavouriteSongInteractor;
         this.spotifyService = spotifyService;
         this.songDataAccess = songDataAccess;
     }
 
+    /**
+     * set attributes for favourite song
+     * @param songName string name
+     * @param user User type of the favourite song
+     */
     public void addFavouriteSong(String songName, User user) {
         String name = spotifyService.getSongName(songName);
         String artist = spotifyService.getSongArtist(songName);

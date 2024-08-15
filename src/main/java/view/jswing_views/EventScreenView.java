@@ -17,6 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
+/**
+ * view for event screen
+ */
 public class EventScreenView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "event screen";
     private final EventScreenViewModel eventScreenViewModel;
@@ -32,6 +35,14 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
     private JButton createEventButton;
     private JButton backButton;
 
+    /**
+     * create event screen view
+     * @param eventScreenViewModel view model for event screen view
+     * @param screenSwitcherController controller for switcher
+     * @param addEventController controller for add event use case
+     * @param editEventController controller for edit event use case
+     * @param headerOriginal header panel
+     */
     public EventScreenView(EventScreenViewModel eventScreenViewModel, ScreenSwitcherController screenSwitcherController, AddEventController addEventController, EditEventController editEventController, Header headerOriginal) {
         this.eventScreenViewModel = eventScreenViewModel;
         this.eventScreenViewModel.addPropertyChangeListener(this);

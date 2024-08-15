@@ -1,5 +1,8 @@
 package data_access.spotify;
 
+/**
+ * interface for spotify access
+ */
 public interface SpotifyServiceInterface {
     String getSongName(String songName);
     String getSongArtist(String songName);

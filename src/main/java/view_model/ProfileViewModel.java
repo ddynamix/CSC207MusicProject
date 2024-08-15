@@ -7,7 +7,9 @@ import java.beans.PropertyChangeSupport;
 import view_model.ProfileState;
 
 
-
+/**
+ * create viewmodels for profile screen
+ */
 public class ProfileViewModel extends ViewModel{
     public final String TITLE_LABEL = "Profile of: ";
     public final String USERNAME_LABEL = "Username: ";
@@ -23,8 +25,15 @@ public class ProfileViewModel extends ViewModel{
 
     private ProfileState state = new ProfileState();
 
+    /**
+     * create instance of view model
+     */
     public ProfileViewModel() { super("profile");}
 
+    /**
+     * change state
+     * @param state to be set
+     */
     public void setState(ProfileState state) {
         this.state = state;
     }
@@ -41,6 +50,10 @@ public class ProfileViewModel extends ViewModel{
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * access state
+     * @return state
+     */
     public ProfileState getState() {
         return state;
     }

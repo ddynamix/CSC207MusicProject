@@ -13,12 +13,20 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * User local CSV DAO
+ */
 public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, User> accounts = new HashMap<>();
 
+    /**
+     * create instance of user DAO
+     * @param csvPath file path of data
+     * @throws IOException input output exception for types and parameters
+     */
     public UserLocalCSVDataStorage(String csvPath) throws IOException {
 
         csvFile = new File(csvPath);
@@ -61,6 +69,9 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
         }
     }
 
+    /**
+     * create new CSV file
+     */
     public void createFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(csvFile))) {
             writer.println(headersToString(headers));

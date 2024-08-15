@@ -12,7 +12,7 @@ public class EditPostController {
 
     /**
      * create instance of controller for edit post use case
-     * @param editPostInteractor
+     * @param editPostInteractor interactor to pass information to controller
      */
     public EditPostController(EditPostInputBoundary editPostInteractor) {
         this.editPostInteractor = editPostInteractor;

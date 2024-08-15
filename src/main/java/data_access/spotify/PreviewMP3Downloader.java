@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * mp3 song access
+ */
 public class PreviewMP3Downloader {
     public static void downloadMP3(String url, String outputFilePath) throws IOException {
         if (url == null || url.isEmpty()) {

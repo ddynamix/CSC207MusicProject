@@ -37,6 +37,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
      * @param myFollowersViewModel  model for follower use case
      * @param isFollowingViewModel  model for following use case
      * @param postMakerViewModel    model for post use case
+     * @param profileViewModel      modelf for profile screen
      */
     public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                    SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,

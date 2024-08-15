@@ -15,6 +15,9 @@ import java.beans.PropertyChangeListener;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * view for event editor use case
+ */
 public class EventEditorView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "event editor";
     private final EventEditorViewModel eventEditorViewModel;
@@ -32,6 +35,12 @@ public class EventEditorView extends JPanel implements ActionListener, PropertyC
     final JTextField eventTagsInputField = new JTextField(15);
     final JTextField eventAttachedMediaField = new JTextField(15);
 
+    /**
+     * create instance of view for event editor use case
+     * @param eventEditorViewModel view model for event editor use case
+     * @param editEventController controller for event editor use case
+     * @param screenSwitcherController controller for switcher
+     */
     public EventEditorView(EventEditorViewModel eventEditorViewModel, EditEventController editEventController, ScreenSwitcherController screenSwitcherController) {
         this.eventEditorViewModel = eventEditorViewModel;
         this.eventEditorViewModel.addPropertyChangeListener(this);
