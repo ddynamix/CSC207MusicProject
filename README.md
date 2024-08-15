@@ -45,6 +45,8 @@ Link to Repo: https://github.com/ddynamix/CSC207MusicProject/tree/main
   - Edit Post
 - Create Event (_if of ArtistUser or VenueUser types_)
   - Edit Event
+- Add favourite song
+- Search for songs
 - Search for other users/peers
   - Follow/Unfollow another user
 - Search for events
@@ -54,7 +56,7 @@ Link to Repo: https://github.com/ddynamix/CSC207MusicProject/tree/main
 
 ### Views
 
-SplashView -- LoginView -- SignupView <br>
+SplashView -- LoginView -- SignupView -- ProfileView<br>
 HomescreenView -- EventScreenView <br>
 PostMakerView -- EditPostView<br>
 EventCrafterView -- EditEventView<br>
@@ -133,7 +135,7 @@ Src/Main/Java/
 - <b>view</b>
   - jswing_views
     - utils
-      - _<u>CellRenders + JPanels for lists + DialogHelper</u>_
+      - _<u>CellRenderers + JPanels for lists + DialogHelper</u>_
     - _<u>view files as listed above under views</u>_
 - view_model
   - <u> State and ViewModel files for all views</u>
