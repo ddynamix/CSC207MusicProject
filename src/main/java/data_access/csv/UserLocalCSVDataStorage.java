@@ -2,6 +2,7 @@ package data_access.csv;
 
 import data_access.UserAlreadyExistsException;
 import data_access.UserDataAccessInterface;
+import data_access.mongodb.UserDataAccessObject;
 import entity.user.ArtistUser;
 import entity.user.AudienceUser;
 import entity.user.User;
@@ -125,6 +126,18 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     @Override
     public boolean passwordMatches(String username, String password) {
         return accounts.get(username).getPassword().equals(password);
+    }
+
+    @Override
+    public void updateUser(User userToAlter, String email, String username, String name) {
+        userToAlter.setName(name);
+        userToAlter.setUsername(username);
+        userToAlter.setEmail(email);
+    }
+
+    @Override
+    public void delete(User original) throws UserDataAccessObject.UserNotFoundException {
+
     }
 
     @Override

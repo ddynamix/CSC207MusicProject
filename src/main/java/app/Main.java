@@ -83,6 +83,7 @@ public class Main {
         viewModels.put("postMakerViewModel", new PostMakerViewModel());
         viewModels.put("postEditorViewModel", new PostEditorViewModel());
         viewModels.put("profileViewModel", new ProfileViewModel());
+        viewModels.put("editProfileViewModel", new ProfileEditViewModel());
 
         // Implement all use cases.
         HashMap<String, Object> controllers = ControllerCreator.createControllers(viewManagerModel, viewModels, dataAccessObjects);

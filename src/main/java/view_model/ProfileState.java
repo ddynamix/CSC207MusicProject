@@ -6,6 +6,7 @@ import entity.user.User;
  * create states for profile view
  */
 public class ProfileState {
+    public User signedInAs;
     private User viewing;
     private boolean isLoggedIn;
 
@@ -15,6 +16,7 @@ public class ProfileState {
     public ProfileState() {
         this.viewing = null;
         this.isLoggedIn = false;
+        this.signedInAs = null;
     }
 
     /**
@@ -38,6 +40,6 @@ public class ProfileState {
      * @return signinas
      */
     public User getSignedInAs() {
-        return viewing;
+        return signedInAs;
     }
 }

@@ -34,6 +34,8 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
     private JList<UserListJPanel> userList;
     private DefaultListModel<UserListJPanel> listModel;
 
+    private JMenuItem viewProfile = new JMenuItem("View Profile");
+
     private final JButton backButton;
 
     JComboBox<String> searchTypeDropdown;
@@ -156,6 +158,8 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
             JButton button = (JButton) e.getSource();
             if (button.equals(backButton)) {
                 screenSwitcherController.switchToHome();
+            } else if (button.equals(viewProfile)){
+                screenSwitcherController.switchToViewProfile(userList.getSelectedValue().getUser());
             }
         }
     }
@@ -185,7 +189,6 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 
-        JMenuItem viewProfile = new JMenuItem("View Profile");
         viewProfile.addActionListener(e -> {
             UserListJPanel userPanel = userList.getSelectedValue();
             if (userPanel != null) {

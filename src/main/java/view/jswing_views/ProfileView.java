@@ -10,7 +10,6 @@ import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.CustomListCellRenderer;
-import view.jswing_views.utils.PostListCellRenderer;
 import view.jswing_views.utils.PostListJPanel;
 import view_model.ProfileState;
 import view_model.ProfileViewModel;
@@ -49,6 +48,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private JButton playMusic;
     private JButton stopMusic;
     private JButton addSong;
+    private JButton userSearch;
     private DefaultListModel<PostListJPanel> postListModel;
     private JList<PostListJPanel> postList;
     private JScrollPane scrollPane;
@@ -77,6 +77,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         this.postListModel = new DefaultListModel<>();
     }
 
+    /**
+     * combine all UI components in the view
+     */
     private void paintView() {
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -115,10 +118,13 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
         popupMenu = this.createPopupMenu();
 
-
         scrollPane = createScrollPane();
     }
 
+    /**
+     * Create the content for user profile JPanel
+     * @return JPanel of content
+     */
     private JPanel createContent() {
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
@@ -148,17 +154,42 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             stopMusic.addActionListener(this);
             content.add(song);
         }
+        if (signedInAs.equals(usersProfile)){
+            JPanel myAccountPanel = new JPanel();
+
+            myAccountPanel.add(home = new JButton("Home"));
+            home.addActionListener(this);
+            myAccountPanel.add(Box.createVerticalStrut(10)); // Add vertical space
+
+            myAccountPanel.add(update = new JButton("Update Profile"));
+            update.addActionListener(this);
+            content.add(myAccountPanel);
+        } else {
+            JPanel visitingAccount = new JPanel();
+            visitingAccount.add(Box.createVerticalStrut(10)); // Add vertical space
+            visitingAccount.add(userSearch = new JButton("User Search"));
+            userSearch.addActionListener(this);
+            content.add(visitingAccount);
+        }
+
         return content;
     }
 
+    /**
+     * @param evt the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == update) {
-            // edit profile
+            System.out.println("Update button pressed");
+            screenSwitcherController.switchToProfileEdit();
         } else if (evt.getSource() == follow) {
-            // follow user
+            signedInAs.addFollower(usersProfile);
         } else if (evt.getSource() == home) {
+            System.out.println("Return to home");
             screenSwitcherController.switchToHome();
+        } else if (evt.getSource() == userSearch){
+            screenSwitcherController.switchToSearchUsers();
         } else if (evt.getSource() == playMusic) {
             try {
                 playMusicController.playMusic(favouriteSong);
@@ -173,6 +204,10 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         }
     }
 
+    /**
+     * @param evt A PropertyChangeEvent object describing the event source
+     *            and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
@@ -205,6 +240,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         }
     }
 
+    /**
+     * Create JOptionPane for Song Selection
+     */
     private void showAddSongDialog() {
         String songName = JOptionPane.showInputDialog(this, "Enter song name:", "Add Song", JOptionPane.PLAIN_MESSAGE);
         if (songName != null && !songName.trim().isEmpty()) {
@@ -212,6 +250,10 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         }
     }
 
+    /**
+     * Create JScrollPane for user posts
+     * @return JScrollPane of Posts
+     */
     private JScrollPane createScrollPane() {
         GridBagConstraints c = new GridBagConstraints();
         JScrollPane scrollPane = new JScrollPane(postList);

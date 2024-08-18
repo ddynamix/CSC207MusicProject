@@ -227,4 +227,11 @@ public class UserDataAccessObject implements UserDataAccessInterface {
     public boolean passwordMatches(String username, String password) {
        return false;
     }
+
+    @Override
+    public void updateUser(User userToAlter, String email, String username, String name) {
+        userToAlter.setEmail(email);
+        userToAlter.setUsername(username);
+        userToAlter.setName(name);
+    }
 }

@@ -57,6 +57,7 @@ public class ControllerCreator {
                 (IsFollowingViewModel) viewModels.get("isFollowingViewModel"),
                 (PostMakerViewModel) viewModels.get("postMakerViewModel"),
                 (ProfileViewModel) viewModels.get("profileViewModel"),
+                (ProfileEditViewModel) viewModels.get("editProfileViewModel"),
                 (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject"),
                 (EventDataAccessInterface) dataAccessObjects.get("eventDataAccessObject"),
                 (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject")));
@@ -98,6 +99,10 @@ public class ControllerCreator {
                 (PostEditorViewModel) viewModels.get("postEditorViewModel"),
                 (PostDataAccessInterface) dataAccessObjects.get("postDataAccessObject"),
                 (UsersPostsRelationalAccessInterface) dataAccessObjects.get("usersPostsRelationalAccessObject")));
+
+        controllers.put("editProfileController", EditProfileControllerFactory.createEditProfileController(viewManagerModel,
+                (ProfileEditViewModel) viewModels.get("profileEditorViewModel"),
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         controllers.put("playMusicController", PlayMusicControllerFactory.createPlayMusicController());
 

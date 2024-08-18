@@ -22,8 +22,9 @@ public interface UserDataAccessInterface {
 
     boolean passwordMatches(String username, String password);
 
-    // This is also where we declare any Exceptions that wil be thrown
-    // e.g. User not found in the database.
+    void updateUser(User userToAlter, String email, String username, String name);
+
+    void delete(User original) throws UserDataAccessObject.UserNotFoundException;
 
     //void Throwable(UserDataAccessObject.UserNotFoundException userNotFoundException);
 }

@@ -29,6 +29,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
 
     private JList<UserListJPanel> userList;
     private DefaultListModel<UserListJPanel> listModel;
+    private JMenuItem viewProfile = new JMenuItem("View Profile");
 
     /**
      * create view for following
@@ -108,6 +109,8 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(homeButton)) {
             screenSwitcherController.switchToHome();
+        } else if (e.getSource().equals(viewProfile)){
+            screenSwitcherController.switchToViewProfile((userList.getSelectedValue().getUser()));
         }
     }
 
@@ -136,7 +139,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
     private JPopupMenu createPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
 
-        JMenuItem viewProfile = new JMenuItem("View Profile");
+
         viewProfile.addActionListener(e -> {
             UserListJPanel userPanel = userList.getSelectedValue();
             if (userPanel != null) {

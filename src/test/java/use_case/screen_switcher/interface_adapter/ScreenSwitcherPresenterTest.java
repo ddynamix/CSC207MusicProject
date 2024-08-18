@@ -33,6 +33,7 @@ public class ScreenSwitcherPresenterTest {
     private IsFollowingViewModel isFollowingViewModel;
     private PostMakerViewModel postMakerViewModel;
     private ProfileViewModel profileViewModel;
+    private ProfileEditViewModel editProfileViewModel;
 
     @BeforeEach
     public void setUp() {
@@ -45,14 +46,16 @@ public class ScreenSwitcherPresenterTest {
         isFollowingViewModel = mock(IsFollowingViewModel.class);
         postMakerViewModel = mock(PostMakerViewModel.class);
         profileViewModel = mock(ProfileViewModel.class);
+        editProfileViewModel = mock(ProfileEditViewModel.class);
 
         searchEventsViewModel = mock(SearchEventsViewModel.class);
         eventCrafterViewModel = mock(EventCrafterViewModel.class);
         searchUsersViewModel = mock(SearchUsersViewModel.class);
         myFollowersViewModel = mock(MyFollowersViewModel.class);
-        screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, signupViewModel,
-                homescreenViewModel, eventScreenViewModel, searchEventsViewModel, eventCrafterViewModel,
-                searchUsersViewModel, myFollowersViewModel, isFollowingViewModel, postMakerViewModel, profileViewModel);
+        screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel,
+                signupViewModel, homescreenViewModel, eventScreenViewModel, searchEventsViewModel,
+                eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel, isFollowingViewModel,
+                postMakerViewModel, profileViewModel, editProfileViewModel);
     }
 
     @Test

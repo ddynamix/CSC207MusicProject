@@ -4,7 +4,6 @@ import app.interface_adapter_tools.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import view_model.ProfileState;
 
 
 /**

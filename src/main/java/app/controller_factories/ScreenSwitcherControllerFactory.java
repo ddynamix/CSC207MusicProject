@@ -34,24 +34,32 @@ public class ScreenSwitcherControllerFactory {
      * @param isFollowingViewModel model for following view
      * @param myPostMakerViewModel model for post use case
      * @param profileViewModel model for profile view
+     * @param editProfileViewModel model for edit profile use case
      * @param userDataAccessObject DAO to access users
      * @param eventDataAccessObject DAO to access events
      * @param postDataAccessObject DAO to access posts
      * @return new instance of ScreenSwitcherController
      */
-    public static ScreenSwitcherController createScreenSwitcherController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
-                                                                          SplashViewModel splashViewModel, UserSignupViewModel userSignupViewModel,
-                                                                          HomescreenViewModel homescreenViewModel, EventScreenViewModel eventScreenViewModel,
-                                                                          SearchEventsViewModel searchEventsViewModel,
-                                                                          EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel,
-                                                                          MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel,
-                                                                          PostMakerViewModel myPostMakerViewModel, ProfileViewModel profileViewModel,
-                                                                          UserDataAccessInterface userDataAccessObject, EventDataAccessInterface eventDataAccessObject,
-                                                                          PostDataAccessInterface postDataAccessObject) {
-        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel, loginViewModel, splashViewModel, userSignupViewModel,
-                homescreenViewModel, eventScreenViewModel, searchEventsViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel,
-                isFollowingViewModel, myPostMakerViewModel, profileViewModel);
-        ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter, userDataAccessObject, eventDataAccessObject, postDataAccessObject);
+    public static ScreenSwitcherController createScreenSwitcherController(ViewManagerModel viewManagerModel,
+                                           LoginViewModel loginViewModel, SplashViewModel splashViewModel,
+                                           UserSignupViewModel userSignupViewModel, HomescreenViewModel homescreenViewModel,
+                                           EventScreenViewModel eventScreenViewModel, SearchEventsViewModel searchEventsViewModel,
+                                           EventCrafterViewModel eventCrafterViewModel, SearchUsersViewModel searchUsersViewModel,
+                                           MyFollowersViewModel myFollowersViewModel, IsFollowingViewModel isFollowingViewModel,
+                                           PostMakerViewModel myPostMakerViewModel, ProfileViewModel profileViewModel,
+                                           ProfileEditViewModel editProfileViewModel,
+
+                                           UserDataAccessInterface userDataAccessObject,
+                                           EventDataAccessInterface eventDataAccessObject,
+                                           PostDataAccessInterface postDataAccessObject) {
+
+        ScreenSwitcherOutputBoundary screenSwitcherPresenter = new ScreenSwitcherPresenter(viewManagerModel,
+                loginViewModel, splashViewModel, userSignupViewModel, homescreenViewModel, eventScreenViewModel,
+                searchEventsViewModel, eventCrafterViewModel, searchUsersViewModel, myFollowersViewModel,
+                isFollowingViewModel, myPostMakerViewModel, profileViewModel, editProfileViewModel);
+
+        ScreenSwitcherInputBoundary screenSwitcherInteractor = new ScreenSwitcherInteractor(screenSwitcherPresenter,
+                userDataAccessObject, eventDataAccessObject, postDataAccessObject);
 
         return new ScreenSwitcherController(screenSwitcherInteractor);
     }

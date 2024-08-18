@@ -6,14 +6,14 @@ import entity.user.User;
  * profile data for switcher
  */
 public class ScreenSwitcherProfileData {
-    User signedInUser;
+    User profileUser;
 
     /**
      * set profile data
-     * @param signedInUser current login
+     * @param profileUser current login
      */
-    public ScreenSwitcherProfileData(User signedInUser) {
-        this.signedInUser = signedInUser;
+    public ScreenSwitcherProfileData(User profileUser) {
+        this.profileUser = profileUser;
     }
 
     /**
@@ -21,6 +21,6 @@ public class ScreenSwitcherProfileData {
      * @return current login
      */
     public User getSignedInUser() {
-        return signedInUser;
+        return profileUser;
     }
 }

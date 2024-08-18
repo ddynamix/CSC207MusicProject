@@ -1,5 +1,6 @@
 package view.jswing_views;
 
+import app.interface_adapter_tools.Theme;
 import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
@@ -116,6 +117,7 @@ public class EventEditorView extends JPanel implements ActionListener, PropertyC
         c.anchor = GridBagConstraints.PAGE_END;
         c.insets = new Insets(5, 5, 5, 5);
         this.add(buttons, c);
+        Theme.ThemeManager.applyTheme(this);
     }
 
     @Override

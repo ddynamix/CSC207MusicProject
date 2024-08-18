@@ -1,5 +1,6 @@
 package use_case.screen_switcher.interface_adapter;
 
+import entity.user.User;
 import use_case.screen_switcher.ScreenSwitcherInputBoundary;
 
 /**
@@ -92,9 +93,21 @@ public class ScreenSwitcherController {
     public void switchToPost() { screenSwitcherInteractor.switchToPost();}
 
     /**
-     * interactor change to profile
+     * interactor change to personal profile
      */
     public void switchToMyProfile() {
         screenSwitcherInteractor.switchToMyProfile();
+    }
+
+    /**
+     * interactor change to profile editor
+     */
+    public void switchToProfileEdit() {screenSwitcherInteractor.switchToProfileEdit();}
+
+    /**
+     * interactor change to view other user's profile
+     * @param user to view the profile of
+     */
+    public void switchToViewProfile(User user) {screenSwitcherInteractor.switchToViewProfile(user);
     }
 }

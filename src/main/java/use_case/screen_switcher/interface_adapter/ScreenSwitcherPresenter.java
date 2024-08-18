@@ -1,6 +1,7 @@
 package use_case.screen_switcher.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
+import entity.user.User;
 import use_case.screen_switcher.*;
 import view_model.*;
 
@@ -21,6 +22,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     private final IsFollowingViewModel isFollowingViewModel;
     private final PostMakerViewModel postMakerViewModel;
     private final ProfileViewModel profileViewModel;
+    private final ProfileEditViewModel profileEditViewModel;
 
     /**
      * create instance of presenter for switcher use case
@@ -45,7 +47,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
                                    SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel,
                                    SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel,
                                    IsFollowingViewModel isFollowingViewModel, PostMakerViewModel postMakerViewModel,
-                                   ProfileViewModel profileViewModel) {
+                                   ProfileViewModel profileViewModel, ProfileEditViewModel profileEditViewMode) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -59,6 +61,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.isFollowingViewModel = isFollowingViewModel;
         this.postMakerViewModel = postMakerViewModel;
         this.profileViewModel = profileViewModel;
+        this.profileEditViewModel = profileEditViewMode;
     }
 
     /**
@@ -189,6 +192,35 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+    @Override
+    public void switchToProfileEditor(ScreenSwitcherProfileData profileData) {
+        ProfileEditorState editProfileState = profileEditViewModel.getState();
+        if (editProfileState == null){
+            editProfileState = new ProfileEditorState();
+        }
+        editProfileState.setProfileToEdit(profileData.getSignedInUser());
+        profileEditViewModel.setState(editProfileState);
+        profileEditViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(profileEditViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToViewProfile(ScreenSwitcherProfileData profileData, User loggedIn) {
+        ProfileState profileState = profileViewModel.getState();
+        if (profileState == null) {
+            profileState = new ProfileState();
+        }
+        profileState.setViewing(profileData.getSignedInUser());
+        profileState.signedInAs = loggedIn;
+        profileViewModel.setState(profileState);
+        profileViewModel.firePropertyChanged();
+
+        viewManagerModel.setActiveView(profileViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
+
     /**
      * change view to follower
      *
@@ -237,7 +269,6 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         ProfileState profileState = profileViewModel.getState();
         if (profileState == null) {
             profileState = new ProfileState();
-            profileViewModel.setState(profileState);
         }
         profileState.setViewing(profileData.getSignedInUser());
         profileViewModel.setState(profileState);

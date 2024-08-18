@@ -10,9 +10,9 @@ import use_case.add_event.interface_adapter.AddEventController;
 import use_case.add_post.interface_adapter.AddPostController;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_event.interface_adapter.EditEventController;
+import use_case.edit_profile.interface_adapter.EditProfileController;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.postMaker.interface_adapter.PostMakerController;
-//import use_case.add_post.interface_adapter.AddPostController;
 import use_case.edit_post.interface_adapter.EditPostController;
 
 import use_case.eventcrafter.interface_adapter.EventCrafterController;
@@ -150,12 +150,6 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 headerFactory.createHeader());
         views.add(postMakerView, postMakerView.viewName);
 
-        PostEditorView postEditorView = new PostEditorView(
-                (PostEditorViewModel) viewModels.get("postEditorViewModel"),
-                (EditPostController) controllers.get("editPostController"),
-                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
-        views.add(postEditorView, postEditorView.viewName);
-
         ProfileView profileView = new ProfileView(
                 (ProfileViewModel) viewModels.get("profileViewModel"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
@@ -164,5 +158,11 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (EditPostController) controllers.get("editPostController"),
                 headerFactory.createHeader());
         views.add(profileView, profileView.viewName);
+
+        ProfileEditView profileEditView = new ProfileEditView(
+                (ProfileEditViewModel) viewModels.get("editProfileViewModel"),
+                (EditProfileController) controllers.get("editProfileController"),
+                (ScreenSwitcherController) controllers.get("screenSwitcherController"));
+        views.add(profileEditView, profileEditView.viewName);
     }
 }
