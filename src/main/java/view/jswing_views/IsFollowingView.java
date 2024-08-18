@@ -153,6 +153,7 @@ public class IsFollowingView extends JPanel implements ActionListener, PropertyC
             if (!e.getValueIsAdjusting()) {
                 popupMenu.removeAll();
                 popupMenu.add(viewProfile);
+                viewProfile.addActionListener(this);
 
                 UserListJPanel userPanel = userList.getSelectedValue();
                 if (userPanel != null) {

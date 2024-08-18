@@ -109,18 +109,18 @@ public class ScreenSwitcherInteractor implements ScreenSwitcherInputBoundary {
     @Override
     public void switchToMyProfile() {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
-        screenSwitchPresenter.switchToMyProfile(new ScreenSwitcherProfileData(loggedIn));
+        screenSwitchPresenter.switchToMyProfile(new ScreenSwitcherProfileData(loggedIn, loggedIn));
     }
 
     @Override
     public void switchToViewProfile(User user){
         User loggedIn = UserSession.getInstance().getLoggedInUser();
-        screenSwitchPresenter.switchToViewProfile(new ScreenSwitcherProfileData(user), loggedIn);
+        screenSwitchPresenter.switchToViewProfile(new ScreenSwitcherProfileData(user, loggedIn));
     }
 
     @Override
     public void switchToProfileEdit() {
         User loggedIn = UserSession.getInstance().getLoggedInUser();
-        screenSwitchPresenter.switchToProfileEditor(new ScreenSwitcherProfileData(loggedIn));
+        screenSwitchPresenter.switchToProfileEditor(new ScreenSwitcherProfileData(loggedIn, loggedIn));
     }
 }

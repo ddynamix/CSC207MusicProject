@@ -207,13 +207,13 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
     }
 
     @Override
-    public void switchToViewProfile(ScreenSwitcherProfileData profileData, User loggedIn) {
+    public void switchToViewProfile(ScreenSwitcherProfileData profileData) {
         ProfileState profileState = profileViewModel.getState();
         if (profileState == null) {
             profileState = new ProfileState();
         }
-        profileState.setViewing(profileData.getSignedInUser());
-        profileState.signedInAs = loggedIn;
+        profileState.setViewing(profileData.getProfileUser());
+        profileState.setSignedInAs(profileData.getSignedInUser());
         profileViewModel.setState(profileState);
         profileViewModel.firePropertyChanged();
 
@@ -259,6 +259,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         viewManagerModel.firePropertyChanged();
     }
 
+
     /**
      * change view to profile
      *
@@ -270,7 +271,8 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         if (profileState == null) {
             profileState = new ProfileState();
         }
-        profileState.setViewing(profileData.getSignedInUser());
+        profileState.setViewing(profileData.getProfileUser());
+        profileState.setSignedInAs(profileData.getSignedInUser());
         profileViewModel.setState(profileState);
         profileViewModel.firePropertyChanged();
 

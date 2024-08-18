@@ -158,9 +158,10 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
             JButton button = (JButton) e.getSource();
             if (button.equals(backButton)) {
                 screenSwitcherController.switchToHome();
-            } else if (button.equals(viewProfile)){
-                screenSwitcherController.switchToViewProfile(userList.getSelectedValue().getUser());
             }
+        }
+        if (e.getSource().equals(viewProfile)){
+            screenSwitcherController.switchToViewProfile(userList.getSelectedValue().getUser());
         }
     }
 
@@ -202,6 +203,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
             if (!e.getValueIsAdjusting()) {
                 popupMenu.removeAll();
                 popupMenu.add(viewProfile);
+                viewProfile.addActionListener(this);
 
                 UserListJPanel userPanel = userList.getSelectedValue();
                 if (userPanel != null) {

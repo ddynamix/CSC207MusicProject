@@ -8,14 +8,12 @@ import entity.user.User;
 public class ProfileState {
     public User signedInAs;
     private User viewing;
-    private boolean isLoggedIn;
 
     /**
      * create instance of state
      */
     public ProfileState() {
         this.viewing = null;
-        this.isLoggedIn = false;
         this.signedInAs = null;
     }
 
@@ -41,5 +39,13 @@ public class ProfileState {
      */
     public User getSignedInAs() {
         return signedInAs;
+    }
+
+    /**
+     * set current sign in
+     * @param signedInAs new login
+     */
+    public void setSignedInAs(User signedInAs) {
+        this.signedInAs = signedInAs;
     }
 }
