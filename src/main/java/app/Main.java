@@ -5,7 +5,6 @@ import app.interface_adapter_tools.ViewManagerModel;
 import data_access.csv.CSVDataAccessObjectFactory;
 import data_access.DataAccessFactoryInterface;
 import app.interface_adapter_tools.ViewModel;
-import data_access.spotify.SpotifyService;
 import view_model.*;
 import view.jswing_views.ViewManager;
 

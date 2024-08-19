@@ -1,6 +1,5 @@
 package use_case.add_event.interface_adapter;
 
-import app.interface_adapter_tools.ViewManagerModel;
 import use_case.add_event.AddEventOutputBoundary;
 import use_case.add_event.AddEventOutputData;
 import view_model.EventScreenState;

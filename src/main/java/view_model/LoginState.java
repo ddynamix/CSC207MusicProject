@@ -9,6 +9,10 @@ public class LoginState {
     private String password = "";
     private String passwordError = null;
 
+    /**
+     * create copy of loginstate
+     * @param copy original
+     */
     public LoginState(LoginState copy) {
         username = copy.username;
         usernameError = copy.usernameError;

@@ -6,8 +6,6 @@ import entity.user.VenueUser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * JPanel for user
@@ -24,7 +22,7 @@ public class UserListJPanel extends JPanel {
 
         String name = user.getName();
         String username = user.getUsername();
-        String type = "";
+        String type;
         if (user instanceof VenueUser) {
             type = "Venue";
         } else if (user instanceof ArtistUser){

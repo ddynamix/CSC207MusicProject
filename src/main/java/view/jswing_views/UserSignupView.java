@@ -117,7 +117,7 @@ public class UserSignupView extends JPanel implements ActionListener, PropertyCh
                     type = button.getText();
                 }
             }
-            if (!type.equals("")) {
+            if (!type.isEmpty()) {
                 signupController.execute(type, usernameInputField.getText(),
                         String.valueOf(passwordInputField.getPassword()),
                         String.valueOf(repeatPasswordInputField.getPassword()),

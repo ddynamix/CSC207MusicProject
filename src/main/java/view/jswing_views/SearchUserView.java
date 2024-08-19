@@ -83,25 +83,22 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
         searchTypeDropdown.addItem("Artist");
         searchTypeDropdown.addItem("Venue");
         searchTypeDropdown.addItem("Audience");
-        searchTypeDropdown.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JComboBox cb = (JComboBox) e.getSource();
-                String searchTypeString = (String) cb.getSelectedItem();
-                switch (searchTypeString) {
-                    case "Artist":
-                        searchUsersController.searchUser("", ArtistUser.class);
-                        break;
-                    case "Venue":
-                        searchUsersController.searchUser("", VenueUser.class);
-                        break;
-                    case "Audience":
-                        searchUsersController.searchUser("", AudienceUser.class);
-                        break;
-                    case "All":
-                        searchUsersController.searchUser("", User.class);
-                        break;
-                }
+        searchTypeDropdown.addActionListener(e -> {
+            JComboBox cb = (JComboBox) e.getSource();
+            String searchTypeString = (String) cb.getSelectedItem();
+            switch (searchTypeString) {
+                case "Artist":
+                    searchUsersController.searchUser("", ArtistUser.class);
+                    break;
+                case "Venue":
+                    searchUsersController.searchUser("", VenueUser.class);
+                    break;
+                case "Audience":
+                    searchUsersController.searchUser("", AudienceUser.class);
+                    break;
+                case "All":
+                    searchUsersController.searchUser("", User.class);
+                    break;
             }
         });
         c.gridx = 1;
@@ -154,8 +151,7 @@ public class SearchUserView extends JPanel implements ActionListener, PropertyCh
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton button = (JButton) e.getSource();
+        if (e.getSource() instanceof JButton button) {
             if (button.equals(backButton)) {
                 screenSwitcherController.switchToHome();
             }

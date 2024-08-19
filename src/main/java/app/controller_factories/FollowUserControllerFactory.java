@@ -1,6 +1,5 @@
 package app.controller_factories;
 
-import app.interface_adapter_tools.ViewManagerModel;
 import data_access.FollowRelationalAccessInterface;
 import use_case.follow_user.interface_adapter.FollowUserController;
 import use_case.follow_user.FollowUserInputBoundary;

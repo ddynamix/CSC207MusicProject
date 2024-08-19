@@ -175,10 +175,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     @Override
     public ArrayList<User> getAllUsers() {
-        ArrayList<User> allUsers = new ArrayList<>();
-        for (User user : accounts.values()) {
-            allUsers.add(user);
-        }
+        ArrayList<User> allUsers = new ArrayList<>(accounts.values());
         return allUsers;
     }
 

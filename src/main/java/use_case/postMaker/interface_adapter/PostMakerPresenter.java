@@ -3,13 +3,8 @@ package use_case.postMaker.interface_adapter;
 import app.interface_adapter_tools.ViewManagerModel;
 import use_case.postMaker.PostMakerOutputBoundary;
 import use_case.postMaker.PostMakerOutputData;
-import view_model.HomescreenState;
-import view_model.HomescreenViewModel;
 import view_model.PostMakerState;
 import view_model.PostMakerViewModel;
-
-
-import javax.swing.*;
 
 /**
  * presenter for post use case

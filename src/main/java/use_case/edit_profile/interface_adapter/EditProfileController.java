@@ -45,7 +45,7 @@ public class EditProfileController {
      * @param email of profile
      * @param name of profile
      * @throws UserAlreadyExistsException exception for overwriting another user
-     * @throws UserDataAccessObject.UserNotFoundException exception for updating non existent user
+     * @throws UserDataAccessObject.UserNotFoundException exception for updating nonexistent user
      */
     public void updateProfile(User profileToAlter, String username, String email, String name) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException {
         editProfileInteractor.updateProfile(new EditProfileInputData(profileToAlter, username, email, name));

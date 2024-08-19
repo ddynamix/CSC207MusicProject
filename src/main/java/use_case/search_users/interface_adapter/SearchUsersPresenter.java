@@ -33,8 +33,5 @@ public class SearchUsersPresenter implements SearchUsersOutputBoundary {
         state.setUsersToDisplay(outputData.getReturnUsers());
         searchUsersViewModel.setState(state);
         searchUsersViewModel.firePropertyChanged();
-
-//        viewManagerModel.setActiveView(searchUsersViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
     }
 }

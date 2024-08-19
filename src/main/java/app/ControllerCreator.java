@@ -4,8 +4,6 @@ import app.controller_factories.*;
 import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import data_access.*;
-import data_access.spotify.SpotifyService;
-import use_case.edit_user.interface_adapter.EditUserController;
 import view_model.*;
 
 import java.util.HashMap;

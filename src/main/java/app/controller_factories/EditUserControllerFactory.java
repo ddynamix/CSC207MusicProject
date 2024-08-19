@@ -21,7 +21,7 @@ public class EditUserControllerFactory {
      * create an instance of controller for add post use case
      * @param profileViewModel     view model for profile view
      * @param userEditorViewModel  view model for user edit use case
-     * @param userDataAccessObject
+     * @param userDataAccessObject  DAO for users
      * @return instance of AddPostController
      */
     public static EditUserController createEditUserController(ProfileViewModel profileViewModel,

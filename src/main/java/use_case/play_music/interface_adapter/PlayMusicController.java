@@ -1,7 +1,6 @@
 package use_case.play_music.interface_adapter;
 
 import data_access.spotify.PreviewMP3Downloader;
-import data_access.spotify.SpotifyService;
 import data_access.spotify.SpotifyServiceInterface;
 import entity.song.Song;
 import use_case.play_music.NoPreviewAvailableException;

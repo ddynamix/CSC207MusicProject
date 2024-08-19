@@ -2,8 +2,6 @@ package use_case.edit_user;
 
 import entity.user.User;
 
-import java.util.ArrayList;
-
 /**
  * correct output data for edit user use case
  */

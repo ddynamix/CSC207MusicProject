@@ -172,15 +172,11 @@ public class EventScreenView extends JPanel implements ActionListener, PropertyC
                     } else {
                         // Venue and Artist can update the database
                         JMenuItem editEvent = new JMenuItem("Edit Event");
-                        editEvent.addActionListener(ev -> {
-                            editEventController.editEvent(event);
-                        });
+                        editEvent.addActionListener(ev -> editEventController.editEvent(event));
                         popupMenu.add(editEvent);
 
                         JMenuItem deleteEvent = new JMenuItem("Delete Event");
-                        deleteEvent.addActionListener(ev -> {
-                            editEventController.deleteEvent(event);
-                        });
+                        deleteEvent.addActionListener(ev -> editEventController.deleteEvent(event));
                         popupMenu.add(deleteEvent);
                     }
                 }

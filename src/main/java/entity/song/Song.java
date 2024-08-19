@@ -1,7 +1,6 @@
 package entity.song;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -24,8 +23,7 @@ public class Song implements ISong {
      * @param releaseDate of song
      * @param tags apllied to song
      * @param URL of song through API
-     * @param id
-     * @param Id of the song
+     * @param id of the song
      */
     public Song(String name, String artist, String album, LocalDate releaseDate, ArrayList<String> tags, String URL, int id) {
         this.name = name;

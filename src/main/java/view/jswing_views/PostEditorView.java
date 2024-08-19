@@ -1,7 +1,6 @@
 package view.jswing_views;
 
 import app.interface_adapter_tools.Theme;
-import entity.post.IPost;
 import use_case.edit_post.interface_adapter.EditPostController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
@@ -14,8 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * view for post editor

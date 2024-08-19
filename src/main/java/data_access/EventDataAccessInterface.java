@@ -3,7 +3,6 @@ package data_access;
 import entity.event.Event;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * interface for Event DAO

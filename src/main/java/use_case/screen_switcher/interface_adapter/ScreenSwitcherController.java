@@ -18,7 +18,7 @@ public class ScreenSwitcherController {
     }
 
     /**
-     * interactor change to login
+     * interactor change to login page
      */
     public void switchToLogin() {
         screenSwitcherInteractor.switchToLogin();

@@ -8,6 +8,11 @@ import java.net.URL;
  * mp3 song access
  */
 public class PreviewMP3Downloader {
+    /**
+     * @param url access to third party link
+     * @param outputFilePath path for file saving
+     * @throws IOException input output exception for types and parameters
+     */
     public static void downloadMP3(String url, String outputFilePath) throws IOException {
         if (url == null || url.isEmpty()) {
             throw new MalformedURLException("URL is null or empty");

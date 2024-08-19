@@ -1,6 +1,5 @@
 package use_case.screen_switcher;
 
-import entity.event.Event;
 import entity.post.Post;
 import entity.user.User;
 

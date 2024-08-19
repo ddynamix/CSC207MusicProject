@@ -1,10 +1,6 @@
 package entity.user;
 
 import entity.event.Event;
-import entity.post.Post;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * ArtistUser class

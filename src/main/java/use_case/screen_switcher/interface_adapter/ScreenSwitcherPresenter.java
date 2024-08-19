@@ -1,7 +1,6 @@
 package use_case.screen_switcher.interface_adapter;
 
 import app.interface_adapter_tools.ViewManagerModel;
-import entity.user.User;
 import use_case.screen_switcher.*;
 import view_model.*;
 
@@ -39,7 +38,8 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
      * @param myFollowersViewModel  model for follower use case
      * @param isFollowingViewModel  model for following use case
      * @param postMakerViewModel    model for post use case
-     * @param profileViewModel      modelf for profile screen
+     * @param profileViewModel      model for profile screen
+     * @param profileEditViewModel  model for edit profile use case
      */
     public ScreenSwitcherPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                    SplashViewModel splashViewModel, UserSignupViewModel signupViewModel,
@@ -47,7 +47,7 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
                                    SearchEventsViewModel searchEventsViewModel, EventCrafterViewModel eventCrafterViewModel,
                                    SearchUsersViewModel searchUsersViewModel, MyFollowersViewModel myFollowersViewModel,
                                    IsFollowingViewModel isFollowingViewModel, PostMakerViewModel postMakerViewModel,
-                                   ProfileViewModel profileViewModel, ProfileEditViewModel profileEditViewMode) {
+                                   ProfileViewModel profileViewModel, ProfileEditViewModel profileEditViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.loginViewModel = loginViewModel;
         this.splashViewModel = splashViewModel;
@@ -61,11 +61,11 @@ public class ScreenSwitcherPresenter implements ScreenSwitcherOutputBoundary {
         this.isFollowingViewModel = isFollowingViewModel;
         this.postMakerViewModel = postMakerViewModel;
         this.profileViewModel = profileViewModel;
-        this.profileEditViewModel = profileEditViewMode;
+        this.profileEditViewModel = profileEditViewModel;
     }
 
     /**
-     * change view to login
+     * change view to login page
      */
     @Override
     public void switchToLogin() {

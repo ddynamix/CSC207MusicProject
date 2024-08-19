@@ -1,7 +1,5 @@
 package use_case.screen_switcher;
 
-import entity.user.User;
-
 /**
  * interface for output data for switcher
  */

@@ -4,7 +4,6 @@ import entity.user.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * Post class
@@ -15,8 +14,8 @@ public class Post implements IPost{
     private final User author;
     private LocalDateTime timePosted;
 
-    private int id = 0;
-    private String attachedMedia = null;
+    private int id;
+    private String attachedMedia;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 

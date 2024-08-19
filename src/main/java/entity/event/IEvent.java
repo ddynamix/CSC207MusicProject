@@ -10,17 +10,17 @@ import java.util.ArrayList;
  * interface for event objects
  */
 public interface IEvent {
-    public String getTitle();
-    public ArtistUser getArtist();
-    public VenueUser getVenue();
-    public LocalDateTime getDateAndTime();
-    public String getDescription();
-    public ArrayList<String> getTags(); // genres, maybe make genre object
-    public LocalDateTime getPostDate();
-    public String getAttachedMedia(); // change to media object
-    public int getId();
+    String getTitle();
+    ArtistUser getArtist();
+    VenueUser getVenue();
+    LocalDateTime getDateAndTime();
+    String getDescription();
+    ArrayList<String> getTags(); // genres, maybe make genre object
+    LocalDateTime getPostDate();
+    String getAttachedMedia(); // change to media object
+    int getId();
 
-    public String getDateAndTimeString();
-    public String getPostDateString();
-    public String getTagsString();
+    String getDateAndTimeString();
+    String getPostDateString();
+    String getTagsString();
 }

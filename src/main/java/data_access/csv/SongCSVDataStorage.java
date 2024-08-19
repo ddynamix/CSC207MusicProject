@@ -1,15 +1,10 @@
 package data_access.csv;
 
-import data_access.RelationalSongDataAccessInterface;
 import data_access.SongDataAccessInterface;
-import data_access.UserDataAccessInterface;
-import entity.post.Post;
 import entity.song.Song;
-import entity.user.User;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -23,6 +18,11 @@ public class SongCSVDataStorage implements SongDataAccessInterface {
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final Map<Integer, Song> songs = new HashMap<>();
 
+    /**
+     * create instance of CSV storage
+     * @param csvPath path for file
+     * @throws IOException input output exception for types and parameters
+     */
     public SongCSVDataStorage(String csvPath) throws IOException {
         csvFile = new File(csvPath);
 
@@ -52,7 +52,7 @@ public class SongCSVDataStorage implements SongDataAccessInterface {
 
                     if (col.length != 7) {
                         System.out.println("Length = " + col.length + "\n" + Arrays.toString(col));
-                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5" + col);
+                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5" + Arrays.toString(col));
                     }
 
                     String name = String.valueOf(col[headers.get("name")]);

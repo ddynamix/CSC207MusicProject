@@ -19,6 +19,10 @@ import java.util.List;
  * Could be MongoDB or CSV
  */
 public class DatabaseConnection {
+    /**
+     * main runnable method for database connection
+     * @param args passed arguments
+     */
     public static void main(String[] args) {
         String connectionString = "mongodb+srv://tasnimreza:dbtestpass@cluster0.vlnfmzu.mongodb.net/?appName=Cluster0";
 

@@ -1,9 +1,6 @@
 package use_case.edit_profile;
 
-import entity.post.Post;
 import entity.user.User;
-
-import java.util.ArrayList;
 
 /**
  * correct output data for edit profile use case

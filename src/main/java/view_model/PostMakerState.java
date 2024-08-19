@@ -1,9 +1,7 @@
 package view_model;
 
 import entity.post.Post;
-import entity.user.ArtistUser;
 import entity.user.User;
-import entity.user.VenueUser;
 
 import java.util.ArrayList;
 
@@ -32,7 +30,7 @@ public class PostMakerState {
 
     /**
      * access current login
-     * @return
+     * @return current login
      */
     public User getSignedInAs() {
         return signedInAs;

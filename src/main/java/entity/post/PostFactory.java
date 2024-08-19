@@ -2,8 +2,6 @@ package entity.post;
 
 import entity.user.User;
 
-import java.time.LocalDateTime;
-
 /**
  * create posts
  */

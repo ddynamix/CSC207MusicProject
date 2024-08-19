@@ -1,7 +1,6 @@
 package use_case.add_favourite_song.interface_adapter;
 
 import data_access.SongDataAccessInterface;
-import data_access.spotify.SpotifyService;
 import data_access.spotify.SpotifyServiceInterface;
 import entity.user.User;
 import use_case.add_favourite_song.AddFavouriteSongInputBoundary;

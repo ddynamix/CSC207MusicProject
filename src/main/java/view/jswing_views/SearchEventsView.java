@@ -116,8 +116,7 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton button = (JButton) e.getSource();
+        if (e.getSource() instanceof JButton button) {
             if (button.equals(backButton)) {
                 screenSwitcherController.switchToHome();
             }
@@ -163,22 +162,12 @@ public class SearchEventsView extends JPanel implements ActionListener, Property
                         if (inMyUserEvents(event)) {
                             JMenuItem removeEvent = new JMenuItem("Remove Event");
                             removeEvent.setToolTipText("Click to remove event");
-                            removeEvent.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    addEventController.removeEvent(event);
-                                }
-                            });
+                            removeEvent.addActionListener(e1 -> addEventController.removeEvent(event));
                             popupMenu.add(removeEvent);
                         } else {
                             JMenuItem addEvent = new JMenuItem("Add Event");
                             addEvent.setToolTipText("Click to add to your events list");
-                            addEvent.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    addEventController.addEvent(event);
-                                }
-                            });
+                            addEvent.addActionListener(e12 -> addEventController.addEvent(event));
                             popupMenu.add(addEvent);
                         }
                     }

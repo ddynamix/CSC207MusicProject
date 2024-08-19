@@ -1,6 +1,5 @@
 package view_model;
 
-import entity.event.Event;
 import entity.post.Post;
 import entity.user.User;
 
@@ -36,7 +35,7 @@ public class HomescreenState {
     }
 
     /**
-     * access current logged in user
+     * access current logged-in user
      * @return signinas
      */
     public User getSignedInAs() {
@@ -44,7 +43,7 @@ public class HomescreenState {
     }
 
     /**
-     * set current signed in user
+     * set current logged-in user
      * @param signedInAs new login
      */
     public void setSignedInAs(User signedInAs) {

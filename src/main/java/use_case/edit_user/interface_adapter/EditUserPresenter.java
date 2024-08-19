@@ -1,10 +1,8 @@
 package use_case.edit_user.interface_adapter;
 
-import app.interface_adapter_tools.ViewManagerModel;
 import use_case.edit_user.EditUserOutputBoundary;
 import use_case.edit_user.EditUserOutputData;
 import use_case.edit_user.EditUserSuccessOutputData;
-import view_model.ProfileState;
 import view_model.ProfileViewModel;
 import view_model.UserEditorState;
 import view_model.UserEditorViewModel;

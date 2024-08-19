@@ -6,8 +6,6 @@ import view_model.EventScreenViewModel;
 import use_case.eventcrafter.EventCrafterOutputBoundary;
 import use_case.eventcrafter.EventCrafterOutputData;
 
-import javax.swing.*;
-
 /**
  * present for event use case
  */

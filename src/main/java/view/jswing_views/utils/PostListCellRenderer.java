@@ -1,7 +1,5 @@
 package view.jswing_views.utils;
 
-import entity.post.Post;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,9 +19,8 @@ public class PostListCellRenderer extends DefaultListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         if (value instanceof PostListJPanel) {
-            PostListJPanel panel = (PostListJPanel) value;
             // Ensure the panel is displayed correctly
-            return panel;
+            return (PostListJPanel) value;
         }
         // Default rendering if not a PostListJPanel
         return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);

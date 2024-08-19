@@ -104,7 +104,7 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
 
     /**
      * add follower to user
-     * @param follower the logged in user
+     * @param follower the logged-in user
      * @param followee the user being followed
      */
     @Override
@@ -128,7 +128,7 @@ public class FollowRelationalCSVDataStorage implements FollowRelationalAccessInt
 
     /**
      * remove from CSV
-     * @param follower the logged in user
+     * @param follower the logged-in user
      * @param followee the user being unfollowed
      */
     @Override

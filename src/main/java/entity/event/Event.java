@@ -1,7 +1,6 @@
 package entity.event;
 
 import entity.user.ArtistUser;
-import entity.user.User;
 import entity.user.VenueUser;
 
 import java.time.LocalDateTime;

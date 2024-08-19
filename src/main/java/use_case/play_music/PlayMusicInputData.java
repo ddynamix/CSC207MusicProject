@@ -1,7 +1,5 @@
 package use_case.play_music;
 
-import entity.song.Song;
-
 /**
  * create input data for play music use case
  */

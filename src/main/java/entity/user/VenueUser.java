@@ -1,9 +1,5 @@
 package entity.user;
-import entity.post.Post;
 import entity.event.Event;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * VenueUser class

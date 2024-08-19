@@ -7,7 +7,6 @@ import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 
 import use_case.add_event.interface_adapter.AddEventController;
-import use_case.add_post.interface_adapter.AddPostController;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.edit_profile.interface_adapter.EditProfileController;

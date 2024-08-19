@@ -6,7 +6,6 @@ import entity.song.Song;
 import entity.user.User;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_post.interface_adapter.EditPostController;
-import use_case.edit_profile.interface_adapter.EditProfileController;
 import use_case.edit_user.interface_adapter.EditUserController;
 import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.interface_adapter.PlayMusicController;
@@ -64,6 +63,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
      * @param screenSwitcherController controller and switcher
      * @param playMusicController controller for play music use case
      * @param addFavouriteSongController controller for add favourite song use case
+     * @param editUserController controller for edit user use case
      * @param editPostController controller for edit post use case
      * @param headerOriginal header panel
      */
@@ -187,9 +187,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
-        update.addActionListener(ev -> {
-            editUserController.editUser(usersProfile);
-        });
+        update.addActionListener(ev -> editUserController.editUser(usersProfile));
         if (evt.getSource() == update) {
             System.out.println("Update button pressed");
             screenSwitcherController.switchToProfileEdit();

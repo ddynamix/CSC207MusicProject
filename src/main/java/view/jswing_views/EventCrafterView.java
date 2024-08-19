@@ -154,8 +154,8 @@ public class EventCrafterView extends JPanel implements ActionListener, Property
             LocalDateTime now = LocalDateTime.now();
             String nowFormatted = now.format(formatter);
 
-            String artist = "";
-            String venue = "";
+            String artist;
+            String venue;
             if (signedInAs instanceof ArtistUser) {
                 artist = signedInAs.getUsername();
                 venue = venueComboBox.getSelectedItem().toString();

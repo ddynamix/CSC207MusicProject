@@ -1,13 +1,9 @@
 package use_case.postMaker;
 
-import app.interface_adapter_tools.UserSession;
 import data_access.PostDataAccessInterface;
 import entity.post.Post;
-import entity.user.User;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * interactor for post use case

@@ -34,7 +34,7 @@ public class ProfileState {
     }
 
     /**
-     * access current logged in user
+     * access current logged-in user
      * @return signinas
      */
     public User getSignedInAs() {

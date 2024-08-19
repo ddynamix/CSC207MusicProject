@@ -56,15 +56,9 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
 
-//                    if (headers.containsKey("title")){System.out.println("title " + col[0] + ".");}
-//                    if (headers.containsKey("text")) {System.out.println("text " + col[1] + ".");}
-//                    if (headers.containsKey("author")){System.out.println("author " + col[2] + ".");}
-//                    if (headers.containsKey("postDate")){System.out.println("postDate " + col[3] + ".");}
-//                    if (headers.containsKey("attachedMedia")){System.out.println("attachedMedia " + col[4] + ".");}
-
                     if (col.length != 5){
                         System.out.println("Length = " + col.length + "\n" + Arrays.toString(col));
-                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5" + col);
+                        throw new ArrayIndexOutOfBoundsException("it should have a length of 5" + Arrays.toString(col));
                     }
                     String title = String.valueOf(col[headers.get("title")]);
                     String text = String.valueOf(col[headers.get("text")]);

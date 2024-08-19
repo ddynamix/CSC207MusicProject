@@ -4,7 +4,6 @@ import app.interface_adapter_tools.Theme;
 import data_access.UserAlreadyExistsException;
 import data_access.mongodb.UserDataAccessObject;
 import use_case.edit_profile.interface_adapter.EditProfileController;
-import use_case.edit_user.interface_adapter.EditUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
 import view_model.ProfileEditViewModel;

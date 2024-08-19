@@ -15,7 +15,6 @@ import se.michaelthelin.spotify.requests.data.artists.GetArtistRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * spotify access
