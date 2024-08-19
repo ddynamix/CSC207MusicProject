@@ -1,6 +1,5 @@
 package use_case.add_post.interface_adapter;
 
-import app.interface_adapter_tools.ViewManagerModel;
 import use_case.add_post.AddPostOutputBoundary;
 import use_case.add_post.AddPostOutputData;
 import view_model.HomescreenState;

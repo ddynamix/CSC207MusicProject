@@ -113,9 +113,10 @@ public class ControllerCreator {
                 (RelationalSongDataAccessInterface) dataAccessObjects.get("relationalSongDataAccessObject")
         ));
 
-//        controllers.put("editUserController", EditUserControllerFactory.createEditUserController(
-//                (ProfileViewModel) viewModels.get(("profileViewModel")),
-//                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
+        controllers.put("editUserController", EditUserControllerFactory.createEditUserController(
+                (ProfileViewModel) viewModels.get(("profileViewModel")),
+                (UserEditorViewModel) viewModels.get("userEditorViewModel"),
+                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         return controllers;
     }
