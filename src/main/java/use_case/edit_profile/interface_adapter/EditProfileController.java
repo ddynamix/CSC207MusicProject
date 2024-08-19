@@ -31,9 +31,10 @@ public class EditProfileController {
     /**
      * remove profile
      * @param user to be removed
+     * @throws UserDataAccessObject.UserNotFoundException exception for deleting user that does not exist
      */
 
-    public void deleteProfile(User user) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException {
+    public void deleteProfile(User user) throws UserDataAccessObject.UserNotFoundException {
         editProfileInteractor.deleteProfile(new EditProfileInputData(user));
     }
 
@@ -43,6 +44,8 @@ public class EditProfileController {
      * @param username of profile
      * @param email of profile
      * @param name of profile
+     * @throws UserAlreadyExistsException exception for overwriting another user
+     * @throws UserDataAccessObject.UserNotFoundException exception for updating non existent user
      */
     public void updateProfile(User profileToAlter, String username, String email, String name) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException {
         editProfileInteractor.updateProfile(new EditProfileInputData(profileToAlter, username, email, name));

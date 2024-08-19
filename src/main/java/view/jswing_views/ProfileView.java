@@ -6,6 +6,8 @@ import entity.song.Song;
 import entity.user.User;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_post.interface_adapter.EditPostController;
+import use_case.edit_profile.interface_adapter.EditProfileController;
+import use_case.edit_user.interface_adapter.EditUserController;
 import use_case.play_music.NoPreviewAvailableException;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
@@ -33,6 +35,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
     private final AddFavouriteSongController addFavouriteSongController;
     private final EditPostController editPostController;
     private final Header header;
+    private final EditUserController editUserController;
 
     private User usersProfile;
     private Song favouriteSong;
@@ -41,6 +44,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
 
     private int numFollowers;
     private int numFollowing;
+    private String email;
 
     private JButton update;
     private JButton follow;
@@ -65,9 +69,10 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
      */
     public ProfileView(ProfileViewModel profileViewModel, ScreenSwitcherController screenSwitcherController,
                        PlayMusicController playMusicController, AddFavouriteSongController addFavouriteSongController,
-                       EditPostController editPostController, Header headerOriginal) {
+                       EditUserController editUserController, EditPostController editPostController, Header headerOriginal) {
         this.profileViewModel = profileViewModel;
         this.editPostController = editPostController;
+        this.editUserController = editUserController;
         this.profileViewModel.addPropertyChangeListener(this);
         this.screenSwitcherController = screenSwitcherController;
         this.playMusicController = playMusicController;
@@ -137,6 +142,8 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
         content.add(Box.createVerticalStrut(10)); // Add vertical space
         content.add(new JLabel(profileViewModel.FOLLOWING_LABEL + numFollowing));
         content.add(Box.createVerticalStrut(10)); // Add vertical space
+        content.add(new JLabel(profileViewModel.EMAIL_LABEL + email));
+        content.add((Box.createVerticalStrut(10))); // Add vertical space
 
         if (favouriteSong == null) {
             content.add(new JLabel(profileViewModel.NO_SONG_LABEL));
@@ -180,6 +187,9 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
      */
     @Override
     public void actionPerformed(ActionEvent evt) {
+        update.addActionListener(ev -> {
+            editUserController.editUser(usersProfile);
+        });
         if (evt.getSource() == update) {
             System.out.println("Update button pressed");
             screenSwitcherController.switchToProfileEdit();
@@ -215,6 +225,7 @@ public class ProfileView extends JPanel implements ActionListener, PropertyChang
             this.favouriteSong = usersProfile.getFeaturedSong();
             this.numFollowers = usersProfile.getNumFollowers();
             this.numFollowing = usersProfile.getNumFollowing();
+            this.email = usersProfile.getEmail();
             ProfileState state = (ProfileState) evt.getNewValue();
             signedInAs = state.getSignedInAs();
             if (postListModel != null){

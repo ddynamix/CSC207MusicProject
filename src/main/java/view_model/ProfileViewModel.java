@@ -13,6 +13,7 @@ public class ProfileViewModel extends ViewModel{
     public final String TITLE_LABEL = "Profile of: ";
     public final String USERNAME_LABEL = "Username: ";
     public final String NAME_LABEL = "Name: ";
+    public final String EMAIL_LABEL = "Email: ";
     public final String PLAY_MUSIC_LABEL = "Play Music";
     public final String FAVOURITE_SONG_LABEL = "Favourite Song: ";
     public final String FOLLOWERS_LABEL = "Followers: ";

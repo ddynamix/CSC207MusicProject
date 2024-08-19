@@ -5,6 +5,7 @@ import app.interface_adapter_tools.ViewManagerModel;
 import app.interface_adapter_tools.ViewModel;
 import data_access.*;
 import data_access.spotify.SpotifyService;
+import use_case.edit_user.interface_adapter.EditUserController;
 import view_model.*;
 
 import java.util.HashMap;
@@ -111,6 +112,10 @@ public class ControllerCreator {
                 (SongDataAccessInterface) dataAccessObjects.get("songDataAccessObject"),
                 (RelationalSongDataAccessInterface) dataAccessObjects.get("relationalSongDataAccessObject")
         ));
+
+//        controllers.put("editUserController", EditUserControllerFactory.createEditUserController(
+//                (ProfileViewModel) viewModels.get(("profileViewModel")),
+//                (UserDataAccessInterface) dataAccessObjects.get("userDataAccessObject")));
 
         return controllers;
     }

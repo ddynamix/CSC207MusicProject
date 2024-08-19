@@ -18,9 +18,9 @@ public class AddPostControllerFactory {
 
     /**
      * create an instance of controller for add post use case
-     * @param homescreenViewModel
-     * @param usersPostsRelationalAccessObject
-     * @return
+     * @param homescreenViewModel view model for homescreen view
+     * @param usersPostsRelationalAccessObject DAO for user -> posts
+     * @return instance of AddPostController
      */
     public static AddPostController createAddPostsController(HomescreenViewModel homescreenViewModel,
                                                              UsersPostsRelationalAccessInterface usersPostsRelationalAccessObject) {

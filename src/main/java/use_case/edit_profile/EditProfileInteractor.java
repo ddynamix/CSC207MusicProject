@@ -1,11 +1,9 @@
 package use_case.edit_profile;
 
 import app.interface_adapter_tools.UserSession;
-import data_access.UserAlreadyExistsException;
 import data_access.UserDataAccessInterface;
 import data_access.mongodb.UserDataAccessObject;
 import entity.user.User;
-import use_case.usersignup.UserSignupInteractor;
 
 /**
  * interactor for edit profile use case
@@ -39,7 +37,7 @@ public class EditProfileInteractor implements EditProfileInputBoundary {
      * @param inputData new data
      */
     @Override
-    public void updateProfile(EditProfileInputData inputData)  {
+    public void updateProfile(EditProfileInputData inputData) throws UserDataAccessObject.UserNotFoundException {
         userDataAccessInterface.updateUser(inputData.getUserToAlter(), inputData.getEmail(), inputData.getUsername(),
                 inputData.getName());
         User update = UserSession.getInstance().getLoggedInUser();
@@ -47,14 +45,8 @@ public class EditProfileInteractor implements EditProfileInputBoundary {
     }
 
     @Override
-    public void deleteProfile(EditProfileInputData editProfileInputData) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException {
+    public void deleteProfile(EditProfileInputData editProfileInputData) throws UserDataAccessObject.UserNotFoundException {
         User original = editProfileInputData.getUserToAlter();
-        //userDataAccessInterface.delete(original);
+        userDataAccessInterface.delete(original);
     }
-
-
-//    public void create(User user){
-//        User data = user;
-//        UserSignupInteractor loginBuild = new UserSignupInteractor(userDataAccessInterface, data);
-//    }
 }

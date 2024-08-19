@@ -10,5 +10,5 @@ public interface EditProfileInputBoundary {
     void editProfile(EditProfileInputData inputData);
     void updateProfile(EditProfileInputData inputData) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException;
 
-    void deleteProfile(EditProfileInputData editProfileInputData) throws UserDataAccessObject.UserNotFoundException, UserAlreadyExistsException;
+    void deleteProfile(EditProfileInputData editProfileInputData) throws UserDataAccessObject.UserNotFoundException;
 }

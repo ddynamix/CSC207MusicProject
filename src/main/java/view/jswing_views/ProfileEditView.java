@@ -1,16 +1,12 @@
 package view.jswing_views;
 
 import app.interface_adapter_tools.Theme;
-import app.interface_adapter_tools.UserSession;
 import data_access.UserAlreadyExistsException;
 import data_access.mongodb.UserDataAccessObject;
-import entity.user.User;
 import use_case.edit_profile.interface_adapter.EditProfileController;
-import use_case.login.interface_adapter.LoginController;
+import use_case.edit_user.interface_adapter.EditUserController;
 import use_case.screen_switcher.interface_adapter.ScreenSwitcherController;
 import view.jswing_views.utils.LabelTextPanel;
-import view_model.LoginState;
-import view_model.LoginViewModel;
 import view_model.ProfileEditViewModel;
 import view_model.ProfileEditorState;
 
@@ -41,8 +37,8 @@ public class ProfileEditView extends JPanel implements ActionListener, PropertyC
 
     /**
      * create instance of login view
-     * @param profileEditViewModel model for login use case
-     * @param editProfileController controller for login use case
+     * @param profileEditViewModel     model for login use case
+     * @param editProfileController    controller for login use case
      * @param screenSwitcherController controller for switcher
      */
     public ProfileEditView(ProfileEditViewModel profileEditViewModel, EditProfileController editProfileController,
@@ -57,9 +53,6 @@ public class ProfileEditView extends JPanel implements ActionListener, PropertyC
         c.gridy = GridBagConstraints.RELATIVE;
         c.insets = new Insets(10, 0, 10, 0);
         c.anchor = GridBagConstraints.CENTER;
-
-//        JLabel title = new JLabel(profileEditViewModel.TITLE_LABEL);
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(new JLabel(profileEditViewModel.EDIT_USER_USERNAME_LABEL), usernameInputField);
         LabelTextPanel nameInfo = new LabelTextPanel(new JLabel(profileEditViewModel.EDIT_USER_NAME_LABEL), nameInputField);
@@ -76,7 +69,6 @@ public class ProfileEditView extends JPanel implements ActionListener, PropertyC
         update.addActionListener(this);
         cancel.addActionListener(this);
 
-//        this.add(title, c);
         this.add(usernameInfo, c);
         this.add(nameInfo, c);
         this.add(emailInfo, c);
@@ -95,9 +87,7 @@ public class ProfileEditView extends JPanel implements ActionListener, PropertyC
             try {
                 editProfileController.updateProfile(profileEditViewModel.getState().getProfileToEdit(),
                         usernameInputField.getText(), emailInputField.getText(), nameInputField.getText());
-            } catch (UserDataAccessObject.UserNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (UserAlreadyExistsException e) {
+            } catch (UserDataAccessObject.UserNotFoundException | UserAlreadyExistsException e) {
                 throw new RuntimeException(e);
             }
             screenSwitcherController.switchToMyProfile();

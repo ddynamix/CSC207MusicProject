@@ -11,6 +11,7 @@ import use_case.add_post.interface_adapter.AddPostController;
 import use_case.add_favourite_song.interface_adapter.AddFavouriteSongController;
 import use_case.edit_event.interface_adapter.EditEventController;
 import use_case.edit_profile.interface_adapter.EditProfileController;
+import use_case.edit_user.interface_adapter.EditUserController;
 import use_case.play_music.interface_adapter.PlayMusicController;
 import use_case.postMaker.interface_adapter.PostMakerController;
 import use_case.edit_post.interface_adapter.EditPostController;
@@ -155,6 +156,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"),
                 (PlayMusicController) controllers.get("playMusicController"),
                 (AddFavouriteSongController) controllers.get("addFavouriteSongController"),
+                (EditUserController) controllers.get("editUserController"),
                 (EditPostController) controllers.get("editPostController"),
                 headerFactory.createHeader());
         views.add(profileView, profileView.viewName);
@@ -162,6 +164,7 @@ public class SwingViewCreator implements ViewCreatorInterface {
         ProfileEditView profileEditView = new ProfileEditView(
                 (ProfileEditViewModel) viewModels.get("editProfileViewModel"),
                 (EditProfileController) controllers.get("editProfileController"),
+                //(EditUserController) controllers.get("editUserController"),
                 (ScreenSwitcherController) controllers.get("screenSwitcherController"));
         views.add(profileEditView, profileEditView.viewName);
     }

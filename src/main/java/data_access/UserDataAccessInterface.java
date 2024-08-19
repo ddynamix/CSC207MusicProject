@@ -22,7 +22,7 @@ public interface UserDataAccessInterface {
 
     boolean passwordMatches(String username, String password);
 
-    void updateUser(User userToAlter, String email, String username, String name);
+    void updateUser(User userToAlter, String email, String username, String name) throws UserDataAccessObject.UserNotFoundException;
 
     void delete(User original) throws UserDataAccessObject.UserNotFoundException;
 

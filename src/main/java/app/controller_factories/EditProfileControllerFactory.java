@@ -23,7 +23,9 @@ public class EditProfileControllerFactory {
      * @param userDataAccessObject DAO for accessing users
      * @return new instance of EditProfileController
      */
-    public static EditProfileController createEditProfileController(ViewManagerModel viewManagerModel, ProfileEditViewModel profileEditorViewModel, UserDataAccessInterface userDataAccessObject) {
+    public static EditProfileController createEditProfileController(ViewManagerModel viewManagerModel,
+                                                                    ProfileEditViewModel profileEditorViewModel,
+                                                                    UserDataAccessInterface userDataAccessObject) {
         EditProfileOutputBoundary editProfilePresenter = new EditProfilePresenter(viewManagerModel, profileEditorViewModel);
         EditProfileInputBoundary editProfileInteractor = new EditProfileInteractor(editProfilePresenter, userDataAccessObject);
 
