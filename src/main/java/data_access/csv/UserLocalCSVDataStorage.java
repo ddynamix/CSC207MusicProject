@@ -175,8 +175,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     @Override
     public ArrayList<User> getAllUsers() {
-        ArrayList<User> allUsers = new ArrayList<>(accounts.values());
-        return allUsers;
+        return new ArrayList<>(accounts.values());
     }
 
     private <K, V> void printHashMap(HashMap<K, V> map) {
