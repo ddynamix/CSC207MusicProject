@@ -75,6 +75,11 @@ Our project uses Mongodb as our database
 We also use local CSV files during creation as mock data that is stil functional
 Regardless of Database type, the functionality of the program remains
 
+## API: Spotify
+Our project includes the Spotify API for users to add their favourite song and be able to play it 
+within the app. The environment variables require keys that will be emailed to our team TA to
+ensure the keys are not invalidated.
+
 ## Project Structure
 
 Our project has been refactored to Screaming Architecture<br>
@@ -82,12 +87,13 @@ This system groups files by use case allowing for easier understanding <br>
 It separates the Views and View_Models into their own folders as they apply more to the UI than the Use Case <br>
 Our runable Main.java file is in src/main/java/app
 
-_All words in italics and underlined are simplifications of the structure to reduce the visual/mental load_<br><br>
-Src/Main/Java/
-- <b>app</b>
-  - controller_factories
+_All words in italics and underlined are simplifications of the structure to reduce the visual/mental load_<br>
+_All folders are bolded_ <br><br>
+**Src/Main/Java/**
+- **app**
+  - **controller_factories**
     - _<u>factories for all controllers </u>_
-  - interface_adapter_tools
+  - **interface_adapter_tools**
     - Theme
     - UserSession
     - ViewManagerModel
@@ -97,29 +103,29 @@ Src/Main/Java/
   - Main
   - SwingViewCreator
   - ViewCreatorInterface
-- <b>data_access</b>
-  - csv
+- **data_access**
+  - **csv**
     -   _<u>all object DAOs and the general DAO factory</u>_
   - mongodb
-  - DatabaseConnection
+  - **DatabaseConnection**
     - UserDataAccessObject
   - _<u> all interfaces for data access and related custom exceptions</u>_
-- <b>entity</b>
-  - _<u>general:  structure formula applied to Event, Post & Song </u>_
+- **entity**
+  - _<u>**general**:  structure formula applied to Event, Post & Song </u>_
     - General
     - GeneralFactory
     - IGeneral _interface_
-  - user
+  - **user**
     - ArtistUser _extends User_
     - AudienceUser _extends User_
     - Uploadable _interface_
     - User
     - VenueUser _extends User_
-- <b>use_case</b>
-- _<u>general example provided + sign out listed and specification for Screen_Switcher</u>_
-- _<u>use case Screen_Switcher has additional files for Data for each of its views</u>_
-  - ExampleUseCase
-    - interface_adapter
+- **use_case**
+  - _<u>general example provided + sign out listed and specification for Screen_Switcher</u>_
+  - _<u>use case Screen_Switcher has additional files for Data for each of its views</u>_
+  - **example_use_case**
+    - **interface_adapter**
       - Controller
       - Presenter
     - InputBoundary _interface_
@@ -127,35 +133,36 @@ Src/Main/Java/
     - Interactor
     - OutputBoundary _interface_
     - OutputData
-  - <b>sign_out</b>
-    - interface_adapter
+  - **sign_out**
+    - **interface_adapter**
       - SignOutController
     - SignOutInputBoundary _interface_
     - SignOutInteractor
-- <b>view</b>
-  - jswing_views
-    - utils
+- **view**
+  - **jswing_views**
+    - **utils**
       - _<u>CellRenderers + JPanels for lists + DialogHelper</u>_
     - _<u>view files as listed above under views</u>_
-- view_model
+- **view_model**
   - <u> State and ViewModel files for all views</u>
 
 ## Installation
 
 To install this project, clone the repository and install dependencies:
-- Maven 
+<br><br>API keys are not listed on the README but will be emailed to our team's TA
+- **Maven** 
   - Version 4.0.0
-- org.mongodb
+- **org.mongodb**
   - mongodb-driver-sync
   - version 4.11.2
-- org.mockito
+- **org.mockito**
   - mockito-core
   - version 5.12.0
-- org.mockito
+- **org.mockito**
   - mockito-inline
   - version 5.2.0
 
-Be sure to link pom.xml as maven project, click reload project, and run "install" in the maven toolbar<br>
+Be sure to link **pom.xml** as maven project, click reload project, and run "install" in the maven toolbar<br>
 Pom.xml found in project folder
 
 
