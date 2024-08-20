@@ -184,6 +184,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
     public void updatePost(Post post, String title, String text, String media) throws PostDoesntExistException {
         try {
             deletePostFromCsv(post.getTitle());
+            posts.remove(post.getTitle());
             if (!(title == null || title.isEmpty())) {
                 post.setTitle(title);
             }
@@ -193,6 +194,7 @@ public class PostLocalCSVDataStorage implements PostDataAccessInterface {
             if (!(media == null || media.isEmpty())) {
                 post.setAttachedMedia(media);
             }
+            posts.put(post.getTitle(), post);
             appendPostToCsv(post);
         } catch (IOException e) {
             e.printStackTrace();
