@@ -1,5 +1,6 @@
 package data_access.csv;
 
+import com.opencsv.exceptions.CsvValidationException;
 import data_access.UserAlreadyExistsException;
 import data_access.UserDataAccessInterface;
 import data_access.mongodb.UserDataAccessObject;
@@ -13,6 +14,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * User local CSV DAO
@@ -22,6 +30,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
     private final File csvFile;
     private final Map<String, Integer> headers = new LinkedHashMap<>();
     private final HashMap<String, User> accounts = new HashMap<>();
+    private final String file_name;
 
     /**
      * create instance of user DAO
@@ -30,6 +39,7 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
      */
     public UserLocalCSVDataStorage(String csvPath) throws IOException {
 
+        file_name = csvPath;
         csvFile = new File(csvPath);
         headers.put("username", 0);
         headers.put("password", 1);
@@ -130,9 +140,80 @@ public class UserLocalCSVDataStorage implements UserDataAccessInterface {
 
     @Override
     public void updateUser(User userToAlter, String email, String username, String name) {
-        userToAlter.setName(name);
-        userToAlter.setUsername(username);
-        userToAlter.setEmail(email);
+        String old_username = userToAlter.getUsername();
+        if (!userExistsInDatabase(username)) {
+//            userToAlter.setName(name);
+//            userToAlter.setUsername(username);
+//            userToAlter.setEmail(email);
+
+            List<String[]> allRows = new ArrayList<>();
+            boolean isUpdated = false;
+            // Initialize readers and writers
+            try {
+                CSVReader reader = new CSVReader(new FileReader(this.file_name));
+                String[] nextLine;
+
+                while ((nextLine = reader.readNext()) != null) {
+                    // Check if the current row contains the username
+
+                    if (nextLine[0].equals(old_username)) {
+                        // Replace the row with the new data
+                        if (!username.isEmpty()) {
+                            nextLine[0] = username;
+                        }
+
+                        if (!email.isEmpty()){
+                            nextLine[2] = email;
+                        }
+                        if (!name.isEmpty()){
+                            nextLine[3] = name;
+                        }
+
+                        for (String value : nextLine) {
+                            System.out.print(value + " ");
+                        }
+                        System.out.println();
+                        allRows.add(nextLine);
+                        isUpdated = true;
+                    } else {
+                        allRows.add(nextLine);
+                    }
+                }
+                reader.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println("File not found.");
+            } catch (CsvValidationException e) {
+                System.out.println("Leave me alone.");
+            } catch (IOException e) {
+                System.out.println("Please help.");
+            }
+
+
+            // Read all rows from the CSV
+
+
+            if (isUpdated) {
+                // Write back the updated rows to the CSV
+                try {
+                    CSVWriter writer = new CSVWriter(new FileWriter(this.file_name),CSVWriter.DEFAULT_SEPARATOR,  // Separator
+                            CSVWriter.NO_QUOTE_CHARACTER, // No quotes
+                            CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                            CSVWriter.DEFAULT_LINE_END);
+                    writer.writeAll(allRows);
+                    writer.close();
+                } catch (IOException ex){
+                    System.out.println("Cannot write.");
+                }
+
+            } else {
+                System.out.println("Cringe.");
+            }
+            userToAlter.setName(name);
+            userToAlter.setUsername(username);
+            userToAlter.setEmail(email);
+        } else {
+            System.out.println("What you doing bruv.");
+        }
     }
 
     @Override
