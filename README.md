@@ -2,12 +2,19 @@
 ### Instructor: Yasaman Rohanifar
 ### Summer 2024
 ### Team: (the) Best Team Ever!
-- Meghan Hendrickson
-- Tim Koukarine
-- Tasnim Reza
-- Tyler Steptoe
+- **Meghan Hendrickson**
+  - Use Cases: postMaker, edit_post, add_post, edit_profile, edit_user
+  - Additional: Javadoc, UI
+- T**im Koukarine**
+  - MongoDB integration for data persistance - UserDataAccessObject, EventDataAccessObject
+  - Additional: Static exception classes 
+- **Tasnim Reza**
+  - Database MongoDB CRUD (creation, read, update, delete) functionality for UserDataAccessObject, EventDataAccessObject
+- **Tyler Steptoe**
+  - Use Cases: add_event, add_favourite_song, edit_event, follow_user, play_music, search_events, search_users
+  - Additional: spotify API, testing, CSV database, refactoring packaging, UI
 
-### Phase Two Assignment: August 15 2024
+### Phase Two Assignment: August 20 2024
 
 ### Table of Contents
 
