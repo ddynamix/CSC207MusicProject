@@ -72,8 +72,12 @@ Once logged in, each page has an option to switch from light to **dark mode**
 
 ## Database
 Our project uses Mongodb as our database
-We also use local CSV files during creation as mock data that is stil functional
-Regardless of Database type, the functionality of the program remains
+We also use local CSV files during creation as mock data that is still functional
+Regardless of Database type, the functionality of the program remains, and displays the power of the Dependency Injection design 
+pattern, through the use of the Data Access Interfaces. 
+The MongoDB implementation is most up to date on the branch DBImplement, however it does not pass all unit tests as there was a 
+divergence in exception handling between the two branches. 
+
 
 ## API: Spotify
 Our project includes the Spotify API for users to add their favourite song and be able to play it 
